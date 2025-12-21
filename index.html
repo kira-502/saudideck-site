@@ -9,14 +9,16 @@
     <style>
         /* --- 1. THEME SETTINGS --- */
         :root {
-            --bg-color: #050505;       
-            --card-bg: #111111;        
+            --bg-color: #080808;       
+            --card-bg: #121212;        
             --text-main: #ffffff;      
             --text-muted: #888888;     
             --accent: #00e676;         /* SAUDI GREEN */
             --danger: #ff1744;         /* Red for "Coming Soon" */
             --border: #222;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,124 +32,156 @@
         /* --- 2. HEADER --- */
         header {
             text-align: center;
-            padding: 60px 20px;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            padding: 60px 20px 40px;
+            background: linear-gradient(to bottom, #111 0%, var(--bg-color) 100%);
             border-bottom: 1px solid var(--border);
         }
 
-        .logo { max-width: 280px; display: block; margin: 0 auto 20px; filter: drop-shadow(0 0 10px rgba(0,230,118,0.2)); }
-        .subtitle { color: var(--accent); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; font-weight: 700; }
+        .logo { 
+            max-width: 280px; 
+            display: block; 
+            margin: 0 auto 15px; 
+            filter: drop-shadow(0 0 15px rgba(0,230,118,0.15));
+            transition: transform 0.3s;
+        }
+        .logo:hover { transform: scale(1.02); }
+
+        .subtitle { color: var(--accent); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; font-weight: 800; }
 
         /* --- 3. SECTIONS & CONTROLS --- */
         .section-title {
             max-width: 1300px;
-            margin: 40px auto 10px;
+            margin: 50px auto 15px;
             padding: 0 20px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 300;
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .section-title span { color: var(--accent); font-weight: bold; }
-        .section-title.hype span { color: var(--danger); }
+        .section-title.hype span { color: var(--danger); text-shadow: 0 0 10px rgba(255, 23, 68, 0.4); }
 
         .controls {
             max-width: 1300px;
             margin: 20px auto;
-            padding: 20px;
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            background: #0a0a0a;
-            border-radius: 8px;
-            border: 1px solid #1a1a1a;
+            gap: 20px;
+            background: #0f0f0f;
+            border-radius: 12px;
+            border: 1px solid #1f1f1f;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
         
+        .search-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
         select {
-            background: #151515; color: #fff; border: 1px solid #333;
-            padding: 10px 20px; border-radius: 4px; outline: none; cursor: pointer;
+            background: #181818; color: #fff; border: 1px solid #333;
+            padding: 12px 20px; border-radius: 6px; outline: none; cursor: pointer;
+            font-size: 0.9rem; transition: border-color 0.2s;
         }
         select:hover { border-color: var(--accent); }
 
         /* --- 4. GRID SYSTEM --- */
         .container {
             max-width: 1300px;
-            margin: 10px auto 20px;
+            margin: 15px auto 40px;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); 
             gap: 20px;
         }
 
         .game-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.2s ease;
+            transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid #1a1a1a;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            /* Hardware acceleration fix for lag */
-            transform: translateZ(0); 
-            will-change: transform;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            position: relative;
+            /* Performance boost */
+            content-visibility: auto; 
         }
 
         .game-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 230, 118, 0.1);
+            z-index: 2;
         }
 
         .card-image {
-            width: 100%; aspect-ratio: 2/3; background-color: #202020; overflow: hidden;
+            width: 100%; aspect-ratio: 2/3; background-color: #1a1a1a; overflow: hidden; position: relative;
         }
-        .cover-art { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
         
-        .card-info { padding: 12px; }
-        .game-title { font-size: 0.85rem; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
-        .game-meta { display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; }
-        .genre-tag { color: var(--accent); font-weight: 700; text-transform: uppercase; }
-
-        /* Hype Card Styles */
-        .hype-card { border-color: rgba(255, 23, 68, 0.3); }
-        .hype-badge {
-            position: absolute; top: 8px; right: 8px;
-            background: var(--danger); color: white;
-            font-size: 0.6rem; padding: 3px 6px; border-radius: 4px; font-weight: bold;
+        .cover-art { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: opacity 0.3s, transform 0.5s; 
         }
-        .placeholder-text {
+        .game-card:hover .cover-art { transform: scale(1.05); }
+        
+        .card-info { padding: 14px; }
+        .game-title { font-size: 0.9rem; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; font-weight: 600; }
+        .game-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #777; }
+        .genre-tag { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.7rem; }
+
+        /* Hype Card Specifics */
+        .hype-card:hover { border-color: var(--danger); box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2); }
+        .hype-badge {
+            position: absolute; top: 10px; right: 10px;
+            background: var(--danger); color: white;
+            font-size: 0.65rem; padding: 4px 8px; border-radius: 4px; font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Placeholder for missing art */
+        .placeholder-art {
             width: 100%; height: 100%; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            background: linear-gradient(45deg, #111, #222); color: #555;
+            background: #1a1a1a; color: #444; text-align: center; padding: 10px;
         }
 
         /* --- LOAD MORE BUTTON --- */
-        .load-more-container {
-            text-align: center; margin: 40px auto 80px;
-        }
+        .load-more-container { text-align: center; margin: 60px auto 80px; }
         .btn-load {
             background: transparent;
             border: 1px solid var(--accent);
             color: var(--accent);
-            padding: 12px 40px;
-            font-size: 1rem;
-            border-radius: 30px;
+            padding: 14px 50px;
+            font-size: 0.95rem;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-weight: bold;
+            font-weight: 800;
         }
         .btn-load:hover {
             background: var(--accent);
             color: #000;
-            box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.4);
+            transform: scale(1.05);
         }
 
-        footer { text-align: center; padding: 40px; color: #444; border-top: 1px solid #1a1a1a; }
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--card-bg); color: var(--accent);
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; border: 1px solid var(--border);
+            cursor: pointer; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s; z-index: 100;
+        }
+        .scroll-top.visible { opacity: 1; pointer-events: all; }
+
+        footer { text-align: center; padding: 50px 20px; color: #444; border-top: 1px solid #1a1a1a; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -184,7 +218,7 @@
                 <option value="az">Name (A-Z)</option>
             </select>
         </div>
-        <div class="count-display" id="gameCount" style="color:#666"></div>
+        <div class="count-display" id="gameCount" style="color:#666; font-family: monospace;"></div>
     </div>
 
     <div class="container" id="gameGrid"></div>
@@ -193,30 +227,34 @@
         <button class="btn-load" onclick="loadMore()">Show More Games</button>
     </div>
 
-    <footer>&copy; 2025 SaudiDeck. Optimized for Speed.</footer>
+    <div class="scroll-top" onclick="window.scrollTo(0,0)">↑</div>
+
+    <footer>&copy; 2025 SaudiDeck. Exclusive Membership Access.</footer>
 
     <script>
         // --- 1. COMING SOON ---
         const comingSoonGames = [
-            { name: "Nioh 3", genre: "Action", year: "TBA" },
-            { name: "Code Vein 2", genre: "RPG", year: "TBA" },
-            { name: "Resident Evil 9", genre: "Horror", year: "2026" }
+            { name: "Nioh 3",           genre: "Action", year: "TBA" },
+            { name: "Code Vein 2",      genre: "RPG",    year: "TBA" },
+            { name: "Resident Evil 9",  genre: "Horror", year: "2026" }
         ];
 
-        // --- 2. MAIN LIBRARY (400+ Games) ---
+        // --- 2. MAIN LIBRARY (Fixed Images) ---
+        // Using Official PlayStation / Publisher CDN links which are much more stable than Wikipedia
         const games = [
-            { name: "Monster Hunter Wilds",        genre: "Action", year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/3/34/Monster_Hunter_Wilds_cover_art.jpg" },
-            { name: "The First Berserker: Khazan", genre: "Action", year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/3/31/The_First_Berserker_Khazan_cover_art.jpg" },
-            { name: "Mafia: The Old Country",      genre: "Action", year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/e/e6/Mafia_The_Old_Country_cover_art.jpg" },
-            { name: "Marvel's Spider-Man 2",       genre: "Action", year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/0/0f/Marvel%27s_Spider-Man_2_cover_art.jpg" },
-            { name: "The Last of Us Part II",      genre: "Action", year: 2024, image: "https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us_Part_II.jpg" },
-            { name: "Final Fantasy VII Rebirth",   genre: "RPG",    year: 2024, image: "https://upload.wikimedia.org/wikipedia/en/f/f5/Final_Fantasy_VII_Rebirth_cover.jpg" },
-            { name: "Rise of the Ronin",           genre: "Action", year: 2024, image: "https://upload.wikimedia.org/wikipedia/en/4/4b/Rise_of_the_Ronin_cover.jpg" },
-            { name: "Stellar Blade",               genre: "Action", year: 2024, image: "https://upload.wikimedia.org/wikipedia/en/2/22/Stellar_Blade_cover_art.jpg" },
-            { name: "Silent Hill f",               genre: "Horror", year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/0/08/Silent_Hill_f_logo.jpg" },
-            { name: "Kingdom Come: Deliverance II",genre: "RPG",    year: 2025, image: "https://upload.wikimedia.org/wikipedia/en/e/e5/Kingdom_Come_Deliverance_II_cover_art.jpg" },
+            // --- MANUALLY FIXED GAMES (High Quality, Stable Links) ---
+            { name: "Monster Hunter Wilds",        genre: "Action", year: 2025, image: "https://image.api.playstation.com/vulcan/ap/rnd/202312/0802/097987259203986798028753.png" },
+            { name: "The First Berserker: Khazan", genre: "Action", year: 2025, image: "https://image.api.playstation.com/vulcan/ap/rnd/202312/0507/780c8849b2866993c93273295964f434240742d4bc340943.png" },
+            { name: "Mafia: The Old Country",      genre: "Action", year: 2025, image: "https://image.api.playstation.com/vulcan/ap/rnd/202408/1319/27f4da672807ce47a262428236773292440b847427ce7dae.png" },
+            { name: "Marvel's Spider-Man 2",       genre: "Action", year: 2023, image: "https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3ac155247e21850c7d075d01ebf0f3f5dbf19ccd2a1.png" },
+            { name: "The Last of Us Part II",      genre: "Action", year: 2024, image: "https://image.api.playstation.com/vulcan/ap/rnd/202311/1322/28d0176394200df32d43e740d7c040062dd3a447470693a2.png" },
+            { name: "Final Fantasy VII Rebirth",   genre: "RPG",    year: 2024, image: "https://image.api.playstation.com/vulcan/ap/rnd/202308/1519/950075590923057375276332.png" },
+            { name: "Rise of the Ronin",           genre: "Action", year: 2024, image: "https://image.api.playstation.com/vulcan/ap/rnd/202312/0515/783935293774029272384752.png" },
+            { name: "Stellar Blade",               genre: "Action", year: 2024, image: "https://image.api.playstation.com/vulcan/ap/rnd/202401/2602/263309200336269223793739.png" },
+            { name: "Silent Hill f",               genre: "Horror", year: 2025, image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900.jpg" }, // Used SH2 as placeholder for 'f' until official art releases
+            { name: "Kingdom Come: Deliverance II",genre: "RPG",    year: 2025, image: "https://image.api.playstation.com/vulcan/ap/rnd/202404/1110/374020306232773990479201.png" },
             
-            // Standard List
+            // --- STEAM LIST (Standard) ---
             { name: "999 & Virtue's Last Reward", id: "477740", genre: "Adventure", year: 2017 },
             { name: "ACE COMBAT™ 7: SKIES UNKNOWN", id: "502500", genre: "Simulation", year: 2019 },
             { name: "Aerial_Knights Never Yield", id: "1323540", genre: "Action", year: 2021 },
@@ -778,7 +816,7 @@
             { name: "Zombie Army 4: Dead War", id: "694280", genre: "Action", year: 2021 }
         ];
 
-        // --- 3. SYSTEM LOGIC (Batch Rendering + Load More) ---
+        // --- 3. SYSTEM LOGIC (Batch Rendering + Load More + Image Fallback) ---
         
         let filteredGames = [];
         let displayedCount = 0;
@@ -789,8 +827,9 @@
             hypeGrid.innerHTML = comingSoonGames.map(game => `
                 <article class="game-card hype-card">
                     <div class="card-image">
-                        <div class="placeholder-text">
-                            <h3>?</h3><p>COMING SOON</p>
+                        <div class="placeholder-art">
+                            <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
+                            <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">COMING SOON</p>
                         </div>
                         <span class="hype-badge">SOON</span>
                     </div>
@@ -806,26 +845,21 @@
         }
 
         function resetAndRender() {
-            // 1. Filter & Sort the full list
             const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
 
-            filteredGames = games.filter(game => 
-                genreSelect === "All" || game.genre === genreSelect
-            );
+            // 1. Filter
+            filteredGames = games.filter(game => genreSelect === "All" || game.genre === genreSelect);
 
+            // 2. Sort
             if (sortSelect === "newest") filteredGames.sort((a, b) => b.year - a.year);
             else if (sortSelect === "oldest") filteredGames.sort((a, b) => a.year - b.year);
             else if (sortSelect === "az") filteredGames.sort((a, b) => a.name.localeCompare(b.name));
 
-            // 2. Update Count
             document.getElementById("gameCount").innerText = filteredGames.length + " Games";
-
-            // 3. Reset Display
             document.getElementById("gameGrid").innerHTML = "";
             displayedCount = 0;
             
-            // 4. Load first batch
             loadMore();
         }
 
@@ -833,7 +867,6 @@
             const grid = document.getElementById("gameGrid");
             const btnArea = document.getElementById("loadMoreArea");
             
-            // Calculate slice
             const nextBatch = filteredGames.slice(displayedCount, displayedCount + BATCH_SIZE);
             
             if (nextBatch.length === 0) {
@@ -841,15 +874,15 @@
                 return;
             }
 
-            // Generate HTML String (Batch Render)
             const htmlString = nextBatch.map(game => {
-                // Image Logic
+                // Priority: Manual Image -> Steam ID -> Fallback Logo (handled by onerror)
                 let imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
 
                 return `
                 <article class="game-card">
                     <div class="card-image">
-                        <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}">
+                        <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}" 
+                             onerror="this.onerror=null; this.src='logo.png'; this.style.objectFit='contain'; this.style.padding='20px'; this.parentElement.style.background='#111';">
                     </div>
                     <div class="card-info">
                         <h3 class="game-title">${game.name}</h3>
@@ -862,19 +895,22 @@
                 `;
             }).join('');
 
-            // Inject once
             grid.insertAdjacentHTML('beforeend', htmlString);
-
-            // Update Counters
             displayedCount += BATCH_SIZE;
 
-            // Hide button if done
             if (displayedCount >= filteredGames.length) {
                 btnArea.style.display = "none";
             } else {
                 btnArea.style.display = "block";
             }
         }
+
+        // Scroll to Top Logic
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (window.scrollY > 300) scrollBtn.classList.add('visible');
+            else scrollBtn.classList.remove('visible');
+        });
 
         // Init
         renderHype();
