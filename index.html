@@ -403,6 +403,27 @@
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
         // ==========================================
 
+        /* --- SCROLL REVEAL OBSERVER (Must be defined before usage) --- */
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        function observeCards(container) {
+            const cards = container.querySelectorAll('.game-card:not(.reveal)');
+            cards.forEach(card => observer.observe(card));
+        }
+
         let filteredGames = [];
         let displayedCount = 0;
         const BATCH_SIZE = 24;
@@ -554,29 +575,6 @@
         resetAndRender();
 
         /* --- 4. SHOWCASE ENHANCEMENTS --- */
-
-        // A. Dynamic Stats (Removed)
-
-        // B. Scroll Reveal Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        function observeCards(container) {
-            const cards = container.querySelectorAll('.game-card:not(.reveal)');
-            cards.forEach(card => observer.observe(card));
-        }
 
         // We need to attach this observer to new cards whenever they are created.
         // I will modify loadMore to attach it.
