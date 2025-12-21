@@ -120,6 +120,14 @@
         
         .cover-art { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s; }
         
+        /* Fallback Text Design */
+        .placeholder-art {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(45deg, #111, #1a1a1a); color: #444;
+            z-index: 1;
+        }
+
         .card-info { padding: 15px; }
         .game-title { font-size: 0.9rem; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; font-weight: 600; }
         .game-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #777; }
@@ -220,13 +228,13 @@
 
     <script>
         // ==========================================
-        //    1. COMING SOON (YOUR LOCAL FILES)
+        //    1. COMING SOON (Safe Mode)
         // ==========================================
-        // FIXED: Code Vein 2 is now .png to match your screenshot!
+        // We use the Steam IDs you found. If the image doesn't exist, it shows text.
         const comingSoonGames = [
-            { name: "Nioh 3",           genre: "Action", year: "TBA",  image: "nioh3.jpg" },
-            { name: "Code Vein 2",      genre: "RPG",    year: "TBA",  image: "cv2.png" },
-            { name: "Resident Evil 9",  genre: "Horror", year: "2026", image: "re9.jpg" }
+            { name: "Nioh 3",                id: "3681010", genre: "Action", year: "2026" },
+            { name: "CODE VEIN II",          id: "2362060", genre: "RPG",    year: "2026" },
+            { name: "Resident Evil Requiem", id: "3764200", genre: "Horror", year: "2026" }
         ];
 
         // ==========================================
@@ -475,7 +483,6 @@
             { name: "Guacamelee! 2", id: "534550", genre: "Action", year: 2018 },
             { name: "GUILTY GEAR -STRIVE-", id: "1384160", genre: "Action", year: 2021 },
             { name: "Hades", id: "1145360", genre: "Action", year: 2020 },
-            { name: "Hades II", id: "1145350", genre: "Action", year: 2024 },
             { name: "Half-Life", id: "70", genre: "Action", year: 1998 },
             { name: "Half-Life: Source", id: "280", genre: "Action", year: 2004 },
             { name: "Half-Life: Opposing Force", id: "50", genre: "Action", year: 1999 },
@@ -572,6 +579,7 @@
             { name: "Mafia: Definitive Edition", id: "1030840", genre: "Action", year: 2020 },
             { name: "Mafia II: Definitive Edition", id: "1030830", genre: "Action", year: 2020 },
             { name: "Mafia III: Definitive Edition", id: "360430", genre: "Action", year: 2016 },
+            { name: "Mafia: The Old Country", id: "1941540", genre: "Action", year: 2025 },
             { name: "Magenta Horizon", id: "2109060", genre: "Action", year: 2023 },
             { name: "Mark of the Ninja: Remastered", id: "860950", genre: "Action", year: 2018 },
             { name: "Martha Is Dead", id: "1193910", genre: "Horror", year: 2022 },
@@ -832,11 +840,12 @@
             hypeGrid.innerHTML = comingSoonGames.map(game => `
                 <article class="game-card hype-card">
                     <div class="card-image">
-                        <img src="${game.image}" class="cover-art" alt="${game.name}" 
-                             style="opacity:0.8;"
+                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg" 
+                             class="cover-art" 
+                             alt="${game.name}" 
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                         
-                        <div class="placeholder-art" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#111;">
+                        <div class="placeholder-art" style="display:none;">
                             <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
                             <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">COMING SOON</p>
                         </div>
