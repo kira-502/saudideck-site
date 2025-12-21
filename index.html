@@ -73,8 +73,8 @@
         }
 
         .game-card.reveal {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         /* 2. Cinema Hover Effect */
@@ -502,7 +502,7 @@
             hypeGrid.innerHTML = comingSoonGames.map(game => createGameCard(game, true)).join('');
 
             // Animate Hype Cards
-            hypeGrid.querySelectorAll('.game-card').forEach(card => observer.observe(card));
+            observeCards(hypeGrid);
         }
 
         function resetAndRender() {
@@ -567,9 +567,8 @@
 
             grid.insertAdjacentHTML('beforeend', htmlString);
 
-            // Observe new elements for animation
-            const newCards = grid.querySelectorAll('.game-card:not(.reveal)');
-            newCards.forEach(card => observer.observe(card));
+            // Observe new layout
+            observeCards(grid);
 
             displayedCount += BATCH_SIZE;
 
@@ -603,6 +602,11 @@
                 }
             });
         }, observerOptions);
+
+        function observeCards(container) {
+            const cards = container.querySelectorAll('.game-card:not(.reveal)');
+            cards.forEach(card => observer.observe(card));
+        }
 
         // We need to attach this observer to new cards whenever they are created.
         // I will modify loadMore to attach it.
