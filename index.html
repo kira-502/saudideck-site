@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saudi Deck Membership</title>
     <link rel="icon" href="logo.png" type="image/png">
-    
+
     <style>
         /* --- 1. THEME SETTINGS --- */
         :root {
-            --bg-color: #050505;       
-            --card-bg: #101010;        
-            --text-main: #ffffff;      
-            --text-muted: #999;     
-            --accent: #00e676;         /* SAUDI GREEN */
-            --gold: #ffd700;           /* For Rankings */
-            --danger: #ff1744;         /* For Coming Soon */
+            --bg-color: #050505;
+            --card-bg: #101010;
+            --text-main: #ffffff;
+            --text-muted: #999;
+            --accent: #00e676;
+            /* SAUDI GREEN */
+            --gold: #ffd700;
+            /* For Rankings */
+            --danger: #ff1744;
+            /* For Coming Soon */
             --border: #222;
         }
 
@@ -36,16 +40,26 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .logo { 
-            max-width: 260px; 
-            display: block; 
-            margin: 0 auto 15px; 
-            filter: drop-shadow(0 0 20px rgba(0,230,118,0.1));
+        .logo {
+            max-width: 260px;
+            display: block;
+            margin: 0 auto 15px;
+            filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.1));
             transition: transform 0.3s;
         }
-        .logo:hover { transform: scale(1.02); }
 
-        .subtitle { color: var(--accent); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; font-weight: 800; opacity: 0.9; }
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .subtitle {
+            color: var(--accent);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 800;
+            opacity: 0.9;
+        }
 
         /* --- 3. SECTIONS & CONTROLS --- */
         .section-title {
@@ -59,8 +73,16 @@
             align-items: center;
             gap: 12px;
         }
-        .section-title span { color: var(--accent); font-weight: bold; }
-        .section-title.hype span { color: var(--danger); text-shadow: 0 0 15px rgba(255, 23, 68, 0.4); }
+
+        .section-title span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .section-title.hype span {
+            color: var(--danger);
+            text-shadow: 0 0 15px rgba(255, 23, 68, 0.4);
+        }
 
         .controls {
             max-width: 1300px;
@@ -74,17 +96,37 @@
             background: #0a0a0a;
             border-radius: 12px;
             border: 1px solid #1a1a1a;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        
-        .search-group { display: flex; gap: 10px; flex-wrap: wrap; }
 
-        select {
-            background: #151515; color: #fff; border: 1px solid #333;
-            padding: 12px 20px; border-radius: 6px; outline: none; cursor: pointer;
-            font-size: 0.9rem; transition: border-color 0.2s;
+        .search-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        select:hover { border-color: var(--accent); }
+
+        select,
+        input[type="text"] {
+            background: #151515;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 12px 20px;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        select:hover,
+        input[type="text"]:focus {
+            border-color: var(--accent);
+        }
+
+        input[type="text"] {
+            cursor: text;
+            width: 200px;
+        }
 
         /* --- 4. GRID SYSTEM --- */
         .container {
@@ -92,7 +134,7 @@
             margin: 10px auto 40px;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
             gap: 20px;
         }
 
@@ -103,8 +145,8 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             border: 1px solid #1a1a1a;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            content-visibility: auto; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            content-visibility: auto;
         }
 
         .game-card:hover {
@@ -115,70 +157,187 @@
         }
 
         .card-image {
-            width: 100%; aspect-ratio: 2/3; background-color: #151515; overflow: hidden; position: relative;
+            width: 100%;
+            aspect-ratio: 2/3;
+            background-color: #151515;
+            overflow: hidden;
+            position: relative;
         }
-        
-        .cover-art { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s; }
-        
+
+        .cover-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s;
+        }
+
         /* Fallback Text Design */
         .placeholder-art {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(45deg, #111, #1a1a1a); color: #444;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #111, #1a1a1a);
+            color: #444;
             z-index: 1;
         }
 
-        .card-info { padding: 15px; }
-        .game-title { font-size: 0.9rem; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; font-weight: 600; }
-        .game-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #777; }
-        .genre-tag { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; }
+        .card-info {
+            padding: 15px;
+        }
+
+        .game-title {
+            font-size: 0.9rem;
+            margin: 0 0 6px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        .genre-tag {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
 
         /* Badges */
         .rank-badge {
-            position: absolute; top: 10px; left: 10px;
-            background: var(--gold); color: #000;
-            width: 28px; height: 28px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 0.8rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--gold);
+            color: #000;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             z-index: 5;
         }
-        .rank-1 { background: #FFD700; transform: scale(1.2); border: 2px solid #fff; } 
-        .rank-2 { background: #C0C0C0; } 
-        .rank-3 { background: #CD7F32; } 
-        .rank-normal { background: #333; color: #fff; font-size: 0.7rem; width: 24px; height: 24px; }
+
+        .rank-1 {
+            background: #FFD700;
+            transform: scale(1.2);
+            border: 2px solid #fff;
+        }
+
+        .rank-2 {
+            background: #C0C0C0;
+        }
+
+        .rank-3 {
+            background: #CD7F32;
+        }
+
+        .rank-normal {
+            background: #333;
+            color: #fff;
+            font-size: 0.7rem;
+            width: 24px;
+            height: 24px;
+        }
 
         .hype-badge {
-            position: absolute; top: 10px; right: 10px;
-            background: var(--danger); color: white;
-            font-size: 0.65rem; padding: 4px 8px; border-radius: 4px; font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5); z-index: 5;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 5;
         }
-        
-        .hype-card:hover { border-color: var(--danger); box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2); }
+
+        .hype-card:hover {
+            border-color: var(--danger);
+            box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2);
+        }
 
         /* --- LOAD MORE & FOOTER --- */
-        .load-more-container { text-align: center; margin: 50px auto 80px; }
-        .btn-load {
-            background: transparent; border: 1px solid var(--accent); color: var(--accent);
-            padding: 14px 50px; font-size: 0.9rem; border-radius: 50px; cursor: pointer;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+        .load-more-container {
+            text-align: center;
+            margin: 50px auto 80px;
         }
-        .btn-load:hover { background: var(--accent); color: #000; box-shadow: 0 0 25px rgba(0, 230, 118, 0.4); }
+
+        .btn-load {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 14px 50px;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .btn-load:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.4);
+        }
 
         /* Scroll Top */
         .scroll-top {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 50px; height: 50px; background: #222; color: var(--accent);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; cursor: pointer; border: 1px solid #333;
-            opacity: 0; pointer-events: none; transition: 0.3s; z-index: 100;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #222;
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: 1px solid #333;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 100;
         }
-        .scroll-top.visible { opacity: 1; pointer-events: all; }
 
-        footer { text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a; }
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -190,9 +349,10 @@
     <div class="container" id="hypeGrid"></div>
 
     <h2 class="section-title"><span>//</span> THE VAULT</h2>
-    
+
     <div class="controls">
         <div class="search-group">
+            <input type="text" id="searchInput" placeholder="Search..." oninput="resetAndRender()">
             <select id="genreFilter" onchange="resetAndRender()">
                 <option value="All">All Genres</option>
                 <option value="Action">Action</option>
@@ -232,38 +392,38 @@
         // ==========================================
         // We use the Steam IDs you found. If the image doesn't exist, it shows text.
         const comingSoonGames = [
-            { name: "Nioh 3",                id: "3681010", genre: "Action", year: "2026" },
-            { name: "CODE VEIN II",          id: "2362060", genre: "RPG",    year: "2026" },
+            { name: "Nioh 3", id: "3681010", genre: "Action", year: "2026" },
+            { name: "CODE VEIN II", id: "2362060", genre: "RPG", year: "2026" },
             { name: "Resident Evil Requiem", id: "3764200", genre: "Horror", year: "2026" }
         ];
 
         // ==========================================
         //    2. MAIN LIBRARY (500+ Games)
         // ==========================================
-        
+
         const games = [
             // --- TOP RANKED (The "Gold" Tier) ---
-            { name: "Elden Ring",           id: "1245620", genre: "RPG",    year: 2022, rank: 1 },
-            { name: "Baldur's Gate 3",      id: "1086940", genre: "RPG",    year: 2023, rank: 2 },
-            { name: "Black Myth: Wukong",   id: "2358720", genre: "Action", year: 2024, rank: 3 },
-            { name: "Cyberpunk 2077",       id: "1091500", genre: "RPG",    year: 2020, rank: 4 },
-            { name: "Red Dead Redemption 2",id: "1174180", genre: "Adventure", year: 2018, rank: 5 },
-            { name: "God of War Ragnarök",  id: "2322010", genre: "Action", year: 2024, rank: 6 },
-            { name: "Resident Evil 4",      id: "2050650", genre: "Horror", year: 2023, rank: 7 },
-            { name: "Tekken 8",             id: "1778820", genre: "Fighting", year: 2024, rank: 8 },
-            { name: "Hades II",             id: "1145350", genre: "Action", year: 2024, rank: 9 },
+            { name: "Elden Ring", id: "1245620", genre: "RPG", year: 2022, rank: 1 },
+            { name: "Baldur's Gate 3", id: "1086940", genre: "RPG", year: 2023, rank: 2 },
+            { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, rank: 3 },
+            { name: "Cyberpunk 2077", id: "1091500", genre: "RPG", year: 2020, rank: 4 },
+            { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, rank: 5 },
+            { name: "God of War Ragnarök", id: "2322010", genre: "Action", year: 2024, rank: 6 },
+            { name: "Resident Evil 4", id: "2050650", genre: "Horror", year: 2023, rank: 7 },
+            { name: "Tekken 8", id: "1778820", genre: "Fighting", year: 2024, rank: 8 },
+            { name: "Hades II", id: "1145350", genre: "Action", year: 2024, rank: 9 },
             { name: "Sekiro: Shadows Die Twice", id: "814380", genre: "Action", year: 2019, rank: 10 },
 
             // --- 2025 & RECENT HITS (Fixed IDs) ---
-            { name: "Monster Hunter Wilds",        id: "2246340", genre: "Action", year: 2025, rank: 11 },
-            { name: "The First Berserker: Khazan", id: "2680010", genre: "Action", year: 2025, rank: 12 }, 
-            { name: "Mafia: The Old Country",      id: "1941540", genre: "Action", year: 2025, rank: 13 },
-            { name: "Kingdom Come: Deliverance II",id: "1771300", genre: "RPG",    year: 2025, rank: 14 },
-            { name: "Silent Hill f",               id: "2947440", genre: "Horror", year: 2025, rank: 15 },
-            { name: "Clair Obscur: Expedition 33", id: "1903340", genre: "RPG",    year: 2025, rank: 16 },
-            { name: "Lost Skies",                  id: "1931180", genre: "Adventure", year: 2025 },
-            { name: "Marvel's Spider-Man 2",       id: "2651280", genre: "Action", year: 2025, rank: 17 }, 
-            
+            { name: "Monster Hunter Wilds", id: "2246340", genre: "Action", year: 2025, rank: 11 },
+            { name: "The First Berserker: Khazan", id: "2680010", genre: "Action", year: 2025, rank: 12 },
+            { name: "Mafia: The Old Country", id: "1941540", genre: "Action", year: 2025, rank: 13 },
+            { name: "Kingdom Come: Deliverance II", id: "1771300", genre: "RPG", year: 2025, rank: 14 },
+            { name: "Silent Hill f", id: "2947440", genre: "Horror", year: 2025, rank: 15 },
+            { name: "Clair Obscur: Expedition 33", id: "1903340", genre: "RPG", year: 2025, rank: 16 },
+            { name: "Lost Skies", id: "1931180", genre: "Adventure", year: 2025 },
+            { name: "Marvel's Spider-Man 2", id: "2651280", genre: "Action", year: 2025, rank: 17 },
+
             // --- FULL LIBRARY ---
             { name: "999 & Virtue's Last Reward", id: "477740", genre: "Adventure", year: 2017 },
             { name: "ACE COMBAT™ 7: SKIES UNKNOWN", id: "502500", genre: "Simulation", year: 2019 },
@@ -830,7 +990,7 @@
         // ==========================================
         //    3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
         // ==========================================
-        
+
         let filteredGames = [];
         let displayedCount = 0;
         const BATCH_SIZE = 24;
@@ -838,37 +998,44 @@
         function renderHype() {
             const hypeGrid = document.getElementById("hypeGrid");
             hypeGrid.innerHTML = comingSoonGames.map(game => `
-                <article class="game-card hype-card">
-                    <div class="card-image">
-                        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg" 
-                             class="cover-art" 
-                             alt="${game.name}" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                        
-                        <div class="placeholder-art" style="display:none;">
-                            <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
-                            <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">COMING SOON</p>
+                <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none; color:inherit; display:block">
+                    <article class="game-card hype-card">
+                        <div class="card-image">
+                            <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg" 
+                                 class="cover-art" 
+                                 alt="${game.name}" 
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            
+                            <div class="placeholder-art" style="display:none;">
+                                <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
+                                <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">COMING SOON</p>
+                            </div>
+                            
+                            <span class="hype-badge">SOON</span>
                         </div>
-                        
-                        <span class="hype-badge">SOON</span>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="game-title">${game.name}</h3>
-                        <div class="game-meta">
-                            <span class="genre-tag" style="color:var(--danger)">${game.genre}</span>
-                            <span>${game.year}</span>
+                        <div class="card-info">
+                            <h3 class="game-title">${game.name}</h3>
+                            <div class="game-meta">
+                                <span class="genre-tag" style="color:var(--danger)">${game.genre}</span>
+                                <span>${game.year}</span>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </a>
             `).join('');
         }
 
         function resetAndRender() {
             const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
 
             // 1. Filter
-            filteredGames = games.filter(game => genreSelect === "All" || game.genre === genreSelect);
+            filteredGames = games.filter(game => {
+                const matchesGenre = genreSelect === "All" || game.genre === genreSelect;
+                const matchesSearch = game.name.toLowerCase().includes(searchTerm);
+                return matchesGenre && matchesSearch;
+            });
 
             // 2. Sort
             if (sortSelect === "rank") {
@@ -901,16 +1068,16 @@
             document.getElementById("gameCount").innerText = filteredGames.length + " Games";
             document.getElementById("gameGrid").innerHTML = "";
             displayedCount = 0;
-            
+
             loadMore();
         }
 
         function loadMore() {
             const grid = document.getElementById("gameGrid");
             const btnArea = document.getElementById("loadMoreArea");
-            
+
             const nextBatch = filteredGames.slice(displayedCount, displayedCount + BATCH_SIZE);
-            
+
             if (nextBatch.length === 0) {
                 btnArea.style.display = "none";
                 return;
@@ -920,7 +1087,7 @@
                 // Priority: Manual Image -> Steam ID -> Fallback Logo (handled by onerror)
                 // Note: We use the `library_600x900.jpg` asset.
                 let imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
-                
+
                 // Badge Logic
                 let badgeHTML = "";
                 if (game.rank) {
@@ -935,19 +1102,21 @@
                 const fallback = `this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
 
                 return `
-                <article class="game-card">
-                    <div class="card-image">
-                        ${badgeHTML}
-                        <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}" onerror="${fallback}">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="game-title">${game.name}</h3>
-                        <div class="game-meta">
-                            <span class="genre-tag">${game.genre}</span>
-                            <span>${game.year}</span>
+                <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none; color:inherit; display:block">
+                    <article class="game-card">
+                        <div class="card-image">
+                            ${badgeHTML}
+                            <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}" onerror="${fallback}">
                         </div>
-                    </div>
-                </article>
+                        <div class="card-info">
+                            <h3 class="game-title">${game.name}</h3>
+                            <div class="game-meta">
+                                <span class="genre-tag">${game.genre}</span>
+                                <span>${game.year}</span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
                 `;
             }).join('');
 
@@ -967,4 +1136,5 @@
 
     </script>
 </body>
+
 </html>
