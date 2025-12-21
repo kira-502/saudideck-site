@@ -512,13 +512,16 @@
     this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
 
             let badgeHTML = "";
+            // User requested to hide number badges
+            /*
             if (!isHype && game.score) {
                 let scoreClass = "";
                 if (game.score < 50) scoreClass = "low";
                 else if (game.score < 75) scoreClass = "mixed";
-
+                
                 badgeHTML = `<span class="meta-badge ${scoreClass}">${game.score}</span>`;
             }
+            */
 
             // Steam Deck Verified Logic
             const verifiedHTML = game.verified ? `
