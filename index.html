@@ -392,9 +392,9 @@
         // ==========================================
         // We use the Steam IDs you found. If the image doesn't exist, it shows text.
         const comingSoonGames = [
-            { name: "DOOM: The Dark Ages", id: "3017860", genre: "FPS", year: "2025" },
-            { name: "Borderlands 4", id: "1285190", genre: "Action", year: "2025" },
-            { name: "Sid Meier's Civilization VII", id: "1295660", genre: "Strategy", year: "2025" }
+            { name: "Nioh 3", id: "3681010", genre: "Action", year: "2026" },
+            { name: "CODE VEIN II", id: "2362060", genre: "RPG", year: "2026" },
+            { name: "Resident Evil Requiem", id: "3764200", genre: "Horror", year: "2026" }
         ];
 
         // ==========================================
@@ -997,19 +997,18 @@
 
         function renderHype() {
             const hypeGrid = document.getElementById("hypeGrid");
-            hypeGrid.innerHTML = comingSoonGames.map(game => `
+            hypeGrid.innerHTML = comingSoonGames.map(game => {
+                const imgUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+                const fallback = `this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
+
+                return `
                 <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none; color:inherit; display:block">
                     <article class="game-card hype-card">
                         <div class="card-image">
-                            <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg" 
+                            <img src="${imgUrl}" 
                                  class="cover-art" 
                                  alt="${game.name}" 
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                            
-                            <div class="placeholder-art" style="display:none;">
-                                <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
-                                <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">COMING SOON</p>
-                            </div>
+                                 onerror="${fallback}">
                             
                             <span class="hype-badge">SOON</span>
                         </div>
@@ -1022,7 +1021,7 @@
                         </div>
                     </article>
                 </a>
-            `).join('');
+            `}).join('');
         }
 
         function resetAndRender() {
