@@ -9,27 +9,27 @@
         // ==========================================
 
         const games = [
-            // --- TOP RANKED (The "Gold" Tier) ---
-            { name: "Elden Ring", id: "1245620", verified: true, genre: "RPG", year: 2022, rank: 1 },
-            { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG", year: 2023, rank: 2 },
-            { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, rank: 3 },
-            { name: "Cyberpunk 2077", id: "1091500", verified: true, genre: "RPG", year: 2020, rank: 4 },
-            { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, rank: 5 },
-            { name: "God of War Ragnarök", id: "2322010", verified: true, genre: "Action", year: 2024, rank: 6 },
-            { name: "Resident Evil 4", id: "2050650", verified: true, genre: "Horror", year: 2023, rank: 7 },
-            { name: "Tekken 8", id: "1778820", genre: "Fighting", year: 2024, rank: 8 },
-            { name: "Hades II", id: "1145350", verified: true, genre: "Action", year: 2024, rank: 9 },
-            { name: "Sekiro: Shadows Die Twice", id: "814380", verified: true, genre: "Action", year: 2019, rank: 10 },
+        // --- TOP RATED (Metacritic 90+) ---
+        { name: "Elden Ring", id: "1245620", verified: true, genre: "RPG", year: 2022, score: 96 },
+        { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG", year: 2023, score: 96 },
+        { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, score: 81 },
+        { name: "Cyberpunk 2077", id: "1091500", verified: true, genre: "RPG", year: 2020, score: 86 },
+        { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, score: 97 },
+        { name: "God of War Ragnarök", id: "2322010", verified: true, genre: "Action", year: 2024, score: 94 },
+        { name: "Resident Evil 4", id: "2050650", verified: true, genre: "Horror", year: 2023, score: 93 },
+        { name: "Tekken 8", id: "1778820", genre: "Fighting", year: 2024, score: 90 },
+        { name: "Hades II", id: "1145350", verified: true, genre: "Action", year: 2024, score: 90 },
+        { name: "Sekiro: Shadows Die Twice", id: "814380", verified: true, genre: "Action", year: 2019, score: 90 },
 
-            // --- 2025 & RECENT HITS (Fixed IDs) ---
-            { name: "Monster Hunter Wilds", id: "2246340", genre: "Action", year: 2025, rank: 11 },
-            { name: "The First Berserker: Khazan", id: "2680010", verified: true, genre: "Action", year: 2025, rank: 12 },
-            { name: "Mafia: The Old Country", id: "1941540", genre: "Action", year: 2025, rank: 13 },
-            { name: "Kingdom Come: Deliverance II", id: "1771300", genre: "RPG", year: 2025, rank: 14 },
-            { name: "Silent Hill f", id: "2947440", genre: "Horror", year: 2025, rank: 15 },
-            { name: "Clair Obscur: Expedition 33", id: "1903340", verified: true, genre: "RPG", year: 2025, rank: 16 },
-            { name: "Lost Skies", id: "1931180", genre: "Adventure", year: 2025 },
-            { name: "Marvel's Spider-Man 2", id: "2651280", verified: true, genre: "Action", year: 2025, rank: 17 },
+        // --- 2025 & RECENT HITS ---
+        { name: "Monster Hunter Wilds", id: "2246340", genre: "Action", year: 2025 },
+        { name: "The First Berserker: Khazan", id: "2680010", verified: true, genre: "Action", year: 2025 },
+        { name: "Mafia: The Old Country", id: "1941540", genre: "Action", year: 2025 },
+        { name: "Kingdom Come: Deliverance II", id: "1771300", genre: "RPG", year: 2025 },
+        { name: "Silent Hill f", id: "2947440", genre: "Horror", year: 2025 },
+        { name: "Clair Obscur: Expedition 33", id: "1903340", verified: true, genre: "RPG", year: 2025 },
+        { name: "Lost Skies", id: "1931180", genre: "Adventure", year: 2025 },
+        { name: "Marvel's Spider-Man 2", id: "2651280", verified: true, genre: "Action", year: 2025, score: 90 },
 
             // --- FULL LIBRARY ---
             { name: "999 & Virtue's Last Reward", id: "477740", genre: "Adventure", year: 2017 },
