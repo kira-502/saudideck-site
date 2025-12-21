@@ -63,37 +63,7 @@
 
 
 
-        /* --- ANIMATIONS & CINEMA HOVER --- */
-        /* 1. Scroll Reveal base state */
-        .game-card {
-            opacity: 0;
-            transform: translateY(20px);
-            /* Existing styles overwrites... we need to ensure this doesn't break basic visibility if JS fails, but we'll handle in JS */
-            /* We will actually add a separate class for the base state to be safe, or just rely on the 'visible' class logic */
-        }
 
-        .game-card.reveal {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* 2. Cinema Hover Effect */
-        /* When hovering the GRID, dim ALL cards */
-        .container:hover .game-card {
-            opacity: 0.4;
-            filter: grayscale(0.6);
-            transform: scale(0.98);
-        }
-
-        /* When hovering a SPECIFIC card, bring it back to full life */
-        .container .game-card:hover {
-            opacity: 1;
-            filter: grayscale(0) !important;
-            transform: scale(1.05) translateY(-5px);
-            z-index: 100;
-            box-shadow: 0 15px 40px rgba(0, 230, 118, 0.2);
-            border-color: var(--accent);
-        }
 
         /* --- 3. SECTIONS & CONTROLS --- */
         .section-title {
@@ -183,17 +153,17 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             content-visibility: auto;
 
-            /* Animation Init State */
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .game-card.reveal {
+            /* Always Visible */
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Removed default hover to allow Cinema Effect to take over */
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(0, 230, 118, 0.15);
+            z-index: 10;
+        }
 
         .card-image {
             width: 100%;
