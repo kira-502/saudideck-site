@@ -280,6 +280,36 @@
             z-index: 5;
         }
 
+        /* Verified Badge */
+        .verified-badge {
+            position: absolute;
+            top: 10px;
+            left: 50px;
+            /* Offset from rank badge if present */
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00e676;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 230, 118, 0.3);
+            z-index: 5;
+            transition: transform 0.3s;
+        }
+
+        .verified-badge img {
+            width: 16px;
+            height: 16px;
+            filter: drop-shadow(0 0 2px #00e676);
+        }
+
+        .verified-badge:hover {
+            transform: scale(1.2) rotate(10deg);
+            background: rgba(0, 230, 118, 0.2);
+        }
+
         .hype-card:hover {
             border-color: var(--danger);
             box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2);
@@ -333,6 +363,40 @@
             z-index: 100;
         }
 
+        /* Deck Toggle */
+        .deck-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #222;
+            padding: 0 15px;
+            /* Matches input height */
+            height: 42px;
+            /* Match input height */
+            border-radius: 8px;
+            border: 1px solid #333;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .deck-toggle:hover {
+            border-color: #00e676;
+            color: white;
+        }
+
+        .deck-toggle.active {
+            background: rgba(0, 230, 118, 0.1);
+            border-color: #00e676;
+            color: #00e676;
+        }
+
+        .deck-toggle input {
+            display: none;
+        }
+
         .scroll-top.visible {
             opacity: 1;
             pointer-events: all;
@@ -383,6 +447,12 @@
                 <option value="oldest">Sort by: Oldest</option>
                 <option value="az">Sort by: Name (A-Z)</option>
             </select>
+
+            <label class="deck-toggle" id="verifiedToggleBtn" title="Show only Steam Deck Verified games">
+                <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
+                <img src="verified.png" style="width:18px;height:18px;">
+                <span>Verified Only</span>
+            </label>
         </div>
         <div class="count-display" id="gameCount" style="color:#666; font-family: monospace;"></div>
     </div>
@@ -397,7 +467,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js"></script>
+    <script src="games.js?v=2" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -438,6 +508,18 @@
         }
         const debouncedSearch = debounce(() => resetAndRender(), 300);
 
+        function toggleVerifiedFilter() {
+            const btn = document.getElementById("verifiedToggleBtn");
+            const checkbox = document.getElementById("verifiedFilter");
+
+            if (checkbox.checked) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+            resetAndRender();
+        }
+
         function createGameCard(game, isHype = false) {
             const imgUrl = game.image ||
                 `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
@@ -454,6 +536,12 @@
                 else if (game.rank === 3) rankClass = "rank-3";
                 badgeHTML = `<span class="rank-badge ${rankClass}">${game.rank}</span>`;
             }
+
+            // Steam Deck Verified Logic
+            const verifiedHTML = game.verified ? `
+                <div class="verified-badge" title="Steam Deck Verified">
+                    <img src="verified.png" alt="Verified">
+                </div>` : "";
 
             const hypeBadge = isHype ? `<span class="hype-badge">SOON</span>` : "";
             const hypeClass = isHype ? "hype-card" : "";
@@ -472,6 +560,7 @@
         <article class="game-card ${hypeClass}">
             <div class="card-image">
                 ${badgeHTML}
+                ${verifiedHTML}
                 <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}" onerror="${fallback}">
                 ${placeholder}
                 ${hypeBadge}
@@ -500,12 +589,14 @@
             const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            const showVerifiedOnly = document.getElementById("verifiedFilter").checked;
 
             // 1. Filter
             filteredGames = games.filter(game => {
                 const matchesGenre = genreSelect === "All" || game.genre === genreSelect;
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-                return matchesGenre && matchesSearch;
+                const matchesVerified = !showVerifiedOnly || game.verified;
+                return matchesGenre && matchesSearch && matchesVerified;
             });
 
             // 2. Sort
