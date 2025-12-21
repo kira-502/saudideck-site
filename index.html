@@ -380,6 +380,80 @@
             display: none;
         }
 
+        /* Random Picker Modal */
+        .random-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .random-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .random-modal-content {
+            background: #111;
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 230, 118, 0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .random-modal-overlay.active .random-modal-content {
+            transform: scale(1);
+        }
+
+        .random-game-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .random-btn {
+            background: linear-gradient(135deg, #6200ea, #b388ff);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-left: 10px;
+            box-shadow: 0 4px 10px rgba(98, 0, 234, 0.3);
+        }
+
+        .random-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(98, 0, 234, 0.5);
+        }
+
+        .modal-btn-close {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
         .scroll-top.visible {
             opacity: 1;
             pointer-events: all;
@@ -431,6 +505,8 @@
                 <option value="az">Sort by: Name (A-Z)</option>
             </select>
 
+            <button class="random-btn" onclick="pickRandomGame()">🎲 Pick Random</button>
+
             <label class="deck-toggle" id="verifiedToggleBtn" title="Show only Steam Deck Verified games">
                 <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
                 <img src="verified.png" style="width:18px;height:18px;">
@@ -444,6 +520,17 @@
 
     <div class="load-more-container" id="loadMoreArea">
         <button class="btn-load" onclick="loadMore()">Show More Games</button>
+    </div>
+
+    <!-- Random Picker Modal -->
+    <div class="random-modal-overlay" id="randomModal" onclick="if(event.target === this) closeRandomModal()">
+        <div class="random-modal-content">
+            <h2 style="margin-top:0; color:white; font-size:1.5rem">YOU SHOULD PLAY</h2>
+            <div id="randomGameContainer">
+                <!-- Content injected via JS -->
+            </div>
+            <button class="modal-btn-close" onclick="closeRandomModal()">Close</button>
+        </div>
     </div>
 
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
@@ -615,6 +702,52 @@
             displayedCount = 0;
 
             loadMore();
+        }
+
+        /* --- RANDOM PICKER LOGIC --- */
+        function pickRandomGame() {
+            // Pick from filteredGames so it respects current filters
+            if (filteredGames.length === 0) return;
+
+            const modal = document.getElementById("randomModal");
+            const container = document.getElementById("randomGameContainer");
+
+            // Simple Shuffle Effect
+            modal.classList.add("active");
+            container.innerHTML = `<h3 style="color:#666">Rolling the dice...</h3>`;
+
+            let shuffles = 0;
+            const maxShuffles = 10;
+            const interval = setInterval(() => {
+                const randomIdx = Math.floor(Math.random() * filteredGames.length);
+                const game = filteredGames[randomIdx];
+                container.innerHTML = `<h3 style="color:#888">${game.name}</h3>`;
+                shuffles++;
+
+                if (shuffles >= maxShuffles) {
+                    clearInterval(interval);
+                    showWinner(game);
+                }
+            }, 100);
+        }
+
+        function showWinner(game) {
+            const container = document.getElementById("randomGameContainer");
+            const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
+
+            container.innerHTML = `
+                <img src="${imgUrl}" class="random-game-img" />
+                <h2 style="color:var(--accent); margin:10px 0;">${game.name}</h2>
+                <p style="color:#ccc; margin-bottom:20px">${game.genre} • ${game.year}</p>
+                <a href="https://store.steampowered.com/app/${game.id}" target="_blank" 
+                   style="background:var(--accent); color:black; text-decoration:none; padding:10px 20px; border-radius:30px; font-weight:bold;">
+                   View on Steam
+                </a>
+            `;
+        }
+
+        function closeRandomModal() {
+            document.getElementById("randomModal").classList.remove("active");
         }
 
         function loadMore() {
