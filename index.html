@@ -3,43 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Game Collection</title>
+    <title>SaudiDeck Vault</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    
     <style>
-        :root { --bg: #121212; --card: #1e1e1e; --text: #fff; --accent: #bb86fc; }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        header { text-align: center; padding-bottom: 40px; border-bottom: 1px solid #333; margin-bottom: 40px; }
-        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .image-placeholder { height: 300px; background: #333; display: flex; align-items: center; justify-content: center; color: #777; font-weight: bold; }
-        .content { padding: 15px; }
-        .tag { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        h2 { margin: 10px 0 5px 0; font-size: 1.2rem; }
-        .desc { color: #aaa; font-size: 0.9rem; }
+        /* --- 1. THEME SETTINGS (Matches your Logo) --- */
+        :root {
+            --bg-color: #121212;       /* Dark Background */
+            --card-bg: #1e1e1e;        /* Slightly lighter card */
+            --text-main: #ffffff;      /* White text */
+            --text-muted: #b3b3b3;     /* Grey text */
+            --accent: #00e676;         /* SAUDI GREEN (From your logo) */
+            --accent-hover: #00c853;   /* Darker green for hover effects */
+        }
+
+        /* --- 2. BASIC SETUP --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- 3. HEADER & LOGO --- */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(to bottom, #1a1a1a, var(--bg-color));
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            max-width: 280px;  /* Adjust size of logo */
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* --- 4. GAME GRID --- */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive Grid */
+            gap: 30px;
+        }
+
+        /* --- 5. CARD DESIGN --- */
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.15); /* Green Glow */
+            border-color: var(--accent);
+        }
+
+        /* Image Area */
+        .card-image {
+            width: 100%;
+            height: 350px;
+            background-color: #252525;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Use this class for real images later: <img class="cover-art" src="..."> */
+        .cover-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover .cover-art {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+        /* Text Area */
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Platform Tag (e.g. PS5, PC) */
+        .tag {
+            background-color: var(--accent);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            align-self: flex-start;
+            margin-bottom: 12px;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+        }
+
+        h2 { margin: 0 0 8px 0; font-size: 1.4rem; color: #fff; }
+        p.desc { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>SaudiDeck Vault</h1>
-        <p>My curated games collection</p>
+        <img src="logo.png" alt="SaudiDeck Logo" class="logo">
+        <p class="subtitle">THE ULTIMATE COLLECTION</p>
     </header>
+
     <div class="container">
-        <article class="card">
-            <div class="image-placeholder">GAME ART</div> 
-            <div class="content">
+        
+        <article class="game-card">
+            <div class="card-image">
+                <img src="logo.png" class="cover-art" style="opacity:0.2"> 
+            </div>
+            <div class="card-content">
                 <span class="tag">PS5</span>
                 <h2>Elden Ring</h2>
-                <p class="desc">A vast open world masterpiece.</p>
+                <p class="desc">The masterpiece of open world design. 100+ Hours played.</p>
             </div>
         </article>
-        <article class="card">
-            <div class="image-placeholder">GAME ART</div>
-            <div class="content">
+
+        <article class="game-card">
+            <div class="card-image">
+                <img src="logo.png" class="cover-art" style="opacity:0.2">
+            </div>
+            <div class="card-content">
                 <span class="tag">Switch</span>
                 <h2>Zelda: BOTW</h2>
-                <p class="desc">Redefined open-world freedom.</p>
+                <p class="desc">Exploring Hyrule on the go. A classic adventure.</p>
             </div>
         </article>
+
+        <article class="game-card">
+            <div class="card-image">
+                <img src="logo.png" class="cover-art" style="opacity:0.2">
+            </div>
+            <div class="card-content">
+                <span class="tag">PC / Steam</span>
+                <h2>Cyberpunk 2077</h2>
+                <p class="desc">Night City looks incredible with Ray Tracing turned on.</p>
+            </div>
+        </article>
+
     </div>
+
+    <footer>
+        &copy; 2025 SaudiDeck Games. Built with GitHub.
+    </footer>
+
 </body>
 </html>
