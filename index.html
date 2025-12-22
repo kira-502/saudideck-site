@@ -466,6 +466,73 @@
             background: rgba(0, 230, 118, 0.1);
         }
 
+        /* --- HELP DROPDOWN --- */
+        .help-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #000;
+            border: 1px solid #333;
+            min-width: 180px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            border-radius: 12px;
+            margin-top: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeInProgress 0.2s ease;
+        }
+
+        @keyframes fadeInProgress {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-content a {
+            color: #ccc;
+            padding: 12px 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            border-bottom: 1px solid #111;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background: #111;
+            color: var(--accent);
+            padding-left: 22px;
+        }
+
+        .dropdown-content img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .help-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         .modal-btn-close {
             background: #333;
             color: white;
@@ -650,9 +717,19 @@
             <img src="logo.png" alt="SaudiDeck" class="logo">
             <p class="subtitle">Official Membership Hub</p>
         </div>
-        <a href="instructions.html" class="help-btn">
-            <span>?</span> طريقة الاستخدام
-        </a>
+        <div class="help-dropdown">
+            <button class="help-btn">
+                <span>?</span> طريقة الاستخدام
+            </button>
+            <div class="dropdown-content">
+                <a href="instructions.html">
+                    <img src="Windows_logo.png" alt="PC"> PC
+                </a>
+                <a href="help-deck.html">
+                    <img src="Steam_Deck_logo.png" alt="Steam Deck"> Steam Deck
+                </a>
+            </div>
+        </div>
     </header>
 
     <!-- Main Library Section -->
@@ -711,7 +788,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=12" type="text/javascript"></script>
+    <script src="games.js?v=13" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
