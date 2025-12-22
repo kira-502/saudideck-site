@@ -616,9 +616,13 @@
         .coming-soon-text {
             color: var(--danger);
             font-weight: bold;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
             text-transform: uppercase;
+            font-family: 'Arial Narrow', sans-serif;
+            /* Condensed feel */
+            text-align: center;
+            width: 90%;
         }
     </style>
 </head>
@@ -690,7 +694,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=7" type="text/javascript"></script>
+    <script src="games.js?v=8" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -769,10 +773,17 @@
 
             if (isLocked) {
                 cardClass += " locked";
+                let releaseText = `COMING ${game.year}`;
+
+                if (game.release_date) {
+                    const [y, m, d] = game.release_date.split('-');
+                    releaseText = `يتوفر في: ${d}/${m}/${y}`;
+                }
+
                 lockedOverlay = `
                     <div class="locked-overlay">
                         <div class="lock-icon">🔒</div>
-                        <div class="coming-soon-text">COMING ${game.year}</div>
+                        <div class="coming-soon-text">${releaseText}</div>
                     </div>
                 `;
             }
@@ -839,6 +850,13 @@
                     // Priority 1: Unreleased First
                     if (a.isUnreleased && !b.isUnreleased) return -1;
                     if (!a.isUnreleased && b.isUnreleased) return 1;
+
+                    // If both are unreleased, sort by release_date (Soonest First)
+                    if (a.isUnreleased && b.isUnreleased) {
+                        const dateA = a.release_date || `${a.year}-12-31`;
+                        const dateB = b.release_date || `${b.year}-12-31`;
+                        return dateA.localeCompare(dateB);
+                    }
 
                     // Priority 2: Score (High to Low)
                     const scoreA = a.score || 0;
