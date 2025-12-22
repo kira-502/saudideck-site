@@ -1,7 +1,7 @@
 const comingSoonGames = [
-    { name: "Nioh 3", id: "3681010", genre: "Action", year: "2026", release_date: "2026-03-15", image: "img/nioh3.jpg" },
-    { name: "CODE VEIN II", id: "2362060", genre: "RPG", year: "2026", release_date: "2026-06-20", image: "img/code_vein_2.jpg" },
-    { name: "Resident Evil Requiem", id: "3764200", genre: "Horror", year: "2026", release_date: "2026-10-31", image: "img/re_requiem.jpg" }
+    { name: "Nioh 3", id: "3681010", genre: "Action", year: "2026", image: "img/nioh3.jpg" },
+    { name: "CODE VEIN II", id: "2362060", genre: "RPG", year: "2026", image: "img/code_vein_2.jpg" },
+    { name: "Resident Evil Requiem", id: "3764200", genre: "Horror", year: "2026", image: "img/re_requiem.jpg" }
 ];
 
 // ==========================================
