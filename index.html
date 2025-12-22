@@ -167,10 +167,12 @@
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             content-visibility: auto;
-
-            /* Always Visible */
-            opacity: 1;
-            transform: translateY(0);
+            text-decoration: none;
+            /* No underlines for links */
+            color: inherit;
+            /* Keep text color */
+            display: block;
+            /* Ensure full size */
         }
 
         .game-card:hover {
@@ -371,60 +373,6 @@
             display: none;
         }
 
-        /* Random Picker Modal */
-        .random-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex;
-            /* Always flex */
-            visibility: hidden;
-            /* Use visibility + opacity for performance */
-            pointer-events: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s;
-            will-change: opacity;
-            /* For GPU acceleration */
-        }
-
-        .random-modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .random-modal-content {
-            background: #111;
-            border: 1px solid var(--accent);
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0, 230, 118, 0.2);
-            transform: scale(0.9);
-            /* Start slightly smaller */
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            will-change: transform;
-        }
-
-        .random-modal-overlay.active .random-modal-content {
-            transform: scale(1);
-        }
-
-        .random-game-img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
 
         .random-btn {
             background: linear-gradient(135deg, #6200ea, #b388ff);
@@ -579,15 +527,6 @@
             transform: translateY(-2px);
         }
 
-        .modal-btn-close {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
 
         .scroll-top.visible {
             opacity: 1;
@@ -754,66 +693,6 @@
             /* Vital for diagonal ribbon clipping */
         }
 
-        /* --- REQUEST GAME MODAL --- */
-        .request-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 20000;
-            /* Higher than everything */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .request-modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .request-modal-content {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 16px;
-            width: 95%;
-            max-width: 800px;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0, 230, 118, 0.2);
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .request-modal-overlay.active .request-modal-content {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: #777;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
 
         .empty-state {
             grid-column: 1 / -1;
@@ -860,258 +739,6 @@
             border-color: #444;
             color: #777;
         }
-
-        /* --- GAME DETAILS MODAL --- */
-        .details-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(15px);
-            z-index: 15000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            padding: 20px;
-        }
-
-        .details-modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .details-modal-content {
-            background: #0a0a0a;
-            width: 100%;
-            max-width: 1000px;
-            max-height: 90vh;
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #1a1a1a;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .details-modal-overlay.active .details-modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .details-body {
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            overflow-y: auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        @media (max-width: 850px) {
-            .details-body {
-                grid-template-columns: 1fr;
-            }
-
-            .details-left {
-                display: none;
-            }
-        }
-
-        .details-left {
-            padding: 30px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 400px;
-        }
-
-        .details-cover {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 12px;
-            object-fit: contain;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
-        }
-
-        .details-right {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .details-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 0;
-            line-height: 1.1;
-        }
-
-        .details-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 1rem;
-            color: #777;
-            align-items: center;
-        }
-
-        .details-genre {
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .details-desc {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #bbb;
-            margin: 0;
-        }
-
-        .details-actions {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding-top: 30px;
-            border-top: 1px solid #1a1a1a;
-        }
-
-        .btn-steam-main {
-            background: #171a21;
-            color: #fff;
-            border: 1px solid #66c0f4;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(102, 192, 244, 0.2);
-        }
-
-        .btn-steam-main:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 192, 244, 0.4);
-            background: #2a475e;
-            border-color: #fff;
-        }
-
-        .steam-icon-img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-            filter: brightness(0) invert(1);
-            /* Ensure it's white */
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(0, 230, 118, 0.1);
-            border-top: 3px solid var(--accent);
-            border-radius: 50%;
-            margin: 20px auto;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .game-size-tag {
-            font-family: monospace;
-            color: #555;
-            font-size: 1rem;
-            background: #111;
-            padding: 8px 15px;
-            border-radius: 6px;
-        }
-
-        .locked-status {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: var(--danger);
-            padding: 15px 25px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: bold;
-        }
-
-        .deck-config-box {
-            background: rgba(30, 30, 30, 0.6);
-            border-left: 4px solid #6200ea;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .deck-config-title {
-            color: #b388ff;
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .details-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .details-close:hover {
-            background: var(--danger);
-            transform: rotate(90deg);
-        }
-
-        .modal-backdrop-blur {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: blur(80px) brightness(0.3);
-            opacity: 0.6;
-            z-index: 1;
-        }
     </style>
 </head>
 
@@ -1136,7 +763,8 @@
                     </a>
                 </div>
             </div>
-            <button class="nav-request-btn" onclick="openRequestModal()">Request Game</button>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
+                target="_blank" class="nav-request-btn" style="text-decoration:none">Request Game</a>
         </div>
     </header>
 
@@ -1145,18 +773,9 @@
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="Search games..." onkeyup="debouncedSearch()">
-        </div> <select id="genreFilter" onchange="resetAndRender()">
+        </div>
+        <select id="genreFilter" onchange="resetAndRender()">
             <option value="All">All Genres</option>
-            <option value="Action">Action</option>
-            <option value="RPG">RPG</option>
-            <option value="FPS">FPS</option>
-            <option value="Horror">Horror</option>
-            <option value="Fighting">Fighting</option>
-            <option value="Strategy">Strategy</option>
-            <option value="Adventure">Adventure</option>
-            <option value="Indie">Indie</option>
-            <option value="Racing">Racing</option>
-            <option value="Simulation">Simulation</option>
         </select>
         <select id="sortFilter" onchange="resetAndRender()">
             <option value="metacritic" selected>Sort by: Default</option>
@@ -1183,53 +802,20 @@
         <button class="btn-load" onclick="loadMore()">Show More Games</button>
     </div>
 
-    <!-- Random Picker Modal -->
-    <div class="random-modal-overlay" id="randomModal" onclick="if(event.target === this) closeRandomModal()">
-        <div class="random-modal-content">
-            <h2 style="margin-top:0; color:white; font-size:1.5rem">YOU SHOULD PLAY</h2>
-            <div id="randomGameContainer"></div>
-            <button class="modal-btn-close" onclick="closeRandomModal()">Close</button>
-        </div>
-    </div>
 
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
 
     <footer>
         &copy; 2025 SaudiDeck. Curated Collection.
         <br>
-        <button class="footer-request-btn" onclick="openRequestModal()">Request a Game</button>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
+            target="_blank" class="footer-request-btn" style="text-decoration:none; display:inline-block;">Request a
+            Game</a>
     </footer>
 
-    <!-- Request Game Modal -->
-    <div id="requestModal" class="request-modal-overlay" onclick="handleOutsideClick(event)">
-        <div class="request-modal-content">
-            <div class="modal-header">
-                <h2 style="margin:0; font-size:1.2rem; display:flex; align-items:center; gap:10px;">
-                    <span style="font-size:1.4rem">🎮</span> Request a Game
-                </h2>
-                <button class="modal-close" onclick="closeRequestModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="height: 600px; padding: 0;">
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform?embedded=true"
-                    width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0"
-                    style="border-radius: 0 0 16px 16px;">Loading...</iframe>
-            </div>
-        </div>
-    </div>
 
-    <!-- Game Details Modal -->
-    <div id="detailsModal" class="details-modal-overlay" onclick="closeDetailsModal(event)">
-        <div class="details-modal-content" onclick="event.stopPropagation()">
-            <button class="details-close" onclick="closeDetailsModal()">&times;</button>
-            <div id="modalBlur" class="modal-backdrop-blur"></div>
-            <div class="details-body" id="modalDetailsBody">
-                <!-- Content Injected via JS -->
-            </div>
-        </div>
-    </div>
 
-    <script src="games.js?v=19" type="text/javascript"></script>
+    <script src="games.js?v=23" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1244,7 +830,38 @@
         const BATCH_SIZE = 24;
         let displayedCount = 0;
         let filteredGames = [];
-        const descriptionCache = {};
+
+
+        // Dynamically populate Genre Filter dropdown
+        function populateGenreFilter() {
+            const genreSelect = document.getElementById("genreFilter");
+            if (!genreSelect) return;
+
+            // Extract unique genres
+            const genres = new Set();
+            allGames.forEach(game => {
+                if (game.genre) {
+                    // Split by comma in case there are multiple (though currently single strings)
+                    game.genre.split(',').forEach(g => genres.add(g.trim()));
+                }
+            });
+
+            // Sort alphabetically
+            const sortedGenres = Array.from(genres).sort();
+
+            // Keep "All Genres", remove the rest
+            const firstOption = genreSelect.options[0];
+            genreSelect.innerHTML = "";
+            genreSelect.appendChild(firstOption);
+
+            // Add unique genres
+            sortedGenres.forEach(genre => {
+                const option = document.createElement("option");
+                option.value = genre;
+                option.textContent = genre;
+                genreSelect.appendChild(option);
+            });
+        }
 
         // Observer for Scroll Reveal
         const observerOptions = {
@@ -1264,7 +881,7 @@
 
         // INITIAL LOAD
         document.addEventListener("DOMContentLoaded", () => {
-            resetAndRender();
+            init();
         });
 
         // --- HELPER FUNCTIONS ---
@@ -1344,26 +961,24 @@
             }
 
             return `
-    <div onclick="openDetailsModal('${game.id}')" onmouseenter="prefetchSteamDescription('${game.id}')" style="cursor:pointer; text-decoration:none">
-        <article class="${cardClass}">
-            <div class="card-image">
-                ${newBadgeHTML}
-                ${verifiedHTML}
-                ${lockedOverlay}
-                <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
-                <div class="placeholder-art" style="display:none">
-                    <span style="font-size:2rem; opacity:0.3">?</span>
-                </div>
+    <a href="https://store.steampowered.com/app/${game.id}/" target="_blank" rel="noopener noreferrer" class="${cardClass}">
+        <div class="card-image">
+            ${newBadgeHTML}
+            ${verifiedHTML}
+            ${lockedOverlay}
+            <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
+            <div class="placeholder-art" style="display:none">
+                <span style="font-size:2rem; opacity:0.3">?</span>
             </div>
-            <div class="card-info">
-                <h3 class="game-title" title="${game.name}">${game.name}</h3>
-                <div class="game-meta">
-                    <span class="genre-tag">${game.genre}</span>
-                    <span>${game.year}</span>
-                </div>
+        </div>
+        <div class="card-info">
+            <h3 class="game-title" title="${game.name}">${game.name}</h3>
+            <div class="game-meta">
+                <span class="genre-tag">${game.genre}</span>
+                <span>${game.year}</span>
             </div>
-        </article>
-    </div>
+        </div>
+    </a>
     `;
         }
 
@@ -1374,7 +989,7 @@
             const verifiedOnly = document.getElementById("verifiedFilter").checked;
 
             filteredGames = allGames.filter(game => {
-                const matchesGenre = genreSelect === "All" || game.genre === genreSelect;
+                const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
                 const matchesVerified = !verifiedOnly || game.verified;
                 return matchesGenre && matchesSearch && matchesVerified;
@@ -1428,7 +1043,7 @@
                     <div class="empty-state">
                         <h2 style="color:#fff; margin-bottom:10px;">No games found matching your search</h2>
                         <p style="color:#666; margin-bottom:20px;">We couldn't find "${searchTerm}" in our library.</p>
-                        <button class="btn-request" onclick="openRequestModal()">Request This Game</button>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform" target="_blank" class="btn-request" style="text-decoration:none; display:inline-block;">Request This Game</a>
                     </div>
                 `;
                 document.getElementById("loadMoreArea").style.display = "none";
@@ -1439,191 +1054,12 @@
 
         /* --- RANDOM PICKER LOGIC --- */
         function pickRandomGame() {
-            // Pick from filteredGames so it respects current filters
             if (filteredGames.length === 0) return;
-
-            const modal = document.getElementById("randomModal");
-            const container = document.getElementById("randomGameContainer");
-
-            // Simple Shuffle Effect
-            modal.classList.add("active");
-            container.innerHTML = `< h3 style = "color:#666" > Rolling the dice...</h3 > `;
-
-            let shuffles = 0;
-            const maxShuffles = 10;
-            const interval = setInterval(() => {
-                const randomIdx = Math.floor(Math.random() * filteredGames.length);
-                const game = filteredGames[randomIdx];
-                container.innerHTML = `< h3 style = "color:#888" > ${game.name}</h3 > `;
-                shuffles++;
-
-                if (shuffles >= maxShuffles) {
-                    clearInterval(interval);
-                    showWinner(game);
-                }
-            }, 100);
+            const randomIdx = Math.floor(Math.random() * filteredGames.length);
+            const game = filteredGames[randomIdx];
+            window.open(`https://store.steampowered.com/app/${game.id}/`, '_blank');
         }
 
-        function showWinner(game) {
-            const container = document.getElementById("randomGameContainer");
-            const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
-
-            container.innerHTML = `
-                <img src="${imgUrl}" class="random-game-img" />
-                <h2 style="color:var(--accent); margin:10px 0;">${game.name}</h2>
-                <p style="color:#ccc; margin-bottom:20px">${game.genre} • ${game.year}</p>
-                <a href="https://store.steampowered.com/app/${game.id}" target="_blank" 
-                   style="background:var(--accent); color:black; text-decoration:none; padding:10px 20px; border-radius:30px; font-weight:bold;">
-                   View on Steam
-                </a>
-            `;
-        }
-
-        function closeRandomModal() {
-            document.getElementById("randomModal").classList.remove("active");
-        }
-
-        /* --- REQUEST GAME MODAL LOGIC --- */
-        function openRequestModal() {
-            document.getElementById("requestModal").classList.add("active");
-            document.body.style.overflow = "hidden"; // Prevent background scroll
-        }
-
-        function closeRequestModal() {
-            document.getElementById("requestModal").classList.remove("active");
-            document.body.style.overflow = "auto";
-        }
-
-        function handleOutsideClick(e) {
-            const modal = document.getElementById("requestModal");
-            if (e.target === modal) {
-                closeRequestModal();
-            }
-        }
-
-        /* --- GAME DETAILS MODAL LOGIC --- */
-        async function prefetchSteamDescription(appId) {
-            // Only fetch if not already in cache or currently fetching
-            if (descriptionCache[appId]) return;
-
-            descriptionCache[appId] = "fetching"; // Set fetching state
-
-            try {
-                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(`https://store.steampowered.com/api/appdetails?appids=${appId}`)}`);
-                const data = await response.json();
-
-                if (data && data[appId] && data[appId].success) {
-                    descriptionCache[appId] = data[appId].data.short_description || "No description available for this title.";
-
-                    // If modal is open for this game, update it immediately
-                    const activeModalTitle = document.querySelector(".details-title")?.innerText;
-                    const game = allGames.find(g => g.id === appId);
-                    if (document.getElementById("detailsModal").classList.contains("active") && game && activeModalTitle === game.name) {
-                        const descElement = document.getElementById("modalDetailsDesc");
-                        if (descElement) descElement.innerHTML = descriptionCache[appId];
-                    }
-                } else {
-                    descriptionCache[appId] = null; // Reset on failure
-                }
-            } catch (error) {
-                console.error("Steam Fetch Error:", error);
-                descriptionCache[appId] = null;
-            }
-        }
-
-        async function fetchSteamDescription(appId) {
-            const descElement = document.getElementById("modalDetailsDesc");
-            if (!descElement) return;
-
-            // Check cache
-            if (descriptionCache[appId] && descriptionCache[appId] !== "fetching") {
-                descElement.innerHTML = descriptionCache[appId];
-                return;
-            }
-
-            // If still fetching, the prefetch logic will handle the update
-            if (descriptionCache[appId] === "fetching") return;
-
-            // Otherwise fetch manually (shouldn't happen often with hover)
-            await prefetchSteamDescription(appId);
-        }
-
-        function openDetailsModal(gameId) {
-            const game = allGames.find(g => g.id === gameId);
-            if (!game) return;
-
-            const modal = document.getElementById("detailsModal");
-            const body = document.getElementById("modalDetailsBody");
-            const blur = document.getElementById("modalBlur");
-            const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
-
-            blur.style.backgroundImage = `url('${imgUrl}')`;
-
-            // Smart Action Area
-            let actionsHTML = "";
-            if (game.isUnreleased) {
-                actionsHTML = `
-                    <div class="locked-status">
-                        <span>🔒</span> Releasing on ${game.release_info || game.year}
-                    </div>
-                `;
-            } else {
-                const sizeHTML = game.size ? `<span class="game-size-tag">${game.size}</span>` : "";
-                actionsHTML = `
-                    <a href="https://store.steampowered.com/app/${game.id}" target="_blank" class="btn-steam-main">
-                        <img src="steam_logo.svg" class="steam-icon-img" alt="Steam">
-                        View on Steam
-                    </a>
-                    ${sizeHTML}
-                `;
-            }
-
-            // Steam Deck Notes
-            const deckNotesHTML = game.steamDeckNotes ? `
-                <div class="deck-config-box">
-                    <div class="deck-config-title">Steam Deck Configuration</div>
-                    <p style="margin:0; font-size:0.9rem; color:#ddd;">${game.steamDeckNotes}</p>
-                </div>
-            ` : "";
-
-            const initialDesc = game.description || "Experimental title optimization. Full platform support and specific configuration details are updated regularly.";
-
-            body.innerHTML = `
-                <div class="details-left">
-                    <img src="${imgUrl}" alt="${game.name}" class="details-cover">
-                </div>
-                <div class="details-right">
-                    <div class="details-meta">
-                        <span class="details-genre">${game.genre}</span>
-                        <span>•</span>
-                        <span>${game.year}</span>
-                    </div>
-                    <h1 class="details-title">${game.name}</h1>
-                    <div id="modalDetailsDesc" class="details-desc">
-                        <div class="spinner"></div>
-                        <p style="text-align:center; color:#555; font-size:0.8rem;">Fetching data from Steam...</p>
-                    </div>
-                    
-                    ${deckNotesHTML}
-
-                    <div class="details-actions">
-                        ${actionsHTML}
-                    </div>
-                </div>
-            `;
-
-            modal.classList.add("active");
-            document.body.style.overflow = "hidden";
-
-            // Trigger fetch
-            fetchSteamDescription(game.id);
-        }
-
-        function closeDetailsModal(e) {
-            if (e && e.target !== document.getElementById("detailsModal") && e.type === "click" && !e.target.classList.contains('details-close')) return;
-            document.getElementById("detailsModal").classList.remove("active");
-            document.body.style.overflow = "auto";
-        }
 
         function loadMore() {
             const grid = document.getElementById("gameGrid");
@@ -1652,13 +1088,27 @@
             }
         }
 
-        // Init
-        resetAndRender();
+        // Initialize and setup
+        function init() {
+            populateGenreFilter();
+            resetAndRender();
+            window.addEventListener('scroll', handleInfiniteScroll);
+        }
+
 
         /* --- 4. SHOWCASE ENHANCEMENTS --- */
 
-        // We need to attach this observer to new cards whenever they are created.
-        // I will modify loadMore to attach it.
+        function observeCards(container) {
+            const cards = container.querySelectorAll('.game-card');
+            cards.forEach(card => observer.observe(card));
+        }
+
+        function handleInfiniteScroll() {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 600) {
+                loadMore();
+            }
+        }
 
 
     </script>
