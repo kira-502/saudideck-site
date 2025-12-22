@@ -412,10 +412,8 @@
             box-shadow: 0 6px 15px rgba(98, 0, 234, 0.5);
         }
 
-        /* Help Button */
-        .help-btn,
-        .nav-request-btn,
-        .buy-btn {
+        /* Shared Navigation Button Style */
+        .nav-btn {
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: #fff;
@@ -435,9 +433,7 @@
             box-sizing: border-box;
         }
 
-        .help-btn:hover,
-        .nav-request-btn:hover,
-        .buy-btn:hover {
+        .nav-btn:hover {
             background: var(--accent);
             color: #000;
             border-color: var(--accent);
@@ -765,7 +761,7 @@
         </div>
         <div class="nav-group">
             <div class="help-dropdown">
-                <button class="help-btn">
+                <button class="nav-btn">
                     <span>?</span> طريقة الاستخدام
                 </button>
                 <div class="dropdown-content">
@@ -778,9 +774,9 @@
                 </div>
             </div>
             <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
-                target="_blank" class="buy-btn">شراء العضوية</a>
+                target="_blank" class="nav-btn">شراء العضوية</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
-                target="_blank" class="nav-request-btn">طلب لعبة</a>
+                target="_blank" class="nav-btn">طلب لعبة</a>
         </div>
     </header>
 
@@ -818,7 +814,7 @@
     <div class="container" id="gameGrid"></div>
 
     <div class="load-more-container" id="loadMoreArea">
-        <button class="btn-load" onclick="loadMore()">Show More Games</button>
+        <button class="btn-load" onclick="loadMore()">عرض المزيد</button>
     </div>
 
 
@@ -834,14 +830,11 @@
 
 
 
-    <script src="games.js?v=30" type="text/javascript"></script>
+    <script src="games.js?v=32" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
         // ==========================================
-
-        // Flag unreleased games
-        comingSoonGames.forEach(g => g.isUnreleased = true);
 
         // Merge Arrays (All games in one place)
         const allGames = [...comingSoonGames, ...games];
@@ -883,13 +876,6 @@
                 genreSelect.appendChild(option);
             });
         }
-
-        // Observer for Scroll Reveal
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -988,9 +974,6 @@
             ${verifiedHTML}
             ${lockedOverlay}
             <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
-            <div class="placeholder-art" style="display:none">
-                <span style="font-size:2rem; opacity:0.3">?</span>
-            </div>
         </div>
         <div class="card-info">
             <h3 class="game-title" title="${game.name}">${game.name}</h3>
@@ -1062,9 +1045,9 @@
             if (filteredGames.length === 0 && searchTerm) {
                 document.getElementById("gameGrid").innerHTML = `
                     <div class="empty-state">
-                        <h2 style="color:#fff; margin-bottom:10px;">No games found matching your search</h2>
-                        <p style="color:#666; margin-bottom:20px;">We couldn't find "${searchTerm}" in our library.</p>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform" target="_blank" class="btn-request" style="text-decoration:none; display:inline-block;">Request This Game</a>
+                        <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على نتائج</h2>
+                        <p style="color:#666; margin-bottom:20px;">لم نتمكن من العثور على "${searchTerm}" في مكتبتنا.</p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform" target="_blank" class="btn-request" style="text-decoration:none; display:inline-block;">اطلب هذه اللعبة</a>
                     </div>
                 `;
                 document.getElementById("loadMoreArea").style.display = "none";
