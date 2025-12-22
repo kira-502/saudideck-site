@@ -10,10 +10,43 @@ const comingSoonGames = [
 
 const games = [
     // --- TOP RATED (Metacritic 90+) ---
-    { name: "Elden Ring", id: "1245620", verified: true, genre: "RPG", year: 2022, score: 94, date_added: "2025-12-20" },
-    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG", year: 2023, score: 96, date_added: "2025-12-20" },
+    {
+        name: "Elden Ring",
+        id: "1245620",
+        verified: true,
+        genre: "RPG",
+        year: 2022,
+        score: 94,
+        date_added: "2025-12-20",
+        description: "Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between. A massive open world where open fields with a variety of situations and huge dungeons with complex and three-dimensional designs are seamlessly connected.",
+        size: "60 GB",
+        steamDeckNotes: "Recommended: 30FPS Cap, Medium/High settings. Official Steam Deck Verified title."
+    },
+    {
+        name: "Baldur's Gate 3",
+        id: "1086940",
+        verified: true,
+        genre: "RPG",
+        year: 2023,
+        score: 96,
+        date_added: "2025-12-20",
+        description: "Abducted, infected, lost. You are turning into a monster, but as the corruption inside you grows, so does your power. Gather your party and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.",
+        size: "150 GB",
+        steamDeckNotes: "Recommended: FSR Quality, Mixed Low/Medium settings. Runs best on Proton Experimental."
+    },
     { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, score: 81, date_added: "2025-12-10" },
-    { name: "Cyberpunk 2077", id: "1091500", verified: true, genre: "RPG", year: 2020, score: 86, date_added: "2025-12-01" },
+    {
+        name: "Cyberpunk 2077",
+        id: "1091500",
+        verified: true,
+        genre: "RPG",
+        year: 2020,
+        score: 86,
+        date_added: "2025-12-01",
+        description: "Cyberpunk 2077 is an open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped in a do-or-die fight for survival. Upgraded with next-gen in mind and featuring free additional content.",
+        size: "70 GB",
+        steamDeckNotes: "Recommended: Steam Deck Preset, 30FPS. Highly consistent performance."
+    },
     { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, score: 93, date_added: "2025-11-20" },
     { name: "God of War Ragnarök", id: "2322010", verified: true, genre: "Action", year: 2024, score: 90, date_added: "2025-11-20" },
     { name: "Resident Evil 4", id: "2050650", verified: true, genre: "Horror", year: 2023, score: 91 },

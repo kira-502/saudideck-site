@@ -860,6 +860,220 @@
             border-color: #444;
             color: #777;
         }
+
+        /* --- GAME DETAILS MODAL --- */
+        .details-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(15px);
+            z-index: 15000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: 20px;
+        }
+
+        .details-modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .details-modal-content {
+            background: #0a0a0a;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #1a1a1a;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .details-modal-overlay.active .details-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .details-body {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            overflow-y: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 850px) {
+            .details-body {
+                grid-template-columns: 1fr;
+            }
+
+            .details-left {
+                display: none;
+            }
+        }
+
+        .details-left {
+            padding: 30px;
+            background: #000;
+        }
+
+        .details-cover {
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .details-right {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .details-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .details-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 1rem;
+            color: #777;
+            align-items: center;
+        }
+
+        .details-genre {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .details-desc {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #bbb;
+            margin: 0;
+        }
+
+        .details-actions {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-top: 30px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .btn-download-main {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-download-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.4);
+        }
+
+        .game-size-tag {
+            font-family: monospace;
+            color: #555;
+            font-size: 1rem;
+            background: #111;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        .locked-status {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: var(--danger);
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .deck-config-box {
+            background: rgba(30, 30, 30, 0.6);
+            border-left: 4px solid #6200ea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .deck-config-title {
+            color: #b388ff;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .details-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .details-close:hover {
+            background: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .modal-backdrop-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(80px) brightness(0.3);
+            opacity: 0.6;
+            z-index: 1;
+        }
     </style>
 </head>
 
@@ -966,7 +1180,18 @@
         </div>
     </div>
 
-    <script src="games.js?v=16" type="text/javascript"></script>
+    <!-- Game Details Modal -->
+    <div id="detailsModal" class="details-modal-overlay" onclick="closeDetailsModal(event)">
+        <div class="details-modal-content" onclick="event.stopPropagation()">
+            <button class="details-close" onclick="closeDetailsModal()">&times;</button>
+            <div id="modalBlur" class="modal-backdrop-blur"></div>
+            <div class="details-body" id="modalDetailsBody">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="games.js?v=17" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1080,7 +1305,7 @@
             }
 
             return `
-    <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none">
+    <div onclick="openDetailsModal('${game.id}')" style="cursor:pointer; text-decoration:none">
         <article class="${cardClass}">
             <div class="card-image">
                 ${newBadgeHTML}
@@ -1099,7 +1324,7 @@
                 </div>
             </div>
         </article>
-    </a>
+    </div>
     `;
         }
 
@@ -1235,6 +1460,75 @@
             if (e.target === modal) {
                 closeRequestModal();
             }
+        }
+
+        /* --- GAME DETAILS MODAL LOGIC --- */
+        function openDetailsModal(gameId) {
+            const game = allGames.find(g => g.id === gameId);
+            if (!game) return;
+
+            const modal = document.getElementById("detailsModal");
+            const body = document.getElementById("modalDetailsBody");
+            const blur = document.getElementById("modalBlur");
+            const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
+
+            blur.style.backgroundImage = `url('${imgUrl}')`;
+
+            // Smart Action Area
+            let actionsHTML = "";
+            if (game.isUnreleased) {
+                actionsHTML = `
+                    <div class="locked-status">
+                        <span>🔒</span> Releasing on ${game.release_info || game.year}
+                    </div>
+                `;
+            } else {
+                const sizeHTML = game.size ? `<span class="game-size-tag">${game.size}</span>` : "";
+                actionsHTML = `
+                    <a href="https://store.steampowered.com/app/${game.id}" target="_blank" class="btn-download-main" style="text-decoration:none">
+                        <span>📥</span> Download Now
+                    </a>
+                    ${sizeHTML}
+                `;
+            }
+
+            // Steam Deck Notes
+            const deckNotesHTML = game.steamDeckNotes ? `
+                <div class="deck-config-box">
+                    <div class="deck-config-title">Steam Deck Configuration</div>
+                    <p style="margin:0; font-size:0.9rem; color:#ddd;">${game.steamDeckNotes}</p>
+                </div>
+            ` : "";
+
+            body.innerHTML = `
+                <div class="details-left">
+                    <img src="${imgUrl}" alt="${game.name}" class="details-cover">
+                </div>
+                <div class="details-right">
+                    <div class="details-meta">
+                        <span class="details-genre">${game.genre}</span>
+                        <span>•</span>
+                        <span>${game.year}</span>
+                    </div>
+                    <h1 class="details-title">${game.name}</h1>
+                    <p class="details-desc">${game.description || "Experimental title optimization. Full platform support and specific configuration details are updated regularly."}</p>
+                    
+                    ${deckNotesHTML}
+
+                    <div class="details-actions">
+                        ${actionsHTML}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDetailsModal(e) {
+            if (e && e.target !== document.getElementById("detailsModal") && e.type === "click" && !e.target.classList.contains('details-close')) return;
+            document.getElementById("detailsModal").classList.remove("active");
+            document.body.style.overflow = "auto";
         }
 
         function loadMore() {
