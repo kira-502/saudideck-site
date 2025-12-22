@@ -259,49 +259,18 @@
         /* Verified Badge */
         .verified-badge {
             position: absolute;
-            top: 10px;
-            left: 50px;
-            /* Offset from rank badge if present */
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #00e676;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
+            top: 8px;
+            left: 8px;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 230, 118, 0.3);
-            z-index: 5;
-            transition: transform 0.3s;
-        }
-
-        .verified-badge img {
-            width: 16px;
-            height: 16px;
-            filter: drop-shadow(0 0 2px #00e676);
-        }
-
-        .verified-badge:hover {
-            transform: scale(1.2) rotate(10deg);
-            background: rgba(0, 230, 118, 0.2);
-        }
-
-        .hype-card:hover {
-            border-color: var(--danger);
-            box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2);
-        }
-
-        /* --- LOAD MORE & FOOTER --- */
-        /* Verified Badge */
-        .verified-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 24px;
-            height: 24px;
-            z-index: 5;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-            transition: transform 0.3s;
+            z-index: 10;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            /* Prevents interference with card hover */
         }
 
         .verified-badge img {
@@ -310,9 +279,16 @@
             object-fit: contain;
         }
 
-        .verified-badge:hover {
-            transform: scale(1.1);
+        .game-card:hover .verified-badge {
+            transform: scale(1.15) rotate(-5deg);
         }
+
+        .hype-card:hover {
+            border-color: var(--danger);
+            box-shadow: 0 12px 30px rgba(255, 23, 68, 0.2);
+        }
+
+        /* --- LOAD MORE & FOOTER --- */
 
         .load-more-container {
             text-align: center;
@@ -806,7 +782,7 @@
             let lockedOverlay = "";
             let verifiedHTML = game.verified ? `
                 <div class="verified-badge" title="Steam Deck Verified">
-                    <img src="verified.png" alt="Verified">
+                    <img src="badge_verified.png" alt="Verified">
                 </div>` : '';
 
             if (isLocked) {
