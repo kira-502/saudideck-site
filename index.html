@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saudi Deck Membership</title>
     <link rel="icon" href="logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* --- 1. THEME SETTINGS --- */
@@ -24,12 +25,13 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            text-align: right;
         }
 
         /* --- 2. HEADER --- */
@@ -39,9 +41,9 @@
             justify-content: space-between;
             padding: 15px 40px;
             /* Compact padding */
-            background: linear-gradient(to right, #111 0%, var(--bg-color) 100%);
+            background: linear-gradient(to left, #111 0%, var(--bg-color) 100%);
             border-bottom: 1px solid var(--border);
-            text-align: left;
+            text-align: right;
         }
 
         .header-content {
@@ -373,6 +375,24 @@
             display: none;
         }
 
+        .toggle-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toggle-icons img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: grayscale(1) opacity(0.5);
+            transition: all 0.3s ease;
+        }
+
+        .deck-toggle.active .toggle-icons img {
+            filter: grayscale(0) opacity(1);
+        }
+
 
         .random-btn {
             background: linear-gradient(135deg, #6200ea, #b388ff);
@@ -383,7 +403,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s;
-            margin-left: 10px;
+            margin-right: 10px;
             box-shadow: 0 4px 10px rgba(98, 0, 234, 0.3);
         }
 
@@ -402,16 +422,16 @@
             padding: 8px 20px;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             line-height: 1.2;
-            height: 38px;
+            height: 40px;
             box-sizing: border-box;
         }
 
@@ -741,7 +761,7 @@
             <a href="https://saudideck.com" target="_blank" style="display:block;">
                 <img src="logo.png" alt="SaudiDeck" class="logo">
             </a>
-            <p class="subtitle">Official Membership Hub</p>
+            <p class="subtitle">بوابة العضوية الرسمية</p>
         </div>
         <div class="nav-group">
             <div class="help-dropdown">
@@ -768,25 +788,28 @@
     <div class="controls">
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Search games..." onkeyup="debouncedSearch()">
+            <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
         </div>
         <select id="genreFilter" onchange="resetAndRender()">
             <option value="All">All Genres</option>
         </select>
         <select id="sortFilter" onchange="resetAndRender()">
-            <option value="metacritic" selected>Sort by: Default</option>
-            <option value="date_added">Sort by: Date Added</option>
-            <option value="newest">Sort by: Newest</option>
-            <option value="oldest">Sort by: Oldest</option>
-            <option value="az">Sort by: Name (A-Z)</option>
+            <option value="metacritic" selected>ترتيب: الافتراضي</option>
+            <option value="date_added">ترتيب: المضافة حديثاً</option>
+            <option value="newest">ترتيب: الأحدث</option>
+            <option value="oldest">ترتيب: الأقدم</option>
+            <option value="az">ترتيب: أبجدي (أ-ي)</option>
         </select>
 
-        <button class="random-btn" onclick="pickRandomGame()">🎲 Pick Random</button>
+        <button class="random-btn" onclick="pickRandomGame()">🎲 اختيار عشوائي</button>
 
-        <label class="deck-toggle" id="verifiedToggleBtn" title="Show only Steam Deck Verified games">
+        <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
             <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
-            <img src="verified.png" style="width:18px;height:18px;">
-            <span>Verified Only</span>
+            <span>موثقة لـ Steam Deck</span>
+            <div class="toggle-icons">
+                <img src="Steam_Deck_logo.png" alt="Steam Deck">
+                <img src="badge_verified.png" alt="Verified">
+            </div>
         </label>
     </div>
 
@@ -802,16 +825,16 @@
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
 
     <footer>
-        &copy; 2025 SaudiDeck. Curated Collection.
+        &copy; 2025 SaudiDeck. مجموعة مختارة بعناية.
         <br>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
-            target="_blank" class="footer-request-btn" style="text-decoration:none; display:inline-block;">Request a
-            Game</a>
+            target="_blank" class="footer-request-btn" style="text-decoration:none; display:inline-block;">طلب إضافة
+            لعبة</a>
     </footer>
 
 
 
-    <script src="games.js?v=27" type="text/javascript"></script>
+    <script src="games.js?v=29" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -845,10 +868,12 @@
             // Sort alphabetically
             const sortedGenres = Array.from(genres).sort();
 
-            // Keep "All Genres", remove the rest
+            // Keep "كل التصنيفات", remove the rest
             const firstOption = genreSelect.options[0];
             genreSelect.innerHTML = "";
             genreSelect.appendChild(firstOption);
+            firstOption.textContent = "كل التصنيفات";
+            firstOption.value = "All";
 
             // Add unique genres
             sortedGenres.forEach(genre => {
