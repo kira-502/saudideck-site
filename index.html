@@ -403,18 +403,25 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             z-index: 10000;
-            display: none;
+            display: flex;
+            /* Always flex */
+            visibility: hidden;
+            /* Use visibility + opacity for performance */
+            pointer-events: none;
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            will-change: opacity;
+            /* For GPU acceleration */
         }
 
         .random-modal-overlay.active {
-            display: flex;
+            visibility: visible;
             opacity: 1;
+            pointer-events: all;
         }
 
         .random-modal-content {
@@ -426,8 +433,10 @@
             width: 90%;
             text-align: center;
             box-shadow: 0 0 50px rgba(0, 230, 118, 0.2);
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.9);
+            /* Start slightly smaller */
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform;
         }
 
         .random-modal-overlay.active .random-modal-content {
@@ -490,8 +499,9 @@
             width: 90%;
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(15px);
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.92);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform;
             direction: rtl;
             text-align: right;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -546,11 +556,21 @@
             border-right: 2px solid var(--accent);
         }
 
-        .help-img {
+        .help-img-wrapper {
             width: 100%;
+            background: #000;
             border-radius: 8px;
             border: 1px solid #333;
             margin: 10px 0;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            /* Roughly matching Steam screenshots */
+        }
+
+        .help-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
@@ -760,7 +780,9 @@
             <div style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
                 <div class="help-step">
                     <div class="help-header">👤 1. إدخال بيانات الدخول</div>
-                    <img src="guide_step1.png" alt="Login Guide" class="help-img">
+                    <div class="help-img-wrapper">
+                        <img src="guide_step1.png" alt="Login Guide" class="help-img" loading="eager">
+                    </div>
                     <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
                             class="help-highlight">نسخ/لصق</span> فقط.</p>
                     <div class="info-strip">💡 تنبيه: تجنب إضافة أي مسافات إضافية أثناء النسخ.</div>
@@ -768,7 +790,9 @@
 
                 <div class="help-step">
                     <div class="help-header">⚠️ 2. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
-                    <img src="guide_step2.png" alt="Cloud Save Guide" class="help-img">
+                    <div class="help-img-wrapper">
+                        <img src="guide_step2.png" alt="Cloud Save Guide" class="help-img" loading="eager">
+                    </div>
                     <p class="help-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
                             class="help-highlight">Uncheck Steam Cloud</span>.</p>
                     <div class="info-strip">💡 هام جداً: هذه الخطوة تمنع تداخل ملفات الحفظ الخاصة بك مع المستخدمين
@@ -778,7 +802,9 @@
                 <div class="help-step" style="border-right: 2px solid var(--danger);">
                     <div class="help-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين (Activate Offline
                         Mode)</div>
-                    <img src="guide_step3.png" alt="Offline Mode Guide" class="help-img">
+                    <div class="help-img-wrapper">
+                        <img src="guide_step3.png" alt="Offline Mode Guide" class="help-img" loading="eager">
+                    </div>
                     <p class="help-text">اضغط على قائمة Steam ثم اختر <span class="help-highlight">Go Offline</span>
                         فوراً لبدء اللعب.</p>
                     <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع.</div>
