@@ -480,6 +480,72 @@
             color: #444;
             border-top: 1px solid #1a1a1a;
         }
+
+        /* --- HYPE BANNER (Cinematic Layout) --- */
+        #hypeGrid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Override grid layout */
+            grid-template-columns: 1fr;
+        }
+
+        .hype-banner {
+            background: linear-gradient(90deg, #000 0%, #1a0505 50%, #000 100%);
+            background-size: 200% 200%;
+            animation: hypePulse 6s ease infinite;
+            border: 1px solid var(--danger);
+            border-left: 5px solid var(--danger);
+            border-radius: 8px;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 23, 68, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hype-banner:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 30px rgba(255, 23, 68, 0.3);
+        }
+
+        .hype-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        .hype-year {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--danger);
+            font-weight: bold;
+            border: 1px solid var(--danger);
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(255, 23, 68, 0.1);
+        }
+
+        @keyframes hypePulse {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
     </style>
 </head>
 
@@ -668,10 +734,19 @@
 
         function renderHype() {
             const hypeGrid = document.getElementById("hypeGrid");
-            hypeGrid.innerHTML = comingSoonGames.map(game => createGameCard(game, true)).join('');
+            hypeGrid.innerHTML = ""; // Clear existing
 
-            // Animate Hype Cards
-            observeCards(hypeGrid);
+            comingSoonGames.forEach(game => {
+                const div = document.createElement("div");
+                div.className = "hype-banner";
+                div.innerHTML = `
+                    <div class="hype-title">${game.name}</div>
+                    <div class="hype-year">${game.year}</div>
+                `;
+                hypeGrid.appendChild(div);
+            });
+
+            // No need to observeCards for simple banners, they can just appear
         }
 
         function resetAndRender() {
