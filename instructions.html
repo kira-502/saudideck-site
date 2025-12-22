@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بروتوكول تفعيل الألعاب - SaudiDeck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --container-bg: #111;
+            --accent: #00e676;
+            --accent-glow: rgba(0, 230, 118, 0.3);
+            --danger: #ff1744;
+            --text-main: #eee;
+            --text-dim: #aaa;
+            --border: #222;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(to bottom, #111, transparent);
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .back-link:hover {
+            background: var(--accent);
+            color: black;
+            border-color: var(--accent);
+        }
+
+        /* --- CONTENT --- */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .step {
+            background: var(--container-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--accent);
+            padding-right: 15px;
+        }
+
+        .step-img-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+            background: #000;
+        }
+
+        .step-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .step-text {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .info-strip {
+            background: rgba(0, 230, 118, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--text-dim);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 3px solid var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .step {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--accent);">SaudiDeck Instructions</div>
+        <a href="index.html" class="back-link">عودة للمكتبة ←</a>
+    </header>
+
+    <div class="container">
+        <h1>بروتوكول تفعيل الألعاب</h1>
+
+        <!-- STEP 1 -->
+        <div class="step">
+            <div class="step-header">👤 1. إدخال بيانات الدخول</div>
+            <div class="step-img-container">
+                <img src="guide_step1.png" alt="Login Guide" class="step-img">
+            </div>
+            <p class="step-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
+                    class="highlight">نسخ/لصق</span> فقط.</p>
+            <div class="info-strip">💡 تنبيه: تجنب إضافة أي مسافات إضافية أثناء النسخ لضمان نجاح الدخول.</div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step">
+            <div class="step-header">⚠️ 2. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
+            <div class="step-img-container">
+                <img src="guide_step2.png" alt="Cloud Save Guide" class="step-img">
+            </div>
+            <p class="step-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
+                    class="highlight">Uncheck Steam Cloud</span>.</p>
+            <div class="info-strip">💡 هام جداً: هذه الخطوة تمنع تداخل ملفات الحفظ الخاصة بك مع المستخدمين الآخرين وتحمي
+                تقدمك في اللعبة.</div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" style="border-right: 5px solid var(--danger);">
+            <div class="step-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين (Activate Offline Mode)</div>
+            <div class="step-img-container">
+                <img src="guide_step3.png" alt="Offline Mode Guide" class="step-img">
+            </div>
+            <p class="step-text">اضغط على قائمة Steam ثم اختر <span class="highlight">Go Offline</span> فوراً لبدء
+                اللعب.</p>
+            <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع من مستخدمين آخرين.</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="index.html" class="back-link"
+                style="background: var(--accent); color: black; padding: 15px 40px; font-size: 1.2rem;">فهمت، عودة
+                للمكتبة</a>
+        </div>
+
+    </div>
+
+    <footer>&copy; 2025 SaudiDeck. Instruction Protocol.</footer>
+
+</body>
+
+</html>
