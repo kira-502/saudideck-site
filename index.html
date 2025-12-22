@@ -635,8 +635,8 @@
             <span>Verified Only</span>
         </label>
     </div>
-    <div class="count-display" id="gameCount" style="color:#666; font-family: monospace;"></div>
     </div>
+
 
     <div class="container" id="gameGrid"></div>
 
@@ -659,7 +659,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=3" type="text/javascript"></script>
+    <script src="games.js?v=5" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -832,7 +832,6 @@
             }
 
             // 3. Reset
-            document.getElementById("gameCount").innerText = filteredGames.length + " Games";
             document.getElementById("gameGrid").innerHTML = "";
             displayedCount = 0;
 
