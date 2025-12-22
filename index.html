@@ -459,6 +459,82 @@
             box-shadow: 0 6px 15px rgba(98, 0, 234, 0.5);
         }
 
+        /* Help Button */
+        .help-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .help-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0, 230, 118, 0.1);
+        }
+
+        /* Help Modal (RTL) */
+        .help-modal-content {
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            /* RTL Specifics */
+            direction: rtl;
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .random-modal-overlay.active .help-modal-content {
+            transform: scale(1);
+        }
+
+        .help-step {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #222;
+        }
+
+        .help-step:last-child {
+            border-bottom: none;
+        }
+
+        .help-title {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .help-text {
+            color: #ddd;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .help-why {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #aaa;
+            border-right: 3px solid var(--accent);
+        }
+
         .modal-btn-close {
             background: #333;
             color: white;
@@ -599,7 +675,9 @@
             <img src="logo.png" alt="SaudiDeck" class="logo">
             <p class="subtitle">Official Membership Hub</p>
         </div>
-        <!-- Right side space for potential future nav or just empty for balance -->
+        <button class="help-btn" onclick="openHelpModal()">
+            <span>?</span> طريقة الاستخدام
+        </button>
     </header>
 
     <!-- Main Library Section -->
@@ -648,10 +726,39 @@
     <div class="random-modal-overlay" id="randomModal" onclick="if(event.target === this) closeRandomModal()">
         <div class="random-modal-content">
             <h2 style="margin-top:0; color:white; font-size:1.5rem">YOU SHOULD PLAY</h2>
-            <div id="randomGameContainer">
-                <!-- Content injected via JS -->
-            </div>
+            <div id="randomGameContainer"></div>
             <button class="modal-btn-close" onclick="closeRandomModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Help Modal (Arabic / RTL) -->
+    <div class="random-modal-overlay" id="helpModal" onclick="if(event.target === this) closeHelpModal()">
+        <div class="help-modal-content">
+            <h2
+                style="margin-top:0; color:white; font-size:1.5rem; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:20px;">
+                بروتوكول تفعيل الألعاب</h2>
+
+            <div class="help-step">
+                <div class="help-title">1. إدخال بيانات الدخول</div>
+                <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور "نسخ/لصق" فقط.</p>
+                <div class="help-why">💡 لماذا؟ لتجنب إضافة أي مسافات (Spaces) قد تمنع الدخول، ولضمان دقة الأحرف.</div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-title">2. تثبيت اللعبة (Installation)</div>
+                <p class="help-text">من مكتبة Steam، اختر اللعبة وتأكد من تحديد "This Computer".</p>
+                <div class="help-why">💡 لماذا؟ لضمان تحميل اللعبة على جهازك فعلياً وتجنب تشغيلها عبر البث (Streaming).
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-title">3. تفعيل وضع الأوفلاين (Offline Mode)</div>
+                <p class="help-text">🛑 هام جداً: فور انتهاء التحميل، اضغط على قائمة Steam في الزاوية العلوية واختر Go
+                    Offline.</p>
+                <div class="help-why">💡 لماذا؟ اللعب "أونلاين" سيؤدي لتداخل ملفات الحفظ (Save Data) وضياع تقدمك.</div>
+            </div>
+
+            <button class="modal-btn-close" onclick="closeHelpModal()" style="width:100%">إغلاق</button>
         </div>
     </div>
 
@@ -882,6 +989,17 @@
 
         function closeRandomModal() {
             document.getElementById("randomModal").classList.remove("active");
+        }
+
+        /* --- HELP MODAL LOGIC --- */
+        function openHelpModal() {
+            const modal = document.getElementById("helpModal");
+            if (modal) modal.classList.add("active");
+        }
+
+        function closeHelpModal() {
+            const modal = document.getElementById("helpModal");
+            if (modal) modal.classList.remove("active");
         }
 
         function loadMore() {
