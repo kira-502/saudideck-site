@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بروتوكول تفعيل الألعاب - SaudiDeck</title>
+    <title>بروتوكول تفعيل الألعاب (Steam Deck) - SaudiDeck</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
         :root {
@@ -100,12 +100,19 @@
             padding-right: 15px;
         }
 
+        .image-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         .step-img-container {
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #333;
-            margin-bottom: 20px;
             background: #000;
         }
 
@@ -115,10 +122,20 @@
             display: block;
         }
 
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--accent);
+            opacity: 0.6;
+        }
+
         .step-text {
             font-size: 1.1rem;
             color: var(--text-main);
             margin-bottom: 15px;
+        }
+
+        .instruction-part {
+            margin-bottom: 20px;
         }
 
         .highlight {
@@ -136,14 +153,7 @@
             align-items: center;
             gap: 10px;
             border-right: 3px solid var(--accent);
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: #444;
-            border-top: 1px solid #1a1a1a;
-            margin-top: 60px;
+            margin-top: 15px;
         }
 
         /* Responsive */
@@ -155,6 +165,15 @@
             .step {
                 padding: 20px;
             }
+
+            header {
+                padding: 20px 10px;
+            }
+
+            .back-link {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -162,60 +181,85 @@
 <body>
 
     <header>
-        <div style="font-weight: bold; font-size: 1.2rem; color: var(--accent);">SaudiDeck PC Guide</div>
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--accent);">Steam Deck Guide</div>
         <div class="nav-links">
-            <a href="help-deck.html" class="back-link"
-                style="background: rgba(0, 230, 118, 0.1); border-color: var(--accent);">تستخدم Steam Deck؟ اضغط هنا</a>
+            <a href="instructions.html" class="back-link">العودة لشرح الـ PC</a>
             <a href="index.html" class="back-link">عودة للمكتبة ←</a>
         </div>
     </header>
 
     <div class="container">
-        <h1>بروتوكول تفعيل الألعاب</h1>
+        <h1>بروتوكول التفعيل (Steam Deck)</h1>
 
         <!-- STEP 1 -->
         <div class="step">
             <div class="step-header">👤 1. إدخال بيانات الدخول</div>
-            <div class="step-img-container">
+            <div class="step-img-container" style="margin-bottom: 20px;">
                 <img src="guide_step1.png" alt="Login Guide" class="step-img">
             </div>
-            <p class="step-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
-                    class="highlight">نسخ/لصق</span> فقط.</p>
-            <div class="info-strip">💡 تنبيه: تجنب إضافة أي مسافات إضافية أثناء النسخ لضمان نجاح الدخول.</div>
+            <p class="step-text">استخدم ملف لوحة المفاتيح باللمس أو لوحة مفاتيح خارجية لإدخال البيانات. يرجى التأكد من
+                عدم إضافة أي <span class="highlight">مسافات إضافية</span>.</p>
         </div>
 
         <!-- STEP 2 -->
         <div class="step">
-            <div class="step-header">⚠️ 2. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
-            <div class="step-img-container">
-                <img src="guide_step2.png" alt="Cloud Save Guide" class="step-img">
+            <div class="step-header">⚠️ 2. إيقاف الحفظ السحابي</div>
+
+            <div class="instruction-part">
+                <p class="step-text">اضغط على زر الخيارات <span class="highlight">(☰)</span> على صورة اللعبة واختر <span
+                        class="highlight">Properties...</span></p>
+                <div class="step-img-container">
+                    <img src="deck_step2_a.png" alt="Properties Menu" class="step-img">
+                </div>
             </div>
-            <p class="step-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
-                    class="highlight">Uncheck Steam Cloud</span>.</p>
-            <div class="info-strip">💡 هام جداً: هذه الخطوة تمنع تداخل ملفات الحفظ الخاصة بك مع المستخدمين الآخرين وتحمي
-                تقدمك في اللعبة.</div>
+
+            <div class="flow-arrow" style="text-align: center;">⬇</div>
+
+            <div class="instruction-part">
+                <p class="step-text">في تبويب General، قم بتحويل خيار <span class="highlight">Steam Cloud</span> إلى وضع
+                    الإغلاق (OFF).</p>
+                <div class="step-img-container">
+                    <img src="deck_step2_b.png" alt="Cloud Toggle" class="step-img">
+                </div>
+            </div>
+
+            <div class="info-strip">💡 خطوة مصيرية لحماية ملفات الحفظ الخاصة بك من التداخل مع لاعبين آخرين.</div>
         </div>
 
         <!-- STEP 3 -->
         <div class="step" style="border-right: 5px solid var(--danger);">
-            <div class="step-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين (Activate Offline Mode)</div>
-            <div class="step-img-container">
-                <img src="guide_step3.png" alt="Offline Mode Guide" class="step-img">
+            <div class="step-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين</div>
+
+            <div class="instruction-part">
+                <p class="step-text">اضغط على زر <span class="highlight">STEAM</span> وتوجه إلى الإعدادات <span
+                        class="highlight">Settings</span>.</p>
+                <div class="step-img-container">
+                    <img src="deck_step3_a.png" alt="Settings Menu" class="step-img">
+                </div>
             </div>
-            <p class="step-text">اضغط على قائمة Steam ثم اختر <span class="highlight">Go Offline</span> فوراً لبدء
-                اللعب.</p>
-            <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع من مستخدمين آخرين.</div>
+
+            <div class="flow-arrow" style="text-align: center;">⬇</div>
+
+            <div class="instruction-part">
+                <p class="step-text">توجه لتبويب الإنترنت <span class="highlight">Internet</span> واضغط على <span
+                        class="highlight">Enter Offline Mode</span>.</p>
+                <div class="step-img-container">
+                    <img src="deck_step3_b.png" alt="Offline Mode button" class="step-img">
+                </div>
+            </div>
+
+            <div class="info-strip">💡 أنت الآن جاهز للعب بأمان تام وبدون أي انقطاع.</div>
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
             <a href="index.html" class="back-link"
-                style="background: var(--accent); color: black; padding: 15px 40px; font-size: 1.2rem;">فهمت، عودة
-                للمكتبة</a>
+                style="background: var(--accent); color: black; padding: 15px 40px; font-size: 1.2rem;">فهمت، جاهز
+                للعب</a>
         </div>
 
     </div>
 
-    <footer>&copy; 2025 SaudiDeck. Instruction Protocol.</footer>
+    <footer>&copy; 2025 SaudiDeck. Steam Deck Protocol.</footer>
 
 </body>
 
