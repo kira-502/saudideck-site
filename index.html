@@ -711,7 +711,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=10" type="text/javascript"></script>
+    <script src="games.js?v=11" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -793,7 +793,13 @@
                 let releaseText = "TBA";
                 let icon = "🕒";
 
-                if (game.release_date) {
+                if (game.release_info) {
+                    releaseText = game.release_info;
+                    icon = (game.release_type === 'date') ? "📅" : "🕒";
+
+                    // Cleanup format if it's a date to DD/MM/YYYY if needed
+                    // (The scraper provides clean labels already like "EXPECTED" or "WINDOW")
+                } else if (game.release_date) {
                     const [y, m, d] = game.release_date.split('-');
                     releaseText = `${d}/${m}/${y}`;
                     icon = "🕒";
