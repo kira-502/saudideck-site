@@ -735,7 +735,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=11" type="text/javascript"></script>
+    <script src="games.js?v=12" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -898,6 +898,11 @@
                 });
             } else if (sortSelect === "date_added") {
                 filteredGames.sort((a, b) => {
+                    // Priority 1: Unreleased Group First
+                    if (a.isUnreleased && !b.isUnreleased) return -1;
+                    if (!a.isUnreleased && b.isUnreleased) return 1;
+
+                    // Priority 2: Newest Added First (Within their group)
                     const dateA = a.date_added || "1970-01-01";
                     const dateB = b.date_added || "1970-01-01";
                     return dateB.localeCompare(dateA);
