@@ -546,6 +546,14 @@
             border-right: 2px solid var(--accent);
         }
 
+        .help-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin: 10px 0;
+            display: block;
+        }
+
         .modal-btn-close {
             background: #333;
             color: white;
@@ -749,33 +757,32 @@
                 style="margin-top:0; color:white; font-size:1.6rem; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:25px; text-align:center;">
                 بروتوكول تفعيل الألعاب</h2>
 
-            <div class="help-step">
-                <div class="help-header">👤 1. إدخال بيانات الدخول</div>
-                <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
-                        class="help-highlight">نسخ/لصق</span> فقط.</p>
-                <div class="info-strip">💡 المسافات الزائدة (Spaces) قد تسبب أخطاء في تسجيل الدخول.</div>
-            </div>
-
-            <div class="help-step">
-                <div class="help-header">📥 2. تثبيت اللعبة (Install Game)</div>
-                <p class="help-text">من مكتبة Steam، اختر اللعبة وقم بتثبيتها على جهازك بالضغط على <span
-                        class="help-highlight">This Computer</span>.</p>
-                <div class="info-strip">💡 لا تستخدم خاصية البث (Streaming). تأكد من تحميل الملفات محلياً.</div>
-            </div>
-
-            <div class="help-step">
-                <div class="help-header">⚠️ 3. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
-                <p class="help-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
-                        class="help-highlight">Uncheck Steam Cloud</span>.</p>
-                <div class="info-strip">💡 خطوة أساسية لمنع تداخل ملفات الحفظ مع مستخدمين آخرين أو فقدان تقدمك.</div>
-            </div>
-
-            <div class="help-step" style="border-right: 2px solid var(--danger);">
-                <div class="help-header" style="color:var(--danger)">📡 4. تفعيل وضع الأوفلاين (Activate Offline Mode)
+            <div style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                <div class="help-step">
+                    <div class="help-header">👤 1. إدخال بيانات الدخول</div>
+                    <img src="guide_step1.png" alt="Login Guide" class="help-img">
+                    <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
+                            class="help-highlight">نسخ/لصق</span> فقط.</p>
+                    <div class="info-strip">💡 تنبيه: تجنب إضافة أي مسافات إضافية أثناء النسخ.</div>
                 </div>
-                <p class="help-text">فور انتهاء التحميل، اضغط على قائمة Steam ثم اختر <span class="help-highlight">Go
-                        Offline</span> فوراً.</p>
-                <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع.</div>
+
+                <div class="help-step">
+                    <div class="help-header">⚠️ 2. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
+                    <img src="guide_step2.png" alt="Cloud Save Guide" class="help-img">
+                    <p class="help-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
+                            class="help-highlight">Uncheck Steam Cloud</span>.</p>
+                    <div class="info-strip">💡 هام جداً: هذه الخطوة تمنع تداخل ملفات الحفظ الخاصة بك مع المستخدمين
+                        الآخرين.</div>
+                </div>
+
+                <div class="help-step" style="border-right: 2px solid var(--danger);">
+                    <div class="help-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين (Activate Offline
+                        Mode)</div>
+                    <img src="guide_step3.png" alt="Offline Mode Guide" class="help-img">
+                    <p class="help-text">اضغط على قائمة Steam ثم اختر <span class="help-highlight">Go Offline</span>
+                        فوراً لبدء اللعب.</p>
+                    <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع.</div>
+                </div>
             </div>
 
             <div style="text-align:center; margin-top:20px;">
