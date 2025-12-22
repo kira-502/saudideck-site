@@ -823,23 +823,25 @@
         }
 
         .btn-request {
-            background: var(--card-bg);
-            border: 1px solid #333;
-            color: #888;
-            padding: 10px 20px;
+            background: var(--accent);
+            border: none;
+            color: #000;
+            padding: 12px 28px;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.85rem;
-            margin-top: 15px;
-            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
         }
 
         .btn-request:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(0, 230, 118, 0.1);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.5);
+            background: #00ff82;
         }
 
         .footer-request-btn {
@@ -964,7 +966,7 @@
         </div>
     </div>
 
-    <script src="games.js?v=15" type="text/javascript"></script>
+    <script src="games.js?v=16" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1160,8 +1162,9 @@
             if (filteredGames.length === 0 && searchTerm) {
                 document.getElementById("gameGrid").innerHTML = `
                     <div class="empty-state">
-                        <p>No results found for "${searchTerm}"</p>
-                        <button class="btn-request" onclick="openRequestModal()">Game not found? Request it here.</button>
+                        <h2 style="color:#fff; margin-bottom:10px;">No games found matching your search</h2>
+                        <p style="color:#666; margin-bottom:20px;">We couldn't find "${searchTerm}" in our library.</p>
+                        <button class="btn-request" onclick="openRequestModal()">Request This Game</button>
                     </div>
                 `;
                 document.getElementById("loadMoreArea").style.display = "none";
