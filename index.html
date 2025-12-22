@@ -34,31 +34,46 @@
 
         /* --- 2. HEADER --- */
         header {
-            text-align: center;
-            padding: 60px 20px 30px;
-            background: linear-gradient(to bottom, #111 0%, var(--bg-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            /* Compact padding */
+            background: linear-gradient(to right, #111 0%, var(--bg-color) 100%);
             border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .logo {
-            max-width: 260px;
+            max-width: 80px;
+            /* Much smaller */
             display: block;
-            margin: 0 auto 15px;
-            filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.1));
+            margin: 0;
+            /* Remove auto margin */
+            filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.2));
             transition: transform 0.3s;
         }
 
         .logo:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
         .subtitle {
             color: var(--accent);
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 800;
             opacity: 0.9;
+            margin: 0;
+            display: block;
+            /* Ensure visibility */
         }
 
 
@@ -471,10 +486,11 @@
 <body>
 
     <header>
-        <img src="logo.png" alt="SaudiDeck" class="logo">
-        <p class="subtitle">Official Membership Hub</p>
-
-
+        <div class="header-content">
+            <img src="logo.png" alt="SaudiDeck" class="logo">
+            <p class="subtitle">Official Membership Hub</p>
+        </div>
+        <!-- Right side space for potential future nav or just empty for balance -->
     </header>
 
     <h2 class="section-title hype"><span>//</span> COMING SOON</h2>
