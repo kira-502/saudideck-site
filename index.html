@@ -482,17 +482,16 @@
 
         /* Help Modal (RTL) */
         .help-modal-content {
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(15, 15, 15, 0.98);
             border: 1px solid #333;
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 500px;
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 550px;
             width: 90%;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
             transform: scale(0.8);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-            /* RTL Specifics */
             direction: rtl;
             text-align: right;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -503,36 +502,48 @@
         }
 
         .help-step {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #222;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .help-step:last-child {
-            border-bottom: none;
-        }
-
-        .help-title {
+        .help-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             color: var(--accent);
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
             font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
 
         .help-text {
-            color: #ddd;
+            color: #ccc;
             margin: 5px 0;
-            line-height: 1.6;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
 
-        .help-why {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 8px;
+        .help-highlight {
+            color: #FFD700;
+            /* Gold */
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+
+        .info-strip {
+            background: rgba(0, 230, 118, 0.05);
+            padding: 8px 12px;
+            border-radius: 6px;
             margin-top: 10px;
-            font-size: 0.9rem;
-            color: #aaa;
-            border-right: 3px solid var(--accent);
+            font-size: 0.85rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-right: 2px solid var(--accent);
         }
 
         .modal-btn-close {
@@ -735,30 +746,43 @@
     <div class="random-modal-overlay" id="helpModal" onclick="if(event.target === this) closeHelpModal()">
         <div class="help-modal-content">
             <h2
-                style="margin-top:0; color:white; font-size:1.5rem; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:20px;">
+                style="margin-top:0; color:white; font-size:1.6rem; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:25px; text-align:center;">
                 بروتوكول تفعيل الألعاب</h2>
 
             <div class="help-step">
-                <div class="help-title">1. إدخال بيانات الدخول</div>
-                <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور "نسخ/لصق" فقط.</p>
-                <div class="help-why">💡 لماذا؟ لتجنب إضافة أي مسافات (Spaces) قد تمنع الدخول، ولضمان دقة الأحرف.</div>
+                <div class="help-header">👤 1. إدخال بيانات الدخول</div>
+                <p class="help-text">يرجى نسخ اسم المستخدم وكلمة المرور بدقة. استخدم خاصية <span
+                        class="help-highlight">نسخ/لصق</span> فقط.</p>
+                <div class="info-strip">💡 المسافات الزائدة (Spaces) قد تسبب أخطاء في تسجيل الدخول.</div>
             </div>
 
             <div class="help-step">
-                <div class="help-title">2. تثبيت اللعبة (Installation)</div>
-                <p class="help-text">من مكتبة Steam، اختر اللعبة وتأكد من تحديد "This Computer".</p>
-                <div class="help-why">💡 لماذا؟ لضمان تحميل اللعبة على جهازك فعلياً وتجنب تشغيلها عبر البث (Streaming).
+                <div class="help-header">📥 2. تثبيت اللعبة (Install Game)</div>
+                <p class="help-text">من مكتبة Steam، اختر اللعبة وقم بتثبيتها على جهازك بالضغط على <span
+                        class="help-highlight">This Computer</span>.</p>
+                <div class="info-strip">💡 لا تستخدم خاصية البث (Streaming). تأكد من تحميل الملفات محلياً.</div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-header">⚠️ 3. إيقاف الحفظ السحابي (Disable Cloud Save)</div>
+                <p class="help-text">كليك يمين على اللعبة > Properties > General. قم بإلغاء تحديد <span
+                        class="help-highlight">Uncheck Steam Cloud</span>.</p>
+                <div class="info-strip">💡 خطوة أساسية لمنع تداخل ملفات الحفظ مع مستخدمين آخرين أو فقدان تقدمك.</div>
+            </div>
+
+            <div class="help-step" style="border-right: 2px solid var(--danger);">
+                <div class="help-header" style="color:var(--danger)">📡 4. تفعيل وضع الأوفلاين (Activate Offline Mode)
                 </div>
+                <p class="help-text">فور انتهاء التحميل، اضغط على قائمة Steam ثم اختر <span class="help-highlight">Go
+                        Offline</span> فوراً.</p>
+                <div class="info-strip">💡 استمتع باللعب بأمان وبدون أي انقطاع.</div>
             </div>
 
-            <div class="help-step">
-                <div class="help-title">3. تفعيل وضع الأوفلاين (Offline Mode)</div>
-                <p class="help-text">🛑 هام جداً: فور انتهاء التحميل، اضغط على قائمة Steam في الزاوية العلوية واختر Go
-                    Offline.</p>
-                <div class="help-why">💡 لماذا؟ اللعب "أونلاين" سيؤدي لتداخل ملفات الحفظ (Save Data) وضياع تقدمك.</div>
+            <div style="text-align:center; margin-top:20px;">
+                <button class="modal-btn-close" onclick="closeHelpModal()"
+                    style="width:100%; background:var(--accent); color:black; font-weight:bold; font-size:1.1rem; padding:15px;">فهمت،
+                    جاهز للعب</button>
             </div>
-
-            <button class="modal-btn-close" onclick="closeHelpModal()" style="width:100%">إغلاق</button>
         </div>
     </div>
 
@@ -766,7 +790,7 @@
 
     <footer>&copy; 2025 SaudiDeck. Curated Collection.</footer>
 
-    <script src="games.js?v=6" type="text/javascript"></script>
+    <script src="games.js?v=7" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
