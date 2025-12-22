@@ -546,6 +546,49 @@
                 background-position: 0% 50%;
             }
         }
+
+        /* --- LOCKED / COMING SOON CARD --- */
+        .game-card.locked {
+            border: 1px solid #333;
+            background: #080808;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+
+        .game-card.locked:hover {
+            opacity: 1;
+            border-color: var(--danger);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 23, 68, 0.2);
+        }
+
+        .locked-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 5;
+        }
+
+        .lock-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px var(--danger));
+        }
+
+        .coming-soon-text {
+            color: var(--danger);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -559,43 +602,40 @@
         <!-- Right side space for potential future nav or just empty for balance -->
     </header>
 
-    <h2 class="section-title hype"><span>//</span> COMING SOON</h2>
-    <div class="container" id="hypeGrid"></div>
-
-    <h2 class="section-title"><span>//</span> THE VAULT</h2>
-
+    <!-- Main Library Section -->
     <div class="controls">
-        <div class="search-group">
-            <input type="text" id="searchInput" placeholder="Search..." oninput="debouncedSearch()">
-            <select id="genreFilter" onchange="resetAndRender()">
-                <option value="All">All Genres</option>
-                <option value="Action">Action</option>
-                <option value="RPG">RPG</option>
-                <option value="FPS">FPS</option>
-                <option value="Horror">Horror</option>
-                <option value="Fighting">Fighting</option>
-                <option value="Strategy">Strategy</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Indie">Indie</option>
-                <option value="Racing">Racing</option>
-                <option value="Simulation">Simulation</option>
-            </select>
-            <select id="sortFilter" onchange="resetAndRender()">
-                <option value="metacritic" selected>Sort by: Metacritic Score</option>
-                <option value="newest">Sort by: Newest</option>
-                <option value="oldest">Sort by: Oldest</option>
-                <option value="az">Sort by: Name (A-Z)</option>
-            </select>
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search games..." onkeyup="debouncedSearch()">
+        </div> <select id="genreFilter" onchange="resetAndRender()">
+            <option value="All">All Genres</option>
+            <option value="Action">Action</option>
+            <option value="RPG">RPG</option>
+            <option value="FPS">FPS</option>
+            <option value="Horror">Horror</option>
+            <option value="Fighting">Fighting</option>
+            <option value="Strategy">Strategy</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Indie">Indie</option>
+            <option value="Racing">Racing</option>
+            <option value="Simulation">Simulation</option>
+        </select>
+        <select id="sortFilter" onchange="resetAndRender()">
+            <option value="metacritic" selected>Sort by: Default</option>
+            <option value="newest">Sort by: Newest</option>
+            <option value="oldest">Sort by: Oldest</option>
+            <option value="az">Sort by: Name (A-Z)</option>
+        </select>
 
-            <button class="random-btn" onclick="pickRandomGame()">🎲 Pick Random</button>
+        <button class="random-btn" onclick="pickRandomGame()">🎲 Pick Random</button>
 
-            <label class="deck-toggle" id="verifiedToggleBtn" title="Show only Steam Deck Verified games">
-                <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
-                <img src="verified.png" style="width:18px;height:18px;">
-                <span>Verified Only</span>
-            </label>
-        </div>
-        <div class="count-display" id="gameCount" style="color:#666; font-family: monospace;"></div>
+        <label class="deck-toggle" id="verifiedToggleBtn" title="Show only Steam Deck Verified games">
+            <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
+            <img src="verified.png" style="width:18px;height:18px;">
+            <span>Verified Only</span>
+        </label>
+    </div>
+    <div class="count-display" id="gameCount" style="color:#666; font-family: monospace;"></div>
     </div>
 
     <div class="container" id="gameGrid"></div>
@@ -625,7 +665,17 @@
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
         // ==========================================
 
-        /* --- SCROLL REVEAL OBSERVER (Must be defined before usage) --- */
+        // Flag unreleased games
+        comingSoonGames.forEach(g => g.isUnreleased = true);
+
+        // Merge Arrays (All games in one place)
+        const allGames = [...comingSoonGames, ...games];
+
+        const BATCH_SIZE = 24;
+        let displayedCount = 0;
+        let filteredGames = [];
+
+        // Observer for Scroll Reveal
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -636,19 +686,15 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal');
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        function observeCards(container) {
-            const cards = container.querySelectorAll('.game-card:not(.reveal)');
-            cards.forEach(card => observer.observe(card));
-        }
-
-        let filteredGames = [];
-        let displayedCount = 0;
-        const BATCH_SIZE = 24;
+        // INITIAL LOAD
+        document.addEventListener("DOMContentLoaded", () => {
+            resetAndRender();
+        });
 
         // --- HELPER FUNCTIONS ---
         function debounce(func, wait) {
@@ -672,58 +718,59 @@
             resetAndRender();
         }
 
-        function createGameCard(game, isHype = false) {
+        function createGameCard(game) {
+            const isLocked = game.isUnreleased;
+
             const imgUrl = game.image ||
                 `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+
+            // For locked games, maybe use header image or keep library if available
+            // If it's a "Coming Soon" game without image property, we might need a fallback or pattern
+
             const fallback = game.image
                 ? "this.style.display='none'; this.nextElementSibling.style.display='flex'"
                 : `this.onerror=null;
     this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
 
             let badgeHTML = "";
-            // User requested to hide number badges
-            /*
-            if (!isHype && game.score) {
-                let scoreClass = "";
-                if (game.score < 50) scoreClass = "low";
-                else if (game.score < 75) scoreClass = "mixed";
-                
-                badgeHTML = `<span class="meta-badge ${scoreClass}">${game.score}</span>`;
-            }
-            */
+            let lockedOverlay = "";
+            let cardClass = "game-card";
 
-            // Steam Deck Verified Logic
+            if (isLocked) {
+                cardClass += " locked";
+                lockedOverlay = `
+                    <div class="locked-overlay">
+                        <div class="lock-icon">🔒</div>
+                        <div class="coming-soon-text">COMING ${game.year}</div>
+                    </div>
+                `;
+            }
+
+            // Steam Deck Verified Logic (Only show if NOT locked, or show small?)
+            // Let's show it if verified is true, even if locked
             const verifiedHTML = game.verified ? `
                 <div class="verified-badge" title="Steam Deck Verified">
                     <img src="verified.png" alt="Verified">
-                </div>` : "";
+                </div>` : '';
 
-            const hypeBadge = isHype ? `<span class="hype-badge">SOON</span>` : "";
-            const hypeClass = isHype ? "hype-card" : "";
-            const genreColor = isHype ? 'style="color:var(--danger)"' : "";
-
-            const placeholder = `
-    <div class="placeholder-art" style="display:none;">
-        <h3 style="margin:0;font-size:2rem;color:#333">?</h3>
-        <p style="margin:5px 0 0;font-size:0.8rem;text-transform:uppercase;letter-spacing:2px">${isHype ? 'COMING SOON'
-                    : 'NO IMAGE'}</p>
-    </div>`;
+            // Steam Store Link (Disable if locked/unreleased? Or link to store page anyway)
+            // Store link is fine.
 
             return `
-    <a href="https://store.steampowered.com/app/${game.id}" target="_blank"
-        style="text-decoration:none; color:inherit; display:block">
-        <article class="game-card ${hypeClass}">
+    <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none">
+        <article class="${cardClass}">
             <div class="card-image">
-                ${badgeHTML}
                 ${verifiedHTML}
-                <img src="${imgUrl}" class="cover-art" loading="lazy" alt="${game.name}" onerror="${fallback}">
-                ${placeholder}
-                ${hypeBadge}
+                ${lockedOverlay}
+                <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
+                <div class="placeholder-art" style="display:none">
+                    <span style="font-size:2rem; opacity:0.3">?</span>
+                </div>
             </div>
             <div class="card-info">
-                <h3 class="game-title">${game.name}</h3>
+                <h3 class="game-title" title="${game.name}">${game.name}</h3>
                 <div class="game-meta">
-                    <span class="genre-tag" ${genreColor}>${game.genre}</span>
+                    <span class="genre-tag">${game.genre}</span>
                     <span>${game.year}</span>
                 </div>
             </div>
@@ -732,42 +779,39 @@
     `;
         }
 
-        function renderHype() {
-            const hypeGrid = document.getElementById("hypeGrid");
-            hypeGrid.innerHTML = ""; // Clear existing
-
-            comingSoonGames.forEach(game => {
-                const div = document.createElement("div");
-                div.className = "hype-banner";
-                div.innerHTML = `
-                    <div class="hype-title">${game.name}</div>
-                    <div class="hype-year">${game.year}</div>
-                `;
-                hypeGrid.appendChild(div);
-            });
-
-            // No need to observeCards for simple banners, they can just appear
-        }
-
         function resetAndRender() {
             const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-            const showVerifiedOnly = document.getElementById("verifiedFilter").checked;
+            const verifiedOnly = document.getElementById("verifiedFilter").checked;
 
             // 1. Filter
-            filteredGames = games.filter(game => {
+            filteredGames = allGames.filter(game => {
+                // Genre
                 const matchesGenre = genreSelect === "All" || game.genre === genreSelect;
+                /* Note: Unreleased games might not have strict genres, usually Action/RPG */
+
+                // Search
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-                const matchesVerified = !showVerifiedOnly || game.verified;
+
+                // Verified Filter (Unreleased games count as Verified/Hype for now? Or strictly check prop?)
+                // Let's assume user wants to see Hype games even in Verified filter unless strict
+                // Actually, strict verified check:
+                const matchesVerified = !verifiedOnly || game.verified;
+
                 return matchesGenre && matchesSearch && matchesVerified;
             });
 
             // 2. Sort
-            if (sortSelect === "metacritic") {
+            if (sortSelect === "metacritic") { // 'Default'
                 filteredGames.sort((a, b) => {
-                    const scoreA = parseInt(a.score) || 0;
-                    const scoreB = parseInt(b.score) || 0;
+                    // Priority 1: Unreleased First
+                    if (a.isUnreleased && !b.isUnreleased) return -1;
+                    if (!a.isUnreleased && b.isUnreleased) return 1;
+
+                    // Priority 2: Score (High to Low)
+                    const scoreA = a.score || 0;
+                    const scoreB = b.score || 0;
                     return scoreB - scoreA;
                 });
             } else if (sortSelect === "newest") {
