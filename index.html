@@ -553,6 +553,32 @@
             display: block;
         }
 
+        /* --- NAV REQUEST BUTTON (Ghost Style) --- */
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-request-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-request-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
         .modal-btn-close {
             background: #333;
             color: white;
@@ -842,18 +868,21 @@
             <img src="logo.png" alt="SaudiDeck" class="logo">
             <p class="subtitle">Official Membership Hub</p>
         </div>
-        <div class="help-dropdown">
-            <button class="help-btn">
-                <span>?</span> طريقة الاستخدام
-            </button>
-            <div class="dropdown-content">
-                <a href="instructions.html">
-                    <img src="Windows_logo.png" alt="PC"> PC
-                </a>
-                <a href="help-deck.html">
-                    <img src="Steam_Deck_logo.png" alt="Steam Deck"> Steam Deck
-                </a>
+        <div class="nav-group">
+            <div class="help-dropdown">
+                <button class="help-btn">
+                    <span>?</span> طريقة الاستخدام
+                </button>
+                <div class="dropdown-content">
+                    <a href="instructions.html">
+                        <img src="Windows_logo.png" alt="PC"> PC
+                    </a>
+                    <a href="help-deck.html">
+                        <img src="Steam_Deck_logo.png" alt="Steam Deck"> Steam Deck
+                    </a>
+                </div>
             </div>
+            <button class="nav-request-btn" onclick="openRequestModal()">Request Game</button>
         </div>
     </header>
 
@@ -935,7 +964,7 @@
         </div>
     </div>
 
-    <script src="games.js?v=14" type="text/javascript"></script>
+    <script src="games.js?v=15" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
