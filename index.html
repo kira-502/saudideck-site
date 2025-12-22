@@ -480,13 +480,24 @@
             background: #000;
             border: 1px solid #333;
             min-width: 180px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
             z-index: 1000;
             border-radius: 12px;
-            margin-top: 10px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            margin-top: 5px;
+            /* Reduced gap slightly */
+            backdrop-filter: blur(15px);
             animation: fadeInProgress 0.2s ease;
+        }
+
+        /* Transparent Bridge to prevent menu disappearing */
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: transparent;
         }
 
         @keyframes fadeInProgress {
@@ -511,10 +522,19 @@
             font-size: 0.85rem;
             transition: all 0.2s;
             border-bottom: 1px solid #111;
+            position: relative;
+            z-index: 2;
         }
 
-        .dropdown-content a:last-child {
+        .dropdown-content a:first-of-type {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .dropdown-content a:last-of-type {
             border-bottom: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
         }
 
         .dropdown-content a:hover {
