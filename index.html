@@ -641,6 +641,29 @@
         .capsule-icon {
             font-size: 0.8rem;
         }
+
+        /* --- NEW ARRIVAL BADGE --- */
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: #FFD700;
+            color: #000;
+            font-weight: 900;
+            font-size: 0.7rem;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1px;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+
+        .card-image {
+            overflow: hidden;
+            /* Vital for diagonal ribbon clipping */
+        }
     </style>
 </head>
 
@@ -676,6 +699,7 @@
         </select>
         <select id="sortFilter" onchange="resetAndRender()">
             <option value="metacritic" selected>Sort by: Default</option>
+            <option value="date_added">Sort by: Date Added</option>
             <option value="newest">Sort by: Newest</option>
             <option value="oldest">Sort by: Oldest</option>
             <option value="az">Sort by: Name (A-Z)</option>
@@ -772,21 +796,18 @@
 
         function createGameCard(game) {
             const isLocked = game.isUnreleased;
-
-            const imgUrl = game.image ||
-                `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
-
-            // For locked games, maybe use header image or keep library if available
-            // If it's a "Coming Soon" game without image property, we might need a fallback or pattern
+            const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
 
             const fallback = game.image
                 ? "this.style.display='none'; this.nextElementSibling.style.display='flex'"
-                : `this.onerror=null;
-    this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
+                : `this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
 
-            let badgeHTML = "";
-            let lockedOverlay = "";
             let cardClass = "game-card";
+            let lockedOverlay = "";
+            let verifiedHTML = game.verified ? `
+                <div class="verified-badge" title="Steam Deck Verified">
+                    <img src="verified.png" alt="Verified">
+                </div>` : '';
 
             if (isLocked) {
                 cardClass += " locked";
@@ -796,9 +817,6 @@
                 if (game.release_info) {
                     releaseText = game.release_info;
                     icon = (game.release_type === 'date') ? "📅" : "🕒";
-
-                    // Cleanup format if it's a date to DD/MM/YYYY if needed
-                    // (The scraper provides clean labels already like "EXPECTED" or "WINDOW")
                 } else if (game.release_date) {
                     const [y, m, d] = game.release_date.split('-');
                     releaseText = `${d}/${m}/${y}`;
@@ -818,20 +836,23 @@
                 `;
             }
 
-            // Steam Deck Verified Logic (Only show if NOT locked, or show small?)
-            // Let's show it if verified is true, even if locked
-            const verifiedHTML = game.verified ? `
-                <div class="verified-badge" title="Steam Deck Verified">
-                    <img src="verified.png" alt="Verified">
-                </div>` : '';
-
-            // Steam Store Link (Disable if locked/unreleased? Or link to store page anyway)
-            // Store link is fine.
+            // NEW ARRIVAL BADGE LOGIC
+            let newBadgeHTML = "";
+            if (game.date_added) {
+                const addedDate = new Date(game.date_added);
+                const today = new Date();
+                const diffTime = Math.abs(today - addedDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                if (diffDays <= 7) {
+                    newBadgeHTML = `<div class="new-badge">NEW</div>`;
+                }
+            }
 
             return `
     <a href="https://store.steampowered.com/app/${game.id}" target="_blank" style="text-decoration:none">
         <article class="${cardClass}">
             <div class="card-image">
+                ${newBadgeHTML}
                 ${verifiedHTML}
                 ${lockedOverlay}
                 <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
@@ -857,41 +878,29 @@
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
             const verifiedOnly = document.getElementById("verifiedFilter").checked;
 
-            // 1. Filter
             filteredGames = allGames.filter(game => {
-                // Genre
                 const matchesGenre = genreSelect === "All" || game.genre === genreSelect;
-                /* Note: Unreleased games might not have strict genres, usually Action/RPG */
-
-                // Search
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-
-                // Verified Filter (Unreleased games count as Verified/Hype for now? Or strictly check prop?)
-                // Let's assume user wants to see Hype games even in Verified filter unless strict
-                // Actually, strict verified check:
                 const matchesVerified = !verifiedOnly || game.verified;
-
                 return matchesGenre && matchesSearch && matchesVerified;
             });
 
-            // 2. Sort
-            if (sortSelect === "metacritic") { // 'Default'
+            if (sortSelect === "metacritic") {
                 filteredGames.sort((a, b) => {
-                    // Priority 1: Unreleased First
                     if (a.isUnreleased && !b.isUnreleased) return -1;
                     if (!a.isUnreleased && b.isUnreleased) return 1;
-
-                    // If both are unreleased, sort by release_date (Soonest First)
                     if (a.isUnreleased && b.isUnreleased) {
                         const dateA = a.release_date || `${a.year}-12-31`;
                         const dateB = b.release_date || `${b.year}-12-31`;
                         return dateA.localeCompare(dateB);
                     }
-
-                    // Priority 2: Score (High to Low)
-                    const scoreA = a.score || 0;
-                    const scoreB = b.score || 0;
-                    return scoreB - scoreA;
+                    return (b.score || 0) - (a.score || 0);
+                });
+            } else if (sortSelect === "date_added") {
+                filteredGames.sort((a, b) => {
+                    const dateA = a.date_added || "1970-01-01";
+                    const dateB = b.date_added || "1970-01-01";
+                    return dateB.localeCompare(dateA);
                 });
             } else if (sortSelect === "newest") {
                 filteredGames.sort((a, b) => {
@@ -927,14 +936,14 @@
 
             // Simple Shuffle Effect
             modal.classList.add("active");
-            container.innerHTML = `<h3 style="color:#666">Rolling the dice...</h3>`;
+            container.innerHTML = `< h3 style = "color:#666" > Rolling the dice...</h3 > `;
 
             let shuffles = 0;
             const maxShuffles = 10;
             const interval = setInterval(() => {
                 const randomIdx = Math.floor(Math.random() * filteredGames.length);
                 const game = filteredGames[randomIdx];
-                container.innerHTML = `<h3 style="color:#888">${game.name}</h3>`;
+                container.innerHTML = `< h3 style = "color:#888" > ${game.name}</h3 > `;
                 shuffles++;
 
                 if (shuffles >= maxShuffles) {

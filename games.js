@@ -10,19 +10,19 @@ const comingSoonGames = [
 
 const games = [
     // --- TOP RATED (Metacritic 90+) ---
-    { name: "Elden Ring", id: "1245620", verified: true, genre: "RPG", year: 2022, score: 94 },
-    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG", year: 2023, score: 96 },
-    { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, score: 81 },
-    { name: "Cyberpunk 2077", id: "1091500", verified: true, genre: "RPG", year: 2020, score: 86 },
-    { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, score: 93 },
-    { name: "God of War Ragnarök", id: "2322010", verified: true, genre: "Action", year: 2024, score: 90 },
+    { name: "Elden Ring", id: "1245620", verified: true, genre: "RPG", year: 2022, score: 94, date_added: "2025-12-20" },
+    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG", year: 2023, score: 96, date_added: "2025-12-20" },
+    { name: "Black Myth: Wukong", id: "2358720", genre: "Action", year: 2024, score: 81, date_added: "2025-12-10" },
+    { name: "Cyberpunk 2077", id: "1091500", verified: true, genre: "RPG", year: 2020, score: 86, date_added: "2025-12-01" },
+    { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure", year: 2018, score: 93, date_added: "2025-11-20" },
+    { name: "God of War Ragnarök", id: "2322010", verified: true, genre: "Action", year: 2024, score: 90, date_added: "2025-11-20" },
     { name: "Resident Evil 4", id: "2050650", verified: true, genre: "Horror", year: 2023, score: 91 },
     { name: "Tekken 8", id: "1778820", genre: "Fighting", year: 2024, score: 91 },
     { name: "Hades II", id: "1145350", verified: true, genre: "Action", year: 2024, score: 94 },
     { name: "Sekiro: Shadows Die Twice", id: "814380", verified: true, genre: "Action", year: 2019, score: 88 },
 
     // --- 2025 & RECENT HITS ---
-    { name: "Monster Hunter Wilds", id: "2246340", genre: "Action", year: 2025 },
+    { name: "Monster Hunter Wilds", id: "2246340", genre: "Action", year: 2025, date_added: "2025-12-21" },
     { name: "The First Berserker: Khazan", id: "2680010", verified: true, genre: "Action", year: 2025 },
     { name: "Mafia: The Old Country", id: "1941540", genre: "Action", year: 2025, score: 73 },
     { name: "Kingdom Come: Deliverance II", id: "1771300", genre: "RPG", year: 2025, score: 88 },
