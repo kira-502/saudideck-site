@@ -872,6 +872,131 @@
             background: #ff4444;
         }
 
+        /* --- REQUEST MODAL --- */
+        .request-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .request-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .request-card {
+            background: #1a1a1a;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            overflow: hidden;
+            padding: 40px 30px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .request-overlay.active .request-card {
+            transform: scale(1);
+        }
+
+        .request-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            color: #666;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .request-close:hover {
+            color: #fff;
+        }
+
+        .request-title {
+            margin: 0 0 25px;
+            font-size: 1.5rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+            text-align: right;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.1);
+        }
+
+        .request-submit {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .request-submit:hover {
+            background: #00ff82;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .request-submit:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
             header {
@@ -1039,8 +1164,7 @@
                     </a>
                 </div>
             </div>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
-                target="_blank" class="nav-btn btn-request">طلب لعبة</a>
+            <a href="javascript:void(0)" onclick="openRequestModal()" class="nav-btn btn-request">طلب لعبة</a>
             <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
                 target="_blank" class="nav-btn btn-buy">
                 شراء العضوية
@@ -1096,8 +1220,8 @@
     <footer>
         &copy; 2025 SaudiDeck. مجموعة مختارة بعناية.
         <br>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
-            target="_blank" class="footer-request-btn" style="text-decoration:none; display:inline-block;">طلب إضافة
+        <a href="javascript:void(0)" onclick="openRequestModal()" class="footer-request-btn"
+            style="text-decoration:none; display:inline-block;">طلب إضافة
             لعبة</a>
     </footer>
 
@@ -1117,7 +1241,29 @@
 
 
 
-    <script src="games.js?v=43" type="text/javascript"></script>
+    <!-- Request Game Modal -->
+    <div class="request-overlay" id="requestOverlay" onclick="if(event.target === this) closeRequestModal()">
+        <div class="request-card">
+            <div class="request-close" onclick="closeRequestModal()">✕</div>
+            <h2 class="request-title">طلب لعبة جديدة</h2>
+            <form id="requestForm" onsubmit="handleRequestSubmit(event)">
+                <div class="form-group">
+                    <label for="gameName">اسم اللعبة (مطلوب)</label>
+                    <input type="text" id="gameName" name="game" class="form-input" placeholder="مثلاً: Elden Ring"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="steamLink">رابط Steam (اختياري)</label>
+                    <input type="url" id="steamLink" name="link" class="form-input"
+                        placeholder="https://store.steampowered.com/app/...">
+                </div>
+                <button type="submit" class="request-submit" id="requestSubmitBtn">إرسال الطلب</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="games.js?v=44" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1345,7 +1491,7 @@
                     <div class="empty-state">
                         <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على نتائج</h2>
                         <p style="color:#666; margin-bottom:20px;">لم نتمكن من العثور على "${searchTerm}" في مكتبتنا.</p>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform" target="_blank" class="btn-request-main" style="text-decoration:none; display:inline-block;">اطلب هذه اللعبة</a>
+                        <a href="javascript:void(0)" onclick="openRequestModal()" class="btn-request-main" style="text-decoration:none; display:inline-block;">اطلب هذه اللعبة</a>
                     </div>
                 `;
                 document.getElementById("loadMoreArea").style.display = "none";
@@ -1435,6 +1581,52 @@
                 btnArea.style.display = "none";
             } else {
                 btnArea.style.display = "block";
+            }
+        }
+
+        /* --- REQUEST MODAL LOGIC --- */
+        function openRequestModal() {
+            const overlay = document.getElementById("requestOverlay");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+        }
+
+        function closeRequestModal() {
+            const overlay = document.getElementById("requestOverlay");
+            overlay.classList.remove("active");
+            document.body.style.overflow = "auto";
+            document.getElementById("requestForm").reset();
+        }
+
+        async function handleRequestSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById("requestSubmitBtn");
+            const form = event.target;
+            const formData = new FormData(form);
+
+            btn.disabled = true;
+            btn.textContent = "جاري الإرسال...";
+
+            try {
+                const response = await fetch("https://formspree.io/f/xdanyanp", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert("تم إرسال طلبك بنجاح!");
+                    closeRequestModal();
+                } else {
+                    alert("حدث خطأ، حاول مرة أخرى");
+                }
+            } catch (error) {
+                alert("حدث خطأ، حاول مرة أخرى");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "إرسال الطلب";
             }
         }
 
