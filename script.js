@@ -367,43 +367,37 @@ async function handleRequestSubmit(event) {
 function init() {
     populateGenreFilter();
     resetAndRender();
-    window.addEventListener('scroll', handleInfiniteScroll);
 }
 
-
-/* --- 4. SHOWCASE ENHANCEMENTS --- */
-
-function observeCards(container) {
-    const cards = container.querySelectorAll('.game-card');
-    cards.forEach(card => observer.observe(card));
-}
-
-function handleInfiniteScroll() {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 600) {
-        loadMore();
-    }
-}
-
-// --- 10. SMART HEADER LOGIC ---
+// --- OPTIMIZED SCROLL HANDLER ---
 let lastScrollTop = 0;
+let ticking = false;
 const mainHeader = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Prevent triggering on bounce (mobile) or negative scroll
-    if (scrollTop <= 0) {
-        mainHeader.classList.remove("header-hidden");
-        return;
-    }
+            // 1. Smart Header Logic
+            if (scrollTop > 0) {
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    mainHeader.classList.add("header-hidden");
+                } else {
+                    mainHeader.classList.remove("header-hidden");
+                }
+            } else {
+                mainHeader.classList.remove("header-hidden");
+            }
+            lastScrollTop = scrollTop;
 
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-        // Downscroll -> Hide
-        mainHeader.classList.add("header-hidden");
-    } else {
-        // Upscroll -> Show
-        mainHeader.classList.remove("header-hidden");
+            // 2. Infinite Scroll Logic
+            const { scrollHeight, clientHeight } = document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 600) {
+                loadMore();
+            }
+            ticking = false;
+        });
+        ticking = true;
     }
-    lastScrollTop = scrollTop;
 });
