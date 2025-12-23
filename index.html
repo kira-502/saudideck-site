@@ -931,6 +931,51 @@
                 padding: 15px;
             }
         }
+
+        /* --- GENRE PILLS UI --- */
+        .genre-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+            margin-bottom: 5px;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE 10+ */
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .genre-scroll-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        .genre-pill {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .genre-pill:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .genre-pill.active {
+            background: var(--accent) !important;
+            color: #000 !important;
+            border-color: var(--accent) !important;
+        }
     </style>
 </head>
 
@@ -970,9 +1015,9 @@
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
         </div>
-        <select id="genreFilter" onchange="resetAndRender()">
-            <option value="All">All Genres</option>
-        </select>
+        <div class="genre-scroll-container" id="genreFilterContainer">
+            <!-- Dynamic Pills Loaded Here -->
+        </div>
         <select id="sortFilter" onchange="resetAndRender()">
             <option value="metacritic" selected>ترتيب: الافتراضي</option>
             <option value="date_added">ترتيب: المضافة حديثاً</option>
@@ -1028,7 +1073,7 @@
 
 
 
-    <script src="games.js?v=36" type="text/javascript"></script>
+    <script src="games.js?v=37" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1045,39 +1090,53 @@
         const BATCH_SIZE = 24;
         let displayedCount = 0;
         let filteredGames = [];
+        let currentGenre = "All";
 
 
-        // Dynamically populate Genre Filter dropdown
+        // Dynamically populate Genre Filter Pills
         function populateGenreFilter() {
-            const genreSelect = document.getElementById("genreFilter");
-            if (!genreSelect) return;
+            const container = document.getElementById("genreFilterContainer");
+            if (!container) return;
 
             // Extract unique genres
             const genres = new Set();
             allGames.forEach(game => {
                 if (game.genre) {
-                    // Split by comma in case there are multiple (though currently single strings)
                     game.genre.split(',').forEach(g => genres.add(g.trim()));
                 }
             });
 
-            // Sort alphabetically
             const sortedGenres = Array.from(genres).sort();
+            container.innerHTML = "";
 
-            // Keep "كل التصنيفات", remove the rest
-            const firstOption = genreSelect.options[0];
-            genreSelect.innerHTML = "";
-            genreSelect.appendChild(firstOption);
-            firstOption.textContent = "كل التصنيفات";
-            firstOption.value = "All";
+            // Create "All" Pill
+            const allPill = document.createElement("button");
+            allPill.className = "genre-pill active";
+            allPill.textContent = "كل التصنيفات";
+            allPill.onclick = () => selectGenre("All", allPill);
+            container.appendChild(allPill);
 
-            // Add unique genres
+            // Add genre pills
             sortedGenres.forEach(genre => {
-                const option = document.createElement("option");
-                option.value = genre;
-                option.textContent = genre;
-                genreSelect.appendChild(option);
+                const pill = document.createElement("button");
+                pill.className = "genre-pill";
+                pill.textContent = genre;
+                pill.onclick = () => selectGenre(genre, pill);
+                container.appendChild(pill);
             });
+        }
+
+        function selectGenre(genre, element) {
+            currentGenre = genre;
+
+            // Update UI
+            document.querySelectorAll('.genre-pill').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+
+            // Scroll to pill
+            element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+            resetAndRender();
         }
 
         const observerOptions = {
@@ -1196,13 +1255,12 @@
         }
 
         function resetAndRender() {
-            const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
             const verifiedOnly = document.getElementById("verifiedFilter").checked;
 
             filteredGames = allGames.filter(game => {
-                const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
+                const matchesGenre = currentGenre === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(currentGenre));
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
                 const matchesVerified = !verifiedOnly || game.verified;
                 return matchesGenre && matchesSearch && matchesVerified;
