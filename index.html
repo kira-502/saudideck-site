@@ -932,49 +932,23 @@
             }
         }
 
-        /* --- GENRE PILLS UI --- */
-        .genre-scroll-container {
+        /* --- GAME CARD GENRE TAGS --- */
+        .card-genres {
             display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding: 10px 0;
-            margin-bottom: 5px;
-            scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* IE 10+ */
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 5px;
         }
 
-        .genre-scroll-container::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Safari, Opera */
-        }
-
-        .genre-pill {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
+        .genre-tag {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             white-space: nowrap;
-            display: inline-block;
-        }
-
-        .genre-pill:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .genre-pill.active {
-            background: var(--accent) !important;
-            color: #000 !important;
-            border-color: var(--accent) !important;
         }
     </style>
 </head>
@@ -1015,9 +989,9 @@
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
         </div>
-        <div class="genre-scroll-container" id="genreFilterContainer">
-            <!-- Dynamic Pills Loaded Here -->
-        </div>
+        <select id="genreFilter" onchange="resetAndRender()">
+            <option value="All">All Genres</option>
+        </select>
         <select id="sortFilter" onchange="resetAndRender()">
             <option value="metacritic" selected>ترتيب: الافتراضي</option>
             <option value="date_added">ترتيب: المضافة حديثاً</option>
@@ -1073,7 +1047,7 @@
 
 
 
-    <script src="games.js?v=37" type="text/javascript"></script>
+    <script src="games.js?v=39" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1090,13 +1064,10 @@
         const BATCH_SIZE = 24;
         let displayedCount = 0;
         let filteredGames = [];
-        let currentGenre = "All";
-
-
-        // Dynamically populate Genre Filter Pills
+        // Dynamically populate Genre Filter dropdown
         function populateGenreFilter() {
-            const container = document.getElementById("genreFilterContainer");
-            if (!container) return;
+            const genreSelect = document.getElementById("genreFilter");
+            if (!genreSelect) return;
 
             // Extract unique genres
             const genres = new Set();
@@ -1106,37 +1077,19 @@
                 }
             });
 
+            // Sort alphabetically
             const sortedGenres = Array.from(genres).sort();
-            container.innerHTML = "";
 
-            // Create "All" Pill
-            const allPill = document.createElement("button");
-            allPill.className = "genre-pill active";
-            allPill.textContent = "كل التصنيفات";
-            allPill.onclick = () => selectGenre("All", allPill);
-            container.appendChild(allPill);
+            // Keep "كل التصنيفات", remove the rest
+            genreSelect.innerHTML = `<option value="All">كل التصنيفات</option>`;
 
-            // Add genre pills
+            // Add unique genres
             sortedGenres.forEach(genre => {
-                const pill = document.createElement("button");
-                pill.className = "genre-pill";
-                pill.textContent = genre;
-                pill.onclick = () => selectGenre(genre, pill);
-                container.appendChild(pill);
+                const option = document.createElement("option");
+                option.value = genre;
+                option.textContent = genre;
+                genreSelect.appendChild(option);
             });
-        }
-
-        function selectGenre(genre, element) {
-            currentGenre = genre;
-
-            // Update UI
-            document.querySelectorAll('.genre-pill').forEach(p => p.classList.remove('active'));
-            element.classList.add('active');
-
-            // Scroll to pill
-            element.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
-            resetAndRender();
         }
 
         const observerOptions = {
@@ -1235,6 +1188,11 @@
                 }
             }
 
+            // GENRE TAGS LOGIC
+            const genreBadges = game.genre
+                ? game.genre.split(',').map(g => `<span class="genre-tag">${g.trim()}</span>`).join('')
+                : '';
+
             return `
     <a href="https://store.steampowered.com/app/${game.id}/" target="_blank" rel="noopener noreferrer" class="${cardClass}">
         <div class="card-image">
@@ -1246,7 +1204,9 @@
         <div class="card-info">
             <h3 class="game-title" title="${game.name}">${game.name}</h3>
             <div class="game-meta">
-                <span class="genre-tag">${game.genre}</span>
+                <div class="card-genres">
+                    ${genreBadges}
+                </div>
                 <span>${game.year}</span>
             </div>
         </div>
@@ -1255,12 +1215,13 @@
         }
 
         function resetAndRender() {
+            const genreSelect = document.getElementById("genreFilter").value;
             const sortSelect = document.getElementById("sortFilter").value;
             const searchTerm = document.getElementById("searchInput").value.toLowerCase();
             const verifiedOnly = document.getElementById("verifiedFilter").checked;
 
             filteredGames = allGames.filter(game => {
-                const matchesGenre = currentGenre === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(currentGenre));
+                const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
                 const matchesSearch = game.name.toLowerCase().includes(searchTerm);
                 const matchesVerified = !verifiedOnly || game.verified;
                 return matchesGenre && matchesSearch && matchesVerified;
