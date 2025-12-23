@@ -423,7 +423,6 @@ const games = [
     { name: "Ratchet & Clank: Rift Apart", id: "1895880", verified: true, genre: "Action, Platformer, Sci-Fi", year: 2023 },
     { name: "Re:Fresh", id: "2297650", verified: true, genre: "Casual, Simulation, Relaxing", year: 2023 },
     { name: "Record of Lodoss War-Deedlit in Wonder Labyrinth-", id: "1203630", genre: "Action, Metroidvania, Pixel Graphics", year: 2021 },
-    { name: "Red Dead Redemption 2", id: "1174180", genre: "Adventure, Open World, Western", year: 2018, score: 93 },
     { name: "Remnant: From the Ashes", id: "617290", verified: true, genre: "Action, RPG, Soulslike", year: 2019, score: 78 },
     { name: "Remnant II", id: "1282100", genre: "Action, RPG, Soulslike", year: 2023 },
     { name: "Resident Evil 0", id: "339340", genre: "Horror, Survival, Classic", year: 2016 },
