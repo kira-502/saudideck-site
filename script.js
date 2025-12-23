@@ -383,4 +383,26 @@ function handleInfiniteScroll() {
     if (scrollTop + clientHeight >= scrollHeight - 600) {
         loadMore();
     }
-}
+
+    // --- 10. SMART HEADER LOGIC ---
+    let lastScrollTop = 0;
+    const mainHeader = document.querySelector("header");
+
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Prevent triggering on bounce (mobile) or negative scroll
+        if (scrollTop <= 0) {
+            mainHeader.classList.remove("header-hidden");
+            return;
+        }
+
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Downscroll -> Hide
+            mainHeader.classList.add("header-hidden");
+        } else {
+            // Upscroll -> Show
+            mainHeader.classList.remove("header-hidden");
+        }
+        lastScrollTop = scrollTop;
+    });
