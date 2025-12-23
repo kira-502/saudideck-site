@@ -747,6 +747,80 @@
             border-color: #444;
             color: #777;
         }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                height: auto;
+                background: linear-gradient(to bottom, #111 0%, var(--bg-color) 100%);
+            }
+
+            .logo-section {
+                margin-bottom: 20px;
+            }
+
+            .nav-group {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .nav-btn {
+                flex: 1 1 calc(50% - 10px);
+                justify-content: center;
+                min-width: 140px;
+                height: 44px;
+                /* Optimal touch target */
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 12px;
+                padding: 15px;
+                margin: 0;
+            }
+
+            .search-wrapper,
+            #genreFilter,
+            #sortFilter,
+            .random-btn,
+            .deck-toggle {
+                width: 100% !important;
+                height: 48px !important;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+                box-sizing: border-box;
+            }
+
+            .deck-toggle {
+                justify-content: center;
+            }
+
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 0 10px;
+            }
+
+            .game-card .card-info {
+                padding: 10px;
+            }
+
+            .game-title {
+                font-size: 0.85rem;
+                height: 2.4em;
+            }
+
+            .btn-load {
+                width: calc(100% - 20px);
+                margin: 10px;
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 
@@ -830,7 +904,7 @@
 
 
 
-    <script src="games.js?v=34" type="text/javascript"></script>
+    <script src="games.js?v=35" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
