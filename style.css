@@ -1120,3 +1120,17 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 230, 118, 0.5);
 }
+
+/* --- GUIDE / INSTRUCTIONS STYLES --- */
+.guide-container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+.guide-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; color: white; text-shadow: 0 0 20px var(--accent-glow); }
+.step { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.step-header { display: flex; align-items: center; gap: 15px; color: var(--accent); font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; border-right: 4px solid var(--accent); padding-right: 15px; }
+.step-img-container { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #333; margin-bottom: 20px; background: #000; }
+.step-img { width: 100%; height: auto; display: block; }
+.step-text { font-size: 1.1rem; color: var(--text-main); margin-bottom: 15px; }
+.highlight { color: #FFD700; font-weight: bold; }
+.info-strip { background: rgba(0, 230, 118, 0.05); padding: 15px; border-radius: 8px; color: var(--text-muted); font-size: 1rem; display: flex; align-items: center; gap: 10px; border-right: 3px solid var(--accent); margin-top: 15px; }
+.flow-arrow { font-size: 1.5rem; color: var(--accent); opacity: 0.6; text-align: center; margin: 10px 0; }
+.back-link { text-decoration: none; color: var(--text-main); background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 30px; font-weight: bold; transition: all 0.3s; border: 1px solid var(--border); font-size: 0.9rem; }
+.back-link:hover { background: var(--accent); color: black; border-color: var(--accent); }
