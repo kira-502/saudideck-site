@@ -18,7 +18,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     margin: 0;
-    padding: 0;
+    padding-top: 80px;
+    /* Accounts for fixed header */
     overflow-x: hidden;
     text-align: right;
 }
@@ -33,10 +34,18 @@ header {
     background: linear-gradient(to left, #111 0%, var(--bg-color) 100%);
     border-bottom: 1px solid var(--border);
     text-align: right;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
     backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
 }
 
 .header-content {
