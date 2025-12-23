@@ -748,6 +748,116 @@
             color: #777;
         }
 
+        /* --- RANDOM ROULETTE MODAL --- */
+        .random-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .random-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .roulette-card {
+            background: #1a1a1a;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .random-overlay.active .roulette-card {
+            transform: scale(1);
+        }
+
+        .roulette-image-container {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roulette-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s ease-out;
+        }
+
+        .roulette-info {
+            padding: 25px;
+        }
+
+        .roulette-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            min-height: 1.5em;
+        }
+
+        .roulette-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .roulette-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.5);
+        }
+
+        .roulette-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .roulette-close:hover {
+            background: #ff4444;
+        }
+
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
             header {
@@ -902,9 +1012,23 @@
             لعبة</a>
     </footer>
 
+    <!-- Random Roulette Modal -->
+    <div class="random-overlay" id="randomOverlay" onclick="if(event.target === this) closeRandomModal()">
+        <div class="roulette-card">
+            <div class="roulette-close" onclick="closeRandomModal()">✕</div>
+            <div class="roulette-image-container">
+                <img src="" alt="Roulette" id="rouletteImg" class="roulette-img">
+            </div>
+            <div class="roulette-info">
+                <h2 class="roulette-title" id="rouletteTitle">جارٍ الاختيار...</h2>
+                <a href="#" target="_blank" id="rouletteSteamBtn" class="roulette-btn">عرض في Steam</a>
+            </div>
+        </div>
+    </div>
 
 
-    <script src="games.js?v=35" type="text/javascript"></script>
+
+    <script src="games.js?v=36" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
@@ -1141,12 +1265,60 @@
             }
         }
 
-        /* --- RANDOM PICKER LOGIC --- */
+        /* --- RANDOM PICKER LOGIC (ROULETTE) --- */
+        let rouletteInterval = null;
+
         function pickRandomGame() {
             if (filteredGames.length === 0) return;
-            const randomIdx = Math.floor(Math.random() * filteredGames.length);
-            const game = filteredGames[randomIdx];
-            window.open(`https://store.steampowered.com/app/${game.id}/`, '_blank');
+
+            const overlay = document.getElementById("randomOverlay");
+            const img = document.getElementById("rouletteImg");
+            const title = document.getElementById("rouletteTitle");
+            const steamBtn = document.getElementById("rouletteSteamBtn");
+
+            // Reset UI
+            overlay.classList.add("active");
+            title.textContent = "جارٍ الاختيار...";
+            steamBtn.style.display = "none";
+            img.style.filter = "blur(5px)";
+
+            let shuffleCount = 0;
+            const maxShuffle = 20; // 2 seconds (100ms * 20)
+
+            if (rouletteInterval) clearInterval(rouletteInterval);
+
+            rouletteInterval = setInterval(() => {
+                const randomIdx = Math.floor(Math.random() * filteredGames.length);
+                const game = filteredGames[randomIdx];
+                const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+
+                img.src = imgUrl;
+                shuffleCount++;
+
+                if (shuffleCount >= maxShuffle) {
+                    clearInterval(rouletteInterval);
+                    revealWinner(game);
+                }
+            }, 100);
+        }
+
+        function revealWinner(game) {
+            const img = document.getElementById("rouletteImg");
+            const title = document.getElementById("rouletteTitle");
+            const steamBtn = document.getElementById("rouletteSteamBtn");
+
+            img.style.filter = "none";
+            img.style.transform = "scale(1.05)";
+            setTimeout(() => img.style.transform = "scale(1)", 200);
+
+            title.textContent = game.name;
+            steamBtn.href = `https://store.steampowered.com/app/${game.id}/`;
+            steamBtn.style.display = "inline-block";
+        }
+
+        function closeRandomModal() {
+            if (rouletteInterval) clearInterval(rouletteInterval);
+            document.getElementById("randomOverlay").classList.remove("active");
         }
 
 
