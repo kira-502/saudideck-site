@@ -369,6 +369,11 @@ function init() {
     resetAndRender();
 }
 
+function observeCards(container) {
+    const cards = container.querySelectorAll('.game-card');
+    cards.forEach(card => observer.observe(card));
+}
+
 // --- OPTIMIZED SCROLL HANDLER ---
 let lastScrollTop = 0;
 let ticking = false;
