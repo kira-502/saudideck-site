@@ -879,12 +879,31 @@
                 width: 100%;
             }
 
-            .nav-btn {
+            .help-dropdown,
+            .btn-request {
                 flex: 1 1 calc(50% - 10px);
-                justify-content: center;
                 min-width: 140px;
                 height: 44px;
-                /* Optimal touch target */
+            }
+
+            .btn-buy {
+                flex: 1 1 100%;
+                width: 100%;
+                margin-top: 10px;
+                font-weight: 800;
+                background: var(--accent) !important;
+                color: #000 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                height: 48px;
+            }
+
+            .btn-buy svg {
+                width: 20px;
+                height: 20px;
+                stroke: #000;
             }
 
             .controls {
@@ -965,8 +984,8 @@
         </div>
         <div class="nav-group">
             <div class="help-dropdown">
-                <button class="nav-btn">
-                    <span>?</span> طريقة الاستخدام
+                <button class="nav-btn btn-how">
+                    طريقة الاستخدام
                 </button>
                 <div class="dropdown-content">
                     <a href="instructions.html">
@@ -977,10 +996,17 @@
                     </a>
                 </div>
             </div>
-            <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
-                target="_blank" class="nav-btn">شراء العضوية</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSw7Whzm8e1lFArtfocK8nmaNM72NSLuaQNwq-W65KMNDiaA/viewform"
-                target="_blank" class="nav-btn">طلب لعبة</a>
+                target="_blank" class="nav-btn btn-request">طلب لعبة</a>
+            <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
+                target="_blank" class="nav-btn btn-buy">
+                شراء العضوية
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z">
+                    </path>
+                </svg>
+            </a>
         </div>
     </header>
 
@@ -1048,7 +1074,7 @@
 
 
 
-    <script src="games.js?v=40" type="text/javascript"></script>
+    <script src="games.js?v=41" type="text/javascript"></script>
     <script>
         // ==========================================
         // 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
