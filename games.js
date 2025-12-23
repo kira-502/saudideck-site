@@ -398,7 +398,7 @@ const games = [
     { name: "PEAK.", id: "2561570", genre: "Adventure, Indie, Short", year: 2024 },
     { name: "Persona 3 Reload", id: "2161700", verified: true, genre: "RPG, JRPG, Anime", year: 2024, score: 89 },
     { name: "Persona 5 Royal", id: "1687950", verified: true, genre: "RPG, JRPG, Anime", year: 2022, score: 95 },
-    { name: "Phoenix Wright: Ace Attorney Trilogy", id: "782330", genre: "Adventure, Visual Novel, Detective", year: 2019 },
+    { name: "Phoenix Wright: Ace Attorney Trilogy", id: "787480", genre: "Adventure, Visual Novel, Detective", year: 2019 },
     { name: "PICO PARK", id: "1509960", verified: true, genre: "Party, Puzzle, Co-op", year: 2021 },
     { name: "Pillars of Eternity", id: "291650", genre: "RPG, CRPG, Fantasy", year: 2015, score: 89 },
     { name: "Pillars of Eternity II: Deadfire", id: "560130", genre: "RPG, CRPG, Pirates", year: 2018, score: 88 },
