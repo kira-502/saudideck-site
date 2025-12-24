@@ -150,11 +150,11 @@ input[type="text"] {
 
 /* --- 4. GRID SYSTEM --- */
 .container {
-    max-width: 900px;
+    max-width: 1300px;
     margin: 10px auto 40px;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 20px;
 }
 
@@ -163,20 +163,17 @@ input[type="text"] {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
-    contain-intrinsic-size: 1px 140px;
-    /* Smoother transition */
     border: 1px solid #1a1a1a;
     position: relative;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     content-visibility: auto;
+    contain-intrinsic-size: 1px 350px;
     text-decoration: none;
-    /* No underlines for links */
     color: inherit;
-    /* Keep text color */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 140px;
+    display: block;
+    /* Important: Resets flexbox */
+    height: auto;
+    /* Resets fixed height */
 }
 
 .game-card:hover {
@@ -187,13 +184,13 @@ input[type="text"] {
 }
 
 .card-image {
-    width: 100px;
-    height: 100%;
-    aspect-ratio: auto;
+    width: 100%;
+    aspect-ratio: 2/3;
     background-color: #151515;
     overflow: hidden;
     position: relative;
-    flex-shrink: 0;
+    height: auto;
+    /* Resets fixed height */
 }
 
 .cover-art {
@@ -220,8 +217,9 @@ input[type="text"] {
 }
 
 .card-info {
-    flex: 1;
-    padding: 0 20px;
+    padding: 15px;
+    flex: none;
+    /* Resets flex grow */
 }
 
 .game-title {
