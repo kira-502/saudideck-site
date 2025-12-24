@@ -133,6 +133,7 @@ const games = [
     { name: "Devil May Cry 4 Special Edition", id: "329050", genre: "Action, Hack & Slash, Anime", year: 2015 },
     { name: "Devil May Cry 5", id: "601150", verified: true, genre: "Action, Hack & Slash, Stylish", year: 2019, score: 89 },
     { name: "Digimon Story Cyber Sleuth: Complete Edition", id: "1042550", genre: "RPG, JRPG, Monster Tamer", year: 2019 },
+    { name: "Digimon Story: Time Stranger", id: "1984270", verified: true, genre: "RPG, Strategy, Monster Tamer", year: 2025, date_added: "2025-12-24" },
     { name: "Digimon World: Next Order", id: "1530160", verified: true, genre: "RPG, Simulation, Monster Tamer", year: 2023 },
     { name: "Disco Elysium - The Final Cut", id: "632470", verified: true, genre: "RPG, Narrative, Detective", year: 2019, score: 97 },
     { name: "Dishonored", id: "205100", verified: true, genre: "Action, Stealth, Steampunk", year: 2012, score: 91 },
