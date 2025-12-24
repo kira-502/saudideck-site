@@ -150,11 +150,11 @@ input[type="text"] {
 
 /* --- 4. GRID SYSTEM --- */
 .container {
-    max-width: 1300px;
+    max-width: 900px;
     margin: 10px auto 40px;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    grid-template-columns: 1fr;
     gap: 20px;
 }
 
@@ -163,7 +163,7 @@ input[type="text"] {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
-    contain-intrinsic-size: 1px 350px;
+    contain-intrinsic-size: 1px 140px;
     /* Smoother transition */
     border: 1px solid #1a1a1a;
     position: relative;
@@ -173,8 +173,10 @@ input[type="text"] {
     /* No underlines for links */
     color: inherit;
     /* Keep text color */
-    display: block;
-    /* Ensure full size */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 140px;
 }
 
 .game-card:hover {
@@ -185,11 +187,13 @@ input[type="text"] {
 }
 
 .card-image {
-    width: 100%;
-    aspect-ratio: 2/3;
+    width: 100px;
+    height: 100%;
+    aspect-ratio: auto;
     background-color: #151515;
     overflow: hidden;
     position: relative;
+    flex-shrink: 0;
 }
 
 .cover-art {
@@ -216,7 +220,8 @@ input[type="text"] {
 }
 
 .card-info {
-    padding: 15px;
+    flex: 1;
+    padding: 0 20px;
 }
 
 .game-title {
