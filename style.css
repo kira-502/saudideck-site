@@ -217,7 +217,8 @@ input[type="text"] {
 }
 
 .card-info {
-    padding: 15px;
+    padding: 10px 12px;
+    /* Less vertical padding */
     flex: none;
     /* Resets flex grow */
 }
@@ -226,7 +227,7 @@ input[type="text"] {
     font-size: 0.95rem;
     font-weight: 700;
     color: #fff;
-    margin: 0 0 10px 0;
+    margin: 0 0 6px 0;
     /* Force 2 lines max */
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -236,17 +237,17 @@ input[type="text"] {
     white-space: normal !important;
     /* Overrides any nowrap */
     line-height: 1.3;
-    min-height: 2.6em;
-    /* Ensures alignment even for short titles */
 }
 
 .game-meta {
     display: flex;
-    flex-direction: column;
-    /* Stack genres on top of year */
-    gap: 8px;
-    align-items: flex-start;
-    /* Align to the right (since it's RTL) */
+    justify-content: space-between;
+    /* Genres left, Year right */
+    align-items: flex-end;
+    /* Align bottom */
+    gap: 10px;
+    margin-top: auto;
+    /* Pushes to bottom if flex container */
 }
 
 .game-meta span {
@@ -260,9 +261,9 @@ input[type="text"] {
 .card-genres {
     display: flex;
     flex-wrap: wrap;
-    /* Important: Allows multiple lines */
-    gap: 5px;
-    width: 100%;
+    gap: 4px;
+    max-width: 75%;
+    /* Leaves room for the year */
 }
 
 .genre-tag {
