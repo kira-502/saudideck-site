@@ -223,13 +223,21 @@ input[type="text"] {
 }
 
 .game-title {
-    font-size: 0.9rem;
-    margin: 0 0 6px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.95rem;
+    margin: 0 0 8px 0;
     color: #fff;
-    font-weight: 600;
+    font-weight: 700;
+    /* Multi-line ellipsis logic */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    /* Allows text to wrap */
+    line-height: 1.3;
+    height: 2.6em;
+    /* Keeps all cards aligned even with short titles */
 }
 
 .game-meta {
@@ -239,12 +247,25 @@ input[type="text"] {
     color: #777;
 }
 
+.card-genres {
+    display: flex;
+    flex-wrap: wrap;
+    /* Lets tags move to the next line */
+    gap: 4px;
+    margin-top: 8px;
+}
+
 .genre-tag {
-    color: var(--accent);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Subtle background instead of border */
+    border: none;
+    color: #ddd;
+    padding: 3px 8px;
+    border-radius: 4px;
+    /* Softer corners */
+    font-size: 0.65rem;
+    font-weight: 500;
+    line-height: 1;
 }
 
 .hype-badge {
