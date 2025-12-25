@@ -137,9 +137,9 @@ function createGameCard(game) {
         }
     }
 
-    // GENRE TAGS LOGIC (Limit to 3)
+    // GENRE TAGS LOGIC (Limit to 2)
     const genreBadges = game.genre
-        ? game.genre.split(',').slice(0, 3).map(g => `<span class="genre-tag">${g.trim()}</span>`).join('')
+        ? game.genre.split(',').slice(0, 2).map(g => `<span class="genre-tag">${g.trim()}</span>`).join('')
         : '';
 
     return `
