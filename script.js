@@ -336,26 +336,21 @@ async function handleRequestSubmit(event) {
     const btn = document.getElementById("requestSubmitBtn");
     const form = event.target;
     const formData = new FormData(form);
+    // The User's Google Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfdbLb4OBTf_YDoFm70ZtnXsu6351ADQlAiCP8iQ0z_XTchp-3myOnoPo9aDkjwlnx/exec';
 
     btn.disabled = true;
     btn.textContent = "جاري الإرسال...";
 
     try {
-        const response = await fetch("https://formspree.io/f/xdanyanp", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            body: formData
         });
-
-        if (response.ok) {
-            alert("تم إرسال طلبك بنجاح!");
-            closeRequestModal();
-        } else {
-            alert("حدث خطأ، حاول مرة أخرى");
-        }
+        alert("تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.");
+        closeRequestModal();
     } catch (error) {
+        console.error('Error!', error.message);
         alert("حدث خطأ، حاول مرة أخرى");
     } finally {
         btn.disabled = false;
