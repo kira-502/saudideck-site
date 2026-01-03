@@ -359,14 +359,18 @@ window.addEventListener("scroll", () => {
         window.requestAnimationFrame(() => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             // Smart Header Logic Only (No Infinite Scroll)
-            if (scrollTop > 0) {
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    mainHeader.classList.add("header-hidden");
+            if (window.innerWidth > 768) {
+                if (scrollTop > 0) {
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        mainHeader.classList.add("header-hidden");
+                    } else {
+                        mainHeader.classList.remove("header-hidden");
+                    }
                 } else {
                     mainHeader.classList.remove("header-hidden");
                 }
             } else {
-                mainHeader.classList.remove("header-hidden");
+                mainHeader.classList.remove("header-hidden"); // Always show on mobile (absolute)
             }
             lastScrollTop = scrollTop;
             ticking = false;
