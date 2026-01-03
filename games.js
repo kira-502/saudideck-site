@@ -574,5 +574,21 @@ const games = [
     { name: "Yakuza 4 Remastered", id: "1105500", verified: true, genre: "Action, Adventure, Crime", year: 2021 },
     { name: "Yakuza 5 Remastered", id: "1105510", verified: true, genre: "Action, Adventure, Crime", year: 2021 },
     { name: "Yakuza 6: The Song of Life", id: "1388590", verified: true, genre: "Action, Adventure, Crime", year: 2021 },
-    { name: "Zombie Army 4: Dead War", id: "694280", genre: "Action, Shooter, Zombies", year: 2021, score: 74 }
+    { name: "Zombie Army 4: Dead War", id: "694280", genre: "Action, Shooter, Zombies", year: 2021, score: 74 },
+    { name: "Assetto Corsa", id: "244210", genre: "Racing, Simulation, Sports", year: 2014, score: 85 },
+    { name: "Bloons TD 6", id: "960090", genre: "Strategy, Tower Defense, Co-op", year: 2018, score: 82 },
+    { name: "BPM: BULLETS PER MINUTE", id: "1286350", genre: "Action, Rhythm, FPS", year: 2020, score: 74 },
+    { name: "Death in the Water 2", id: "1338840", verified: true, genre: "Action, Horror, Survival", year: 2023 },
+    { name: "Easy Red 2", id: "1324780", verified: true, genre: "Action, Simulation, Strategy", year: 2022 },
+    { name: "FATAL FRAME / PROJECT ZERO: Maiden of Black Water", id: "1732190", genre: "Adventure, Horror, Japanese", year: 2021, score: 73 },
+    { name: "FATAL FRAME / PROJECT ZERO: Mask of the Lunar Eclipse", id: "2130460", genre: "Adventure, Horror, Japanese", year: 2023, score: 73 },
+    { name: "Hellboy Web of Wyrd", id: "2160480", verified: true, genre: "Action, Adventure, Roguelike", year: 2023, score: 68 },
+    { name: "Jazzpunk: Director's Cut", id: "250260", verified: true, genre: "Adventure, Indie, Comedy", year: 2014, score: 75 },
+    { name: "Laika: Aged Through Blood", id: "1796220", verified: true, genre: "Action, Metroidvania, Motorvania", year: 2023, score: 83 },
+    { name: "Maneater", id: "629820", verified: true, genre: "Action, RPG, Open World", year: 2020, score: 71 },
+    { name: "Mika and the Witch's Mountain", id: "1819460", verified: true, genre: "Adventure, Casual, Indie", year: 2025 },
+    { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89 },
+    { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77 },
+    { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78 },
+    { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76 }
 ];
