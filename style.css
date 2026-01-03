@@ -1098,122 +1098,108 @@ footer {
 
 /* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
+
+    /* 1. Remove the huge gap at the top */
     body {
         padding-top: 0 !important;
-        /* Removes the desktop gap */
     }
 
+    /* 2. Compact Header */
     header {
-        max-width: 100%;
-        left: 0;
-        transform: none;
         position: relative;
-        /* Unstick on mobile */
+        /* Scrolls naturally */
+        padding: 10px 15px;
         flex-direction: column;
-        padding: 15px;
+        background: #050505;
+        border-bottom: 1px solid #222;
     }
 
-    .controls {
-        flex-direction: column;
-        /* Stack vertically */
-        align-items: stretch;
-        gap: 10px;
-    }
-
-    /* The Toggle Button */
-    .mobile-filter-btn {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        background: #1a1a1a;
-        color: var(--accent);
-        border: 1px solid var(--accent);
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        font-family: inherit;
-        transition: all 0.3s;
-        order: 2;
-        /* Button second */
-    }
-
-    .mobile-filter-btn:hover,
-    .mobile-filter-btn.active {
-        background: var(--accent);
-        color: #000;
-    }
-
-    /* The Panel (Hidden by default) */
-    .filters-panel {
-        display: none;
-        /* HIDDEN */
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        order: 3;
-        /* Panel third */
-    }
-
-    /* The Panel (Shown when active) */
-    .filters-panel.active {
-        display: flex;
-        /* SHOWN */
-        animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Force full width on mobile */
-    .search-wrapper,
-    select,
-    .random-btn,
-    .deck-toggle {
-        width: 100% !important;
-        flex: none !important;
-        margin: 0 !important;
-    }
-
-    .search-wrapper {
-        order: 1;
-        /* Search first */
-    }
-
+    /* 3. Logo & Title on ONE Line */
     .header-content {
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-between;
+        /* Logo Left, Text Right */
+        align-items: center;
         width: 100%;
         margin-bottom: 10px;
     }
 
+    .logo {
+        max-width: 60px;
+        margin: 0;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+        margin: 0;
+        text-align: right;
+    }
+
+    /* 4. Button Grid (Buy = Big, Others = Side-by-Side) */
     .nav-group {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Two columns */
         gap: 8px;
         width: 100%;
     }
 
+    /* "Buy" button takes full width at the bottom */
     .btn-buy {
-        order: -1;
+        grid-column: span 2;
+        order: 1;
+        /* First in visual order below header */
         width: 100% !important;
+        margin: 0 !important;
     }
 
-    .logo {
-        max-width: 50px;
+    /* "Guide" and "Request" sit side-by-side below Buy */
+    .help-dropdown,
+    .btn-request {
+        width: 100% !important;
+        margin: 0 !important;
+        order: 2;
+        font-size: 0.75rem;
+        /* Smaller text to fit */
+        padding: 0 5px;
     }
 
-    .container {
-        grid-template-columns: repeat(2, 1fr);
+    /* 5. Toggles & Controls */
+    .controls {
+        flex-direction: column;
+        padding: 10px;
         gap: 10px;
-        padding: 0 10px;
+    }
+
+    .mobile-filter-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background: #151515;
+        border: 1px solid #333;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    /* Hide filters by default */
+    .filters-panel {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters-panel.active {
+        display: flex;
+    }
+
+    /* Ensure inputs fit */
+    .search-wrapper,
+    select,
+    .deck-toggle,
+    .random-btn {
+        width: 100% !important;
+        margin: 0 !important;
     }
 }
 
