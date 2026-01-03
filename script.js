@@ -39,7 +39,6 @@ function populateGenreFilter() {
         option.textContent = genre;
         genreSelect.appendChild(option);
     });
-});
 }
 
 function populateYearFilter() {
