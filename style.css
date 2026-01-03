@@ -29,19 +29,24 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px;
-    /* Compact padding */
-    background: rgba(10, 10, 10, 0.95);
-    border-bottom: 1px solid var(--border);
-    text-align: right;
+    padding: 10px 20px;
+    /* Reduced vertical padding */
+    background: rgba(5, 5, 5, 0.95);
+    border-bottom: 1px solid #222;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    transition: transform 0.3s ease-in-out;
     box-sizing: border-box;
+    /* The magic fix: */
+    max-width: 1340px;
+    /* 1300px container + 20px padding each side */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Centers the fixed header */
     will-change: transform;
+    transition: transform 0.3s ease-in-out;
 }
 
 .header-hidden {
@@ -1067,31 +1072,21 @@ footer {
 
 /* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
-
-    /* Header: Simple & Dark */
     header {
+        max-width: 100%;
+        left: 0;
+        transform: none;
         position: relative;
+        /* Unstick on mobile */
         flex-direction: column;
         padding: 15px;
-        background: #050505;
-        border-bottom: 1px solid #222;
-        height: auto;
     }
 
-    .header-content {
-        justify-content: center;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    /* Controls: Stack vertically */
     .controls {
         flex-direction: column;
+        /* Stack vertically */
         align-items: stretch;
-        /* Stretch everything to full width */
-        gap: 10px;
-        padding: 10px;
-        margin: 10px;
+        gap: 12px;
     }
 
     /* Force full width on mobile */
@@ -1102,6 +1097,37 @@ footer {
         width: 100% !important;
         flex: none !important;
         margin: 0 !important;
+    }
+
+    /* Order: Search first, then filters, then buttons */
+    .search-wrapper {
+        order: 1;
+    }
+
+    #genreFilter {
+        order: 2;
+    }
+
+    #yearFilter {
+        order: 3;
+    }
+
+    #sortFilter {
+        order: 4;
+    }
+
+    .deck-toggle {
+        order: 5;
+    }
+
+    .random-btn {
+        order: 6;
+    }
+
+    .header-content {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     /* Clean Button Group */
