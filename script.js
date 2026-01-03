@@ -174,59 +174,46 @@ function createGameCard(game) {
 
 function resetAndRender() {
     const genreSelect = document.getElementById("genreFilter").value;
-    const yearSelect = document.getElementById("yearFilter").value;
     const sortSelect = document.getElementById("sortFilter").value;
     const searchTerm = document.getElementById("searchInput").value.toLowerCase();
     const verifiedOnly = document.getElementById("verifiedFilter").checked;
+
+    // Safety Check: If year filter is missing, default to "All"
+    const yearEl = document.getElementById("yearFilter");
+    const yearSelect = yearEl ? yearEl.value : "All";
 
     filteredGames = allGames.filter(game => {
         const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
         const matchesSearch = game.name.toLowerCase().includes(searchTerm);
         const matchesVerified = !verifiedOnly || game.verified;
         const matchesYear = yearSelect === "All" || game.year == yearSelect;
+
         return matchesGenre && matchesSearch && matchesVerified && matchesYear;
     });
 
+    // Sorting Logic
     if (sortSelect === "metacritic") {
         filteredGames.sort((a, b) => {
             if (a.isUnreleased && !b.isUnreleased) return -1;
             if (!a.isUnreleased && b.isUnreleased) return 1;
-            if (a.isUnreleased && b.isUnreleased) {
-                const dateA = a.release_date || `${a.year}-12-31`;
-                const dateB = b.release_date || `${b.year}-12-31`;
-                return dateA.localeCompare(dateB);
-            }
+            if (a.isUnreleased && b.isUnreleased) return 0;
             return (b.score || 0) - (a.score || 0);
         });
     } else if (sortSelect === "date_added") {
         filteredGames.sort((a, b) => {
-            // Priority 1: Unreleased Group First
-            if (a.isUnreleased && !b.isUnreleased) return -1;
-            if (!a.isUnreleased && b.isUnreleased) return 1;
-
-            // Priority 2: Newest Added First (Within their group)
             const dateA = a.date_added || "1970-01-01";
             const dateB = b.date_added || "1970-01-01";
             return dateB.localeCompare(dateA);
         });
     } else if (sortSelect === "newest") {
-        filteredGames.sort((a, b) => {
-            // Handle "TBA" or string years
-            const yearA = parseInt(a.year) || 0;
-            const yearB = parseInt(b.year) || 0;
-            return yearB - yearA;
-        });
+        filteredGames.sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
     } else if (sortSelect === "oldest") {
-        filteredGames.sort((a, b) => {
-            const yearA = parseInt(a.year) || 9999;
-            const yearB = parseInt(b.year) || 9999;
-            return yearA - yearB;
-        });
+        filteredGames.sort((a, b) => (parseInt(a.year) || 9999) - (parseInt(b.year) || 9999));
     } else if (sortSelect === "az") {
         filteredGames.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    // 3. Reset
+    // Render
     document.getElementById("gameGrid").innerHTML = "";
     displayedCount = 0;
 
@@ -234,8 +221,7 @@ function resetAndRender() {
         document.getElementById("gameGrid").innerHTML = `
             <div class="empty-state">
                 <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على نتائج</h2>
-                <p style="color:#666; margin-bottom:20px;">لم نتمكن من العثور على "${searchTerm}" في مكتبتنا.</p>
-                <a href="javascript:void(0)" onclick="openRequestModal()" class="btn-request-main" style="text-decoration:none; display:inline-block;">اطلب هذه اللعبة</a>
+                <p style="color:#666;">لم نتمكن من العثور على "${searchTerm}"</p>
             </div>
         `;
         document.getElementById("loadMoreArea").style.display = "none";

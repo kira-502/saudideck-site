@@ -53,12 +53,15 @@
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
         </div>
+
         <select id="genreFilter" onchange="resetAndRender()">
             <option value="All">All Genres</option>
         </select>
+
         <select id="yearFilter" onchange="resetAndRender()">
             <option value="All">All Years</option>
         </select>
+
         <select id="sortFilter" onchange="resetAndRender()">
             <option value="metacritic" selected>ترتيب: الافتراضي</option>
             <option value="date_added">ترتيب: المضافة حديثاً</option>
@@ -66,9 +69,7 @@
             <option value="oldest">ترتيب: الأقدم</option>
             <option value="az">ترتيب: أبجدي (أ-ي)</option>
         </select>
-
         <button class="random-btn" onclick="pickRandomGame()">🎲 اختيار عشوائي</button>
-
         <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
             <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
             <div class="toggle-icons">
