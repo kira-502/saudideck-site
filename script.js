@@ -39,6 +39,29 @@ function populateGenreFilter() {
         option.textContent = genre;
         genreSelect.appendChild(option);
     });
+});
+}
+
+function populateYearFilter() {
+    const yearSelect = document.getElementById("yearFilter");
+    if (!yearSelect) return;
+
+    // Extract unique years and sort descending (Newest first)
+    const years = new Set();
+    allGames.forEach(game => {
+        if (game.year) years.add(game.year);
+    });
+
+    const sortedYears = Array.from(years).sort((a, b) => b - a);
+
+    yearSelect.innerHTML = `<option value="All">All Years</option>`;
+
+    sortedYears.forEach(y => {
+        const option = document.createElement("option");
+        option.value = y;
+        option.textContent = y;
+        yearSelect.appendChild(option);
+    });
 }
 
 const observerOptions = {
@@ -152,6 +175,7 @@ function createGameCard(game) {
 
 function resetAndRender() {
     const genreSelect = document.getElementById("genreFilter").value;
+    const yearSelect = document.getElementById("yearFilter").value;
     const sortSelect = document.getElementById("sortFilter").value;
     const searchTerm = document.getElementById("searchInput").value.toLowerCase();
     const verifiedOnly = document.getElementById("verifiedFilter").checked;
@@ -160,7 +184,8 @@ function resetAndRender() {
         const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
         const matchesSearch = game.name.toLowerCase().includes(searchTerm);
         const matchesVerified = !verifiedOnly || game.verified;
-        return matchesGenre && matchesSearch && matchesVerified;
+        const matchesYear = yearSelect === "All" || game.year == yearSelect;
+        return matchesGenre && matchesSearch && matchesVerified && matchesYear;
     });
 
     if (sortSelect === "metacritic") {
@@ -344,6 +369,7 @@ async function handleRequestSubmit(event) {
 // Initialize and setup
 function init() {
     populateGenreFilter();
+    populateYearFilter();
     resetAndRender();
 }
 
