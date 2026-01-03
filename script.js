@@ -53,7 +53,7 @@ function populateYearFilter() {
 
     const sortedYears = Array.from(years).sort((a, b) => b - a);
 
-    yearSelect.innerHTML = `<option value="All">All Years</option>`;
+    yearSelect.innerHTML = `<option value="All">كل السنوات</option>`;
 
     sortedYears.forEach(y => {
         const option = document.createElement("option");
