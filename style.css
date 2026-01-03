@@ -1062,15 +1062,6 @@ footer {
         line-height: 1.2;
     }
 
-    .logo-section {
-        margin-bottom: 5px;
-    }
-
-    .subtitle {
-        font-size: 0.75rem;
-    }
-
-    /* 3. Compact Buttons */
     /* 3. Button Grid (The Clean Fix) */
     .nav-group {
         display: grid;
