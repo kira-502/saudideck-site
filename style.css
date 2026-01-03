@@ -1098,6 +1098,11 @@ footer {
 
 /* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
+    body {
+        padding-top: 0 !important;
+        /* Removes the desktop gap */
+    }
+
     header {
         max-width: 100%;
         left: 0;
