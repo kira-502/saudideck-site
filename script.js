@@ -280,23 +280,19 @@ function closeRandomModal() {
 function loadMore() {
     const grid = document.getElementById("gameGrid");
     const btnArea = document.getElementById("loadMoreArea");
-
     const nextBatch = filteredGames.slice(displayedCount, displayedCount + BATCH_SIZE);
-
     if (nextBatch.length === 0) {
         btnArea.style.display = "none";
         return;
     }
-
     const htmlString = nextBatch.map(game => createGameCard(game, false)).join('');
-
     grid.insertAdjacentHTML('beforeend', htmlString);
-
-    // Observe new layout
-    observeCards(grid);
-
+    // TURBO FIX: Only observe the newly added children, not the whole grid
+    const totalChildren = grid.children.length;
+    for (let i = totalChildren - nextBatch.length; i < totalChildren; i++) {
+        observer.observe(grid.children[i]);
+    }
     displayedCount += BATCH_SIZE;
-
     if (displayedCount >= filteredGames.length) {
         btnArea.style.display = "none";
     } else {
@@ -351,10 +347,7 @@ function init() {
     resetAndRender();
 }
 
-function observeCards(container) {
-    const cards = container.querySelectorAll('.game-card');
-    cards.forEach(card => observer.observe(card));
-}
+
 
 // --- OPTIMIZED SCROLL HANDLER ---
 let lastScrollTop = 0;

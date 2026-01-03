@@ -31,7 +31,7 @@ header {
     justify-content: space-between;
     padding: 15px 40px;
     /* Compact padding */
-    background: linear-gradient(to left, #111 0%, var(--bg-color) 100%);
+    background: rgba(10, 10, 10, 0.95);
     border-bottom: 1px solid var(--border);
     text-align: right;
     position: fixed;
@@ -39,7 +39,6 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    backdrop-filter: blur(10px);
     transition: transform 0.3s ease-in-out;
     box-sizing: border-box;
     will-change: transform;
