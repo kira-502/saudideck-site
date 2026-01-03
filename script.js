@@ -10,7 +10,7 @@ allGames.forEach(g => {
     if (comingSoonGames.includes(g)) g.isUnreleased = true;
 });
 
-const BATCH_SIZE = 24;
+const BATCH_SIZE = 18;
 let displayedCount = 0;
 let filteredGames = [];
 // Dynamically populate Genre Filter dropdown
@@ -358,8 +358,7 @@ window.addEventListener("scroll", () => {
     if (!ticking) {
         window.requestAnimationFrame(() => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            // 1. Smart Header Logic
+            // Smart Header Logic Only (No Infinite Scroll)
             if (scrollTop > 0) {
                 if (scrollTop > lastScrollTop && scrollTop > 100) {
                     mainHeader.classList.add("header-hidden");
@@ -370,12 +369,6 @@ window.addEventListener("scroll", () => {
                 mainHeader.classList.remove("header-hidden");
             }
             lastScrollTop = scrollTop;
-
-            // 2. Infinite Scroll Logic
-            const { scrollHeight, clientHeight } = document.documentElement;
-            if (scrollTop + clientHeight >= scrollHeight - 600) {
-                loadMore();
-            }
             ticking = false;
         });
         ticking = true;
