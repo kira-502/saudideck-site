@@ -1029,14 +1029,18 @@ footer {
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        padding: 20px;
+        padding: 10px 15px;
         text-align: center;
         height: auto;
-        background: linear-gradient(to bottom, #111 0%, var(--bg-color) 100%);
+        background: linear-gradient(to bottom, #111 0%, , var(--bg-color) 100%);
+    }
+
+    .logo {
+        max-width: 60px;
     }
 
     .logo-section {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .nav-group {
@@ -1077,7 +1081,7 @@ footer {
     .controls {
         flex-direction: column;
         gap: 12px;
-        padding: 15px;
+        padding: 10px;
         margin: 0;
     }
 
@@ -1085,12 +1089,21 @@ footer {
     #genreFilter,
     #sortFilter,
     .random-btn,
-    .deck-toggle {
+    .deck-toggle,
+    .nav-btn {
         width: 100% !important;
-        height: 48px !important;
+        height: 38px !important;
         margin-right: 0 !important;
         margin-left: 0 !important;
         box-sizing: border-box;
+        font-size: 0.8rem;
+        min-height: 0;
+    }
+
+    #genreFilter,
+    #sortFilter {
+        width: calc(50% - 5px) !important;
+        display: inline-block;
     }
 
     .deck-toggle {
