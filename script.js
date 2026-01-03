@@ -398,12 +398,6 @@ function toggleFilters() {
     if (panel && btn) {
         panel.classList.toggle("active");
         btn.classList.toggle("active");
-
-        // Update Button Text
-        if (panel.classList.contains("active")) {
-            btn.textContent = "🔼 إخفاء الخيارات";
-        } else {
-            btn.textContent = "⚙️ تصفية وترتيب النتائج";
-        }
+        // Text update removed -> CSS handles the icon rotation now
     }
 }
