@@ -108,88 +108,103 @@ header {
     text-shadow: 0 0 15px rgba(255, 23, 68, 0.4);
 }
 
-/* --- CONTROLS CONTAINER (Flexbox) --- */
+/* --- CONTROLS CONTAINER (Strict Grid) --- */
 .controls {
     max-width: 1300px;
     margin: 20px auto;
-    padding: 15px;
+    padding: 10px;
     background: #0a0a0a;
+    border: 1px solid #222;
     border-radius: 12px;
-    border: 1px solid #1a1a1a;
     display: flex;
-    flex-wrap: wrap;
-    /* Allows items to wrap neatly */
-    gap: 12px;
-    /* Consistent spacing */
+    gap: 10px;
     align-items: center;
 }
 
-/* --- INPUTS & FILTERS --- */
-/* Search Bar - Takes more space */
+/* 1. Search Bar (The Anchor - Flexible Width) */
 .search-wrapper {
-    flex: 2 1 300px;
-    /* Grows 2x faster, min-width 300px */
+    flex: 2;
+    /* Takes up 2x space */
     position: relative;
+    min-width: 200px;
 }
 
-/* Filters - Share space equally */
-select,
-#genreFilter,
-#yearFilter,
-#sortFilter {
-    flex: 1 1 140px;
-    /* Share space, min-width 140px */
+#searchInput {
+    width: 100%;
     height: 42px;
-    background: #151515;
+    padding-right: 40px;
+    /* Space for icon in RTL */
+    padding-left: 15px;
+    background: #111;
     border: 1px solid #333;
-    color: #fff;
     border-radius: 8px;
-    padding: 0 15px;
-    cursor: pointer;
+    color: #fff;
+    box-sizing: border-box;
     outline: none;
     transition: border-color 0.2s;
+    font-size: 0.9rem;
+    text-align: right;
 }
 
-/* Hover effects */
+.search-icon {
+    position: absolute;
+    right: 12px;
+    /* RTL position */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+}
+
+/* 2. Filters (Uniform Size) */
+select {
+    flex: 1;
+    /* All dropdowns same width */
+    height: 42px;
+    background: #111;
+    border: 1px solid #333;
+    color: #ddd;
+    border-radius: 8px;
+    padding: 0 10px;
+    cursor: pointer;
+    min-width: 120px;
+    /* Prevents squishing */
+    outline: none;
+}
+
 select:hover,
-input[type="text"]:focus {
+#searchInput:focus {
     border-color: var(--accent);
 }
 
-/* Fixed width buttons */
+/* 3. Actions (Fixed Size) */
 .random-btn {
-    flex: 0 0 auto;
-    /* Don't stretch */
     height: 42px;
     padding: 0 20px;
+    background: #6200ea;
+    /* Keep purple accent */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: none;
 }
 
 .deck-toggle {
-    flex: 0 0 auto;
     height: 42px;
     padding: 0 15px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #ccc;
+    gap: 8px;
+    white-space: nowrap;
     cursor: pointer;
-}
-
-input[type="text"] {
-    width: 100%;
-    /* Full width of wrapper */
-    height: 42px;
-    background: #151515;
-    color: #fff;
-    border: 1px solid #333;
-    padding: 0 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    box-sizing: border-box;
-    text-align: right;
+    color: #ccc;
+    flex: none;
 }
 
 /* --- 4. GRID SYSTEM --- */
