@@ -54,30 +54,34 @@
             <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
         </div>
 
-        <select id="genreFilter" onchange="resetAndRender()">
-            <option value="All">All Genres</option>
-        </select>
+        <button class="mobile-filter-btn" onclick="toggleFilters()">⚙️ تصفية وترتيب النتائج</button>
 
-        <select id="yearFilter" onchange="resetAndRender()">
-            <option value="All">كل السنوات</option>
-        </select>
+        <div class="filters-panel" id="filtersPanel">
+            <select id="genreFilter" onchange="resetAndRender()">
+                <option value="All">All Genres</option>
+            </select>
 
-        <select id="sortFilter" onchange="resetAndRender()">
-            <option value="metacritic" selected>ترتيب: الافتراضي</option>
-            <option value="date_added">ترتيب: المضافة حديثاً</option>
-            <option value="newest">ترتيب: الأحدث</option>
-            <option value="oldest">ترتيب: الأقدم</option>
-            <option value="az">ترتيب: أبجدي (أ-ي)</option>
-        </select>
-        <button class="random-btn" onclick="pickRandomGame()">🎲 اختيار عشوائي</button>
-        <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
-            <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
-            <div class="toggle-icons">
-                <img src="assets/Steam_Deck_logo.png" alt="Steam Deck">
-                <img src="assets/badge_verified.png" alt="Verified">
-            </div>
-            <span>متوافق مع Steam Deck</span>
-        </label>
+            <select id="yearFilter" onchange="resetAndRender()">
+                <option value="All">كل السنوات</option>
+            </select>
+
+            <select id="sortFilter" onchange="resetAndRender()">
+                <option value="metacritic" selected>ترتيب: الافتراضي</option>
+                <option value="date_added">ترتيب: المضافة حديثاً</option>
+                <option value="newest">ترتيب: الأحدث</option>
+                <option value="oldest">ترتيب: الأقدم</option>
+                <option value="az">ترتيب: أبجدي (أ-ي)</option>
+            </select>
+            <button class="random-btn" onclick="pickRandomGame()">🎲 اختيار عشوائي</button>
+            <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
+                <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
+                <div class="toggle-icons">
+                    <img src="assets/Steam_Deck_logo.png" alt="Steam Deck">
+                    <img src="assets/badge_verified.png" alt="Verified">
+                </div>
+                <span>متوافق مع Steam Deck</span>
+            </label>
+        </div>
     </div>
 
 

@@ -1085,6 +1085,17 @@ footer {
     transform: none;
 }
 
+/* --- MOBILE TOGGLE DEFAULTS (Desktop) --- */
+.mobile-filter-btn {
+    display: none;
+}
+
+/* Hidden on PC */
+.filters-panel {
+    display: contents;
+    /* 'Unboxes' the div so children sit in the main flex grid */
+}
+
 /* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
     header {
@@ -1101,7 +1112,60 @@ footer {
         flex-direction: column;
         /* Stack vertically */
         align-items: stretch;
-        gap: 12px;
+        gap: 10px;
+    }
+
+    /* The Toggle Button */
+    .mobile-filter-btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: #1a1a1a;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.3s;
+        order: 2;
+        /* Button second */
+    }
+
+    .mobile-filter-btn:hover,
+    .mobile-filter-btn.active {
+        background: var(--accent);
+        color: #000;
+    }
+
+    /* The Panel (Hidden by default) */
+    .filters-panel {
+        display: none;
+        /* HIDDEN */
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        order: 3;
+        /* Panel third */
+    }
+
+    /* The Panel (Shown when active) */
+    .filters-panel.active {
+        display: flex;
+        /* SHOWN */
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Force full width on mobile */
@@ -1114,29 +1178,9 @@ footer {
         margin: 0 !important;
     }
 
-    /* Order: Search first, then filters, then buttons */
     .search-wrapper {
         order: 1;
-    }
-
-    #genreFilter {
-        order: 2;
-    }
-
-    #yearFilter {
-        order: 3;
-    }
-
-    #sortFilter {
-        order: 4;
-    }
-
-    .deck-toggle {
-        order: 5;
-    }
-
-    .random-btn {
-        order: 6;
+        /* Search first */
     }
 
     .header-content {
@@ -1145,7 +1189,6 @@ footer {
         margin-bottom: 10px;
     }
 
-    /* Clean Button Group */
     .nav-group {
         display: flex;
         flex-direction: column;
@@ -1153,7 +1196,6 @@ footer {
         width: 100%;
     }
 
-    /* Put important button first */
     .btn-buy {
         order: -1;
         width: 100% !important;
