@@ -1032,7 +1032,7 @@ footer {
         padding: 10px 15px;
         text-align: center;
         height: auto;
-        background: linear-gradient(to bottom, #111 0%, , var(--bg-color) 100%);
+        background: linear-gradient(to bottom, #111 0%, var(--bg-color) 100%);
     }
 
     .logo {
