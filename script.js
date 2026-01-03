@@ -125,18 +125,6 @@ function createGameCard(game) {
         `;
     }
 
-    // NEW ARRIVAL BADGE LOGIC
-    let newBadgeHTML = "";
-    if (game.date_added) {
-        const addedDate = new Date(game.date_added);
-        const today = new Date();
-        const diffTime = Math.abs(today - addedDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays <= 7) {
-            newBadgeHTML = `<div class="new-badge">NEW</div>`;
-        }
-    }
-
     // GENRE TAGS LOGIC (Limit to 2)
     const genreBadges = game.genre
         ? game.genre.split(',').slice(0, 2).map(g => `<span class="genre-tag">${g.trim()}</span>`).join('')
@@ -145,7 +133,6 @@ function createGameCard(game) {
     return `
 <a href="https://store.steampowered.com/app/${game.id}/" target="_blank" rel="noopener noreferrer" class="${cardClass}">
 <div class="card-image">
-    ${newBadgeHTML}
     ${verifiedHTML}
     ${lockedOverlay}
     <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
