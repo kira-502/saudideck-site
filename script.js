@@ -389,3 +389,21 @@ window.addEventListener("scroll", () => {
         ticking = true;
     }
 });
+
+// --- MOBILE MENU TOGGLE (Must be global) ---
+function toggleFilters() {
+    const panel = document.getElementById("filtersPanel");
+    const btn = document.querySelector(".mobile-filter-btn");
+
+    if (panel && btn) {
+        panel.classList.toggle("active");
+        btn.classList.toggle("active");
+
+        // Update Button Text
+        if (panel.classList.contains("active")) {
+            btn.textContent = "🔼 إخفاء الخيارات";
+        } else {
+            btn.textContent = "⚙️ تصفية وترتيب النتائج";
+        }
+    }
+}
