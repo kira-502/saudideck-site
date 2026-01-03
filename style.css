@@ -1171,26 +1171,67 @@ footer {
         gap: 10px;
     }
 
+    /* The Toggle Button (With Rotating Icon) */
     .mobile-filter-btn {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
-        padding: 10px;
+        padding: 12px 20px;
         background: #151515;
         border: 1px solid #333;
         color: #fff;
         border-radius: 8px;
         cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        order: 2;
     }
 
-    /* Hide filters by default */
+    /* The Arrow Icon */
+    .mobile-filter-btn::after {
+        content: '▼';
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+        color: var(--accent);
+    }
+
+    /* Rotate Arrow when Active */
+    .mobile-filter-btn.active::after {
+        transform: rotate(180deg);
+    }
+
+    .mobile-filter-btn.active {
+        border-color: var(--accent);
+        background: rgba(0, 230, 118, 0.05);
+        color: #fff;
+    }
+
+    .mobile-filter-btn:hover {
+        background: var(--accent);
+        color: #000;
+        /* Matches your request logic */
+    }
+
+    /* Base Panel State (Hidden) */
     .filters-panel {
-        display: none;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        display: flex;
+        /* Always flex, just hidden by height */
         flex-direction: column;
         gap: 10px;
+        order: 3;
     }
 
+    /* Active Panel State (Shown) */
     .filters-panel.active {
-        display: flex;
+        max-height: 500px;
+        /* Enough space for content */
+        opacity: 1;
+        margin-top: 10px;
     }
 
     /* Ensure inputs fit */
