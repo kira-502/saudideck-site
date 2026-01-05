@@ -1,6 +1,43 @@
 // UPDATE THIS DATE when adding a new batch of games (Format: YYYY-MM-DD)
 
 
+// ==========================================
+// 1. NEW UPDATES (Add new batches here)
+// ==========================================
+const batches = [
+    {
+        date: "2026-01-05",
+        list: [
+            { name: "Goat Simulator 3", id: "850190", genre: "Simulation, Comedy, Open World", year: 2024, score: 78 },
+            { name: "Bendy and the Ink Machine", id: "622650", verified: true, genre: "Horror, Puzzle, First-Person", year: 2017, score: 71 },
+            { name: "Overcooked!", id: "448510", verified: true, genre: "Simulation, Co-op, Local Multiplayer", year: 2016, score: 81 },
+            { name: "Dead Island Definitive Edition", id: "383150", verified: true, genre: "Action, Zombies, Open World", year: 2016, score: 72 },
+            { name: "Mount & Blade II: Bannerlord", id: "261550", verified: true, genre: "Strategy, RPG, Medieval", year: 2022, score: 77 }
+        ]
+    },
+    {
+        date: "2026-01-03",
+        list: [
+            { name: "Assetto Corsa", id: "244210", genre: "Racing, Simulation, Sports", year: 2014, score: 85 },
+            { name: "Bloons TD 6", id: "960090", genre: "Strategy, Tower Defense, Co-op", year: 2018, score: 82 },
+            { name: "BPM: BULLETS PER MINUTE", id: "1286350", genre: "Action, Rhythm, FPS", year: 2020, score: 74 },
+            { name: "Death in the Water 2", id: "1338840", verified: true, genre: "Action, Horror, Survival", year: 2023 },
+            { name: "Easy Red 2", id: "1324780", verified: true, genre: "Action, Simulation, Strategy", year: 2022 },
+            { name: "FATAL FRAME / PROJECT ZERO: Maiden of Black Water", id: "1732190", genre: "Adventure, Horror, Japanese", year: 2021, score: 73 },
+            { name: "FATAL FRAME / PROJECT ZERO: Mask of the Lunar Eclipse", id: "2130460", genre: "Adventure, Horror, Japanese", year: 2023, score: 73 },
+            { name: "Hellboy Web of Wyrd", id: "2160480", verified: true, genre: "Action, Adventure, Roguelike", year: 2023, score: 68 },
+            { name: "Jazzpunk: Director's Cut", id: "250260", verified: true, genre: "Adventure, Indie, Comedy", year: 2014, score: 75 },
+            { name: "Laika: Aged Through Blood", id: "1796220", verified: true, genre: "Action, Metroidvania, Motorvania", year: 2023, score: 83 },
+            { name: "Maneater", id: "629820", verified: true, genre: "Action, RPG, Open World", year: 2020, score: 71 },
+            { name: "Mika and the Witch's Mountain", id: "1819460", verified: true, genre: "Adventure, Casual, Indie", year: 2025 },
+            { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89 },
+            { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77 },
+            { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78 },
+            { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76 }
+        ]
+    }
+];
+
 const comingSoonGames = [
     { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
     { name: "CODE VEIN II", id: "2362060", genre: "RPG, Action, Anime", year: "2026", image: "assets/code_vein_2.png", release_info: "30/01/2026", release_type: "date" },
@@ -8,10 +45,10 @@ const comingSoonGames = [
 ];
 
 // ==========================================
-//    2. MAIN LIBRARY (Alphabetical)
+// 2. MAIN LIBRARY (The Original List)
 // ==========================================
 
-const games = [
+const baseLibrary = [
     { name: "999 & Virtue's Last Reward", id: "477740", genre: "Adventure, Visual Novel, Puzzle", year: 2017, score: 86 },
     { name: "ACE COMBAT™ 7: SKIES UNKNOWN", id: "502500", verified: true, genre: "Simulation, Action, Flight", year: 2019, score: 78 },
     { name: "Aerial_Knights Never Yield", id: "1323540", verified: true, genre: "Action, Runner, Indie", year: 2021 },
