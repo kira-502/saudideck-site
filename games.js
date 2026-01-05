@@ -1,5 +1,5 @@
 // UPDATE THIS DATE when adding a new batch of games (Format: YYYY-MM-DD)
-const LATEST_BATCH = "2026-01-05";
+
 
 const comingSoonGames = [
     { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
@@ -578,25 +578,28 @@ const games = [
     { name: "Yakuza 5 Remastered", id: "1105510", verified: true, genre: "Action, Adventure, Crime", year: 2021 },
     { name: "Yakuza 6: The Song of Life", id: "1388590", verified: true, genre: "Action, Adventure, Crime", year: 2021 },
     { name: "Zombie Army 4: Dead War", id: "694280", genre: "Action, Shooter, Zombies", year: 2021, score: 74 },
-    { name: "Assetto Corsa", id: "244210", genre: "Racing, Simulation, Sports", year: 2014, score: 85, date_added: LATEST_BATCH },
-    { name: "Bloons TD 6", id: "960090", genre: "Strategy, Tower Defense, Co-op", year: 2018, score: 82, date_added: LATEST_BATCH },
-    { name: "BPM: BULLETS PER MINUTE", id: "1286350", genre: "Action, Rhythm, FPS", year: 2020, score: 74, date_added: LATEST_BATCH },
-    { name: "Death in the Water 2", id: "1338840", verified: true, genre: "Action, Horror, Survival", year: 2023, date_added: LATEST_BATCH },
-    { name: "Easy Red 2", id: "1324780", verified: true, genre: "Action, Simulation, Strategy", year: 2022, date_added: LATEST_BATCH },
-    { name: "FATAL FRAME / PROJECT ZERO: Maiden of Black Water", id: "1732190", genre: "Adventure, Horror, Japanese", year: 2021, score: 73, date_added: LATEST_BATCH },
-    { name: "FATAL FRAME / PROJECT ZERO: Mask of the Lunar Eclipse", id: "2130460", genre: "Adventure, Horror, Japanese", year: 2023, score: 73, date_added: LATEST_BATCH },
-    { name: "Hellboy Web of Wyrd", id: "2160480", verified: true, genre: "Action, Adventure, Roguelike", year: 2023, score: 68, date_added: LATEST_BATCH },
-    { name: "Jazzpunk: Director's Cut", id: "250260", verified: true, genre: "Adventure, Indie, Comedy", year: 2014, score: 75, date_added: LATEST_BATCH },
-    { name: "Laika: Aged Through Blood", id: "1796220", verified: true, genre: "Action, Metroidvania, Motorvania", year: 2023, score: 83, date_added: LATEST_BATCH },
-    { name: "Maneater", id: "629820", verified: true, genre: "Action, RPG, Open World", year: 2020, score: 71, date_added: LATEST_BATCH },
-    { name: "Mika and the Witch's Mountain", id: "1819460", verified: true, genre: "Adventure, Casual, Indie", year: 2025, date_added: LATEST_BATCH },
-    { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89, date_added: LATEST_BATCH },
-    { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77, date_added: LATEST_BATCH },
-    { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78, date_added: LATEST_BATCH },
-    { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76, date_added: LATEST_BATCH },
-    { name: "Goat Simulator 3", id: "850190", genre: "Simulation, Comedy, Open World", year: 2024, score: 78, date_added: LATEST_BATCH },
-    { name: "Bendy and the Ink Machine", id: "622650", verified: true, genre: "Horror, Puzzle, First-Person", year: 2017, score: 71, date_added: LATEST_BATCH },
-    { name: "Overcooked!", id: "448510", verified: true, genre: "Simulation, Co-op, Local Multiplayer", year: 2016, score: 81, date_added: LATEST_BATCH },
-    { name: "Dead Island Definitive Edition", id: "383150", verified: true, genre: "Action, Zombies, Open World", year: 2016, score: 72, date_added: LATEST_BATCH },
-    { name: "Mount & Blade II: Bannerlord", id: "261550", verified: true, genre: "Strategy, RPG, Medieval", year: 2022, score: 77, date_added: LATEST_BATCH }
+    // --- Batch: Jan 3, 2026 (The "Old" New Games) ---
+    { name: "Assetto Corsa", id: "244210", genre: "Racing, Simulation, Sports", year: 2014, score: 85, date_added: "2026-01-03" },
+    { name: "Bloons TD 6", id: "960090", genre: "Strategy, Tower Defense, Co-op", year: 2018, score: 82, date_added: "2026-01-03" },
+    { name: "BPM: BULLETS PER MINUTE", id: "1286350", genre: "Action, Rhythm, FPS", year: 2020, score: 74, date_added: "2026-01-03" },
+    { name: "Death in the Water 2", id: "1338840", verified: true, genre: "Action, Horror, Survival", year: 2023, date_added: "2026-01-03" },
+    { name: "Easy Red 2", id: "1324780", verified: true, genre: "Action, Simulation, Strategy", year: 2022, date_added: "2026-01-03" },
+    { name: "FATAL FRAME / PROJECT ZERO: Maiden of Black Water", id: "1732190", genre: "Adventure, Horror, Japanese", year: 2021, score: 73, date_added: "2026-01-03" },
+    { name: "FATAL FRAME / PROJECT ZERO: Mask of the Lunar Eclipse", id: "2130460", genre: "Adventure, Horror, Japanese", year: 2023, score: 73, date_added: "2026-01-03" },
+    { name: "Hellboy Web of Wyrd", id: "2160480", verified: true, genre: "Action, Adventure, Roguelike", year: 2023, score: 68, date_added: "2026-01-03" },
+    { name: "Jazzpunk: Director's Cut", id: "250260", verified: true, genre: "Adventure, Indie, Comedy", year: 2014, score: 75, date_added: "2026-01-03" },
+    { name: "Laika: Aged Through Blood", id: "1796220", verified: true, genre: "Action, Metroidvania, Motorvania", year: 2023, score: 83, date_added: "2026-01-03" },
+    { name: "Maneater", id: "629820", verified: true, genre: "Action, RPG, Open World", year: 2020, score: 71, date_added: "2026-01-03" },
+    { name: "Mika and the Witch's Mountain", id: "1819460", verified: true, genre: "Adventure, Casual, Indie", year: 2025, date_added: "2026-01-03" },
+    { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89, date_added: "2026-01-03" },
+    { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77, date_added: "2026-01-03" },
+    { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78, date_added: "2026-01-03" },
+    { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76, date_added: "2026-01-03" },
+
+    // --- Batch: Jan 5, 2026 (The NEWEST Games) ---
+    { name: "Goat Simulator 3", id: "850190", genre: "Simulation, Comedy, Open World", year: 2024, score: 78, date_added: "2026-01-05" },
+    { name: "Bendy and the Ink Machine", id: "622650", verified: true, genre: "Horror, Puzzle, First-Person", year: 2017, score: 71, date_added: "2026-01-05" },
+    { name: "Overcooked!", id: "448510", verified: true, genre: "Simulation, Co-op, Local Multiplayer", year: 2016, score: 81, date_added: "2026-01-05" },
+    { name: "Dead Island Definitive Edition", id: "383150", verified: true, genre: "Action, Zombies, Open World", year: 2016, score: 72, date_added: "2026-01-05" },
+    { name: "Mount & Blade II: Bannerlord", id: "261550", verified: true, genre: "Strategy, RPG, Medieval", year: 2022, score: 77, date_added: "2026-01-05" }
 ];
