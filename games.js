@@ -1,5 +1,5 @@
 // UPDATE THIS DATE when adding a new batch of games (Format: YYYY-MM-DD)
-const LATEST_BATCH = "2026-01-03";
+const LATEST_BATCH = "2026-01-05";
 
 const comingSoonGames = [
     { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
@@ -593,5 +593,10 @@ const games = [
     { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89, date_added: LATEST_BATCH },
     { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77, date_added: LATEST_BATCH },
     { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78, date_added: LATEST_BATCH },
-    { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76, date_added: LATEST_BATCH }
+    { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76, date_added: LATEST_BATCH },
+    { name: "Goat Simulator 3", id: "850190", genre: "Simulation, Comedy, Open World", year: 2024, score: 78, date_added: LATEST_BATCH },
+    { name: "Bendy and the Ink Machine", id: "622650", verified: true, genre: "Horror, Puzzle, First-Person", year: 2017, score: 71, date_added: LATEST_BATCH },
+    { name: "Overcooked!", id: "448510", verified: true, genre: "Simulation, Co-op, Local Multiplayer", year: 2016, score: 81, date_added: LATEST_BATCH },
+    { name: "Dead Island Definitive Edition", id: "383150", verified: true, genre: "Action, Zombies, Open World", year: 2016, score: 72, date_added: LATEST_BATCH },
+    { name: "Mount & Blade II: Bannerlord", id: "261550", verified: true, genre: "Strategy, RPG, Medieval", year: 2022, score: 77, date_added: LATEST_BATCH }
 ];
