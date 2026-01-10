@@ -126,21 +126,22 @@
             <h2 class="request-title">طلب لعبة جديدة</h2>
             <form id="requestForm" onsubmit="handleRequestSubmit(event)">
                 <div class="form-group">
-                    <label for="gameName">اسم اللعبة (مطلوب)</label>
-                    <input type="text" id="gameName" name="game" class="form-input" placeholder="مثلاً: Elden Ring"
+                    <label for="gameName">اسم اللعبة</label>
+                    <input type="text" id="gameName" name="game" class="form-input" placeholder="اكتب اسم اللعبة..."
                         required>
                 </div>
+
                 <div class="form-group">
                     <label for="orderNumber">رقم الطلب (اختياري)</label>
-                    <input type="number" id="orderNumber" name="order_number" class="form-input" placeholder="10234">
-                    <small style="color:#666; font-size:0.7rem; margin-top:4px; display:block;">
-                        سنقوم بإبلاغك عند توفر اللعبة بناءً على رقم عضويتك.
-                    </small>
+                    <input type="number" id="orderNumber" name="order_number" class="form-input" placeholder="10XXX">
+                    <small class="form-hint">سنقوم بإبلاغك فور توفرها.</small>
                 </div>
+
+                <button type="submit" class="request-submit" id="requestSubmitBtn">
+                    إرسال الطلب 🚀
+                </button>
+            </form>
         </div>
-        <button type="submit" class="request-submit" id="requestSubmitBtn">إرسال الطلب</button>
-        </form>
-    </div>
     </div>
 
 

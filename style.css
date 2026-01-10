@@ -1038,44 +1038,52 @@ footer {
     color: #aaa;
 }
 
+/* Hints under inputs */
+.form-hint {
+    color: #666;
+    font-size: 0.75rem;
+    margin-top: 6px;
+    display: block;
+    font-weight: normal;
+}
+
 .form-input {
     width: 100%;
-    padding: 12px 15px;
-    background: #0a0a0a;
+    padding: 14px;
+    background: #111;
     border: 1px solid #333;
-    border-radius: 8px;
+    border-radius: 10px;
     color: #fff;
-    font-family: inherit;
     font-size: 1rem;
-    box-sizing: border-box;
     transition: 0.3s;
-    text-align: right;
+    text-align: right; /* Ensure Arabic direction */
 }
 
 .form-input:focus {
-    outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(0, 230, 118, 0.1);
+    background: #080808;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.1);
+    outline: none;
 }
 
 .request-submit {
     width: 100%;
-    background: var(--accent);
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--accent), #00b359); /* Gradient for depth */
     color: #000;
     border: none;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
     font-weight: 800;
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 20px rgba(0, 230, 118, 0.3);
 }
 
 .request-submit:hover {
-    background: #00ff82;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 230, 118, 0.5);
 }
 
 .request-submit:disabled {
@@ -1083,6 +1091,7 @@ footer {
     color: #666;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 /* --- MOBILE TOGGLE DEFAULTS (Desktop) --- */
