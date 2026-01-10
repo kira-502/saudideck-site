@@ -6,6 +6,31 @@
 // ==========================================
 const batches = [
     {
+        date: "2026-01-10",
+        list: [
+            { name: "ULTRAKILL", id: "1229490", verified: true, genre: "Action, FPS, Retro", year: 2020 },
+            { name: "Backpack Hero", id: "1970580", verified: true, genre: "Strategy, Roguelike, Deckbuilder", year: 2023 },
+            { name: "Nidhogg 2", id: "535520", genre: "Action, Fighting, Indie", year: 2017 },
+            { name: "Commandos 2 - HD Remaster", id: "1100410", genre: "Strategy, Stealth, Tactics", year: 2020 },
+            { name: "Commandos 3 - HD Remaster", id: "1469170", genre: "Strategy, Stealth, Tactics", year: 2022 },
+            { name: "Commandos: Behind Enemy Lines", id: "6800", genre: "Strategy, Stealth, Classic", year: 1998 },
+            { name: "Praetorians - HD Remaster", id: "1100420", genre: "Strategy, RTS, Classic", year: 2020 },
+            { name: "Sudden Strike 4", id: "373930", genre: "Strategy, RTS, WWII", year: 2017 },
+            { name: "Sudden Strike 3", id: "612540", genre: "Strategy, RTS, WWII", year: 2007 },
+            { name: "Sudden Strike 2 Gold", id: "612520", genre: "Strategy, RTS, WWII", year: 2002 },
+            { name: "Sudden Strike Gold", id: "612300", genre: "Strategy, RTS, WWII", year: 2001 },
+            { name: "Sudden Strike Resource War", id: "613600", genre: "Strategy, RTS, WWII", year: 2005 },
+            { name: "Dungeons 3", id: "493900", verified: true, genre: "Strategy, Simulation, Comedy", year: 2017 },
+            { name: "Dungeons 2", id: "262280", genre: "Strategy, Simulation, RPG", year: 2015 },
+            { name: "Dungeons", id: "57650", genre: "Strategy, Simulation, RPG", year: 2011 },
+            { name: "Dungeons: The Dark Lord", id: "200550", genre: "Strategy, Simulation, RPG", year: 2011 },
+            { name: "Disciples: Liberation", id: "1287840", genre: "Strategy, RPG, Dark Fantasy", year: 2021 },
+            { name: "Immortal Realms: Vampire Wars", id: "1024480", genre: "Strategy, Turn-Based, Card Game", year: 2020 },
+            { name: "Deathbulge: Battle of the Bands", id: "1083790", genre: "RPG, Indie, Comedy", year: 2023 },
+            { name: "Haste", id: "1796470", genre: "Action, Racing, Indie", year: 2025 }
+        ]
+    },
+    {
         date: "2026-01-06",
         list: [
             { name: "Wizard of Legend 2", id: "2193540", genre: "Action, Roguelike, Co-op", year: 2025 },
