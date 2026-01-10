@@ -228,7 +228,7 @@ function resetAndRender() {
             <p style="color:#999; margin-bottom: 25px;">هذه اللعبة غير موجودة في المكتبة حالياً.</p>
             
             <button onclick="openRequestModal('${safeTerm}')" class="btn-request-main">
-                📝 طلب إضافة اللعبة فوراً
+                📝 طلب توفير اللعبة
             </button>
         </div>
     `;
