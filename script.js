@@ -218,12 +218,20 @@ function resetAndRender() {
     displayedCount = 0;
 
     if (filteredGames.length === 0 && searchTerm) {
+        // ESCAPE SINGLE QUOTES to prevent errors
+        const safeTerm = searchTerm.replace(/'/g, "\\'");
+
         document.getElementById("gameGrid").innerHTML = `
-            <div class="empty-state">
-                <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على نتائج</h2>
-                <p style="color:#666;">لم نتمكن من العثور على "${searchTerm}"</p>
-            </div>
-        `;
+        <div class="empty-state">
+            <div style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;">🔍</div>
+            <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على "${searchTerm}"</h2>
+            <p style="color:#999; margin-bottom: 25px;">هذه اللعبة غير موجودة في المكتبة حالياً.</p>
+            
+            <button onclick="openRequestModal('${safeTerm}')" class="btn-request-main">
+                📝 طلب إضافة اللعبة فوراً
+            </button>
+        </div>
+    `;
         document.getElementById("loadMoreArea").style.display = "none";
     } else {
         loadMore();
@@ -311,10 +319,22 @@ function loadMore() {
 }
 
 /* --- REQUEST MODAL LOGIC --- */
-function openRequestModal() {
+function openRequestModal(prefillName = null) {
     const overlay = document.getElementById("requestOverlay");
     overlay.classList.add("active");
-    document.body.style.overflow = "hidden"; // Prevent background scroll
+    document.body.style.overflow = "hidden";
+
+    // AUTO-FILL LOGIC
+    // If the user clicked the button from search, fill the input automatically
+    if (prefillName && typeof prefillName === 'string') {
+        const input = document.getElementById("gameName");
+        if (input) {
+            input.value = prefillName;
+            // Optional: Add a visual flash to show it was filled
+            input.style.borderColor = "var(--accent)";
+            setTimeout(() => input.style.borderColor = "#333", 1000);
+        }
+    }
 }
 
 function closeRequestModal() {
