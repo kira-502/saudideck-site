@@ -1401,3 +1401,19 @@ footer {
     color: black;
     border-color: var(--accent);
 }
+/* --- ACTIVE COUNTDOWN STYLES --- */
+.locked-overlay.nearest-active {
+    background: rgba(0, 0, 0, 0.7); /* Darker for readability */
+    backdrop-filter: blur(4px);
+    border: 2px solid var(--accent);
+    animation: pulseBorder 2s infinite;
+}
+.hype-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+
+.countdown-timer { font-family: 'Courier New', monospace; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(0, 230, 118, 0.5); margin-bottom: 5px; }
+
+.count-val { color: #fff; }
+
+.release-date-sub { font-size: 0.75rem; color: #aaa; }
+
+@keyframes pulseBorder { 0% { border-color: var(--accent); } 50% { border-color: transparent; } 100% { border-color: var(--accent); } }

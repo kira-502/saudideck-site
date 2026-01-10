@@ -123,28 +123,42 @@ function createGameCard(game) {
     if (isLocked) {
         cardClass += " locked";
         let releaseText = "TBA";
-        let icon = "🕒";
+        let icon = "🔒";
+        let countdownHtml = "";
+
+        // CHECK IF THIS IS THE NEAREST GAME (First in comingSoonGames)
+        const isNearest = (game.name === comingSoonGames[0].name);
 
         if (game.release_info) {
             releaseText = game.release_info;
             icon = (game.release_type === 'date') ? "📅" : "🕒";
-        } else if (game.release_date) {
-            const [y, m, d] = game.release_date.split('-');
-            releaseText = `${d}/${m}/${y}`;
-            icon = "🕒";
-        } else if (game.year) {
-            releaseText = `COMING ${game.year}`;
         }
 
-        lockedOverlay = `
-            <div class="locked-overlay">
-                <div class="lock-icon">🔒</div>
-                <div class="release-capsule">
-                    <span class="capsule-icon">${icon}</span>
-                    <span>${releaseText}</span>
+        if (isNearest) {
+            // Generate a unique ID for the timer
+            const timerId = "timer-" + game.id;
+            // Trigger the countdown function after a slight delay to ensure DOM is ready
+            setTimeout(() => startCountdown(game.release_info, timerId), 100);
+
+            lockedOverlay = `
+                <div class="locked-overlay nearest-active">
+                    <div class="hype-label">NEXT RELEASE</div>
+                    <div class="countdown-timer" id="${timerId}">Loading...</div>
+                    <div class="release-date-sub">${releaseText}</div>
                 </div>
-            </div>
-        `;
+            `;
+        } else {
+            // Standard Locked Card
+            lockedOverlay = `
+                <div class="locked-overlay">
+                    <div class="lock-icon">🔒</div>
+                    <div class="release-capsule">
+                        <span class="capsule-icon">${icon}</span>
+                        <span>${releaseText}</span>
+                    </div>
+                </div>
+            `;
+        }
     }
 
     // GENRE TAGS LOGIC (Limit to 2)
@@ -420,4 +434,31 @@ function toggleFilters() {
         btn.classList.toggle("active");
         // Text update removed -> CSS handles the icon rotation now
     }
+}
+// --- LIVE COUNTDOWN LOGIC ---
+function startCountdown(targetDateString, elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    // Parse "DD/MM/YYYY" to Date object
+    const parts = targetDateString.split('/');
+    const targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`).getTime();
+
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+            clearInterval(interval);
+            element.innerHTML = "AVAILABLE NOW!";
+            element.classList.add('released');
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        element.innerHTML = `<span class="count-val">${days}d</span> <span class="count-val">${hours}h</span> <span class="count-val">${minutes}m</span>`;
+    }, 1000);
 }

@@ -77,8 +77,8 @@ const batches = [
 ];
 
 const comingSoonGames = [
-    { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
     { name: "CODE VEIN II", id: "2362060", genre: "RPG, Action, Anime", year: "2026", image: "assets/code_vein_2.png", release_info: "30/01/2026", release_type: "date" },
+    { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
     { name: "Resident Evil Requiem", id: "3764200", genre: "Horror, Survival, Action", year: "2026", image: "assets/re_requiem.jpg", release_info: "27/02/2026", release_type: "date" }
 ];
 
