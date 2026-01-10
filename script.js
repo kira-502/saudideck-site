@@ -222,13 +222,13 @@ function resetAndRender() {
         const safeTerm = searchTerm.replace(/'/g, "\\'");
 
         document.getElementById("gameGrid").innerHTML = `
-        <div class="empty-state">
+        <div class="empty-state" style="border: 2px dashed #333; padding: 40px; border-radius: 12px; background: rgba(255,255,255,0.02);">
             <div style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;">🔍</div>
-            <h2 style="color:#fff; margin-bottom:10px;">لم يتم العثور على "${searchTerm}"</h2>
-            <p style="color:#999; margin-bottom: 25px;">هذه اللعبة غير موجودة في المكتبة حالياً.</p>
+            <h2 style="color:#fff; margin-bottom:10px; font-size: 1.2rem;">لم نجد "${safeTerm}"</h2>
+            <p style="color:#888; margin-bottom: 25px; font-size: 0.9rem;">هل تبحث عن لعبة غير موجودة؟</p>
             
-            <button onclick="openRequestModal('${safeTerm}')" class="btn-request-main">
-                📝 طلب توفير اللعبة
+            <button onclick="openRequestModal('${safeTerm}')" class="btn-request-main" style="padding: 10px 25px; font-size: 0.9rem;">
+                + طلب توفير اللعبة
             </button>
         </div>
     `;

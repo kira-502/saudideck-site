@@ -131,13 +131,16 @@
                         required>
                 </div>
                 <div class="form-group">
-    <label for="orderNumber">رقم الطلب (لإبلاغك عند توفرها)</label>
-    <input type="text" id="orderNumber" name="order_number" class="form-input"
-        placeholder="مثلاً: #10234">
-</div>                </div>
-                <button type="submit" class="request-submit" id="requestSubmitBtn">إرسال الطلب</button>
-            </form>
+                    <label for="orderNumber">رقم الطلب (اختياري)</label>
+                    <input type="number" id="orderNumber" name="order_number" class="form-input" placeholder="10234">
+                    <small style="color:#666; font-size:0.7rem; margin-top:4px; display:block;">
+                        سنقوم بإبلاغك عند توفر اللعبة بناءً على رقم عضويتك.
+                    </small>
+                </div>
         </div>
+        <button type="submit" class="request-submit" id="requestSubmitBtn">إرسال الطلب</button>
+        </form>
+    </div>
     </div>
 
 
