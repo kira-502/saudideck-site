@@ -6,6 +6,13 @@
 // ==========================================
 const batches = [
     {
+        date: "2026-01-12",
+        list: [
+            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86 },
+            { name: "Goat Simulator", id: "265930", genre: "Simulation, Comedy, Sandbox", year: 2014, score: 62 }
+        ]
+    },
+    {
         date: "2026-01-11",
         list: [
             { name: "Etrian Odyssey HD", id: "1868180", verified: true, genre: "RPG, Adventure, Dungeon Crawler", year: 2023, score: 87 },
