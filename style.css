@@ -1404,83 +1404,66 @@ footer {
     border-color: var(--accent);
 }
 
-/* --- CINEMATIC COUNTDOWN STYLES --- */
+/* --- MINIMALIST COUNTDOWN STYLES --- */
 .locked-overlay.nearest-active {
     background: rgba(0, 0, 0, 0.85);
-    /* Darker for contrast */
-    backdrop-filter: blur(8px);
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.2) inset;
-    /* Inner Glow */
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 30px rgba(0, 230, 118, 0.15) inset;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .hype-label {
-    font-size: 0.85rem;
-    letter-spacing: 3px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
     color: var(--accent);
-    font-weight: 900;
+    font-weight: bold;
     text-transform: uppercase;
-    animation: glowPulse 2s infinite alternate;
-    margin: 0;
+    opacity: 0.9;
+    margin-bottom: 5px;
 }
 
-/* Container for the timer boxes */
 .countdown-timer {
     display: flex;
-    gap: 10px;
-    justify-content: center;
+    gap: 15px;
+    /* Space between numbers */
+    direction: ltr;
+    /* Force Left-to-Right for numbers (Days -> Hours -> Mins) */
 }
 
-/* Individual Time Boxes */
-.count-box {
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 8px 12px;
-    min-width: 50px;
-    text-align: center;
+.count-unit {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .count-val {
-    font-family: 'Courier New', monospace;
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-family: 'Segoe UI', sans-serif;
+    /* Clean font */
+    font-size: 1.8rem;
+    font-weight: 800;
     color: #fff;
     line-height: 1;
 }
 
 .count-label {
     font-size: 0.6rem;
-    color: #666;
-    margin-top: 4px;
-    text-transform: uppercase;
+    color: #888;
+    margin-top: 2px;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
 .release-date-sub {
-    font-size: 0.75rem;
-    color: #888;
-    border-top: 1px solid #333;
-    padding-top: 8px;
-    margin-top: 5px;
-    width: 80%;
-    text-align: center;
-}
-
-@keyframes glowPulse {
-    from {
-        text-shadow: 0 0 5px rgba(0, 230, 118, 0.2);
-        opacity: 0.8;
-    }
-
-    to {
-        text-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
-        opacity: 1;
-    }
+    font-size: 0.8rem;
+    color: #bbb;
+    margin-top: 10px;
+    font-family: monospace;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
 }
