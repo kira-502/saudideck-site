@@ -1,457 +1,266 @@
-// ==========================================
-// 3. SYSTEM LOGIC (Batch Rendering + Load More + Sorting)
-// ==========================================
+/* =========================================
+   1. GLOBAL VARIABLES & INIT
+   ========================================= */
+let allGames = [];
+let visibleGames = [];
+const BATCH_SIZE = 20;
+let currentLimit = BATCH_SIZE;
 
-// Merge Arrays (All games in one place)
-const allGames = [...comingSoonGames, ...games];
+// Store interval IDs to prevent memory leaks
+let activeIntervals = [];
 
-// Flag unreleased games
-allGames.forEach(g => {
-    if (comingSoonGames.includes(g)) g.isUnreleased = true;
+// Mapping for Genre Dropdown
+const GENRE_MAPPING = {
+    "Action": "آكشن",
+    "Adventure": "مغامرات",
+    "RPG": "أر بي جي",
+    "Simulation": "محاكاة",
+    "Strategy": "استراتيجية",
+    "Sports": "رياضة",
+    "Racing": "سباق",
+    "Fighting": "قتال",
+    "Horror": "رعب",
+    "Puzzle": "ألغاز",
+    "Shooter": "شوتر",
+    "Platformer": "بلاتفورمر",
+    "Open World": "عالم مفتوح"
+};
+
+// Initialize on Load
+document.addEventListener('DOMContentLoaded', () => {
+    init();
 });
 
-const BATCH_SIZE = 18;
-let displayedCount = 0;
-let filteredGames = [];
-// Dynamically populate Genre Filter dropdown
-function populateGenreFilter() {
-    const genreSelect = document.getElementById("genreFilter");
-    if (!genreSelect) return;
+function init() {
+    // Combine coming soon + main library (games is global from games.js)
+    const comingSoonWithFlag = comingSoonGames.map(g => ({ ...g, isComingSoon: true }));
+    allGames = [...comingSoonWithFlag, ...games];
 
-    // Extract unique genres
+    populateGenreFilter();
+    populateYearFilter();
+    resetAndRender();
+}
+
+/* =========================================
+   2. FILTERS & SORTING
+   ========================================= */
+function populateGenreFilter() {
+    const genreSelect = document.getElementById('genreFilter');
     const genres = new Set();
-    allGames.forEach(game => {
-        if (game.genre) {
-            game.genre.split(',').forEach(g => genres.add(g.trim()));
+    allGames.forEach(g => {
+        if (g.genre) {
+            g.genre.split(',').forEach(gen => genres.add(gen.trim()));
         }
     });
 
-    // Sort alphabetically
-    const sortedGenres = Array.from(genres).sort();
-
-    // Keep "كل التصنيفات", remove the rest
-    genreSelect.innerHTML = `<option value="All">كل التصنيفات</option>`;
-
-    // Add unique genres
-    sortedGenres.forEach(genre => {
-        const option = document.createElement("option");
-        option.value = genre;
-        option.textContent = genre;
+    Array.from(genres).sort().forEach(g => {
+        const option = document.createElement('option');
+        option.value = g;
+        option.textContent = GENRE_MAPPING[g] || g;
         genreSelect.appendChild(option);
     });
 }
 
 function populateYearFilter() {
-    const yearSelect = document.getElementById("yearFilter");
-    if (!yearSelect) return;
-
-    // Extract unique years and sort descending (Newest first)
-    const years = new Set();
-    allGames.forEach(game => {
-        if (game.year) years.add(game.year);
-    });
-
-    const sortedYears = Array.from(years).sort((a, b) => b - a);
-
-    yearSelect.innerHTML = `<option value="All">كل السنوات</option>`;
-
-    sortedYears.forEach(y => {
-        const option = document.createElement("option");
+    const yearSelect = document.getElementById('yearFilter');
+    const years = new Set(allGames.map(g => g.year).filter(y => y));
+    Array.from(years).sort((a, b) => b - a).forEach(y => {
+        const option = document.createElement('option');
         option.value = y;
         option.textContent = y;
         yearSelect.appendChild(option);
     });
 }
 
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('reveal');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// INITIAL LOAD
-document.addEventListener("DOMContentLoaded", () => {
-    init();
-});
-
-// --- HELPER FUNCTIONS ---
-function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
+function toggleFilters() {
+    const panel = document.getElementById('filtersPanel');
+    panel.classList.toggle('active');
 }
-const debouncedSearch = debounce(() => resetAndRender(), 300);
 
 function toggleVerifiedFilter() {
-    const btn = document.getElementById("verifiedToggleBtn");
-    const checkbox = document.getElementById("verifiedFilter");
-
-    if (checkbox.checked) {
-        btn.classList.add("active");
-    } else {
-        btn.classList.remove("active");
-    }
+    const btn = document.getElementById('verifiedToggleBtn');
+    btn.classList.toggle('active');
     resetAndRender();
 }
 
-function createGameCard(game) {
-    const isLocked = game.isUnreleased;
-    const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
-
-    const fallback = game.image
-        ? "this.style.display='none'; this.nextElementSibling.style.display='flex'"
-        : `this.onerror=null; this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg';`;
-
-    let cardClass = "game-card";
-    let lockedOverlay = "";
-    let verifiedHTML = game.verified ? `
-        <div class="verified-badge" title="Steam Deck Verified">
-            <img src="assets/badge_verified.png" alt="Verified">
-        </div>` : '';
-
-    if (isLocked) {
-        cardClass += " locked";
-        let releaseText = "TBA";
-        let icon = "🔒";
-        let countdownHtml = "";
-
-        // CHECK IF THIS IS THE NEAREST GAME (First in comingSoonGames)
-        const isNearest = (game.name === comingSoonGames[0].name);
-
-        if (game.release_info) {
-            releaseText = game.release_info;
-            icon = (game.release_type === 'date') ? "📅" : "🕒";
-        }
-
-        if (isNearest) {
-            // Generate a unique ID for the timer
-            const timerId = "timer-" + game.id;
-            // Trigger the countdown function after a slight delay to ensure DOM is ready
-            setTimeout(() => startCountdown(game.release_info, timerId), 100);
-
-            lockedOverlay = `
-                <div class="locked-overlay nearest-active">
-                    <div class="hype-label">NEXT RELEASE</div>
-                    <div class="countdown-timer" id="${timerId}">Loading...</div>
-                    <div class="release-date-sub">${releaseText}</div>
-                </div>
-            `;
-        } else {
-            // Standard Locked Card
-            lockedOverlay = `
-                <div class="locked-overlay">
-                    <div class="lock-icon">🔒</div>
-                    <div class="release-capsule">
-                        <span class="capsule-icon">${icon}</span>
-                        <span>${releaseText}</span>
-                    </div>
-                </div>
-            `;
-        }
-    }
-
-    // GENRE TAGS LOGIC (Limit to 2)
-    const genreBadges = game.genre
-        ? game.genre.split(',').slice(0, 2).map(g => `<span class="genre-tag">${g.trim()}</span>`).join('')
-        : '';
-
-    return `
-<a href="https://store.steampowered.com/app/${game.id}/" target="_blank" rel="noopener noreferrer" class="${cardClass}">
-<div class="card-image">
-    ${verifiedHTML}
-    ${lockedOverlay}
-    <img src="${imgUrl}" alt="${game.name}" loading="lazy" class="cover-art" onerror="${fallback}">
-</div>
-<div class="card-info">
-    <h3 class="game-title" title="${game.name}">${game.name}</h3>
-    <div class="game-meta">
-        <div class="card-genres">
-            ${genreBadges}
-        </div>
-        <span>${game.year}</span>
-    </div>
-</div>
-</a>
-`;
+/* =========================================
+   3. SEARCH & DEBOUNCE
+   ========================================= */
+let searchTimeout;
+function debouncedSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        resetAndRender();
+    }, 300);
 }
 
+/* =========================================
+   4. CORE RENDERING ENGINE
+   ========================================= */
 function resetAndRender() {
-    const genreSelect = document.getElementById("genreFilter").value;
-    const sortSelect = document.getElementById("sortFilter").value;
-    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-    const verifiedOnly = document.getElementById("verifiedFilter").checked;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const genre = document.getElementById('genreFilter').value;
+    const year = document.getElementById('yearFilter').value;
+    const sort = document.getElementById('sortFilter').value;
+    const verifiedOnly = document.getElementById('verifiedFilter').checked;
 
-    // Safety Check: If year filter is missing, default to "All"
-    const yearEl = document.getElementById("yearFilter");
-    const yearSelect = yearEl ? yearEl.value : "All";
+    visibleGames = allGames.filter(g => {
+        const matchesSearch = (g.name || "").toLowerCase().includes(search);
+        const matchesGenre = genre === 'All' || (g.genre && g.genre.includes(genre));
+        const matchesYear = year === 'All' || g.year == year;
+        const matchesVerified = !verifiedOnly || g.verified;
 
-    filteredGames = allGames.filter(game => {
-        const matchesGenre = genreSelect === "All" || (game.genre && game.genre.split(',').map(g => g.trim()).includes(genreSelect));
-        const matchesSearch = game.name.toLowerCase().includes(searchTerm);
-        const matchesVerified = !verifiedOnly || game.verified;
-        const matchesYear = yearSelect === "All" || game.year == yearSelect;
-
-        return matchesGenre && matchesSearch && matchesVerified && matchesYear;
+        return matchesSearch && matchesGenre && matchesYear && matchesVerified;
     });
 
-    // Sorting Logic
-    if (sortSelect === "metacritic") {
-        filteredGames.sort((a, b) => {
-            if (a.isUnreleased && !b.isUnreleased) return -1;
-            if (!a.isUnreleased && b.isUnreleased) return 1;
-            if (a.isUnreleased && b.isUnreleased) return 0;
-            return (b.score || 0) - (a.score || 0);
+    if (sort === 'newest') {
+        visibleGames.sort((a, b) => b.year - a.year);
+    } else if (sort === 'oldest') {
+        visibleGames.sort((a, b) => a.year - b.year);
+    } else if (sort === 'az') {
+        visibleGames.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sort === 'date_added') {
+        visibleGames.sort((a, b) => {
+            if (a.date_added && b.date_added) return b.date_added.localeCompare(a.date_added);
+            if (a.date_added) return -1;
+            if (b.date_added) return 1;
+            return 0;
         });
-    } else if (sortSelect === "date_added") {
-        filteredGames.sort((a, b) => {
-            const dateA = a.date_added || "1970-01-01";
-            const dateB = b.date_added || "1970-01-01";
-            return dateB.localeCompare(dateA);
-        });
-    } else if (sortSelect === "newest") {
-        filteredGames.sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
-    } else if (sortSelect === "oldest") {
-        filteredGames.sort((a, b) => (parseInt(a.year) || 9999) - (parseInt(b.year) || 9999));
-    } else if (sortSelect === "az") {
-        filteredGames.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    // Render
-    document.getElementById("gameGrid").innerHTML = "";
-    displayedCount = 0;
-
-    if (filteredGames.length === 0 && searchTerm) {
-        // ESCAPE SINGLE QUOTES to prevent errors
-        const safeTerm = searchTerm.replace(/'/g, "\\'");
-
-        document.getElementById("gameGrid").innerHTML = `
-        <div class="empty-state" style="border: 2px dashed #333; padding: 40px; border-radius: 12px; background: rgba(255,255,255,0.02);">
-            <div style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;">🔍</div>
-            <h2 style="color:#fff; margin-bottom:10px; font-size: 1.2rem;">لم نجد "${safeTerm}"</h2>
-            <p style="color:#888; margin-bottom: 25px; font-size: 0.9rem;">هل تبحث عن لعبة غير موجودة؟</p>
-            
-            <button onclick="openRequestModal('${safeTerm}')" class="btn-request-main" style="padding: 10px 25px; font-size: 0.9rem;">
-                + طلب توفير اللعبة
-            </button>
-        </div>
-    `;
-        document.getElementById("loadMoreArea").style.display = "none";
     } else {
-        loadMore();
+        visibleGames.sort((a, b) => (b.score || 0) - (a.score || 0));
     }
+
+    currentLimit = BATCH_SIZE;
+    renderGrid();
 }
 
-/* --- RANDOM PICKER LOGIC (ROULETTE) --- */
-let rouletteInterval = null;
+function renderGrid() {
+    const grid = document.getElementById('gameGrid');
+    grid.innerHTML = '';
+    clearCountdowns();
 
-function pickRandomGame() {
-    if (filteredGames.length === 0) return;
+    const toShow = visibleGames.slice(0, currentLimit);
 
-    const overlay = document.getElementById("randomOverlay");
-    const img = document.getElementById("rouletteImg");
-    const title = document.getElementById("rouletteTitle");
-    const steamBtn = document.getElementById("rouletteSteamBtn");
-
-    // Reset UI
-    overlay.classList.add("active");
-    title.textContent = "جارٍ الاختيار...";
-    steamBtn.style.display = "none";
-    img.style.filter = "blur(5px)";
-
-    let shuffleCount = 0;
-    const maxShuffle = 20; // 2 seconds (100ms * 20)
-
-    if (rouletteInterval) clearInterval(rouletteInterval);
-
-    rouletteInterval = setInterval(() => {
-        const randomIdx = Math.floor(Math.random() * filteredGames.length);
-        const game = filteredGames[randomIdx];
-        const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
-
-        img.src = imgUrl;
-        shuffleCount++;
-
-        if (shuffleCount >= maxShuffle) {
-            clearInterval(rouletteInterval);
-            revealWinner(game);
-        }
-    }, 100);
-}
-
-function revealWinner(game) {
-    const img = document.getElementById("rouletteImg");
-    const title = document.getElementById("rouletteTitle");
-    const steamBtn = document.getElementById("rouletteSteamBtn");
-
-    img.style.filter = "none";
-    img.style.transform = "scale(1.05)";
-    setTimeout(() => img.style.transform = "scale(1)", 200);
-
-    title.textContent = game.name;
-    steamBtn.href = `https://store.steampowered.com/app/${game.id}/`;
-    steamBtn.style.display = "inline-block";
-}
-
-function closeRandomModal() {
-    if (rouletteInterval) clearInterval(rouletteInterval);
-    document.getElementById("randomOverlay").classList.remove("active");
-}
-
-
-function loadMore() {
-    const grid = document.getElementById("gameGrid");
-    const btnArea = document.getElementById("loadMoreArea");
-    const nextBatch = filteredGames.slice(displayedCount, displayedCount + BATCH_SIZE);
-    if (nextBatch.length === 0) {
-        btnArea.style.display = "none";
+    if (toShow.length === 0) {
+        grid.innerHTML = `
+               <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">
+                   <h3>لم يتم العثور على نتائج 😔</h3>
+                   <p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--accent)">اطلب اللعبة</a></p>
+               </div>
+           `;
+        document.getElementById('loadMoreArea').style.display = 'none';
         return;
     }
-    const htmlString = nextBatch.map(game => createGameCard(game, false)).join('');
-    grid.insertAdjacentHTML('beforeend', htmlString);
-    // TURBO FIX: Only observe the newly added children, not the whole grid
-    const totalChildren = grid.children.length;
-    for (let i = totalChildren - nextBatch.length; i < totalChildren; i++) {
-        observer.observe(grid.children[i]);
-    }
-    displayedCount += BATCH_SIZE;
-    if (displayedCount >= filteredGames.length) {
-        btnArea.style.display = "none";
-    } else {
-        btnArea.style.display = "block";
-    }
+
+    toShow.forEach(game => {
+        const isNearest = game.isComingSoon && game.id === comingSoonGames[0].id;
+        grid.innerHTML += createGameCard(game, isNearest);
+    });
+
+    // Start countdowns after render
+    toShow.forEach(game => {
+        if (game.isComingSoon && game.id === comingSoonGames[0].id) {
+            startCountdown(game.release_info, `timer-${game.id}`);
+        }
+    });
+
+    document.getElementById('loadMoreArea').style.display =
+        currentLimit >= visibleGames.length ? 'none' : 'block';
 }
 
-/* --- REQUEST MODAL LOGIC --- */
-function openRequestModal(prefillName = null) {
-    const overlay = document.getElementById("requestOverlay");
-    overlay.classList.add("active");
-    document.body.style.overflow = "hidden";
+function loadMore() {
+    currentLimit += BATCH_SIZE;
+    renderGrid();
+}
 
-    // AUTO-FILL LOGIC
-    // If the user clicked the button from search, fill the input automatically
-    if (prefillName && typeof prefillName === 'string') {
-        const input = document.getElementById("gameName");
-        if (input) {
-            input.value = prefillName;
-            // Optional: Add a visual flash to show it was filled
-            input.style.borderColor = "var(--accent)";
-            setTimeout(() => input.style.borderColor = "#333", 1000);
+function clearCountdowns() {
+    activeIntervals.forEach(clearInterval);
+    activeIntervals = [];
+}
+
+/* =========================================
+   5. HTML GENERATION (CARDS)
+   ========================================= */
+function createGameCard(game, isNearest) {
+    const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
+    const steamUrl = `https://store.steampowered.com/app/${game.id}`;
+
+    let badgesHtml = '';
+    if (game.verified) {
+        badgesHtml += `
+               <div class="badge" title="Verified on Steam Deck">
+                   <img src="assets/badge_verified.png" alt="Verified">
+               </div>
+           `;
+    }
+
+    let lockedClass = '';
+    let lockedOverlay = '';
+
+    if (game.isComingSoon) {
+        lockedClass = 'locked';
+        if (isNearest) {
+            lockedOverlay = `
+                   <div class="locked-overlay nearest-active" id="timer-${game.id}"></div>
+               `;
+        } else {
+            let releaseText = game.release_info || "TBA";
+            let icon = "🔒";
+            lockedOverlay = `
+                   <div class="locked-overlay">
+                       <div class="lock-icon">${icon}</div>
+                       <div class="release-capsule">
+                           <span>COMING SOON</span>
+                           <span>${releaseText}</span>
+                       </div>
+                   </div>
+               `;
         }
     }
-}
 
-function closeRequestModal() {
-    const overlay = document.getElementById("requestOverlay");
-    overlay.classList.remove("active");
-    document.body.style.overflow = "auto";
-    document.getElementById("requestForm").reset();
-}
-
-async function handleRequestSubmit(event) {
-    event.preventDefault();
-    const btn = document.getElementById("requestSubmitBtn");
-    const form = event.target;
-    const formData = new FormData(form);
-    // The User's Google Script URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfdbLb4OBTf_YDoFm70ZtnXsu6351ADQlAiCP8iQ0z_XTchp-3myOnoPo9aDkjwlnx/exec';
-
-    btn.disabled = true;
-    btn.textContent = "جاري الإرسال...";
-
-    try {
-        const response = await fetch(scriptURL, {
-            method: 'POST',
-            body: formData
-        });
-        alert("تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.");
-        closeRequestModal();
-    } catch (error) {
-        console.error('Error!', error.message);
-        alert("حدث خطأ، حاول مرة أخرى");
-    } finally {
-        btn.disabled = false;
-        btn.textContent = "إرسال الطلب";
+    let dateTag = '';
+    if (game.date_added) {
+        dateTag = `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>`;
     }
+
+    return `
+           <div class="game-card ${lockedClass}">
+               <div class="game-image-container">
+                   <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy">
+                   ${lockedOverlay}
+                   <div class="overlay">${badgesHtml}</div>
+                   ${dateTag}
+               </div>
+               <div class="game-info">
+                   <h3 class="game-title" title="${game.name}">${game.name}</h3>
+                   <div class="game-meta">
+                       <span class="metacritic-score">MC: ${game.score || 'N/A'}</span>
+                       <span>${game.year}</span>
+                   </div>
+                   <div class="game-genre" title="${game.genre}">${game.genre || 'N/A'}</div>
+                   <a href="${steamUrl}" target="_blank" class="steam-link">عرض في Steam</a>
+               </div>
+           </div>
+       `;
 }
 
-// Initialize and setup
-function init() {
-    populateGenreFilter();
-    populateYearFilter();
-    resetAndRender();
-}
-
-
-
-// --- OPTIMIZED SCROLL HANDLER ---
-let lastScrollTop = 0;
-let ticking = false;
-const mainHeader = document.querySelector("header");
-
-window.addEventListener("scroll", () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            // Smart Header Logic Only (No Infinite Scroll)
-            if (window.innerWidth > 768) {
-                if (scrollTop > 0) {
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        mainHeader.classList.add("header-hidden");
-                    } else {
-                        mainHeader.classList.remove("header-hidden");
-                    }
-                } else {
-                    mainHeader.classList.remove("header-hidden");
-                }
-            } else {
-                mainHeader.classList.remove("header-hidden"); // Always show on mobile (absolute)
-            }
-            lastScrollTop = scrollTop;
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// --- MOBILE MENU TOGGLE (Must be global) ---
-function toggleFilters() {
-    const panel = document.getElementById("filtersPanel");
-    const btn = document.querySelector(".mobile-filter-btn");
-
-    if (panel && btn) {
-        panel.classList.toggle("active");
-        btn.classList.toggle("active");
-        // Text update removed -> CSS handles the icon rotation now
-    }
-}
-// --- LIVE COUNTDOWN LOGIC ---
+/* =========================================
+   6. COUNTDOWN LOGIC (PRECISION HUD)
+   ========================================= */
 function startCountdown(targetDateString, elementId) {
     const element = document.getElementById(elementId);
     if (!element) return;
 
-    // Parse "DD/MM/YYYY" to Date object
     const parts = targetDateString.split('/');
     const targetDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`).getTime();
 
-    const interval = setInterval(() => {
+    function update() {
         const now = new Date().getTime();
         const distance = targetDate - now;
 
         if (distance < 0) {
-            clearInterval(interval);
-            element.innerHTML = "AVAILABLE NOW!";
-            element.classList.add('released');
+            element.innerHTML = "<h2 style='color:var(--accent)'>AVAILABLE NOW</h2>";
+            element.classList.remove('nearest-active');
             return;
         }
 
@@ -460,20 +269,88 @@ function startCountdown(targetDateString, elementId) {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
         element.innerHTML = `
-            <div class="countdown-timer">
-                <div class="count-unit">
-                    <span class="count-val">${days}</span>
-                    <span class="count-label">DAYS</span>
-                </div>
-                <div class="count-unit">
-                    <span class="count-val">${hours}</span>
-                    <span class="count-label">HRS</span>
-                </div>
-                <div class="count-unit">
-                    <span class="count-val">${minutes}</span>
-                    <span class="count-label">MIN</span>
-                </div>
-            </div>
-        `;
-    }, 1000);
+               <div class="hype-label">NEXT DROP IMMINENT</div>
+               <div class="countdown-timer">
+                   <div class="count-unit">
+                       <span class="count-val">${days}</span>
+                       <span class="count-label">DAYS</span>
+                   </div>
+                   <div class="count-unit">
+                       <span class="count-val">${hours}</span>
+                       <span class="count-label">HRS</span>
+                   </div>
+                   <div class="count-unit">
+                       <span class="count-val">${minutes}</span>
+                       <span class="count-label">MIN</span>
+                   </div>
+               </div>
+               <div class="release-date-sub">Target: ${targetDateString}</div>
+           `;
+    }
+
+    update();
+    const interval = setInterval(update, 1000);
+    activeIntervals.push(interval);
+}
+
+/* =========================================
+   7. MODALS & INTERACTIONS
+   ========================================= */
+function openRequestModal() {
+    const searchVal = document.getElementById('searchInput').value;
+    if (searchVal) {
+        document.getElementById('gameName').value = searchVal;
+    }
+    document.getElementById('requestOverlay').classList.add('active');
+}
+
+function closeRequestModal() {
+    document.getElementById('requestOverlay').classList.remove('active');
+}
+
+function handleRequestSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('requestSubmitBtn');
+    const originalText = btn.innerText;
+    btn.innerText = "جارٍ الإرسال...";
+    btn.disabled = true;
+
+    // Placeholder for sending logic
+    setTimeout(() => {
+        alert("تم استلام طلبك! سنقوم بمراجعته قريباً.");
+        btn.innerText = originalText;
+        btn.disabled = false;
+        closeRequestModal();
+        e.target.reset();
+    }, 1500);
+}
+
+function pickRandomGame() {
+    if (visibleGames.length === 0) return;
+    document.getElementById('randomOverlay').classList.add('active');
+
+    const imgEl = document.getElementById('rouletteImg');
+    const titleEl = document.getElementById('rouletteTitle');
+    const btnEl = document.getElementById('rouletteSteamBtn');
+
+    let steps = 0;
+    const maxSteps = 20;
+    const interval = setInterval(() => {
+        const randomGame = visibleGames[Math.floor(Math.random() * visibleGames.length)];
+        const img = randomGame.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${randomGame.id}/header.jpg`;
+        imgEl.src = img;
+        titleEl.innerText = randomGame.name;
+
+        steps++;
+        if (steps >= maxSteps) {
+            clearInterval(interval);
+            if (btnEl) btnEl.href = `https://store.steampowered.com/app/${randomGame.id}`;
+            titleEl.innerText = "✨ " + randomGame.name + " ✨";
+            titleEl.style.color = "var(--accent)";
+        }
+    }, 100);
+}
+
+function closeRandomModal() {
+    document.getElementById('randomOverlay').classList.remove('active');
 }

@@ -7,12 +7,12 @@
     <title>Saudi Deck Membership</title>
     <link rel="icon" href="assets/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- Header Section -->
     <header>
         <div class="header-content">
             <a href="https://saudideck.com" target="_blank" style="display:block;">
@@ -47,7 +47,7 @@
         </div>
     </header>
 
-    <!-- Main Library Section -->
+    <!-- Controls & Filters -->
     <div class="controls">
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
@@ -84,26 +84,26 @@
         </div>
     </div>
 
-
-
+    <!-- Game Grid -->
     <div class="container" id="gameGrid"></div>
 
+    <!-- Pagination -->
     <div class="load-more-container" id="loadMoreArea">
         <button class="btn-load" onclick="loadMore()">عرض المزيد</button>
     </div>
 
-
+    <!-- Scroll Top -->
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
 
+    <!-- Footer -->
     <footer>
         &copy; 2025 SaudiDeck. مجموعة مختارة بعناية.
         <br>
         <a href="javascript:void(0)" onclick="openRequestModal()" class="footer-request-btn"
-            style="text-decoration:none; display:inline-block;">طلب إضافة
-            لعبة</a>
+            style="text-decoration:none; display:inline-block;">طلب إضافة لعبة</a>
     </footer>
 
-    <!-- Random Roulette Modal -->
+    <!-- Random Game Modal -->
     <div class="random-overlay" id="randomOverlay" onclick="if(event.target === this) closeRandomModal()">
         <div class="roulette-card">
             <div class="roulette-close" onclick="closeRandomModal()">✕</div>
@@ -116,8 +116,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- Request Game Modal -->
     <div class="request-overlay" id="requestOverlay" onclick="if(event.target === this) closeRequestModal()">
@@ -133,8 +131,8 @@
 
                 <div class="form-group">
                     <label for="orderNumber">رقم الطلب (اختياري)</label>
-                    <input type="number" id="orderNumber" name="order_number" class="form-input" placeholder="10XXX">
-                    <small class="form-hint">سنقوم بإبلاغك فور توفرها.</small>
+                    <input type="number" id="orderNumber" name="order_number" class="form-input" placeholder="10XXX... (للعملاء فقط)">
+                    <small class="form-hint">سيتم إبلاغك فور توفرها إذا كنت مشتركاً.</small>
                 </div>
 
                 <button type="submit" class="request-submit" id="requestSubmitBtn">
@@ -144,8 +142,8 @@
         </div>
     </div>
 
-
-    <script src="games.js?v=45" type="text/javascript"></script>
+    <!-- Scripts -->
+    <script src="games.js?v=46" type="text/javascript"></script>
     <script src="script.js"></script>
 </body>
 
