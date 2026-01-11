@@ -1404,66 +1404,41 @@ footer {
     border-color: var(--accent);
 }
 
-/* --- MINIMALIST COUNTDOWN STYLES --- */
+
+/* --- CYBER-HUD COUNTDOWN STYLES --- */
 .locked-overlay.nearest-active {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--accent);
-    box-shadow: 0 0 30px rgba(0, 230, 118, 0.15) inset;
+    /* Dark overlay with a tech-grid pattern */
+    background: 
+        linear-gradient(rgba(0, 20, 0, 0.9), rgba(0, 20, 0, 0.9)),
+        repeating-linear-gradient(0deg, transparent 0, transparent 1px, rgba(0, 230, 118, 0.1) 1px, rgba(0, 230, 118, 0.1) 2px);
+    background-size: 100% 100%, 100% 4px;
+    
+    /* The Glowing Green Border */
+    border: 2px solid var(--accent);
+    box-shadow: 
+        0 0 15px var(--accent), 
+        inset 0 0 20px rgba(0, 230, 118, 0.5);
+        
+    /* Cut corners effect */
+    clip-path: polygon(
+        10px 0, 100% 0, 
+        100% calc(100% - 10px), calc(100% - 10px) 100%, 
+        0 100%, 0 10px
+    );
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    padding: 20px;
 }
+.hype-label { font-family: 'Courier New', monospace; font-size: 0.9rem; letter-spacing: 3px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-shadow: 0 0 8px var(--accent); border-bottom: 1px solid rgba(0, 230, 118, 0.5); padding-bottom: 5px; margin-bottom: 10px; }
 
-.hype-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--accent);
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0.9;
-    margin-bottom: 5px;
-}
+.countdown-timer { display: flex; gap: 15px; direction: ltr; /* Force Left-to-Right */ }
 
-.countdown-timer {
-    display: flex;
-    gap: 15px;
-    /* Space between numbers */
-    direction: ltr;
-    /* Force Left-to-Right for numbers (Days -> Hours -> Mins) */
-}
+.count-unit { display: flex; flex-direction: column; align-items: center; }
 
-.count-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.count-val { font-family: 'Courier New', monospace; /* Tech font */ font-size: 2rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); line-height: 1; }
 
-.count-val {
-    font-family: 'Segoe UI', sans-serif;
-    /* Clean font */
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1;
-}
-
-.count-label {
-    font-size: 0.6rem;
-    color: #888;
-    margin-top: 2px;
-    font-weight: normal;
-    letter-spacing: 1px;
-}
-
-.release-date-sub {
-    font-size: 0.8rem;
-    color: #bbb;
-    margin-top: 10px;
-    font-family: monospace;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
+.count-label { font-size: 0.6rem; color: var(--accent); margin-top: 4px; letter-spacing: 1px; }
