@@ -6,6 +6,16 @@
 // ==========================================
 const batches = [
     {
+        date: "2026-01-11",
+        list: [
+            { name: "Etrian Odyssey HD", id: "1868180", verified: true, genre: "RPG, Adventure, Dungeon Crawler", year: 2023, score: 87 },
+            { name: "Punch Club", id: "394310", verified: true, genre: "Strategy, RPG, Management", year: 2016, score: 80 },
+            { name: "The Red Solstice", id: "265590", genre: "Strategy, Action, RPG", year: 2015, score: 74 },
+            { name: "SAMOLIOTIK", id: "449680", genre: "Action, Indie, Shoot 'Em Up", year: 2016, score: 84 },
+            { name: "Sniper: Ghost Warrior 2", id: "34870", verified: true, genre: "Action, Stealth, Sniper", year: 2013, score: 74 }
+        ]
+    },
+    {
         date: "2026-01-10",
         list: [
             { name: "ULTRAKILL", id: "1229490", verified: true, genre: "Action, FPS, Retro", year: 2020 },
