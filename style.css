@@ -1056,7 +1056,8 @@ footer {
     color: #fff;
     font-size: 1rem;
     transition: 0.3s;
-    text-align: right; /* Ensure Arabic direction */
+    text-align: right;
+    /* Ensure Arabic direction */
 }
 
 .form-input:focus {
@@ -1070,7 +1071,8 @@ footer {
     width: 100%;
     margin-top: 20px;
     padding: 15px;
-    background: linear-gradient(135deg, var(--accent), #00b359); /* Gradient for depth */
+    background: linear-gradient(135deg, var(--accent), #00b359);
+    /* Gradient for depth */
     color: #000;
     border: none;
     border-radius: 12px;
@@ -1401,19 +1403,84 @@ footer {
     color: black;
     border-color: var(--accent);
 }
-/* --- ACTIVE COUNTDOWN STYLES --- */
+
+/* --- CINEMATIC COUNTDOWN STYLES --- */
 .locked-overlay.nearest-active {
-    background: rgba(0, 0, 0, 0.7); /* Darker for readability */
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.85);
+    /* Darker for contrast */
+    backdrop-filter: blur(8px);
     border: 2px solid var(--accent);
-    animation: pulseBorder 2s infinite;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.2) inset;
+    /* Inner Glow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
-.hype-label { font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
 
-.countdown-timer { font-family: 'Courier New', monospace; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 0 10px rgba(0, 230, 118, 0.5); margin-bottom: 5px; }
+.hype-label {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    font-weight: 900;
+    text-transform: uppercase;
+    animation: glowPulse 2s infinite alternate;
+    margin: 0;
+}
 
-.count-val { color: #fff; }
+/* Container for the timer boxes */
+.countdown-timer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
 
-.release-date-sub { font-size: 0.75rem; color: #aaa; }
+/* Individual Time Boxes */
+.count-box {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-width: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
 
-@keyframes pulseBorder { 0% { border-color: var(--accent); } 50% { border-color: transparent; } 100% { border-color: var(--accent); } }
+.count-val {
+    font-family: 'Courier New', monospace;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+}
+
+.count-label {
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+.release-date-sub {
+    font-size: 0.75rem;
+    color: #888;
+    border-top: 1px solid #333;
+    padding-top: 8px;
+    margin-top: 5px;
+    width: 80%;
+    text-align: center;
+}
+
+@keyframes glowPulse {
+    from {
+        text-shadow: 0 0 5px rgba(0, 230, 118, 0.2);
+        opacity: 0.8;
+    }
+
+    to {
+        text-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
+        opacity: 1;
+    }
+}

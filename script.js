@@ -459,6 +459,19 @@ function startCountdown(targetDateString, elementId) {
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-        element.innerHTML = `<span class="count-val">${days}d</span> <span class="count-val">${hours}h</span> <span class="count-val">${minutes}m</span>`;
+        element.innerHTML = `
+            <div class="count-box">
+                <span class="count-val">${days}</span>
+                <span class="count-label">DAYS</span>
+            </div>
+            <div class="count-box">
+                <span class="count-val">${hours}</span>
+                <span class="count-label">HRS</span>
+            </div>
+            <div class="count-box">
+                <span class="count-val">${minutes}</span>
+                <span class="count-label">MIN</span>
+            </div>
+        `;
     }, 1000);
 }
