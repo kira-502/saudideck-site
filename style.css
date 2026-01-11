@@ -1405,63 +1405,85 @@ footer {
 }
 
 
-/* --- CYBER-FRAME COUNTDOWN STYLES --- */
+/* --- PRECISION HUD STYLES --- */
 .locked-overlay.nearest-active {
-    /* Semi-dark background to make text pop */
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(3px);
+    /* Darker, cleaner background */
+    background: rgba(5, 5, 5, 0.9);
+    backdrop-filter: blur(5px);
 
-    /* The Outer Frame Shape (Notched Corners) */
-    clip-path: polygon(20px 0, 100% 0,
-            100% calc(100% - 20px), calc(100% - 20px) 100%,
-            0 100%, 0 20px);
+    /* Remove full borders, we will use corners */
+    border: none;
+    box-shadow: none;
+    clip-path: none;
+    /* Remove the polygon shape */
 
-    /* Positioning */
+    /* Tech Pattern Background (Subtle Grid) */
+    background-image:
+        linear-gradient(rgba(0, 230, 118, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 230, 118, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 5px;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    /* Inset slightly */
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    /* Floating inside */
 }
 
-/* The Glowing Green Border (Pseudo-element) */
+/* The Green Brackets (Corners) */
+.locked-overlay.nearest-active::before,
 .locked-overlay.nearest-active::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    width: 40px;
+    height: 40px;
     border: 2px solid var(--accent);
-    box-shadow: 0 0 15px var(--accent), inset 0 0 10px rgba(0, 230, 118, 0.3);
-    /* Match the clip path */
-    clip-path: polygon(20px 0, 100% 0,
-            100% calc(100% - 20px), calc(100% - 20px) 100%,
-            0 100%, 0 20px);
-    z-index: -1;
+    transition: all 0.3s;
+    pointer-events: none;
 }
 
+/* Top-Left and Top-Right Corners */
+.locked-overlay.nearest-active::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+    box-shadow: -2px -2px 10px rgba(0, 230, 118, 0.5);
+}
+
+/* Bottom-Right and Bottom-Left Corners (Using a trick) */
+.locked-overlay.nearest-active::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+    box-shadow: 2px 2px 10px rgba(0, 230, 118, 0.5);
+}
+
+/* Add the other two corners via another pseudo-element on the inner text if needed, but 2 corners often looks cleaner. Let's keep it simple first. */
+
 .hype-label {
-    font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
     color: var(--accent);
-    font-weight: bold;
+    font-weight: 900;
     text-transform: uppercase;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px var(--accent);
+    margin-bottom: 20px;
+    opacity: 0.8;
 }
 
 .countdown-timer {
     display: flex;
-    gap: 15px;
+    gap: 25px;
+    /* More space */
     direction: ltr;
-    /* Keeps numbers Left-to-Right */
+    margin-bottom: 20px;
 }
 
 .count-unit {
@@ -1471,29 +1493,31 @@ footer {
 }
 
 .count-val {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-family: 'Courier New', monospace;
+    /* Tech vibe */
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #fff;
     line-height: 1;
-    text-shadow: 2px 2px 0px #000;
 }
 
 .count-label {
-    font-size: 0.65rem;
-    color: #ddd;
+    font-size: 0.6rem;
+    color: #666;
     margin-top: 5px;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .release-date-sub {
-    margin-top: 20px;
-    font-size: 0.85rem;
+    /* Text Only - No Ugly Button */
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
     color: #fff;
-    background: var(--accent);
-    color: #000;
-    padding: 2px 10px;
-    border-radius: 4px;
-    font-weight: bold;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    /* Removed Green Background */
 }
