@@ -182,13 +182,15 @@ function clearCountdowns() {
    5. HTML GENERATION (CARDS)
    ========================================= */
 function createGameCard(game, isNearest) {
-    const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
-    // 1. Create a 'slug' from the name (e.g. "God of War" -> "god-of-war")
+    // CHANGED: Use High-Res Vertical Library Image
+    const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+
+    // 1. Create a 'slug' from the name
     const slug = game.name.toLowerCase()
-        .replace(/:/g, '')           // Remove colons
-        .replace(/'/g, '')           // Remove apostrophes
-        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with dash
-        .replace(/^-|-$/g, '');      // Trim dashes from start/end
+        .replace(/:/g, '')
+        .replace(/'/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
 
     // 2. Generate IGDB Direct URL
     const targetUrl = `https://www.igdb.com/games/${slug}`;
@@ -231,8 +233,9 @@ function createGameCard(game, isNearest) {
         dateTag = `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>`;
     }
 
+    // CHANGED: Whole card is now a link (<a> tag), removed inner button
     return `
-           <div class="game-card ${lockedClass}">
+           <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
                <div class="game-image-container">
                    <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy">
                    ${lockedOverlay}
@@ -246,9 +249,8 @@ function createGameCard(game, isNearest) {
                        <span>${game.year}</span>
                    </div>
                    <div class="game-genre" title="${game.genre}">${game.genre || 'N/A'}</div>
-                   <a href="${targetUrl}" target="_blank" class="steam-link">عرض في IGDB</a>
                </div>
-           </div>
+           </a>
        `;
 }
 
