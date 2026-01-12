@@ -56,8 +56,7 @@ const comingSoonGames = [
         id: "cv2",
         genre: "RPG, Action, Anime",
         year: "2026",
-        // Placeholder: Using Code Vein 1 Art
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678960/library_600x900.jpg",
+        image: "assets/code_vein_2.png",
         slug: "code-vein-ii",
         release_info: "30/01/2026",
         release_type: "date"
@@ -67,8 +66,7 @@ const comingSoonGames = [
         id: "nioh3",
         genre: "Action, RPG, Souls-like",
         year: "2026",
-        // Placeholder: Using Nioh 2 Art
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1325200/library_600x900.jpg",
+        image: "assets/nioh3.jpg",
         slug: "nioh-3",
         release_info: "06/02/2026",
         release_type: "date"
@@ -78,8 +76,7 @@ const comingSoonGames = [
         id: "rereq",
         genre: "Horror, Survival, Action",
         year: "2026",
-        // Placeholder: Using RE Village Art
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1196590/library_600x900.jpg",
+        image: "assets/re_requiem.jpg",
         slug: "resident-evil-requiem",
         release_info: "27/02/2026",
         release_type: "date"
