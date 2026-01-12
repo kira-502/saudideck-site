@@ -513,51 +513,7 @@ select:hover {
     display: none;
 }
 
-.hype-label {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: #fff;
-    /* White text instead of green */
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    opacity: 0.9;
-}
 
-.countdown-timer {
-    display: flex;
-    gap: 20px;
-    direction: ltr;
-}
-
-.count-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.count-val {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-}
-
-.count-label {
-    font-size: 0.6rem;
-    color: #ccc;
-    margin-top: 5px;
-    letter-spacing: 1px;
-}
-
-.release-date-sub {
-    margin-top: 15px;
-    font-family: monospace;
-    font-size: 0.85rem;
-    color: #aaa;
-}
 
 /* =========================================
    6. PREMIUM REQUEST MODAL
