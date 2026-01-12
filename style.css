@@ -593,6 +593,7 @@ select:hover {
     color: #fff;
     font-weight: 800;
     background: linear-gradient(90deg, #fff, #999);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
