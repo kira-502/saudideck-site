@@ -308,21 +308,31 @@ function closeRequestModal() {
     document.getElementById('requestOverlay').classList.remove('active');
 }
 
-function handleRequestSubmit(e) {
+async function handleRequestSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('requestSubmitBtn');
     const originalText = btn.innerText;
+    const form = e.target;
+    const formData = new FormData(form);
+
+    // YOUR GOOGLE SCRIPT URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfdbLb4OBTf_YDoFm70ZtnXsu6351ADQlAiCP8iQ0z_XTchp-3myOnoPo9aDkjwlnx/exec';
+
     btn.innerText = "جارٍ الإرسال...";
     btn.disabled = true;
 
-    // Placeholder for sending logic
-    setTimeout(() => {
-        alert("تم استلام طلبك! سنقوم بمراجعته قريباً.");
+    try {
+        await fetch(scriptURL, { method: 'POST', body: formData });
+        alert("تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.");
+        closeRequestModal();
+        form.reset();
+    } catch (error) {
+        console.error('Error!', error.message);
+        alert("حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.");
+    } finally {
         btn.innerText = originalText;
         btn.disabled = false;
-        closeRequestModal();
-        e.target.reset();
-    }, 1500);
+    }
 }
 
 function pickRandomGame() {
