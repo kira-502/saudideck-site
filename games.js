@@ -8,7 +8,7 @@ const batches = [
     {
         date: "2026-01-12",
         list: [
-            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86, slug: "guilty-gear-x2-number-reload" },
+            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86, slug: "guilty-gear-x2-reload" },
             { name: "Goat Simulator", id: "265930", genre: "Simulation, Comedy, Sandbox", year: 2014, score: 62 }
         ]
     },
@@ -99,8 +99,8 @@ const comingSoonGames = [
         id: "cv2",
         genre: "RPG, Action, Anime",
         year: "2026",
-        slug: "code-vein-ii", // Force IGDB Link
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5vkg.jpg", // Example URL - Replace with your preferred link
+        slug: "code-vein-ii",
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co90ik.jpg", // Placeholder IGDB style
         release_info: "30/01/2026",
         release_type: "date"
     },
@@ -110,7 +110,7 @@ const comingSoonGames = [
         genre: "Action, RPG, Souls-like",
         year: "2026",
         slug: "nioh-3",
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wabb.jpg", // Replace with real link
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wabb.jpg",
         release_info: "06/02/2026",
         release_type: "date"
     },
@@ -120,7 +120,7 @@ const comingSoonGames = [
         genre: "Horror, Survival, Action",
         year: "2026",
         slug: "resident-evil-requiem",
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co8j.jpg", // Replace with real link
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co8j.jpg",
         release_info: "27/02/2026",
         release_type: "date"
     }

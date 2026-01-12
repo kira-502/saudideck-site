@@ -214,77 +214,61 @@ function clearCountdowns() {
    5. HTML GENERATION (CARDS)
    ========================================= */
 function createGameCard(game, isNearest) {
-    // CHANGED: Prioritize new image property, fallback to Steam
+    // 1. Image Logic: Use manual 'image' if set (for Coming Soon), else use High-Res Steam Poster
     const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
 
-    // 1. Use manual slug if provided (e.g. baldurs-gate-iii), otherwise generate one
+    // 2. Link Logic: Use manual 'slug' if set (e.g. baldurs-gate-iii), else generate from name
     let slug = game.slug;
     if (!slug) {
         slug = game.name.toLowerCase()
-            .replace(/:/g, '')
-            .replace(/'/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-|-$/g, '');
+            .replace(/:/g, '')           // Remove colons
+            .replace(/'/g, '')           // Remove apostrophes
+            .replace(/#/g, '')           // Remove hashes
+            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with dash
+            .replace(/^-|-$/g, '');      // Trim
     }
     const targetUrl = `https://www.igdb.com/games/${slug}`;
 
-    let badgesHtml = '';
-    if (game.verified) {
-        badgesHtml += `
-               <div class="badge" title="Verified on Steam Deck">
-                   <img src="assets/badge_verified.png" alt="Verified">
-               </div>
-           `;
-    }
+    // 3. Status Badges
+    let badgesHtml = game.verified ? `<div class="badge" title="Verified on Steam Deck"><img src="assets/badge_verified.png" alt="Verified"></div>` : '';
+    let dateTag = game.date_added ? `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>` : '';
 
-    let lockedClass = '';
-    let lockedOverlay = '';
-
+    // 4. Locked/Coming Soon Logic
+    let lockedClass = "";
+    let lockedOverlay = "";
     if (game.isComingSoon) {
-        lockedClass = 'locked';
+        lockedClass = "locked";
         if (isNearest) {
-            lockedOverlay = `
-                   <div class="locked-overlay nearest-active" id="timer-${game.id}"></div>
-               `;
+            lockedOverlay = `<div class="locked-overlay nearest-active" id="timer-${game.id}"></div>`;
         } else {
             let releaseText = game.release_info || "TBA";
-            let icon = "🔒";
             lockedOverlay = `
-                   <div class="locked-overlay">
-                       <div class="lock-icon">${icon}</div>
-                       <div class="release-capsule">
-                           <span>COMING SOON</span>
-                           <span>${releaseText}</span>
-                       </div>
-                   </div>
-               `;
+                <div class="locked-overlay">
+                    <div class="lock-icon">🔒</div>
+                    <div class="release-capsule"><span>COMING SOON</span><span>${releaseText}</span></div>
+                </div>`;
         }
     }
 
-    let dateTag = '';
-    if (game.date_added) {
-        dateTag = `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>`;
-    }
-
-    // CHANGED: Whole card is now a link (<a> tag), removed inner button
+    // 5. Final HTML (Whole Card is a Link)
     return `
-           <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
-               <div class="game-image-container">
-                   <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy">
-                   ${lockedOverlay}
-                   <div class="overlay">${badgesHtml}</div>
-                   ${dateTag}
-               </div>
-               <div class="game-info">
-                   <h3 class="game-title" title="${game.name}">${game.name}</h3>
-                   <div class="game-meta">
-                       <span class="metacritic-score">MC: ${game.score || 'N/A'}</span>
-                       <span>${game.year}</span>
-                   </div>
-                   <div class="game-genre" title="${game.genre}">${game.genre || 'N/A'}</div>
-               </div>
-           </a>
-       `;
+        <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
+            <div class="game-image-container">
+                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
+                ${lockedOverlay}
+                <div class="overlay">${badgesHtml}</div>
+                ${dateTag}
+            </div>
+            <div class="game-info">
+                <h3 class="game-title" title="${game.name}">${game.name}</h3>
+                <div class="game-meta">
+                    <span class="metacritic-score">MC: ${game.score || 'N/A'}</span>
+                    <span>${game.year}</span>
+                </div>
+                <div class="game-genre" title="${game.genre}">${game.genre || ''}</div>
+            </div>
+        </a>
+    `;
 }
 
 /* =========================================
