@@ -485,81 +485,45 @@ select:hover {
 /* =========================================
    5. PRECISION HUD COUNTDOWN (LATEST)
    ========================================= */
+/* --- CLEAN COUNTDOWN STYLES --- */
 .locked-overlay.nearest-active {
-    /* Darker, cleaner background */
-    background: rgba(5, 5, 5, 0.9);
-    backdrop-filter: blur(5px);
-
-    /* Tech Pattern Background (Subtle Grid) */
-    background-image:
-        linear-gradient(rgba(0, 230, 118, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 230, 118, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-
+    /* Simple dark overlay, no green borders/grids */
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    /* Floating inside */
-
-    /* Clean slate (no default border) */
-    border: none;
-    box-shadow: none;
-    clip-path: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 
-/* The Green Brackets (Corners) */
+/* Remove the corners/brackets */
 .locked-overlay.nearest-active::before,
 .locked-overlay.nearest-active::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--accent);
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-/* Top-Left Corner */
-.locked-overlay.nearest-active::before {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-    box-shadow: -2px -2px 10px rgba(0, 230, 118, 0.5);
-}
-
-/* Bottom-Right Corner */
-.locked-overlay.nearest-active::after {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
-    box-shadow: 2px 2px 10px rgba(0, 230, 118, 0.5);
+    display: none;
 }
 
 .hype-label {
     font-family: 'Segoe UI', sans-serif;
     font-size: 0.7rem;
-    letter-spacing: 4px;
-    color: var(--accent);
-    font-weight: 900;
+    letter-spacing: 3px;
+    color: #fff;
+    /* White text instead of green */
+    font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 20px;
-    opacity: 0.8;
+    margin-bottom: 15px;
+    opacity: 0.9;
 }
 
 .countdown-timer {
     display: flex;
-    gap: 25px;
-    /* More space */
+    gap: 20px;
     direction: ltr;
-    margin-bottom: 20px;
 }
 
 .count-unit {
@@ -569,8 +533,7 @@ select:hover {
 }
 
 .count-val {
-    font-family: 'Courier New', monospace;
-    /* Tech vibe */
+    font-family: 'Segoe UI', sans-serif;
     font-size: 2.5rem;
     font-weight: 700;
     color: #fff;
@@ -579,21 +542,16 @@ select:hover {
 
 .count-label {
     font-size: 0.6rem;
-    color: #666;
+    color: #ccc;
     margin-top: 5px;
-    font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .release-date-sub {
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    color: #fff;
-    border-top: 1px solid #333;
-    padding-top: 10px;
-    width: 100%;
-    text-align: center;
-    background: transparent;
+    margin-top: 15px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #aaa;
 }
 
 /* =========================================
