@@ -183,8 +183,15 @@ function clearCountdowns() {
    ========================================= */
 function createGameCard(game, isNearest) {
     const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
-    // CHANGED: Use IGDB Search URL for broader compatibility
-    const targetUrl = 'https://www.igdb.com/search?q=' + encodeURIComponent(game.name);
+    // 1. Create a 'slug' from the name (e.g. "God of War" -> "god-of-war")
+    const slug = game.name.toLowerCase()
+        .replace(/:/g, '')           // Remove colons
+        .replace(/'/g, '')           // Remove apostrophes
+        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with dash
+        .replace(/^-|-$/g, '');      // Trim dashes from start/end
+
+    // 2. Generate IGDB Direct URL
+    const targetUrl = `https://www.igdb.com/games/${slug}`;
 
     let badgesHtml = '';
     if (game.verified) {
@@ -356,9 +363,15 @@ function pickRandomGame() {
         if (steps >= maxSteps) {
             clearInterval(interval);
             if (btnEl) {
-                // CHANGED: Use IGDB Search
-                btnEl.href = 'https://www.igdb.com/search?q=' + encodeURIComponent(randomGame.name);
-                btnEl.innerText = "عرض في IGDB"; // Dynamic update
+                // CHANGED: Use IGDB Direct Link (Slugify)
+                const slug = randomGame.name.toLowerCase()
+                    .replace(/:/g, '')
+                    .replace(/'/g, '')
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
+
+                btnEl.href = `https://www.igdb.com/games/${slug}`;
+                btnEl.innerText = "عرض في IGDB";
             }
             titleEl.innerText = "✨ " + randomGame.name + " ✨";
             titleEl.style.color = "var(--accent)";
