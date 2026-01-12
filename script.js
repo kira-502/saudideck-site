@@ -189,12 +189,7 @@ function renderGrid() {
         grid.innerHTML += createGameCard(game, isNearest);
     });
 
-    // Start countdowns after render
-    toShow.forEach(game => {
-        if (game.isComingSoon && game.id === comingSoonGames[0].id) {
-            startCountdown(game.release_info, `timer-${game.id}`);
-        }
-    });
+    // Start countdowns logic removed
 
     document.getElementById('loadMoreArea').style.display =
         currentLimit >= visibleGames.length ? 'none' : 'block';
@@ -205,67 +200,57 @@ function loadMore() {
     renderGrid();
 }
 
-function clearCountdowns() {
-    activeIntervals.forEach(clearInterval);
-    activeIntervals = [];
-}
+
 
 /* =========================================
    5. HTML GENERATION (CARDS)
    ========================================= */
-function createGameCard(game, isNearest) {
-    // 1. Image Logic: Use manual 'image' if set (for Coming Soon), else use High-Res Steam Poster
+function createGameCard(game) {
+    // 1. Image & Link Logic
     const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
 
-    // 2. Link Logic: Use manual 'slug' if set (e.g. baldurs-gate-iii), else generate from name
     let slug = game.slug;
     if (!slug) {
-        slug = game.name.toLowerCase()
-            .replace(/:/g, '')           // Remove colons
-            .replace(/'/g, '')           // Remove apostrophes
-            .replace(/#/g, '')           // Remove hashes
-            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with dash
-            .replace(/^-|-$/g, '');      // Trim
+        slug = game.name.toLowerCase().replace(/:/g, '').replace(/'/g, '').replace(/#/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     }
     const targetUrl = `https://www.igdb.com/games/${slug}`;
 
-    // 3. Status Badges
-    let badgesHtml = game.verified ? `<div class="badge" title="Verified on Steam Deck"><img src="assets/badge_verified.png" alt="Verified"></div>` : '';
+    // 2. Badges
+    let badgesHtml = game.verified ? `<div class="badge"><img src="assets/badge_verified.png"></div>` : '';
     let dateTag = game.date_added ? `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>` : '';
 
-    // 4. Locked/Coming Soon Logic
+    // 3. Static "Coming Soon" Overlay (No Timer)
     let lockedClass = "";
     let lockedOverlay = "";
+
     if (game.isComingSoon) {
         lockedClass = "locked";
-        if (isNearest) {
-            lockedOverlay = `<div class="locked-overlay nearest-active" id="timer-${game.id}"></div>`;
-        } else {
-            let releaseText = game.release_info || "TBA";
-            lockedOverlay = `
-                <div class="locked-overlay">
-                    <div class="lock-icon">🔒</div>
-                    <div class="release-capsule"><span>COMING SOON</span><span>${releaseText}</span></div>
-                </div>`;
-        }
+        // Simple, clean date display
+        lockedOverlay = `
+            <div class="locked-overlay">
+                <div class="release-capsule">
+                    <span style="color:var(--accent); font-weight:800;">COMING SOON</span>
+                    <span>${game.release_info}</span>
+                </div>
+            </div>`;
     }
 
-    // 5. Final HTML (Whole Card is a Link)
+    // 4. HTML
     return `
         <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
             <div class="game-image-container">
-                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
+                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy">
                 ${lockedOverlay}
                 <div class="overlay">${badgesHtml}</div>
                 ${dateTag}
             </div>
             <div class="game-info">
-                <h3 class="game-title" title="${game.name}">${game.name}</h3>
+                <h3 class="game-title">${game.name}</h3>
                 <div class="game-meta">
                     <span class="metacritic-score">MC: ${game.score || 'N/A'}</span>
                     <span>${game.year}</span>
                 </div>
-                <div class="game-genre" title="${game.genre}">${game.genre || ''}</div>
+                <div class="game-genre">${game.genre || ''}</div>
             </div>
         </a>
     `;
