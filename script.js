@@ -214,17 +214,18 @@ function clearCountdowns() {
    5. HTML GENERATION (CARDS)
    ========================================= */
 function createGameCard(game, isNearest) {
-    // CHANGED: Use High-Res Vertical Library Image
-    const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+    // CHANGED: Prioritize new image property, fallback to Steam
+    const imgUrl = game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
 
-    // 1. Create a 'slug' from the name
-    const slug = game.name.toLowerCase()
-        .replace(/:/g, '')
-        .replace(/'/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
-
-    // 2. Generate IGDB Direct URL
+    // 1. Use manual slug if provided (e.g. baldurs-gate-iii), otherwise generate one
+    let slug = game.slug;
+    if (!slug) {
+        slug = game.name.toLowerCase()
+            .replace(/:/g, '')
+            .replace(/'/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+    }
     const targetUrl = `https://www.igdb.com/games/${slug}`;
 
     let badgesHtml = '';
@@ -389,6 +390,7 @@ function pickRandomGame() {
     const maxSteps = 20;
     const interval = setInterval(() => {
         const randomGame = visibleGames[Math.floor(Math.random() * visibleGames.length)];
+        // CHANGED: Prioritize custom image
         const img = randomGame.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${randomGame.id}/header.jpg`;
         imgEl.src = img;
         titleEl.innerText = randomGame.name;
@@ -397,12 +399,15 @@ function pickRandomGame() {
         if (steps >= maxSteps) {
             clearInterval(interval);
             if (btnEl) {
-                // CHANGED: Use IGDB Direct Link (Slugify)
-                const slug = randomGame.name.toLowerCase()
-                    .replace(/:/g, '')
-                    .replace(/'/g, '')
-                    .replace(/[^a-z0-9]+/g, '-')
-                    .replace(/^-|-$/g, '');
+                // CHANGED: Use manual slug if available
+                let slug = randomGame.slug;
+                if (!slug) {
+                    slug = randomGame.name.toLowerCase()
+                        .replace(/:/g, '')
+                        .replace(/'/g, '')
+                        .replace(/[^a-z0-9]+/g, '-')
+                        .replace(/^-|-$/g, '');
+                }
 
                 btnEl.href = `https://www.igdb.com/games/${slug}`;
                 btnEl.innerText = "عرض في IGDB";

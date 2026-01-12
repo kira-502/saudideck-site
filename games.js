@@ -8,7 +8,7 @@ const batches = [
     {
         date: "2026-01-12",
         list: [
-            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86 },
+            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86, slug: "guilty-gear-x2-number-reload" },
             { name: "Goat Simulator", id: "265930", genre: "Simulation, Comedy, Sandbox", year: 2014, score: 62 }
         ]
     },
@@ -94,9 +94,36 @@ const batches = [
 ];
 
 const comingSoonGames = [
-    { name: "CODE VEIN II", id: "2362060", genre: "RPG, Action, Anime", year: "2026", image: "assets/code_vein_2.png", release_info: "30/01/2026", release_type: "date" },
-    { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: "2026", image: "assets/nioh3.jpg", release_info: "06/02/2026", release_type: "date" },
-    { name: "Resident Evil Requiem", id: "3764200", genre: "Horror, Survival, Action", year: "2026", image: "assets/re_requiem.jpg", release_info: "27/02/2026", release_type: "date" }
+    {
+        name: "CODE VEIN II",
+        id: "cv2",
+        genre: "RPG, Action, Anime",
+        year: "2026",
+        slug: "code-vein-ii", // Force IGDB Link
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5vkg.jpg", // Example URL - Replace with your preferred link
+        release_info: "30/01/2026",
+        release_type: "date"
+    },
+    {
+        name: "Nioh 3",
+        id: "nioh3",
+        genre: "Action, RPG, Souls-like",
+        year: "2026",
+        slug: "nioh-3",
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wabb.jpg", // Replace with real link
+        release_info: "06/02/2026",
+        release_type: "date"
+    },
+    {
+        name: "Resident Evil Requiem",
+        id: "rereq",
+        genre: "Horror, Survival, Action",
+        year: "2026",
+        slug: "resident-evil-requiem",
+        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co8j.jpg", // Replace with real link
+        release_info: "27/02/2026",
+        release_type: "date"
+    }
 ];
 
 // ==========================================
@@ -125,7 +152,7 @@ const baseLibrary = [
     { name: "Assassin's Creed Director's Cut", id: "15100", genre: "Action, Stealth, Open World", year: 2008, score: 79 },
     { name: "Astalon: Tears of the Earth", id: "1046400", genre: "Action, Metroidvania, Retro", year: 2021, score: 84 },
     { name: "Balatro", id: "2379780", verified: true, genre: "Strategy, Card Game, Roguelike", year: 2024, score: 90 },
-    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG, Strategy, Turn-Based", year: 2023, score: 96 },
+    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG, Strategy, Turn-Based", year: 2023, score: 96, slug: "baldurs-gate-iii" },
     { name: "Bang-On Balls: Chronicles", id: "1227650", verified: true, genre: "Action, Platformer, Sandbox", year: 2023, score: 86 },
     { name: "Bastion", id: "107100", genre: "Action, RPG, Indie", year: 2011, score: 86 },
     { name: "Batman: Arkham Asylum GOTY Edition", id: "35140", genre: "Action, Adventure, Superhero", year: 2010, score: 91 },
