@@ -183,7 +183,8 @@ function clearCountdowns() {
    ========================================= */
 function createGameCard(game, isNearest) {
     const imgUrl = game.image ? game.image : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
-    const steamUrl = `https://store.steampowered.com/app/${game.id}`;
+    // CHANGED: Use IGDB Search URL for broader compatibility
+    const targetUrl = 'https://www.igdb.com/search?q=' + encodeURIComponent(game.name);
 
     let badgesHtml = '';
     if (game.verified) {
@@ -238,7 +239,7 @@ function createGameCard(game, isNearest) {
                        <span>${game.year}</span>
                    </div>
                    <div class="game-genre" title="${game.genre}">${game.genre || 'N/A'}</div>
-                   <a href="${steamUrl}" target="_blank" class="steam-link">عرض في Steam</a>
+                   <a href="${targetUrl}" target="_blank" class="steam-link">عرض في IGDB</a>
                </div>
            </div>
        `;
@@ -354,7 +355,11 @@ function pickRandomGame() {
         steps++;
         if (steps >= maxSteps) {
             clearInterval(interval);
-            if (btnEl) btnEl.href = `https://store.steampowered.com/app/${randomGame.id}`;
+            if (btnEl) {
+                // CHANGED: Use IGDB Search
+                btnEl.href = 'https://www.igdb.com/search?q=' + encodeURIComponent(randomGame.name);
+                btnEl.innerText = "عرض في IGDB"; // Dynamic update
+            }
             titleEl.innerText = "✨ " + randomGame.name + " ✨";
             titleEl.style.color = "var(--accent)";
         }
