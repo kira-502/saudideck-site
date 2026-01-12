@@ -370,7 +370,8 @@ select:hover {
 
 /* Coming Soon Overlay */
 .game-card.locked {
-    pointer-events: none;
+    /* pointer-events: none; REMOVED so users can click to IGDB */
+    cursor: pointer;
 }
 
 /* Locked Generic Overlay */
