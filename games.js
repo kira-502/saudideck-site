@@ -100,7 +100,7 @@ const comingSoonGames = [
         genre: "RPG, Action, Anime",
         year: "2026",
         slug: "code-vein-ii",
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co90ik.jpg", // Placeholder IGDB style
+        image: "assets/code_vein_2.png", // Correct local path
         release_info: "30/01/2026",
         release_type: "date"
     },
@@ -110,7 +110,7 @@ const comingSoonGames = [
         genre: "Action, RPG, Souls-like",
         year: "2026",
         slug: "nioh-3",
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wabb.jpg",
+        image: "assets/nioh3.jpg", // Correct local path
         release_info: "06/02/2026",
         release_type: "date"
     },
@@ -120,7 +120,7 @@ const comingSoonGames = [
         genre: "Horror, Survival, Action",
         year: "2026",
         slug: "resident-evil-requiem",
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co8j.jpg",
+        image: "assets/re_requiem.jpg", // Correct local path
         release_info: "27/02/2026",
         release_type: "date"
     }
