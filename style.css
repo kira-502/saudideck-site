@@ -370,29 +370,47 @@ select:hover {
 
 /* Coming Soon Overlay */
 /* Coming Soon Overlay */
+/* --- CLEAN COUNTDOWN STYLES --- */
 .game-card.locked {
     pointer-events: auto !important;
-    /* Allow clicking */
+    /* Allow clicking! */
     opacity: 1;
-    /* Keep fully visible */
 }
 
-/* Locked Generic Overlay */
 .locked-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    /* Slight dim */
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(2px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #888;
     z-index: 10;
+}
+
+/* Remove old precision HUD stuff */
+.locked-overlay.nearest-active,
+.locked-overlay.nearest-active::before,
+.locked-overlay.nearest-active::after,
+.hype-label,
+.countdown-timer {
+    display: none !important;
+}
+
+.release-capsule {
+    background: rgba(20, 20, 20, 0.9);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #333;
+    color: #ccc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .lock-icon {

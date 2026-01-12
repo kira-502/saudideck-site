@@ -2,6 +2,7 @@
 
 
 // ==========================================
+// ==========================================
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
@@ -46,50 +47,6 @@ const batches = [
             { name: "Deathbulge: Battle of the Bands", id: "1083790", genre: "RPG, Indie, Comedy", year: 2023 },
             { name: "Haste", id: "1796470", genre: "Action, Racing, Indie", year: 2025 }
         ]
-    },
-    {
-        date: "2026-01-06",
-        list: [
-            { name: "Wizard of Legend 2", id: "2193540", genre: "Action, Roguelike, Co-op", year: 2025 },
-            { name: "Metal Slug Tactics", id: "1590760", verified: true, genre: "Strategy, RPG, Pixel Graphics", year: 2024, score: 79 },
-            { name: "Sonic Frontiers", id: "1237320", verified: true, genre: "Action, Adventure, Open World", year: 2022, score: 81 },
-            { name: "Hunt: Showdown 1896", id: "594650", genre: "FPS, Horror, Multiplayer", year: 2019, score: 83 },
-            { name: "Disgaea 7: Vows of the Virtueless", id: "2250600", verified: true, genre: "RPG, Strategy, Anime", year: 2023, score: 84 },
-            { name: "Settlement Survival", id: "1509510", verified: true, genre: "Strategy, City Builder, Survival", year: 2021, score: 85 },
-            { name: "Nice Day For Fishing", id: "2847630", genre: "Adventure, Casual, Pixel Graphics", year: 2024 },
-            { name: "Horizon Walker", id: "2566730", genre: "RPG, Strategy, Anime", year: 2024 }
-        ]
-    },
-    {
-        date: "2026-01-05",
-        list: [
-            { name: "Goat Simulator 3", id: "850190", genre: "Simulation, Comedy, Open World", year: 2024, score: 78 },
-            { name: "Bendy and the Ink Machine", id: "622650", verified: true, genre: "Horror, Puzzle, First-Person", year: 2017, score: 71 },
-            { name: "Overcooked!", id: "448510", verified: true, genre: "Simulation, Co-op, Local Multiplayer", year: 2016, score: 81 },
-            { name: "Dead Island Definitive Edition", id: "383150", verified: true, genre: "Action, Zombies, Open World", year: 2016, score: 72 },
-            { name: "Mount & Blade II: Bannerlord", id: "261550", verified: true, genre: "Strategy, RPG, Medieval", year: 2022, score: 77 }
-        ]
-    },
-    {
-        date: "2026-01-03",
-        list: [
-            { name: "Assetto Corsa", id: "244210", genre: "Racing, Simulation, Sports", year: 2014, score: 85 },
-            { name: "Bloons TD 6", id: "960090", genre: "Strategy, Tower Defense, Co-op", year: 2018, score: 82 },
-            { name: "BPM: BULLETS PER MINUTE", id: "1286350", genre: "Action, Rhythm, FPS", year: 2020, score: 74 },
-            { name: "Death in the Water 2", id: "1338840", verified: true, genre: "Action, Horror, Survival", year: 2023 },
-            { name: "Easy Red 2", id: "1324780", verified: true, genre: "Action, Simulation, Strategy", year: 2022 },
-            { name: "FATAL FRAME / PROJECT ZERO: Maiden of Black Water", id: "1732190", genre: "Adventure, Horror, Japanese", year: 2021, score: 73 },
-            { name: "FATAL FRAME / PROJECT ZERO: Mask of the Lunar Eclipse", id: "2130460", genre: "Adventure, Horror, Japanese", year: 2023, score: 73 },
-            { name: "Hellboy Web of Wyrd", id: "2160480", verified: true, genre: "Action, Adventure, Roguelike", year: 2023, score: 68 },
-            { name: "Jazzpunk: Director's Cut", id: "250260", verified: true, genre: "Adventure, Indie, Comedy", year: 2014, score: 75 },
-            { name: "Laika: Aged Through Blood", id: "1796220", verified: true, genre: "Action, Metroidvania, Motorvania", year: 2023, score: 83 },
-            { name: "Maneater", id: "629820", verified: true, genre: "Action, RPG, Open World", year: 2020, score: 71 },
-            { name: "Mika and the Witch's Mountain", id: "1819460", verified: true, genre: "Adventure, Casual, Indie", year: 2025 },
-            { name: "Nuclear Throne", id: "242680", verified: true, genre: "Action, Roguelike, Indie", year: 2015, score: 89 },
-            { name: "SEUM: Speedrunners from Hell", id: "457210", genre: "Action, Platformer, Fast-Paced", year: 2016, score: 77 },
-            { name: "Trepang2", id: "1164940", verified: true, genre: "Action, FPS, Bullet Time", year: 2023, score: 78 },
-            { name: "Warstride Challenges", id: "1608470", genre: "Action, FPS, Fast-Paced", year: 2022, score: 76 }
-        ]
     }
 ];
 
@@ -99,8 +56,8 @@ const comingSoonGames = [
         id: "cv2",
         genre: "RPG, Action, Anime",
         year: "2026",
-        // Using Code Vein 1 cover as high-quality placeholder
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5vkg.jpg",
+        // Placeholder: Using Code Vein 1 Art
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678960/library_600x900.jpg",
         slug: "code-vein-ii",
         release_info: "30/01/2026",
         release_type: "date"
@@ -110,8 +67,8 @@ const comingSoonGames = [
         id: "nioh3",
         genre: "Action, RPG, Souls-like",
         year: "2026",
-        // Using Nioh 2 cover as high-quality placeholder
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1wabb.jpg",
+        // Placeholder: Using Nioh 2 Art
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1325200/library_600x900.jpg",
         slug: "nioh-3",
         release_info: "06/02/2026",
         release_type: "date"
@@ -121,8 +78,8 @@ const comingSoonGames = [
         id: "rereq",
         genre: "Horror, Survival, Action",
         year: "2026",
-        // Using Resident Evil Village cover as high-quality placeholder
-        image: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2w5y.jpg",
+        // Placeholder: Using RE Village Art
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1196590/library_600x900.jpg",
         slug: "resident-evil-requiem",
         release_info: "27/02/2026",
         release_type: "date"
@@ -703,9 +660,13 @@ const baseLibrary = [
 ]; // End of baseLibrary
 
 // ==========================================
-//    3. SYSTEM MERGE (Auto-Date Logic)
+// 3. SYSTEM MERGE (Auto-Date Logic)
 // ==========================================
 // This combines the batches with the base library and stamps the dates.
+// [IMPORTANT: Ensure the 'baseLibrary' array from your original file is kept here]
+// For this update, I am assuming the user will keep their large list below.
+// If you are replacing the whole file, PASTE THE FULL BASELIBRARY HERE.
+
 const games = [
     // 1. Process New Batches (Newest First)
     ...batches.flatMap(batch =>
@@ -713,4 +674,5 @@ const games = [
     ),
     // 2. Add Base Library
     ...baseLibrary
+    // Ensure baseLibrary is defined or pasted here
 ];
