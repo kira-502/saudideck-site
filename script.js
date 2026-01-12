@@ -127,7 +127,29 @@ function resetAndRender() {
             return 0;
         });
     } else {
-        visibleGames.sort((a, b) => (b.score || 0) - (a.score || 0));
+        // --- SMART DEFAULT SORT ---
+        // 1. Coming Soon (Pinned Top)
+        // 2. Recent Hits (Last 5 Years + 80 MC)
+        // 3. All Others (By Score)
+
+        const currentYear = new Date().getFullYear();
+
+        visibleGames.sort((a, b) => {
+            // Priority 1: Coming Soon always first
+            if (a.isComingSoon && !b.isComingSoon) return -1;
+            if (!a.isComingSoon && b.isComingSoon) return 1;
+
+            // Priority 2: Recent Hits (Year >= Current-5 AND Score >= 80)
+            // Use parseInt to ensure year is a number
+            const aIsRecentHit = (parseInt(a.year) >= currentYear - 5) && ((a.score || 0) >= 80);
+            const bIsRecentHit = (parseInt(b.year) >= currentYear - 5) && ((b.score || 0) >= 80);
+
+            if (aIsRecentHit && !bIsRecentHit) return -1;
+            if (!aIsRecentHit && bIsRecentHit) return 1;
+
+            // Priority 3: Fallback to Score (Highest First)
+            return (b.score || 0) - (a.score || 0);
+        });
     }
 
     currentLimit = BATCH_SIZE;
