@@ -127,19 +127,29 @@ function resetAndRender() {
             return 0;
         });
     } else {
-        // --- SMART DEFAULT SORT ---
-        // 1. Coming Soon (Pinned Top)
-        // 2. Recent Hits (Last 5 Years + 80 MC)
-        // 3. All Others (By Score)
+        // --- CUSTOM SMART SORT ---
+        // Priority 1: Coming Soon (Top)
+        // Priority 2: Recent Hits (Last 5 Years + 80+ Score)
+        // Priority 3: Standard Library (By Score)
+        // Priority 4: "Demoted" Games (Manually moved to bottom)
 
         const currentYear = new Date().getFullYear();
+        // IDs for: Cobalt Core, I Was a Teenage Exocolonist
+        const demotedIds = ["2179850", "1148760"];
 
         visibleGames.sort((a, b) => {
-            // Priority 1: Coming Soon always first
+            const aDemoted = demotedIds.includes(a.id);
+            const bDemoted = demotedIds.includes(b.id);
+
+            // Rule 1: Demoted games always go last
+            if (aDemoted && !bDemoted) return 1;
+            if (!aDemoted && bDemoted) return -1;
+
+            // Rule 2: Coming Soon always first
             if (a.isComingSoon && !b.isComingSoon) return -1;
             if (!a.isComingSoon && b.isComingSoon) return 1;
 
-            // Priority 2: Recent Hits (Year >= Current-5 AND Score >= 80)
+            // Rule 3: Recent Hits (High Score + New)
             // Use parseInt to ensure year is a number
             const aIsRecentHit = (parseInt(a.year) >= currentYear - 5) && ((a.score || 0) >= 80);
             const bIsRecentHit = (parseInt(b.year) >= currentYear - 5) && ((b.score || 0) >= 80);
@@ -147,7 +157,7 @@ function resetAndRender() {
             if (aIsRecentHit && !bIsRecentHit) return -1;
             if (!aIsRecentHit && bIsRecentHit) return 1;
 
-            // Priority 3: Fallback to Score (Highest First)
+            // Rule 4: Everything else by Score
             return (b.score || 0) - (a.score || 0);
         });
     }
