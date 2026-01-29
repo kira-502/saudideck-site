@@ -25,6 +25,8 @@ body {
     color: var(--text-primary);
     direction: rtl;
     line-height: 1.6;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
 }
 
 a {
@@ -774,27 +776,80 @@ footer {
 /* =========================================
    9. MOBILE OPTIMIZATIONS
    ========================================= */
-@media (max-width: 768px) {
+
+/* Tablets (601px - 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .game-card {
+        width: 100%;
+        /* Grid handles width */
+    }
+}
+
+/* Mobile Devices (600px and below) */
+@media (max-width: 600px) {
+
+    /* 1. Header Navigation */
     header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    .header-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        height: 40px;
+        /* Scale down logo */
+    }
+
+    .nav-group {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-btn {
+        font-size: 12px;
+        /* Reduce font size */
+        padding: 8px 12px;
+        /* Reduce padding */
+    }
+
+    /* 2. Controls (Search & Filter) */
+    .controls {
+        flex-direction: column;
         padding: 15px;
     }
 
-    .nav-btn span {
-        display: none;
-    }
-
-    .subtitle {
-        display: none;
+    .search-wrapper {
+        width: 95%;
+        margin: 0 auto;
+        max-width: none;
     }
 
     .mobile-filter-btn {
         display: block;
+        width: 95%;
+        margin: 10px auto 0;
     }
 
+    /* Filters Panel */
     .filters-panel {
         display: none;
+        /* Hidden by default */
         flex-direction: column;
-        width: 100%;
+        width: 95%;
+        margin: 0 auto;
         gap: 10px;
         background: #2a2a2a;
         padding: 15px;
@@ -804,29 +859,103 @@ footer {
 
     .filters-panel.active {
         display: flex;
+        /* Show when active */
     }
 
-    select,
-    .deck-toggle {
+    /* Full width inputs in panel */
+    .filters-panel select,
+    .filters-panel .deck-toggle,
+    .filters-panel .random-btn {
         width: 100%;
     }
 
-    .search-wrapper {
-        max-width: 100%;
-        width: 100%;
-    }
-
+    /* 3. Card Grid */
     .container {
-        padding: 15px;
-        gap: 15px;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: 1fr;
+        /* 1 card per row */
+        gap: 10px;
+        /* 10px margin between cards */
+        padding: 10px;
     }
 
-    .game-image-container {
-        padding-top: 100%;
+    .game-card {
+        width: 100%;
+        margin: 0 auto;
     }
 
+    /* 4. Coming Soon Cards */
+    .lock-icon {
+        font-size: 40px;
+        /* Down from 2rem approx */
+    }
+
+    .release-capsule span:first-child {
+        font-size: 14px;
+        /* COMING SOON text */
+    }
+
+    .release-capsule span:last-child {
+        font-size: 12px;
+        /* Date text */
+    }
+
+    /* 5. Metacritic Badges */
+    .metacritic-score {
+        font-size: 10px;
+        padding: 0 2px;
+    }
+
+    /* Adjust Badge size and position if needed, 
+       but strictly keeping to user request about "badge size" usually refers to the Verified badge? 
+       The user said "Metacritic Badges ... Reduce badge size to 30px x 30px".
+       Metacritic score is text. Verified badge is an image. 
+       I will assume they meant the Verified Badge in the overlay.
+    */
+    .badge {
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        /* Position closer to bottom-right? 
+           User said: "Position closer to bottom-right corner".
+           Currently it is top-right. Let's move it for mobile.
+        */
+        position: absolute;
+        top: auto;
+        bottom: 10px;
+        right: 10px;
+        z-index: 5;
+    }
+
+    .badge img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* Adjust overlay to not conflict if badge moves */
+    .overlay {
+        position: static;
+        /* Let children position themselves absolute relative to container */
+        display: block;
+    }
+
+    /* Move date tag to not overlap with bottom-right badge if needed, 
+       Date tag is bottom-left. Should be fine.
+    */
+
+    /* Disable hover effects on mobile */
     .game-card:hover {
         transform: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-color: #2a2a2a;
     }
+}
+
+/* Ensure minimum touch target size */
+button,
+a,
+select,
+input {
+    min-height: 44px;
+    min-width: 44px;
 }
