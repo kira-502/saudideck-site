@@ -7,6 +7,31 @@
 // ==========================================
 const batches = [
     {
+        date: "2026-02-20",
+        list: [
+            { name: "Mewgenics", id: "204060", verified: true, genre: "RPG, Rogue-like, Strategy", year: 2026, score: 90 },
+            { name: "Bus Simulator 21 Next Stop", id: "976590", genre: "Simulation, Vehicle, Open World", year: 2021, score: 73 },
+            { name: "StarVaders", id: "2463770", verified: true, genre: "Strategy, Card Game, Rogue-lite", year: 2025, score: 85 },
+            { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder", year: 2023, score: 80 },
+            {
+                name: "CODE VEIN II",
+                id: "cv2",
+                genre: "RPG, Action, Anime",
+                year: "2026",
+                image: "assets/code_vein_2.png",
+                slug: "code-vein-ii"
+            },
+            {
+                name: "Nioh 3",
+                id: "nioh3",
+                genre: "Action, RPG, Souls-like",
+                year: "2026",
+                image: "assets/nioh3.jpg",
+                slug: "nioh-3"
+            }
+        ]
+    },
+    {
         date: "2026-01-12",
         list: [
             { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade", year: 2014, score: 86, slug: "guilty-gear-x2-reload" },
@@ -51,26 +76,6 @@ const batches = [
 ];
 
 const comingSoonGames = [
-    {
-        name: "CODE VEIN II",
-        id: "cv2",
-        genre: "RPG, Action, Anime",
-        year: "2026",
-        image: "assets/code_vein_2.png",
-        slug: "code-vein-ii",
-        release_info: "30/01/2026",
-        release_type: "date"
-    },
-    {
-        name: "Nioh 3",
-        id: "nioh3",
-        genre: "Action, RPG, Souls-like",
-        year: "2026",
-        image: "assets/nioh3.jpg",
-        slug: "nioh-3",
-        release_info: "06/02/2026",
-        release_type: "date"
-    },
     {
         name: "Resident Evil Requiem",
         id: "rereq",
