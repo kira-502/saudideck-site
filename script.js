@@ -132,20 +132,89 @@ function resetAndRender() {
 function renderGrid() {
     const grid = document.getElementById('gameGrid');
     grid.innerHTML = '';
-    const toShow = visibleGames.slice(0, currentLimit);
+    
+    // Check if any filter or search is active
+    const search = document.getElementById('searchInput').value.trim();
+    const genre = document.getElementById('genreFilter').value;
+    const year = document.getElementById('yearFilter').value;
+    const sort = document.getElementById('sortFilter').value;
+    const verifiedOnly = document.getElementById('verifiedFilter').checked;
+    
+    const isFilterActive = search !== "" || genre !== "All" || year !== "All" || verifiedOnly || sort !== "metacritic";
 
-    if (toShow.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;"><h3>لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--accent)">اطلب اللعبة</a></p></div>`;
+    if (visibleGames.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
         document.getElementById('loadMoreArea').style.display = 'none';
         return;
     }
 
-    toShow.forEach(game => {
-        grid.innerHTML += createGameCard(game);
-    });
+    if (isFilterActive) {
+        // --- FALLBACK GRID MODE ---
+        grid.classList.add('grid-fallback');
+        grid.innerHTML = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
+        
+        const toShow = visibleGames.slice(0, currentLimit);
+        toShow.forEach(game => {
+            grid.innerHTML += createGameCard(game);
+        });
+        
+        document.getElementById('loadMoreArea').style.display = currentLimit >= visibleGames.length ? 'none' : 'block';
+    } else {
+        // --- NETFLIX ROWS MODE ---
+        grid.classList.remove('grid-fallback');
+        let html = '';
+        
+        // 1. Coming Soon Row
+        const comingSoon = visibleGames.filter(g => g.isComingSoon);
+        if (comingSoon.length > 0) {
+            html += buildRowHTML("COMING SOON", comingSoon.slice(0, currentLimit), 'coming-soon');
+        }
+        
+        // 2. Genre Rows
+        const genres = Object.keys(GENRE_MAPPING);
+        genres.forEach(gKey => {
+            const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
+            if (matches.length > 0) {
+                html += buildRowHTML(gKey.toUpperCase(), matches.slice(0, currentLimit), gKey);
+            }
+        });
+        
+        grid.innerHTML = html;
+        
+        // Hide load more if all rows reached their max
+        let maxMatches = comingSoon.length;
+        genres.forEach(gKey => {
+            const m = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey)).length;
+            if (m > maxMatches) maxMatches = m;
+        });
+        
+        document.getElementById('loadMoreArea').style.display = currentLimit >= maxMatches ? 'none' : 'block';
+    }
+}
 
-    document.getElementById('loadMoreArea').style.display =
-        currentLimit >= visibleGames.length ? 'none' : 'block';
+function buildRowHTML(title, games, idPrefix) {
+    const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
+    let cardsHtml = games.map(g => createGameCard(g)).join('');
+    
+    return `
+        <div class="genre-row">
+            <div class="genre-header">${title}</div>
+            <div class="row-carousel-container">
+                <button class="scroll-btn scroll-left" onclick="scrollRow('${rowId}', -800)">❮</button>
+                <div class="row-carousel" id="${rowId}">
+                    ${cardsHtml}
+                </div>
+                <button class="scroll-btn scroll-right" onclick="scrollRow('${rowId}', 800)">❯</button>
+            </div>
+        </div>
+    `;
+}
+
+window.scrollRow = function(rowId, amount) {
+    const row = document.getElementById(rowId);
+    if(row) {
+        row.scrollBy({ left: amount, behavior: 'smooth' });
+    }
 }
 
 function loadMore() {
@@ -186,6 +255,8 @@ function createGameCard(game) {
     }
 
     // 5. HTML (Clickable Link)
+    const mcScore = game.score ? `<div class="metacritic-score">${game.score}</div>` : '';
+    
     return `
         <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
             <div class="game-image-container">
@@ -193,11 +264,11 @@ function createGameCard(game) {
                 ${lockedOverlay}
                 <div class="overlay">${badgesHtml}</div>
                 ${dateTag}
+                ${mcScore}
             </div>
             <div class="game-info">
                 <h3 class="game-title" title="${game.name}">${game.name}</h3>
                 <div class="game-meta">
-                    <span class="metacritic-score">MC: ${game.score || 'N/A'}</span>
                     <span>${game.year}</span>
                 </div>
                 <div class="game-genre" title="${game.genre}">${game.genre || ''}</div>

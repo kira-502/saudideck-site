@@ -2,14 +2,16 @@
    1. CORE LAYOUT & VARIABLES
    ========================================= */
 :root {
-    --bg-dark: #121212;
-    --card-bg: #1e1e1e;
-    --accent: #00e676;
-    /* Saudi Green */
-    --accent-hover: #00c853;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --card-bg: #161616;
+    --accent: #1a7a3c; /* deep Saudi green */
+    --gold: #c9a84c; /* muted gold */
+    --gold-light: #e8c96a;
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --border: #1e1e1e;
+    
     --font-main: 'Cairo', sans-serif;
 }
 
@@ -21,12 +23,11 @@
 
 body {
     font-family: var(--font-main);
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
+    background-color: var(--bg);
+    color: var(--text);
     direction: rtl;
     line-height: 1.6;
     overflow-x: hidden;
-    /* Prevent horizontal scrolling */
 }
 
 a {
@@ -38,13 +39,12 @@ a {
    2. HEADER & NAVIGATION
    ========================================= */
 header {
-    background: #1a1a1a;
+    background: #0d0d0d;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--accent);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--gold);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -61,7 +61,7 @@ header {
 
 .subtitle {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     margin-top: 2px;
 }
 
@@ -82,28 +82,27 @@ header {
 
 .btn-how {
     background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid #444;
+    color: var(--text-muted);
+    border: none;
+    font-weight: 400;
 }
 
 .btn-how:hover {
-    border-color: var(--text-primary);
-    color: var(--text-primary);
+    color: var(--gold);
 }
 
 .btn-request {
     background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
+    border: 1px solid var(--gold);
+    color: var(--gold);
 }
 
 .btn-request:hover {
-    background: var(--accent);
-    color: #000;
+    background: rgba(201, 168, 76, 0.1);
 }
 
 .btn-buy {
-    background: var(--accent);
+    background: var(--gold);
     color: #000;
     border: none;
     display: flex;
@@ -112,9 +111,9 @@ header {
 }
 
 .btn-buy:hover {
-    background: var(--accent-hover);
+    background: var(--gold-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.2);
 }
 
 /* Dropdown */
@@ -126,9 +125,10 @@ header {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #2a2a2a;
+    background-color: var(--surface);
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
     border-radius: 8px;
     z-index: 101;
     top: 100%;
@@ -139,7 +139,7 @@ header {
 }
 
 .dropdown-content a {
-    color: var(--text-primary);
+    color: var(--text);
     padding: 12px 16px;
     display: flex;
     align-items: center;
@@ -148,8 +148,8 @@ header {
 }
 
 .dropdown-content a:hover {
-    background-color: var(--accent);
-    color: #000;
+    background-color: rgba(201, 168, 76, 0.1);
+    color: var(--gold);
 }
 
 .dropdown-content img {
@@ -160,18 +160,27 @@ header {
     display: block;
 }
 
+/* Add a geometric styling class */
+.geometric-divider {
+    height: 4px;
+    background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 2px, transparent 2px, transparent 8px);
+    opacity: 0.5;
+    width: 100%;
+}
+
+
 /* =========================================
    3. CONTROLS & FILTERS
    ========================================= */
 .controls {
-    background: #252525;
+    background: var(--surface);
     padding: 20px 30px;
     display: flex;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border);
 }
 
 .search-wrapper {
@@ -186,62 +195,64 @@ header {
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #666;
+    color: var(--text-muted);
 }
 
 input[type="text"] {
     width: 100%;
     padding: 12px 45px 12px 15px;
     border-radius: 25px;
-    border: 2px solid #444;
-    background: #1a1a1a;
-    color: #fff;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
     font-family: var(--font-main);
     font-size: 1rem;
     transition: border-color 0.3s;
 }
 
 input[type="text"]:focus {
-    border-color: var(--accent);
+    border-color: var(--gold);
     outline: none;
+    box-shadow: 0 0 5px rgba(201, 168, 76, 0.3);
 }
 
 .filters-panel {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
 }
 
 select {
     padding: 10px 20px;
     border-radius: 20px;
-    border: 1px solid #444;
-    background: #1a1a1a;
-    color: #fff;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
     font-family: var(--font-main);
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300e676%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c9a84c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: left 15px top 50%;
     background-size: 10px;
     padding-left: 35px;
+    transition: border-color 0.2s;
 }
 
 select:hover {
-    border-color: var(--accent);
+    border-color: var(--gold);
 }
 
 .random-btn {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.4);
+    box-shadow: 0 4px 10px rgba(201, 168, 76, 0.2);
     transition: transform 0.2s;
 }
 
@@ -254,10 +265,10 @@ select:hover {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background: #1a1a1a;
+    background: var(--bg);
     padding: 8px 15px;
     border-radius: 20px;
-    border: 1px solid #444;
+    border: 1px solid var(--border);
     transition: all 0.3s;
 }
 
@@ -266,11 +277,11 @@ select:hover {
 }
 
 .deck-toggle:hover {
-    border-color: var(--accent);
+    border-color: var(--gold);
 }
 
 .deck-toggle.active {
-    background: rgba(0, 230, 118, 0.1);
+    background: rgba(26, 122, 60, 0.1);
     border-color: var(--accent);
     color: var(--accent);
 }
@@ -287,9 +298,9 @@ select:hover {
 
 .mobile-filter-btn {
     display: none;
-    background: #333;
-    color: #fff;
-    border: none;
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
@@ -298,38 +309,119 @@ select:hover {
 }
 
 /* =========================================
-   4. GAME GRID & CARDS
+   4. GAME GRID & CARDS (NETFLIX STYLE)
    ========================================= */
 .container {
     padding: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 30px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
+/* Fallback grid for Search/Filter */
+.container.grid-fallback {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 30px;
+}
+
+/* Netflix Row Layout */
+.genre-row {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.genre-header {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-left: 4px solid var(--gold);
+    color: var(--text);
+}
+
+.row-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.row-carousel {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.row-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--gold);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s;
+}
+
+.genre-row:hover .scroll-btn {
+    opacity: 1;
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--gold);
+}
+
+.scroll-left {
+    left: -20px;
+}
+.scroll-right {
+    right: -20px;
+}
+
+/* CARDS */
 .game-card {
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 10px; /* 10px rounding */
     overflow: hidden;
     position: relative;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: 1px solid #2a2a2a;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    flex: 0 0 180px; /* Fixed width */
+    width: 180px;
+    height: 260px; /* Fixed height portrait */
+    display: flex;
+    flex-direction: column;
 }
 
 .game-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 230, 118, 0.15);
-    border-color: var(--accent);
+    transform: scale(1.06); /* Scale up slightly */
+    box-shadow: 0 15px 30px rgba(201, 168, 76, 0.2); /* gold tint shadow */
+    border-color: var(--gold);
+    z-index: 2; /* Pop over siblings */
 }
 
 .game-image-container {
     position: relative;
     width: 100%;
-    padding-top: 140%;
-    /* Steam cover aspect ratio */
+    height: 100%; /* Fill the fixed card */
 }
 
 .game-img {
@@ -343,39 +435,90 @@ select:hover {
 }
 
 .game-card:hover .game-img {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
-/* Overlays */
+/* Overlays & Badges */
 .overlay {
     position: absolute;
     top: 10px;
     right: 10px;
-    display: flex;
-    gap: 5px;
     z-index: 2;
 }
 
 .badge {
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     border-radius: 4px;
-    padding: 2px;
+    padding: 0;
     display: flex;
     align-items: center;
-    border: 1px solid #333;
+    border: none;
 }
 
 .badge img {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+.date-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--gold);
+    color: #000;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 800;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.metacritic-score {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--accent); /* Green text */
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 12px; /* pill styling */
+    z-index: 2;
+    border: 1px solid #333;
+}
+
+/* Card Info (Bottom Gradient) */
+.game-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.game-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.game-meta, .game-genre {
+    display: none; /* Hidden in Netflix layout for cleaner look, handled by badges */
 }
 
 /* Coming Soon Overlay */
-/* Coming Soon Overlay */
-/* --- CLEAN COUNTDOWN STYLES --- */
 .game-card.locked {
     pointer-events: auto !important;
-    /* Allow clicking! */
     opacity: 1;
 }
 
@@ -394,15 +537,6 @@ select:hover {
     z-index: 10;
 }
 
-/* Remove old precision HUD stuff */
-.locked-overlay.nearest-active,
-.locked-overlay.nearest-active::before,
-.locked-overlay.nearest-active::after,
-.hype-label,
-.countdown-timer {
-    display: none !important;
-}
-
 .release-capsule {
     background: rgba(20, 20, 20, 0.9);
     padding: 8px 16px;
@@ -410,109 +544,12 @@ select:hover {
     font-size: 0.85rem;
     display: flex;
     align-items: center;
-    border: 1px solid #333;
+    border: 1px solid var(--gold);
     color: #ccc;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.lock-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    opacity: 0.5;
-}
-
-.release-capsule {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Date Added Tag */
-.date-tag {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: var(--accent);
-    color: #000;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    z-index: 2;
-}
-
-/* Card Info */
-.game-info {
-    padding: 15px;
-    background: linear-gradient(0deg, #1e1e1e 80%, rgba(30, 30, 30, 0));
-}
-
-.game-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.game-meta {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.metacritic-score {
-    color: #66cc33;
-    font-weight: bold;
-    border: 1px solid #66cc33;
-    padding: 0 4px;
-    border-radius: 2px;
-}
-
-.game-genre {
-    font-size: 0.8rem;
-    color: #666;
-    margin-bottom: 12px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.steam-link {
-    display: block;
-    text-align: center;
-    background: #2a2a2a;
-    color: #fff;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    transition: background 0.2s;
-}
-
-.steam-link:hover {
-    background: #333;
-    color: var(--text-primary);
-}
-
-.game-card:hover .steam-link {
-    background: var(--accent);
-    color: #000;
-}
-
-/* =========================================
-   5. PRECISION HUD COUNTDOWN (LATEST)
-   ========================================= */
-/* --- CLEAN COUNTDOWN STYLES --- */
 .locked-overlay.nearest-active {
-    /* Simple dark overlay, no green borders/grids */
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
     display: flex;
@@ -527,12 +564,6 @@ select:hover {
     z-index: 10;
 }
 
-/* Remove the corners/brackets */
-.locked-overlay.nearest-active::before,
-.locked-overlay.nearest-active::after {
-    display: none;
-}
-
 
 
 /* =========================================
@@ -545,7 +576,7 @@ select:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
@@ -563,14 +594,14 @@ select:hover {
 }
 
 .request-card {
-    background: linear-gradient(135deg, #1e1e1e, #141414);
+    background: var(--surface);
     width: 500px;
     max-width: 90%;
     border-radius: 16px;
     padding: 40px;
     position: relative;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--border);
 }
 
 .request-close,
@@ -579,25 +610,27 @@ select:hover {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: #666;
+    color: var(--text-muted);
     font-size: 1.2rem;
     transition: color 0.2s;
 }
 
 .request-close:hover {
-    color: #fff;
+    color: var(--gold);
 }
 
 .request-title {
     text-align: center;
     font-size: 1.8rem;
     margin-bottom: 30px;
-    color: #fff;
+    color: var(--text);
     font-weight: 800;
-    background: linear-gradient(90deg, #fff, #999);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    border-bottom: 2px solid var(--gold);
+    display: inline-block;
+    padding-bottom: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .form-group {
@@ -607,38 +640,38 @@ select:hover {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 600;
 }
 
 .form-input {
     width: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #444;
+    background: var(--bg);
+    border: 1px solid var(--border);
     padding: 15px;
     border-radius: 10px;
-    color: #fff;
+    color: var(--text);
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.2);
     outline: none;
 }
 
 .form-hint {
     display: block;
     margin-top: 5px;
-    color: #666;
+    color: var(--text-muted);
     font-size: 0.8rem;
 }
 
 .request-submit {
     width: 100%;
-    background: var(--accent);
+    background: var(--gold);
     color: #000;
     font-weight: 800;
     padding: 15px;
@@ -650,22 +683,35 @@ select:hover {
 }
 
 .request-submit:hover {
-    background: #00c853;
+    background: var(--gold-light);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 230, 118, 0.3);
+    box-shadow: 0 10px 20px rgba(201, 168, 76, 0.3);
 }
 
 /* =========================================
    7. RANDOM MODAL STYLES
    ========================================= */
 .roulette-card {
-    background: var(--card-bg);
+    background: var(--surface);
     width: 400px;
     max-width: 90%;
     border-radius: 12px;
     overflow: hidden;
     position: relative;
     text-align: center;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+/* Spinning subtle border animation for roulette running */
+@keyframes goldSpin {
+    0% { border-color: var(--border); box-shadow: 0 0 0 rgba(201,168,76,0); }
+    50% { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.5); }
+    100% { border-color: var(--border); box-shadow: 0 0 0 rgba(201,168,76,0); }
+}
+
+.roulette-card.spinning {
+    animation: goldSpin 0.5s infinite;
 }
 
 .roulette-image-container {
@@ -687,19 +733,24 @@ select:hover {
 .roulette-title {
     margin-bottom: 20px;
     font-size: 1.2rem;
+    color: var(--text);
 }
 
 .roulette-btn {
     display: inline-block;
-    background: var(--accent);
+    background: var(--gold);
     color: #000;
     padding: 10px 30px;
     border-radius: 25px;
     font-weight: bold;
+    transition: background 0.3s;
+}
+.roulette-btn:hover {
+    background: var(--gold-light);
 }
 
 /* =========================================
-   8. UTILITIES
+   8. UTILITIES & FOOTER
    ========================================= */
 .load-more-container {
     text-align: center;
@@ -708,8 +759,8 @@ select:hover {
 
 .btn-load {
     background: transparent;
-    border: 1px solid #444;
-    color: #fff;
+    border: 1px solid var(--gold);
+    color: var(--gold);
     padding: 10px 40px;
     border-radius: 25px;
     cursor: pointer;
@@ -718,15 +769,14 @@ select:hover {
 }
 
 .btn-load:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    background: rgba(201, 168, 76, 0.1);
 }
 
 .scroll-top {
     position: fixed;
     bottom: 30px;
     left: 30px;
-    background: var(--accent);
+    background: var(--gold);
     color: #000;
     width: 45px;
     height: 45px;
@@ -736,41 +786,44 @@ select:hover {
     align-items: center;
     font-size: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     z-index: 90;
     transition: transform 0.2s;
 }
 
 .scroll-top:hover {
     transform: translateY(-3px);
+    background: var(--gold-light);
 }
 
 footer {
     text-align: center;
     padding: 40px;
-    background: #111;
-    color: #666;
-    border-top: 1px solid #222;
+    background: #080808;
+    color: var(--text-muted);
 }
 
 .footer-request-btn {
-    color: var(--text-secondary);
-    border-bottom: 1px dashed #666;
+    color: var(--gold);
     margin-top: 10px;
     font-size: 0.9rem;
+    transition: color 0.2s;
+}
+.footer-request-btn:hover {
+    color: var(--gold-light);
 }
 
 .back-link {
     display: inline-block;
     margin: 20px 40px 0 0;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-weight: bold;
     border-bottom: 1px solid transparent;
 }
 
 .back-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--gold);
+    border-color: var(--gold);
 }
 
 /* =========================================
@@ -808,7 +861,6 @@ footer {
 
     .logo {
         height: 40px;
-        /* Scale down logo */
     }
 
     .nav-group {
@@ -820,9 +872,7 @@ footer {
 
     .nav-btn {
         font-size: 12px;
-        /* Reduce font size */
         padding: 8px 12px;
-        /* Reduce padding */
     }
 
     /* 2. Controls (Search & Filter) */
@@ -846,20 +896,19 @@ footer {
     /* Filters Panel */
     .filters-panel {
         display: none;
-        /* Hidden by default */
         flex-direction: column;
         width: 95%;
         margin: 0 auto;
         gap: 10px;
-        background: #2a2a2a;
+        background: var(--surface);
         padding: 15px;
         border-radius: 10px;
         margin-top: 10px;
+        border: 1px solid var(--border);
     }
 
     .filters-panel.active {
         display: flex;
-        /* Show when active */
     }
 
     /* Full width inputs in panel */
@@ -869,85 +918,51 @@ footer {
         width: 100%;
     }
 
-    /* 3. Card Grid */
+    /* 3. Card Grid & Rows */
     .container {
-        grid-template-columns: 1fr;
-        /* 1 card per row */
-        gap: 10px;
-        /* 10px margin between cards */
         padding: 10px;
     }
+    
+    .genre-header {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .container.grid-fallback {
+        grid-template-columns: 1fr; 
+        gap: 10px; 
+    }
 
-    .game-card {
+    .container.grid-fallback .game-card {
         width: 100%;
+        max-width: 300px;
         margin: 0 auto;
+        height: 380px; /* Taller on mobile grid fallback */
     }
 
     /* 4. Coming Soon Cards */
     .lock-icon {
-        font-size: 40px;
-        /* Down from 2rem approx */
+        font-size: 30px; 
     }
 
     .release-capsule span:first-child {
-        font-size: 14px;
-        /* COMING SOON text */
+        font-size: 13px;
     }
 
     .release-capsule span:last-child {
-        font-size: 12px;
-        /* Date text */
+        font-size: 11px; 
     }
-
-    /* 5. Metacritic Badges */
-    .metacritic-score {
-        font-size: 10px;
-        padding: 0 2px;
-    }
-
-    /* Adjust Badge size and position if needed, 
-       but strictly keeping to user request about "badge size" usually refers to the Verified badge? 
-       The user said "Metacritic Badges ... Reduce badge size to 30px x 30px".
-       Metacritic score is text. Verified badge is an image. 
-       I will assume they meant the Verified Badge in the overlay.
-    */
-    .badge {
-        width: 30px;
-        height: 30px;
-        justify-content: center;
-        /* Position closer to bottom-right? 
-           User said: "Position closer to bottom-right corner".
-           Currently it is top-right. Let's move it for mobile.
-        */
-        position: absolute;
-        top: auto;
-        bottom: 10px;
-        right: 10px;
-        z-index: 5;
-    }
-
-    .badge img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    /* Adjust overlay to not conflict if badge moves */
-    .overlay {
-        position: static;
-        /* Let children position themselves absolute relative to container */
-        display: block;
-    }
-
-    /* Move date tag to not overlap with bottom-right badge if needed, 
-       Date tag is bottom-left. Should be fine.
-    */
 
     /* Disable hover effects on mobile */
     .game-card:hover {
         transform: none;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        border-color: #2a2a2a;
+        border-color: transparent;
+        z-index: 1;
+    }
+    
+    .scroll-btn {
+        display: none; /* Hide scroll buttons on touch devices, they can swipe */
     }
 }
 
