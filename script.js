@@ -170,6 +170,12 @@ function renderGrid() {
             html += buildRowHTML("COMING SOON", comingSoon.slice(0, currentLimit), 'coming-soon');
         }
         
+        // 1.5. 2026 Row
+        const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
+        if (games2026.length > 0) {
+            html += buildRowHTML("✦ 2026 ✦", games2026.slice(0, currentLimit), '2026', true);
+        }
+        
         // 2. Genre Rows
         const genres = Object.keys(GENRE_MAPPING);
         genres.forEach(gKey => {
@@ -182,7 +188,7 @@ function renderGrid() {
         grid.innerHTML = html;
         
         // Hide load more if all rows reached their max
-        let maxMatches = comingSoon.length;
+        let maxMatches = Math.max(comingSoon.length, games2026.length);
         genres.forEach(gKey => {
             const m = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey)).length;
             if (m > maxMatches) maxMatches = m;
@@ -192,13 +198,17 @@ function renderGrid() {
     }
 }
 
-function buildRowHTML(title, games, idPrefix) {
+function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     
+    const headerHtml = isSpecial 
+        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
+        : `<div class="genre-header">${title}</div>`;
+    
     return `
         <div class="genre-row">
-            <div class="genre-header">${title}</div>
+            ${headerHtml}
             <div class="row-carousel-container">
                 <button class="scroll-btn scroll-left" onclick="scrollRow('${rowId}', -800)">❮</button>
                 <div class="row-carousel" id="${rowId}">
