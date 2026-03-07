@@ -229,10 +229,9 @@ function renderGrid() {
 }
 
 function buildSpotlightHTML(title, games) {
-    const count = games.length;
     let html = `
     <div class="genre-row">
-        <div class="genre-header">${title}<span class="row-count">· ${count}</span></div>
+        <div class="genre-header">${title}</div>
         <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
     `;
     games.forEach(game => {
@@ -246,10 +245,9 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     
-    const count = games.length;
     const headerHtml = isSpecial 
-        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span><span class="row-count">· ${count}</span></div>` 
-        : `<div class="genre-header">${title}<span class="row-count">· ${count}</span></div>`;
+        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
+        : `<div class="genre-header">${title}</div>`;
     
     return `
         <div class="genre-row">

@@ -529,12 +529,7 @@ select:hover {
     display: none; /* Hidden in Netflix layout for cleaner look, handled by badges */
 }
 
-.row-count {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 400;
-    margin-right: 8px;
-}
+
 
 .row-progress {
     height: 2px;
