@@ -83,7 +83,16 @@ const batches = [
     }
 ];
 
-const comingSoonGames = [];
+const comingSoonGames = [
+    {
+        name: "Crimson Desert",
+        id: "3321460",
+        genre: "Action, Adventure, Open World",
+        year: "2026",
+        release_info: "19/03/2026",
+        release_type: "date"
+    }
+];
 
 // ==========================================
 // 2. MAIN LIBRARY (The Original List)
