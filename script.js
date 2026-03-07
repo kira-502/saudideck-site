@@ -204,7 +204,11 @@ function renderGrid() {
 
         // Phase 2: Randomized remaining genre rows (batched via IntersectionObserver)
         if (_shuffledGenres.length === 0) {
-            const remaining = Object.keys(GENRE_MAPPING).filter(gKey => !FIXED_GENRES.includes(gKey));
+            const allGenres = new Set();
+            visibleGames.forEach(g => {
+                if (g.genre) g.genre.split(',').forEach(gen => allGenres.add(gen.trim()));
+            });
+            const remaining = Array.from(allGenres).filter(gKey => !FIXED_GENRES.includes(gKey));
             _shuffledGenres = remaining.sort(() => Math.random() - 0.5);
         }
         _shuffledGenres.slice(0, currentLimit).forEach(gKey => {
