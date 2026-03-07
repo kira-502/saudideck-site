@@ -7,36 +7,12 @@
 // ==========================================
 const batches = [
     {
-        date: "2026-02-27",
-        list: [
-            {
-                name: "Resident Evil Requiem",
-                id: "3764200",
-                genre: "Horror, Survival, Action",
-                year: "2026"
-            }
-        ]
-    },
-    {
         date: "2026-02-20",
         list: [
             { name: "Mewgenics", id: "204060", verified: true, genre: "RPG, Rogue-like, Strategy", year: 2026, score: 90 },
             { name: "Bus Simulator 21 Next Stop", id: "976590", genre: "Simulation, Vehicle, Open World", year: 2021, score: 73 },
             { name: "StarVaders", id: "2463770", verified: true, genre: "Strategy, Card Game, Rogue-lite", year: 2025, score: 85 },
-            { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder", year: 2023, score: 80 },
-            {
-                name: "CODE VEIN II",
-                id: "2362060",
-                genre: "RPG, Action, Anime",
-                year: "2026",
-                score: 62
-            },
-            {
-                name: "Nioh 3",
-                id: "3681010",
-                genre: "Action, RPG, Souls-like",
-                year: "2026"
-            }
+            { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder", year: 2023, score: 80 }
         ]
     },
     {
@@ -91,6 +67,34 @@ const comingSoonGames = [
         year: "2026",
         release_info: "19/03/2026",
         release_type: "date"
+    },
+    {
+        name: "Nioh 3",
+        id: "3681010",
+        genre: "Action, RPG, Souls-like",
+        year: "2026",
+        release_info: "TBA 2026",
+        release_type: "window",
+        image: "https://via.placeholder.com/300x450/161616/c9a84c?text=COMING+SOON"
+    },
+    {
+        name: "Resident Evil Requiem",
+        id: "3764200",
+        genre: "Horror, Survival, Action",
+        year: "2026",
+        release_info: "TBA 2026",
+        release_type: "window",
+        image: "https://via.placeholder.com/300x450/161616/c9a84c?text=COMING+SOON"
+    },
+    {
+        name: "CODE VEIN II",
+        id: "2362060",
+        genre: "RPG, Action, Anime",
+        year: "2026",
+        score: 62,
+        release_info: "TBA 2026",
+        release_type: "window",
+        image: "https://via.placeholder.com/300x450/161616/c9a84c?text=COMING+SOON"
     }
 ];
 
