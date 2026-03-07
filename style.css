@@ -359,6 +359,10 @@ select:hover {
     color: var(--text);
 }
 
+.genre-header.clickable {
+    cursor: pointer;
+}
+
 .row-carousel-container {
     position: relative;
     display: flex;

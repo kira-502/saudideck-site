@@ -247,7 +247,7 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     
     const headerHtml = isSpecial 
         ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
-        : `<div class="genre-header">${title}</div>`;
+        : `<div class="genre-header clickable" onclick="document.getElementById('genreFilter').value='${idPrefix}'; resetAndRender();">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
     
     return `
         <div class="genre-row">
