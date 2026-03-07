@@ -247,21 +247,6 @@ select:hover {
     border-color: var(--gold);
 }
 
-.new-btn {
-    background: linear-gradient(135deg, var(--accent), var(--accent));
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 200, 100, 0.2);
-    transition: transform 0.2s;
-}
-
-.new-btn:hover {
-    transform: scale(1.05);
-}
 
 .deck-toggle {
     display: flex;
@@ -880,8 +865,7 @@ footer {
 
     /* Full width inputs in panel */
     .filters-panel select,
-    .filters-panel .deck-toggle,
-    .filters-panel .new-btn {
+    .filters-panel .deck-toggle {
         width: 100%;
     }
 
