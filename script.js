@@ -106,6 +106,8 @@ function resetAndRender() {
     else if (sort === 'oldest') visibleGames.sort((a, b) => a.year - b.year);
     else if (sort === 'az') visibleGames.sort((a, b) => a.name.localeCompare(b.name));
     else if (sort === 'date_added') visibleGames.sort((a, b) => (b.date_added || "").localeCompare(a.date_added || ""));
+    else if (sort === 'score_high') visibleGames.sort((a, b) => (b.score || 0) - (a.score || 0));
+    else if (sort === 'score_low') visibleGames.sort((a, b) => (a.score || 0) - (b.score || 0));
     else {
         // SMART DEFAULT SORT
         const currentYear = new Date().getFullYear();
