@@ -247,19 +247,19 @@ select:hover {
     border-color: var(--gold);
 }
 
-.random-btn {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+.new-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent));
     color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(201, 168, 76, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 200, 100, 0.2);
     transition: transform 0.2s;
 }
 
-.random-btn:hover {
+.new-btn:hover {
     transform: scale(1.05);
 }
 
@@ -600,8 +600,7 @@ select:hover {
 /* =========================================
    6. PREMIUM REQUEST MODAL
    ========================================= */
-.request-overlay,
-.random-overlay {
+.request-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -618,8 +617,7 @@ select:hover {
     transition: opacity 0.3s ease;
 }
 
-.request-overlay.active,
-.random-overlay.active {
+.request-overlay.active {
     opacity: 1;
     pointer-events: auto;
 }
@@ -635,8 +633,7 @@ select:hover {
     border: 1px solid var(--border);
 }
 
-.request-close,
-.roulette-close {
+.request-close {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -717,67 +714,6 @@ select:hover {
     background: var(--gold-light);
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(201, 168, 76, 0.3);
-}
-
-/* =========================================
-   7. RANDOM MODAL STYLES
-   ========================================= */
-.roulette-card {
-    background: var(--surface);
-    width: 400px;
-    max-width: 90%;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: box-shadow 0.3s, border-color 0.3s;
-}
-
-/* Spinning subtle border animation for roulette running */
-@keyframes goldSpin {
-    0% { border-color: var(--border); box-shadow: 0 0 0 rgba(201,168,76,0); }
-    50% { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.5); }
-    100% { border-color: var(--border); box-shadow: 0 0 0 rgba(201,168,76,0); }
-}
-
-.roulette-card.spinning {
-    animation: goldSpin 0.5s infinite;
-}
-
-.roulette-image-container {
-    height: 250px;
-    overflow: hidden;
-    background: #000;
-}
-
-.roulette-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.roulette-info {
-    padding: 25px;
-}
-
-.roulette-title {
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    color: var(--text);
-}
-
-.roulette-btn {
-    display: inline-block;
-    background: var(--gold);
-    color: #000;
-    padding: 10px 30px;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-.roulette-btn:hover {
-    background: var(--gold-light);
 }
 
 /* =========================================
@@ -945,7 +881,7 @@ footer {
     /* Full width inputs in panel */
     .filters-panel select,
     .filters-panel .deck-toggle,
-    .filters-panel .random-btn {
+    .filters-panel .new-btn {
         width: 100%;
     }
 
