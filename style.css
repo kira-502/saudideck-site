@@ -564,6 +564,14 @@ select:hover {
 
 .game-meta {
     display: none;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    margin-top: 5px;
+}
+
+.game-card:hover .game-meta {
+    display: block;
 }
 
 .game-genre {
