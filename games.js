@@ -4,6 +4,15 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
+{
+        date: "2026-01-24",
+        list: [
+            { name: ".hack//G.U. Last Recode", id: "525480", verified: true, genre: "RPG, Action, Anime", year: 2017, score: 69 },
+            { name: "Manhunt", id: "12130", genre: "Action, Stealth, Horror", year: 2004, score: 75 },
+            { name: "Max Payne 2: The Fall of Max Payne", id: "12150", genre: "Action, Shooter, Noir", year: 2003, score: 86 },
+            { name: "Your Turn To Die -Death Game By Majority-", id: "2067780", verified: true, genre: "Adventure, Visual Novel, Horror", year: 2023 }
+        ]
+    },
     {
         date: "2026-03-07",
         list: [
