@@ -4,6 +4,14 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
+{
+        date: "2026-02-27",
+        list: [
+            { name: "CODE VEIN II", id: "2362060", genre: "RPG, Action, Anime", year: 2026, release_date: "30/01/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2362060/header.jpg" },
+            { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: 2026, release_date: "06/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3681010/header.jpg" },
+            { name: "Resident Evil Requiem", id: "3764200", genre: "Horror, Action, Survival", year: 2026, release_date: "27/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/header.jpg" }
+        ]
+    },
     {
         date: "2026-02-20",
         list: [
