@@ -68,7 +68,7 @@
                 <option value="oldest">ترتيب: الأقدم</option>
                 <option value="az">ترتيب: أبجدي (أ-ي)</option>
             </select>
-            <button class="random-btn" onclick="pickRandomGame()">🎲 اختيار عشوائي</button>
+            <button class="new-btn" onclick="filterNewlyAdded()">🆕 المضافة حديثاً</button>
             <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
                 <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
                 <div class="toggle-icons">
@@ -99,20 +99,6 @@
         <a href="javascript:void(0)" onclick="openRequestModal()" class="footer-request-btn"
             style="text-decoration:none; display:inline-block;">طلب إضافة لعبة</a>
     </footer>
-
-    <!-- Random Game Modal -->
-    <div class="random-overlay" id="randomOverlay" onclick="if(event.target === this) closeRandomModal()">
-        <div class="roulette-card">
-            <div class="roulette-close" onclick="closeRandomModal()">✕</div>
-            <div class="roulette-image-container">
-                <img src="" alt="Roulette" id="rouletteImg" class="roulette-img">
-            </div>
-            <div class="roulette-info">
-                <h2 class="roulette-title" id="rouletteTitle">جارٍ الاختيار...</h2>
-                <a href="#" target="_blank" id="rouletteSteamBtn" class="roulette-btn">عرض في IGDB</a>
-            </div>
-        </div>
-    </div>
 
     <!-- Request Game Modal -->
     <div class="request-overlay" id="requestOverlay" onclick="if(event.target === this) closeRequestModal()">

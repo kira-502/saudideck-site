@@ -383,37 +383,7 @@ async function handleRequestSubmit(e) {
     }
 }
 
-function pickRandomGame() {
-    if (visibleGames.length === 0) return;
-    document.getElementById('randomOverlay').classList.add('active');
-
-    const imgEl = document.getElementById('rouletteImg');
-    const titleEl = document.getElementById('rouletteTitle');
-    const btnEl = document.getElementById('rouletteSteamBtn');
-
-    let steps = 0;
-    const interval = setInterval(() => {
-        const randomGame = visibleGames[Math.floor(Math.random() * visibleGames.length)];
-        const img = randomGame.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${randomGame.id}/library_600x900.jpg`;
-        imgEl.src = img;
-        titleEl.innerText = randomGame.name;
-
-        steps++;
-        if (steps >= 20) {
-            clearInterval(interval);
-            let slug = randomGame.slug;
-            if (!slug) {
-                slug = randomGame.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            }
-
-            btnEl.href = `https://www.igdb.com/games/${slug}`;
-            btnEl.innerText = "عرض في IGDB";
-            titleEl.innerText = "✨ " + randomGame.name + " ✨";
-            titleEl.style.color = "var(--accent)";
-        }
-    }, 100);
-}
-
-function closeRandomModal() {
-    document.getElementById('randomOverlay').classList.remove('active');
+function filterNewlyAdded() {
+    document.getElementById('sortSelect').value = 'date_added';
+    resetAndRender();
 }
