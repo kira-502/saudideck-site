@@ -136,7 +136,8 @@ header {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 5px;
+    margin-top: -5px;
+    padding-top: 10px;
     overflow: hidden;
 }
 
