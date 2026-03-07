@@ -382,3 +382,16 @@ async function handleRequestSubmit(e) {
         btn.disabled = false;
     }
 }
+
+function toggleNewlyAdded() {
+    const btn = document.getElementById('newlyAddedBtn');
+    const select = document.getElementById('sortFilter');
+    if (select.value === 'date_added') {
+        select.value = 'metacritic';
+        btn.classList.remove('active');
+    } else {
+        select.value = 'date_added';
+        btn.classList.add('active');
+    }
+    resetAndRender();
+}
