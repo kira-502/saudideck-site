@@ -315,6 +315,7 @@ select:hover {
     padding: 40px;
     max-width: 1400px;
     margin: 0 auto;
+    overflow-x: hidden;
 }
 
 /* Fallback grid for Search/Filter */
@@ -344,6 +345,8 @@ select:hover {
     position: relative;
     display: flex;
     align-items: center;
+    padding: 0 30px;
+    overflow: visible;
 }
 
 .row-carousel {
@@ -386,10 +389,10 @@ select:hover {
 }
 
 .scroll-left {
-    left: -20px;
+    left: -22px;
 }
 .scroll-right {
-    right: -20px;
+    right: -22px;
 }
 
 /* CARDS */
