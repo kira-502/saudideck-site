@@ -664,20 +664,6 @@ select:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.locked-overlay.nearest-active {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-}
 
 
 
@@ -844,6 +830,7 @@ footer {
 }
 
 .footer-request-btn {
+    display: inline-block;
     color: var(--gold);
     margin-top: 10px;
     font-size: 0.9rem;
@@ -853,18 +840,6 @@ footer {
     color: var(--gold-light);
 }
 
-.back-link {
-    display: inline-block;
-    margin: 20px 40px 0 0;
-    color: var(--text-muted);
-    font-weight: bold;
-    border-bottom: 1px solid transparent;
-}
-
-.back-link:hover {
-    color: var(--gold);
-    border-color: var(--gold);
-}
 
 /* =========================================
    9. MOBILE OPTIMIZATIONS
@@ -980,10 +955,6 @@ footer {
     }
 
     /* 4. Coming Soon Cards */
-    .lock-icon {
-        font-size: 30px; 
-    }
-
     .release-capsule span:first-child {
         font-size: 13px;
     }
