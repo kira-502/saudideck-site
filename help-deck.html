@@ -7,7 +7,131 @@
     <title>بروتوكول تفعيل الألعاب (Steam Deck) - SaudiDeck</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
+    <style>
+        :root { --danger: #e53935; }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            margin: 0;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .guide-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px 24px 80px;
+        }
+
+        .guide-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .guide-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-size: 0.95rem;
+        }
+
+        .step {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 28px 30px;
+            margin-bottom: 28px;
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--gold);
+        }
+
+        .step-header {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .instruction-part {
+            margin: 16px 0;
+        }
+
+        .step-img-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .step-img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+        }
+
+        .step-text {
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 1rem;
+            margin: 12px 0 0;
+        }
+
+        .highlight {
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.12);
+            padding: 1px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--gold);
+            opacity: 0.5;
+            margin: 8px 0;
+        }
+
+        .info-strip {
+            background: rgba(201, 168, 76, 0.06);
+            border-right: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 18px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,14 +146,15 @@
 
     <div class="guide-container">
         <h1 class="guide-title">بروتوكول التفعيل (Steam Deck)</h1>
+        <p class="guide-subtitle">اتبع الخطوات الثلاث بالترتيب لضمان تجربة لعب سلسة وآمنة</p>
 
         <!-- STEP 1 -->
         <div class="step">
             <div class="step-header">👤 1. إدخال بيانات الدخول</div>
-            <div class="step-img-container" style="margin-bottom: 20px;">
+            <div class="step-img-container">
                 <img src="assets/guide_step1.png" alt="Login Guide" class="step-img">
             </div>
-            <p class="step-text">استخدم ملف لوحة المفاتيح باللمس أو لوحة مفاتيح خارجية لإدخال البيانات. يرجى التأكد من
+            <p class="step-text">استخدم لوحة المفاتيح باللمس أو لوحة مفاتيح خارجية لإدخال البيانات. يرجى التأكد من
                 عدم إضافة أي <span class="highlight">مسافات إضافية</span>.</p>
         </div>
 
@@ -45,7 +170,7 @@
                 </div>
             </div>
 
-            <div class="flow-arrow" style="text-align: center;">⬇</div>
+            <div class="flow-arrow">⬇</div>
 
             <div class="instruction-part">
                 <p class="step-text">في تبويب General، قم بتحويل خيار <span class="highlight">Steam Cloud</span> إلى وضع
@@ -59,8 +184,8 @@
         </div>
 
         <!-- STEP 3 -->
-        <div class="step" style="border-right: 5px solid var(--danger);">
-            <div class="step-header" style="color:var(--danger)">📡 3. تفعيل وضع الأوفلاين</div>
+        <div class="step" style="border-right: 4px solid var(--danger);">
+            <div class="step-header" style="color: var(--danger);">📡 3. تفعيل وضع الأوفلاين</div>
 
             <div class="instruction-part">
                 <p class="step-text">اضغط على زر <span class="highlight">STEAM</span> وتوجه إلى الإعدادات <span
@@ -70,7 +195,7 @@
                 </div>
             </div>
 
-            <div class="flow-arrow" style="text-align: center;">⬇</div>
+            <div class="flow-arrow">⬇</div>
 
             <div class="instruction-part">
                 <p class="step-text">توجه لتبويب الإنترنت <span class="highlight">Internet</span> واضغط على <span
@@ -80,13 +205,12 @@
                 </div>
             </div>
 
-            <div class="info-strip">💡 أنت الآن جاهز للعب بأمان تام وبدون أي انقطاع.</div>
+            <div class="info-strip" style="border-right-color: var(--danger); background: rgba(229, 57, 53, 0.05);">💡 أنت الآن جاهز للعب بأمان تام وبدون أي انقطاع.</div>
         </div>
 
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="/" class="back-link"
-                style="background: var(--accent); color: black; padding: 15px 40px; font-size: 1.2rem;">فهمت، جاهز
-                للعب</a>
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="/"
+                style="display: inline-block; background: var(--accent); color: #000; padding: 14px 40px; font-size: 1.1rem; font-weight: 700; border-radius: 30px; font-family: var(--font-main);">فهمت، جاهز للعب</a>
         </div>
 
     </div>
