@@ -150,6 +150,7 @@ function renderGrid() {
     if (visibleGames.length === 0) {
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
         document.getElementById('loadMoreArea').style.display = 'none';
+        grid.style.opacity = '1';
         return;
     }
 
@@ -244,6 +245,7 @@ function renderGrid() {
         document.getElementById('loadMoreArea').style.display =
             currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
+    grid.style.opacity = '1';
 }
 
 function buildSpotlightHTML(title, games) {
