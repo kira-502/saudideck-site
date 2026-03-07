@@ -3,8 +3,10 @@
    ========================================= */
 let allGames = [];
 let visibleGames = [];
-const BATCH_SIZE = 20;
+const BATCH_SIZE = 5; // rows per batch for randomized section
 let currentLimit = BATCH_SIZE;
+let _shuffledGenres = [];
+const FIXED_GENRES = ['Action', 'RPG', 'Horror', 'Open World', 'Shooter', 'Adventure'];
 
 // Mapping for Genre Dropdown
 const GENRE_MAPPING = {
@@ -128,6 +130,7 @@ function resetAndRender() {
     }
 
     currentLimit = BATCH_SIZE;
+    _shuffledGenres = [];
     renderGrid();
 }
 
@@ -166,48 +169,63 @@ function renderGrid() {
         grid.classList.remove('grid-fallback');
         let html = '';
         
-        // 1. Coming Soon Row
+        // Coming Soon row (always shown in full)
         const comingSoon = visibleGames.filter(g => g.isComingSoon);
         if (comingSoon.length > 0) {
             if (comingSoon.length <= 2) {
                 html += buildSpotlightHTML("COMING SOON", comingSoon);
             } else {
-                html += buildRowHTML("COMING SOON", comingSoon.slice(0, currentLimit), 'coming-soon');
+                html += buildRowHTML("COMING SOON", comingSoon, 'coming-soon');
             }
         }
-        
-        // 1.5. 2026 Row
+
+        // 2026 row (always shown in full)
         const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
         if (games2026.length > 0) {
             if (games2026.length <= 2) {
                 html += buildSpotlightHTML("✦ 2026 ✦", games2026);
             } else {
-                html += buildRowHTML("✦ 2026 ✦", games2026.slice(0, currentLimit), '2026', true);
+                html += buildRowHTML("✦ 2026 ✦", games2026, '2026', true);
             }
         }
-        
-        // 2. Genre Rows
-        const genres = Object.keys(GENRE_MAPPING);
-        genres.forEach(gKey => {
+
+        // Phase 1: Fixed top genre rows (always shown in full)
+        FIXED_GENRES.forEach(gKey => {
+            if (!GENRE_MAPPING[gKey]) return;
             const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
             if (matches.length > 0) {
                 if (matches.length <= 2) {
                     html += buildSpotlightHTML(gKey.toUpperCase(), matches);
                 } else {
-                    html += buildRowHTML(gKey.toUpperCase(), matches.slice(0, currentLimit), gKey);
+                    html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
                 }
             }
         });
-        
+
+        // Phase 2: Randomized remaining genre rows (batched via IntersectionObserver)
+        if (_shuffledGenres.length === 0) {
+            const remaining = Object.keys(GENRE_MAPPING).filter(gKey => !FIXED_GENRES.includes(gKey));
+            _shuffledGenres = remaining.sort(() => Math.random() - 0.5);
+        }
+        _shuffledGenres.slice(0, currentLimit).forEach(gKey => {
+            const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
+            if (matches.length > 0) {
+                if (matches.length <= 2) {
+                    html += buildSpotlightHTML(gKey.toUpperCase(), matches);
+                } else {
+                    html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
+                }
+            }
+        });
+
         grid.innerHTML = html;
-        
+
         // Attach scroll events
         document.querySelectorAll('.row-carousel').forEach(row => {
             row.addEventListener('scroll', () => {
                 const fill = row.parentElement.parentElement.querySelector('.row-progress-fill');
                 if (!fill) return;
                 let scrollRange = row.scrollWidth - row.clientWidth;
-                // Avoid division by zero when content perfectly fits
                 if (scrollRange <= 0) scrollRange = 1;
                 const percent = (row.scrollLeft / scrollRange) * 100;
                 fill.style.width = percent + '%';
@@ -218,15 +236,9 @@ function renderGrid() {
         document.querySelectorAll('.genre-row').forEach((row, i) => {
             row.style.animationDelay = `${i * 80}ms`;
         });
-        
-        // Hide load more if all rows reached their max
-        let maxMatches = Math.max(comingSoon.length, games2026.length);
-        genres.forEach(gKey => {
-            const m = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey)).length;
-            if (m > maxMatches) maxMatches = m;
-        });
-        
-        document.getElementById('loadMoreArea').style.display = currentLimit >= maxMatches ? 'none' : 'block';
+
+        document.getElementById('loadMoreArea').style.display =
+            currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
 }
 
