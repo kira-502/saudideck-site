@@ -5,6 +5,27 @@
 // ==========================================
 const batches = [
     {
+        date: "2026-03-07",
+        list: [
+            { name: "Astrea: Six-Sided Oracles", id: "1756470", genre: "Strategy, Deckbuilder, Roguelike", year: 2023, score: 85 },
+            { name: "Chants of Sennaar", id: "1931770", genre: "Adventure, Puzzle, Story Rich", year: 2023, score: 86 },
+            { name: "Elite Dangerous", id: "359320", genre: "Simulation, Sci-Fi, Open World", year: 2015, score: 80 },
+            { name: "Disgaea PC", id: "405900", genre: "RPG, Strategy, Anime", year: 2016, score: 74 },
+            { name: "Hard West 2", id: "1282410", genre: "Strategy, Turn-Based, Western", year: 2022, score: 77 },
+            { name: "Homeworld 3", id: "1840080", genre: "Strategy, RTS, Sci-Fi", year: 2024, score: 75 },
+            { name: "Jusant", id: "1977170", genre: "Adventure, Puzzle, Exploration", year: 2023, score: 83 },
+            { name: "Sid Meier's Starships", id: "318240", genre: "Strategy, Turn-Based, Sci-Fi", year: 2015, score: 64 },
+            { name: "SWORN", id: "2663990", genre: "Action, Roguelike, Co-op", year: 2024 },
+            { name: "Total War: EMPIRE - Definitive Edition", id: "10500", genre: "Strategy, Historical, RTS", year: 2009, score: 90 },
+            { name: "Total War: NAPOLEON - Definitive Edition", id: "34030", genre: "Strategy, Historical, RTS", year: 2010, score: 81 },
+            { name: "X-COM: Apocalypse", id: "7660", genre: "Strategy, Classic, Sci-Fi", year: 1997 },
+            { name: "X-COM: Enforcer", id: "7770", genre: "Action, Shooter, Classic", year: 2001, score: 65 },
+            { name: "X-COM: Interceptor", id: "7730", genre: "Simulation, Strategy, Sci-Fi", year: 1998 },
+            { name: "X-COM: Terror from the Deep", id: "7650", genre: "Strategy, Classic, Sci-Fi", year: 1995 },
+            { name: "X-COM: UFO Defense", id: "7760", genre: "Strategy, Classic, Sci-Fi", year: 1993 }
+        ]
+    },
+    {
         date: "2026-02-27",
         list: [
             { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival", year: 2026, score: 89, release_date: "27/02/2026", image: "https://cdn2.steamgriddb.com/thumb/07470e139a689bbfbfbc64035d595155.jpg" },
