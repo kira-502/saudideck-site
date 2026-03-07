@@ -382,8 +382,3 @@ async function handleRequestSubmit(e) {
         btn.disabled = false;
     }
 }
-
-function filterNewlyAdded() {
-    document.getElementById('sortSelect').value = 'date_added';
-    resetAndRender();
-}
