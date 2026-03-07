@@ -253,11 +253,11 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
         <div class="genre-row">
             ${headerHtml}
             <div class="row-carousel-container">
-                <button class="scroll-btn scroll-left" onclick="scrollRow('${rowId}', -800)">❮</button>
+                <button class="scroll-btn scroll-left" onclick="scrollRow('${rowId}', -800)">❯</button>
                 <div class="row-carousel" id="${rowId}">
                     ${cardsHtml}
                 </div>
-                <button class="scroll-btn scroll-right" onclick="scrollRow('${rowId}', 800)">❯</button>
+                <button class="scroll-btn scroll-right" onclick="scrollRow('${rowId}', 800)">❮</button>
             </div>
             <div class="row-progress"><div class="row-progress-fill"></div></div>
         </div>
