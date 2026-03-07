@@ -9,7 +9,7 @@ const batches = [
     {
         date: "2026-02-20",
         list: [
-            { name: "Mewgenics", id: "686060", verified: true, genre: "RPG, Rogue-like, Strategy", year: 2026, score: 90 },
+            { name: "Mewgenics", id: "686060", verified: true, genre: "RPG, Rogue-like, Strategy", year: 2026, score: 90, release_date: "10/02/2026" },
             { name: "Bus Simulator 21 Next Stop", id: "976590", genre: "Simulation, Vehicle, Open World", year: 2021, score: 73 },
             { name: "StarVaders", id: "2463770", verified: true, genre: "Strategy, Card Game, Rogue-lite", year: 2025, score: 85 },
             { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder", year: 2023, score: 80 }

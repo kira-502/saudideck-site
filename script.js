@@ -292,7 +292,14 @@ function createGameCard(game) {
 
     // 3. Badges
     let badgesHtml = game.verified ? `<div class="badge"><img src="assets/badge_verified.png" alt="Verified"></div>` : '';
-    let dateTag = game.date_added ? `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>` : '';
+    let dateTag = '';
+    if (game.year == 2026) {
+        if (game.release_date) {
+            dateTag = `<div class="date-tag">${game.release_date}</div>`;
+        }
+    } else if (game.date_added) {
+        dateTag = `<div class="date-tag">NEW ${game.date_added.slice(5)}</div>`;
+    }
 
     // 4. Coming Soon Logic (Static)
     let lockedClass = "";
