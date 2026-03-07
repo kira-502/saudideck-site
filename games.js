@@ -4,14 +4,6 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
-{
-        date: "2026-02-27",
-        list: [
-            { name: "CODE VEIN II", id: "2362060", genre: "RPG, Action, Anime", year: 2026 },
-            { name: "Nioh 3", id: "3681010", genre: "Action, RPG, Souls-like", year: 2026 },
-            { name: "Resident Evil Requiem", id: "3764200", genre: "Horror, Action, Survival", year: 2026 }
-        ]
-    },
     {
         date: "2026-02-20",
         list: [
