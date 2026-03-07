@@ -1,4 +1,4 @@
-﻿// UPDATE THIS DATE when adding a new batch of games (Format: YYYY-MM-DD)
+// UPDATE THIS DATE when adding a new batch of games (Format: YYYY-MM-DD)
 
 
 // ==========================================
@@ -6,6 +6,17 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
+    {
+        date: "2026-02-27",
+        list: [
+            {
+                name: "Resident Evil Requiem",
+                id: "3764200",
+                genre: "Horror, Survival, Action",
+                year: "2026"
+            }
+        ]
+    },
     {
         date: "2026-02-20",
         list: [
@@ -15,19 +26,16 @@ const batches = [
             { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder", year: 2023, score: 80 },
             {
                 name: "CODE VEIN II",
-                id: "cv2",
+                id: "2362060",
                 genre: "RPG, Action, Anime",
                 year: "2026",
-                image: "assets/code_vein_2.png",
-                slug: "code-vein-ii"
+                score: 62
             },
             {
                 name: "Nioh 3",
-                id: "nioh3",
+                id: "3681010",
                 genre: "Action, RPG, Souls-like",
-                year: "2026",
-                image: "assets/nioh3.jpg",
-                slug: "nioh-3"
+                year: "2026"
             }
         ]
     },
@@ -75,18 +83,7 @@ const batches = [
     }
 ];
 
-const comingSoonGames = [
-    {
-        name: "Resident Evil Requiem",
-        id: "rereq",
-        genre: "Horror, Survival, Action",
-        year: "2026",
-        image: "assets/re_requiem.jpg",
-        slug: "resident-evil-requiem",
-        release_info: "27/02/2026",
-        release_type: "date"
-    }
-];
+const comingSoonGames = [];
 
 // ==========================================
 // 2. MAIN LIBRARY (The Original List)
