@@ -276,6 +276,12 @@ function loadMore() {
     renderGrid();
 }
 
+// Infinite scroll via IntersectionObserver
+const _loadObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) loadMore();
+}, { rootMargin: '200px' });
+_loadObserver.observe(document.getElementById('loadMoreArea'));
+
 /* =========================================
    5. HTML GENERATION (CARDS)
    ========================================= */

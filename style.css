@@ -799,18 +799,7 @@ select:hover {
 }
 
 .btn-load {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 10px 40px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
-}
-
-.btn-load:hover {
-    background: rgba(201, 168, 76, 0.1);
+    display: none;
 }
 
 .scroll-top {
