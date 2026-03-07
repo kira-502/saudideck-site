@@ -298,7 +298,7 @@ function createGameCard(game) {
             dateTag = `<div class="date-tag">${game.release_date}</div>`;
         }
     } else if (game.date_added) {
-        dateTag = `<div class="date-tag new-tag">NEW ${game.date_added.slice(5).replace('-','/')} '${game.date_added.slice(2,4)}</div>`;
+        dateTag = `<div class="date-tag new-tag">NEW ${game.date_added.slice(8,10)}/${game.date_added.slice(5,7)} '${game.date_added.slice(2,4)}</div>`;
     }
 
     // 4. Coming Soon Logic (Static)
