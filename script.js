@@ -167,13 +167,21 @@ function renderGrid() {
         // 1. Coming Soon Row
         const comingSoon = visibleGames.filter(g => g.isComingSoon);
         if (comingSoon.length > 0) {
-            html += buildRowHTML("COMING SOON", comingSoon.slice(0, currentLimit), 'coming-soon');
+            if (comingSoon.length <= 2) {
+                html += buildSpotlightHTML("COMING SOON", comingSoon);
+            } else {
+                html += buildRowHTML("COMING SOON", comingSoon.slice(0, currentLimit), 'coming-soon');
+            }
         }
         
         // 1.5. 2026 Row
         const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
         if (games2026.length > 0) {
-            html += buildRowHTML("✦ 2026 ✦", games2026.slice(0, currentLimit), '2026', true);
+            if (games2026.length <= 2) {
+                html += buildSpotlightHTML("✦ 2026 ✦", games2026);
+            } else {
+                html += buildRowHTML("✦ 2026 ✦", games2026.slice(0, currentLimit), '2026', true);
+            }
         }
         
         // 2. Genre Rows
@@ -181,11 +189,33 @@ function renderGrid() {
         genres.forEach(gKey => {
             const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
             if (matches.length > 0) {
-                html += buildRowHTML(gKey.toUpperCase(), matches.slice(0, currentLimit), gKey);
+                if (matches.length <= 2) {
+                    html += buildSpotlightHTML(gKey.toUpperCase(), matches);
+                } else {
+                    html += buildRowHTML(gKey.toUpperCase(), matches.slice(0, currentLimit), gKey);
+                }
             }
         });
         
         grid.innerHTML = html;
+        
+        // Attach scroll events
+        document.querySelectorAll('.row-carousel').forEach(row => {
+            row.addEventListener('scroll', () => {
+                const fill = row.parentElement.parentElement.querySelector('.row-progress-fill');
+                if (!fill) return;
+                let scrollRange = row.scrollWidth - row.clientWidth;
+                // Avoid division by zero when content perfectly fits
+                if (scrollRange <= 0) scrollRange = 1;
+                const percent = (row.scrollLeft / scrollRange) * 100;
+                fill.style.width = percent + '%';
+            });
+        });
+
+        // Stagger animation timing
+        document.querySelectorAll('.genre-row').forEach((row, i) => {
+            row.style.animationDelay = `${i * 80}ms`;
+        });
         
         // Hide load more if all rows reached their max
         let maxMatches = Math.max(comingSoon.length, games2026.length);
@@ -198,13 +228,28 @@ function renderGrid() {
     }
 }
 
+function buildSpotlightHTML(title, games) {
+    const count = games.length;
+    let html = `
+    <div class="genre-row">
+        <div class="genre-header">${title}<span class="row-count">· ${count}</span></div>
+        <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+    `;
+    games.forEach(game => {
+        html += createGameCard(game).replace('class="game-card', 'class="game-card" style="width: 240px; height: 346px; flex: 0 0 240px;" data-dummy="');
+    });
+    html += `</div></div>`;
+    return html;
+}
+
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     
+    const count = games.length;
     const headerHtml = isSpecial 
-        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
-        : `<div class="genre-header">${title}</div>`;
+        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span><span class="row-count">· ${count}</span></div>` 
+        : `<div class="genre-header">${title}<span class="row-count">· ${count}</span></div>`;
     
     return `
         <div class="genre-row">
@@ -216,6 +261,7 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
                 </div>
                 <button class="scroll-btn scroll-right" onclick="scrollRow('${rowId}', 800)">❯</button>
             </div>
+            <div class="row-progress"><div class="row-progress-fill"></div></div>
         </div>
     `;
 }
@@ -265,7 +311,10 @@ function createGameCard(game) {
     }
 
     // 5. HTML (Clickable Link)
-    const mcScore = game.score ? `<div class="metacritic-score">${game.score}</div>` : '';
+    let scoreClass = 'score-low';
+    if (game.score >= 85) scoreClass = 'score-great';
+    else if (game.score >= 70) scoreClass = 'score-mid';
+    const mcScore = game.score ? `<div class="metacritic-score ${scoreClass}">${game.score}</div>` : '';
     
     return `
         <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">

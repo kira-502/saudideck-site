@@ -39,7 +39,9 @@ a {
    2. HEADER & NAVIGATION
    ========================================= */
 header {
-    background: #0d0d0d;
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -326,9 +328,19 @@ select:hover {
 }
 
 /* Netflix Row Layout */
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 .genre-row {
     margin-bottom: 40px;
     position: relative;
+    opacity: 0;
+    animation: fadeSlideIn 0.4s ease forwards;
+}
+
+.genre-row:hover .scroll-btn {
+    opacity: 1;
 }
 
 .genre-header {
@@ -345,7 +357,7 @@ select:hover {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 28px;
     overflow: visible;
 }
 
@@ -367,11 +379,11 @@ select:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: rgba(0, 0, 0, 0.85);
     color: var(--gold);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -379,8 +391,8 @@ select:hover {
     cursor: pointer;
     z-index: 10;
     font-size: 1.5rem;
-    opacity: 1;
-    transition: background 0.3s;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.3s;
 }
 
 .scroll-btn:hover {
@@ -389,10 +401,10 @@ select:hover {
 }
 
 .scroll-left {
-    left: -22px;
+    left: -20px;
 }
 .scroll-right {
-    right: -22px;
+    right: -20px;
 }
 
 /* CARDS */
@@ -479,7 +491,6 @@ select:hover {
     bottom: 10px;
     left: 10px;
     background: rgba(0, 0, 0, 0.8);
-    color: var(--accent); /* Green text */
     font-weight: bold;
     font-size: 0.75rem;
     padding: 2px 6px;
@@ -487,6 +498,9 @@ select:hover {
     z-index: 2;
     border: 1px solid #333;
 }
+.score-great { color: #4caf50; }
+.score-mid { color: var(--gold); }
+.score-low { color: #888; }
 
 /* Card Info (Bottom Gradient) */
 .game-info {
@@ -494,8 +508,8 @@ select:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 20px 10px 10px;
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0) 100%);
+    padding: 30px 10px 10px;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0) 100%);
     z-index: 1;
 }
 
@@ -513,6 +527,28 @@ select:hover {
 
 .game-meta, .game-genre {
     display: none; /* Hidden in Netflix layout for cleaner look, handled by badges */
+}
+
+.row-count {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-right: 8px;
+}
+
+.row-progress {
+    height: 2px;
+    background: var(--border);
+    margin-top: 8px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.row-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
 }
 
 /* Coming Soon Overlay */
