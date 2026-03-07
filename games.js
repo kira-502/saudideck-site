@@ -10,7 +10,7 @@ const batches = [
             { name: "Astrea: Six-Sided Oracles", id: "1756470", genre: "Strategy, Deckbuilder, Roguelike", year: 2023, score: 85 },
             { name: "Chants of Sennaar", id: "1931770", genre: "Adventure, Puzzle, Story Rich", year: 2023, score: 86 },
             { name: "Elite Dangerous", id: "359320", genre: "Simulation, Sci-Fi, Open World", year: 2015, score: 80 },
-            { name: "Disgaea PC", id: "405900", genre: "RPG, Strategy, Anime", year: 2016, score: 74 },
+            { name: "Etrian Odyssey III HD", id: "1868190", genre: "RPG, Dungeon Crawler, Turn-Based", year: 2023, score: 80 },
             { name: "Hard West 2", id: "1282410", genre: "Strategy, Turn-Based, Western", year: 2022, score: 77 },
             { name: "Homeworld 3", id: "1840080", genre: "Strategy, RTS, Sci-Fi", year: 2024, score: 75 },
             { name: "Jusant", id: "1977170", genre: "Adventure, Puzzle, Exploration", year: 2023, score: 83 },
