@@ -324,8 +324,6 @@ select:hover {
     max-width: 1400px;
     margin: 0 auto;
     overflow-x: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 /* Fallback grid for Search/Filter */
