@@ -350,7 +350,7 @@ function createGameCard(game) {
     return `
         <a href="${targetUrl}" target="_blank" class="game-card ${lockedClass}">
             <div class="game-image-container">
-                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
+                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
                 ${lockedOverlay}
                 <div class="overlay">${badgesHtml}</div>
                 ${dateTag}

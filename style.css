@@ -974,13 +974,13 @@ footer {
     .scroll-btn {
         display: none; /* Hide scroll buttons on touch devices, they can swipe */
     }
-}
 
-/* Ensure minimum touch target size */
-button,
-a,
-select,
-input {
-    min-height: 44px;
-    min-width: 44px;
+    /* Ensure minimum touch target size */
+    button,
+    a,
+    select,
+    input {
+        min-height: 44px;
+        min-width: 44px;
+    }
 }
