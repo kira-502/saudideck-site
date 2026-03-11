@@ -7,8 +7,8 @@ const batches = [
     {
         date: "2026-03-11",
         list: [
-            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Roguelike, Deckbuilder, RPG, Indie", year: 2026 },
-            { name: "Megabonk", id: "3405340", genre: "Action, Roguelike, Bullet Hell, Roguelite, Indie", year: 2025 }
+            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based", year: 2026 },
+            { name: "Megabonk", id: "3405340", genre: "Action, Indie, Arcade, Sandbox, Physics", year: 2025 }
         ]
     },
     {
@@ -112,9 +112,9 @@ const comingSoonGames = [
         release_type: "date"
     },
     {
-        name: "Death Stranding 2: On the Beach",
+        name: "Death Stranding 2",
         id: "3280350",
-        genre: "Action, Adventure, Open World, Sci-Fi, Stealth",
+        genre: "Action, Adventure, Open World, Sci-Fi, Atmospheric",
         year: "2026",
         release_info: "19/03/2026",
         release_type: "date"
@@ -122,7 +122,7 @@ const comingSoonGames = [
     {
         name: "Pragmata",
         id: "3357650",
-        genre: "Action, Sci-Fi, Adventure, Third-Person",
+        genre: "Action, Adventure, Sci-Fi, Atmospheric, Singleplayer",
         year: "2026",
         release_info: "16/04/2026",
         release_type: "date"
@@ -130,7 +130,7 @@ const comingSoonGames = [
     {
         name: "MOUSE: P.I. For Hire",
         id: "2416450",
-        genre: "Action, Adventure, Noir, FPS, Indie",
+        genre: "Action, FPS, Retro, Noir, Shooter",
         year: "2026",
         release_info: "16/04/2026",
         release_type: "date"
@@ -138,15 +138,15 @@ const comingSoonGames = [
     {
         name: "007 First Light",
         id: "3768760",
-        genre: "Action, Stealth, Shooter, Spy, Adventure",
+        genre: "Action, Stealth, Shooter, Adventure, Cinematic",
         year: "2026",
-        release_info: "TBA",
+        release_info: "27/05/2026",
         release_type: "date"
     },
     {
-        name: "LEGO Batman: Legacy of the Dark Knight",
+        name: "LEGO Batman",
         id: "2215200",
-        genre: "Action, Adventure, LEGO, Family, Platformer",
+        genre: "Action, Adventure, LEGO, Co-op, Superhero",
         year: "2026",
         release_info: "29/05/2026",
         release_type: "date"
