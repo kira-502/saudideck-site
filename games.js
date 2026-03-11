@@ -7,8 +7,8 @@ const batches = [
     {
         date: "2026-03-11",
         list: [
-            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based", year: 2026, score: 90, release_date: "05/03/2026" },
-            { name: "Megabonk", id: "3405340", genre: "Action, Indie, Arcade, Sandbox, Physics", year: 2025 }
+            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based", year: 2026, score: 90, release_date: "05/03/2026", verified: true },
+            { name: "Megabonk", id: "3405340", genre: "Action, Indie, Arcade, Sandbox, Physics", year: 2025, verified: true }
         ]
     },
     {
