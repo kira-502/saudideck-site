@@ -44,8 +44,8 @@ const batches = [
     {
         date: "2026-02-27",
         list: [
-            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026" },
-            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026" },
+            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/ce5437442768e38eb575f205ab9397d0264017b0/header.jpg?t=1772587704" },
+            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3681010/a21264e9fd476dcb2901c2432b598107d024c5a8/header.jpg?t=1772090941" },
             { name: "CODE VEIN II", id: "2362060", verified: true, genre: "RPG, Action, Anime, Souls-like", year: 2026, score: 70, release_date: "30/01/2026", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2362060/606777054a9990cb19b7c0368e703fdbc129f5bc/capsule_616x353.jpg?t=1770242240" }
         ]
     },
@@ -117,7 +117,8 @@ const comingSoonGames = [
         genre: "Action, Adventure, Open World, Sci-Fi, Atmospheric",
         year: "2026",
         release_info: "19/03/2026",
-        release_type: "date"
+        release_type: "date",
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3280350/6270c77b0729e2df0a17d660286eeddfd9169386/header.jpg?t=1772106438"
     },
     {
         name: "Pragmata",
@@ -125,7 +126,8 @@ const comingSoonGames = [
         genre: "Action, Adventure, Sci-Fi, Atmospheric, Singleplayer",
         year: "2026",
         release_info: "16/04/2026",
-        release_type: "date"
+        release_type: "date",
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3357650/e32e168b25ed68a0cf6264c220c07e96c2abfb56/header.jpg?t=1772772977"
     },
     {
         name: "MOUSE: P.I. For Hire",
@@ -141,7 +143,8 @@ const comingSoonGames = [
         genre: "Action, Stealth, Shooter, Adventure, Cinematic",
         year: "2026",
         release_info: "27/05/2026",
-        release_type: "date"
+        release_type: "date",
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3768760/86d898447e0e475e3f8a9cc1ef660a80032472d7/header_alt_assets_1.jpg?t=1772208207"
     },
     {
         name: "LEGO Batman",
@@ -149,7 +152,8 @@ const comingSoonGames = [
         genre: "Action, Adventure, LEGO, Co-op, Superhero",
         year: "2026",
         release_info: "29/05/2026",
-        release_type: "date"
+        release_type: "date",
+        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215200/a07a9a6c0c9c1225f5b260b4f29fe40e6f099f6b/header.jpg?t=1771012820"
     }
 ];
 
