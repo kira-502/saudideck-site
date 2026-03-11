@@ -44,8 +44,8 @@ const batches = [
     {
         date: "2026-02-27",
         list: [
-            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026", image: "https://cdn2.steamgriddb.com/thumb/07470e139a689bbfbfbc64035d595155.jpg" },
-            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026", image: "https://cdn2.steamgriddb.com/thumb/a93b6474fa40bb5df3960d8a2475fbe2.jpg" },
+            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026" },
+            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026" },
             { name: "CODE VEIN II", id: "2362060", verified: true, genre: "RPG, Action, Anime, Souls-like", year: 2026, score: 70, release_date: "30/01/2026", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2362060/606777054a9990cb19b7c0368e703fdbc129f5bc/capsule_616x353.jpg?t=1770242240" }
         ]
     },
