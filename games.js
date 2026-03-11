@@ -4,7 +4,14 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
-{
+    {
+        date: "2026-03-11",
+        list: [
+            { name: "Slay the Spire 2", id: "2664550", verified: true, genre: "Strategy, Roguelike, Deckbuilder, RPG, Indie", year: 2025, score: 92 },
+            { name: "Megabonk", id: "2862830", genre: "Action, Arcade, Indie, Party, Physics", year: 2024 }
+        ]
+    },
+    {
         date: "2026-01-24",
         list: [
             { name: ".hack//G.U. Last Recode", id: "525480", verified: true, genre: "RPG, Action, JRPG, Anime, Hack & Slash", year: 2017, score: 69 },
@@ -102,6 +109,46 @@ const comingSoonGames = [
         genre: "Action, Adventure, Open World",
         year: "2026",
         release_info: "19/03/2026",
+        release_type: "date"
+    },
+    {
+        name: "Death Stranding 2: On the Beach",
+        id: "2666520",
+        genre: "Action, Adventure, Open World, Sci-Fi, Stealth",
+        year: "2026",
+        release_info: "TBA",
+        release_type: "date"
+    },
+    {
+        name: "Pragmata",
+        id: "1659420",
+        genre: "Action, Sci-Fi, Adventure, Third-Person",
+        year: "2026",
+        release_info: "TBA",
+        release_type: "date"
+    },
+    {
+        name: "MOUSE: P.I. For Hire",
+        id: "2338710",
+        genre: "Action, Adventure, Noir, Puzzle, Indie",
+        year: "2026",
+        release_info: "TBA",
+        release_type: "date"
+    },
+    {
+        name: "007 First Light",
+        id: "2816290",
+        genre: "Action, Stealth, Shooter, Spy, Adventure",
+        year: "2026",
+        release_info: "TBA",
+        release_type: "date"
+    },
+    {
+        name: "LEGO Batman: Legacy of the Dark Knight",
+        id: "2885130",
+        genre: "Action, Adventure, LEGO, Family, Platformer",
+        year: "2026",
+        release_info: "TBA",
         release_type: "date"
     }
 ];
