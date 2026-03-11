@@ -7,8 +7,8 @@ const batches = [
     {
         date: "2026-03-11",
         list: [
-            { name: "Slay the Spire 2", id: "2664550", verified: true, genre: "Strategy, Roguelike, Deckbuilder, RPG, Indie", year: 2025, score: 92 },
-            { name: "Megabonk", id: "2862830", genre: "Action, Arcade, Indie, Party, Physics", year: 2024 }
+            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Roguelike, Deckbuilder, RPG, Indie", year: 2026 },
+            { name: "Megabonk", id: "3405340", genre: "Action, Roguelike, Bullet Hell, Roguelite, Indie", year: 2025 }
         ]
     },
     {
@@ -113,31 +113,31 @@ const comingSoonGames = [
     },
     {
         name: "Death Stranding 2: On the Beach",
-        id: "2666520",
+        id: "3280350",
         genre: "Action, Adventure, Open World, Sci-Fi, Stealth",
         year: "2026",
-        release_info: "TBA",
+        release_info: "19/03/2026",
         release_type: "date"
     },
     {
         name: "Pragmata",
-        id: "1659420",
+        id: "3357650",
         genre: "Action, Sci-Fi, Adventure, Third-Person",
         year: "2026",
-        release_info: "TBA",
+        release_info: "16/04/2026",
         release_type: "date"
     },
     {
         name: "MOUSE: P.I. For Hire",
-        id: "2338710",
-        genre: "Action, Adventure, Noir, Puzzle, Indie",
+        id: "2416450",
+        genre: "Action, Adventure, Noir, FPS, Indie",
         year: "2026",
-        release_info: "TBA",
+        release_info: "16/04/2026",
         release_type: "date"
     },
     {
         name: "007 First Light",
-        id: "2816290",
+        id: "3768760",
         genre: "Action, Stealth, Shooter, Spy, Adventure",
         year: "2026",
         release_info: "TBA",
@@ -145,10 +145,10 @@ const comingSoonGames = [
     },
     {
         name: "LEGO Batman: Legacy of the Dark Knight",
-        id: "2885130",
+        id: "2215200",
         genre: "Action, Adventure, LEGO, Family, Platformer",
         year: "2026",
-        release_info: "TBA",
+        release_info: "29/05/2026",
         release_type: "date"
     }
 ];
