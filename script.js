@@ -247,6 +247,13 @@ function renderGrid() {
 }
 
 function buildSpotlightHTML(title, games) {
+    games = [...games].sort((a, b) => {
+        const aDate = a.date_added || '';
+        const bDate = b.date_added || '';
+        if (aDate && !bDate) return -1;
+        if (!aDate && bDate) return 1;
+        return bDate.localeCompare(aDate);
+    });
     let html = `
     <div class="genre-row">
         <div class="genre-header">${title}</div>
@@ -260,6 +267,13 @@ function buildSpotlightHTML(title, games) {
 }
 
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
+    games = [...games].sort((a, b) => {
+        const aDate = a.date_added || '';
+        const bDate = b.date_added || '';
+        if (aDate && !bDate) return -1;
+        if (!aDate && bDate) return 1;
+        return bDate.localeCompare(aDate);
+    });
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     
