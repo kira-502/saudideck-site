@@ -169,8 +169,12 @@ function renderGrid() {
         grid.classList.remove('grid-fallback');
         let html = '';
         
-        // Coming Soon row (always shown in full)
+        // Coming Soon row — sorted by nearest release date first, TBA last
         const comingSoon = visibleGames.filter(g => g.isComingSoon);
+        comingSoon.sort((a, b) => {
+            const parse = s => { const p = (s||'').split('/'); return p.length === 3 ? new Date(p[2], p[1]-1, p[0]).getTime() : Infinity; };
+            return parse(a.release_info) - parse(b.release_info);
+        });
         if (comingSoon.length > 0) {
             if (comingSoon.length <= 2) {
                 html += buildSpotlightHTML("COMING SOON", comingSoon);
@@ -179,8 +183,9 @@ function renderGrid() {
             }
         }
 
-        // 2026 row (always shown in full)
+        // 2026 row — newest additions first (by date_added desc)
         const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
+        games2026.sort((a, b) => (b.date_added || '').localeCompare(a.date_added || ''));
         if (games2026.length > 0) {
             if (games2026.length <= 2) {
                 html += buildSpotlightHTML("✦ 2026 ✦", games2026);
@@ -247,13 +252,6 @@ function renderGrid() {
 }
 
 function buildSpotlightHTML(title, games) {
-    games = [...games].sort((a, b) => {
-        const aDate = a.date_added || '';
-        const bDate = b.date_added || '';
-        if (aDate && !bDate) return -1;
-        if (!aDate && bDate) return 1;
-        return bDate.localeCompare(aDate);
-    });
     let html = `
     <div class="genre-row">
         <div class="genre-header">${title}</div>
@@ -267,13 +265,6 @@ function buildSpotlightHTML(title, games) {
 }
 
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
-    games = [...games].sort((a, b) => {
-        const aDate = a.date_added || '';
-        const bDate = b.date_added || '';
-        if (aDate && !bDate) return -1;
-        if (!aDate && bDate) return 1;
-        return bDate.localeCompare(aDate);
-    });
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     
