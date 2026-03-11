@@ -185,7 +185,13 @@ function renderGrid() {
 
         // 2026 row — newest additions first (by date_added desc)
         const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
-        games2026.sort((a, b) => (b.date_added || '').localeCompare(a.date_added || ''));
+        games2026.sort((a, b) => {
+            const toMs = g => {
+                if (g.release_date) { const [d,m,y] = g.release_date.split('/'); return new Date(y,m-1,d).getTime(); }
+                return g.date_added ? new Date(g.date_added).getTime() : 0;
+            };
+            return toMs(b) - toMs(a); // newest release first
+        });
         if (games2026.length > 0) {
             if (games2026.length <= 2) {
                 html += buildSpotlightHTML("✦ 2026 ✦", games2026);
