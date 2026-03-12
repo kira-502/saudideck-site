@@ -4,6 +4,12 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
+{
+            date: "2026-03-12",
+            list: [
+                { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026" }
+            ]
+        },
     {
         date: "2026-03-11",
         list: [
