@@ -1,103 +1,124 @@
 import requests
-from bs4 import BeautifulSoup
-import json
 import re
 import os
-from datetime import datetime
+import time
 
 # Configuration
 GAMES_JS_PATH = r"d:\ANTI-GRAVITY\saudideck-site\games.js"
 
-MONTH_MAP = {
-    'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
-    'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
-    'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
-}
-
-def clean_date_text(text):
-    text = text.strip()
-    
-    # 1. Look for Exact Date (e.g., "5 Feb, 2026" or "Feb 28, 2025")
-    # Steam format is often "DD MMM, YYYY"
-    date_match = re.search(r'(\d{1,2})\s*([A-Za-z]{3})\w*,\s*(\d{4})', text)
-    if date_match:
-        day = date_match.group(1).zfill(2)
-        month = MONTH_MAP.get(date_match.group(2).capitalize(), '01')
-        year = date_match.group(3)
-        return {"text": f"{day}/{month}/{year}", "type": "date"}
-
-    # 2. Look for Year only (e.g., "2026")
-    year_match = re.search(r'20\d{2}', text)
-    if year_match and len(text) < 10:
-        return {"text": f"EXPECTED: {year_match.group(0)}", "type": "expected"}
-
-    # 3. Handle specific windows like "Q3 2025"
-    window_match = re.search(r'(Q[1-4]|Summer|Winter|Late|Early)\s+20\d{2}', text, re.I)
-    if window_match:
-        return {"text": f"WINDOW: {window_match.group(0).upper()}", "type": "window"}
-
-    # 4. Fallback
-    if text and text.lower() != "coming soon":
-        return {"text": f"WINDOW: {text[:20].upper()}", "type": "window"}
-    
-    return {"text": "TBA", "type": "window"}
-
-def fetch_steam_search_date(game_title):
-    search_url = f"https://store.steampowered.com/search/?term={game_title.replace(' ', '+')}"
+def parse_steam_date(raw_date):
+    """
+    Steam returns dates in various localized formats like "10 Sep, 2013" or "Sep 10, 2013".
+    This normalizes them to your strict DD/MM/YYYY format.
+    """
     try:
-        response = requests.get(search_url, timeout=10)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Find first search result's release date
-        result = soup.find('div', class_='search_released')
-        if result:
-            raw_text = result.get_text().strip()
-            print(f"Scraped for '{game_title}': {raw_text}")
-            return clean_date_text(raw_text)
-    except Exception as e:
-        print(f"Error scraping {game_title}: {e}")
-    return {"text": "TBA", "type": "window"}
+        # Remove commas and split into components
+        parts = raw_date.replace(',', '').split()
+        if len(parts) >= 3:
+            months = {
+                'Jan':'01', 'Feb':'02', 'Mar':'03', 'Apr':'04',
+                'May':'05', 'Jun':'06', 'Jul':'07', 'Aug':'08',
+                'Sep':'09', 'Oct':'10', 'Nov':'11', 'Dec':'12'
+            }
+            
+            # Check if the first part is the day (e.g., "10 Sep 2013")
+            if parts[0].isdigit():
+                day = int(parts[0])
+                month = months.get(parts[1][:3], '01')
+                year = parts[2]
+            # Otherwise it's the month (e.g., "Sep 10 2013")
+            else:
+                month = months.get(parts[0][:3], '01')
+                day = int(parts[1])
+                year = parts[2]
+                
+            return f"{day:02d}/{month}/{year}"
+    except Exception:
+        pass
+    return None
 
-def update_library():
+def fetch_exact_release_date(app_id):
+    """Hits the official Steam API using the App ID to get the exact release date."""
+    url = f"https://store.steampowered.com/api/appdetails?appids={app_id}"
+    try:
+        response = requests.get(url, timeout=10)
+        data = response.json()
+        
+        # Verify the API returned a successful match for this ID
+        if data and str(app_id) in data and data[str(app_id)]['success']:
+            game_data = data[str(app_id)]['data']
+            raw_date = game_data.get('release_date', {}).get('date', '')
+            
+            if raw_date:
+                return parse_steam_date(raw_date)
+    except Exception as e:
+        print(f"Error fetching AppID {app_id}: {e}")
+    
+    return None
+
+def backfill_base_library_dates():
     if not os.path.exists(GAMES_JS_PATH):
-        print("games.js not found")
+        print(f"File not found: {GAMES_JS_PATH}")
         return
 
     with open(GAMES_JS_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Extract the comingSoonGames array
-    match = re.search(r'const comingSoonGames = \[(.*?)\];', content, re.DOTALL)
+    # Isolate just the baseLibrary block to prevent messing with batches/coming soon
+    match = re.search(r'(const baseLibrary = \[\n)(.*?)(\n\]; // End of baseLibrary)', content, re.DOTALL)
     if not match:
+        print("Could not find baseLibrary array in games.js")
         return
 
-    array_content = match.group(1)
-    blocks = re.findall(r'\{.*?\}', array_content, re.DOTALL)
-    
-    updated_blocks = []
-    for block in blocks:
-        name_match = re.search(r'name: "(.*?)"', block)
-        if not name_match:
-            updated_blocks.append(block)
-            continue
+    prefix = match.group(1)
+    library_content = match.group(2)
+    suffix = match.group(3)
+
+    lines = library_content.split('\n')
+    updated_lines = []
+    update_count = 0
+
+    print("Starting Mass Fetch... This will take some time due to the 1.5s sleep.")
+    print("-" * 50)
+
+    for line in lines:
+        # Only process lines that have an ID but don't have a release_date yet
+        if 'id: "' in line and 'release_date:' not in line:
+            id_match = re.search(r'id:\s*"(\d+)"', line)
+            name_match = re.search(r'name:\s*"(.*?)"', line)
             
-        game_name = name_match.group(1)
-        metadata = fetch_steam_search_date(game_name)
+            if id_match and name_match:
+                app_id = id_match.group(1)
+                game_name = name_match.group(1)
+                
+                print(f"Fetching: {game_name} ({app_id})...")
+                release_date = fetch_exact_release_date(app_id)
+                
+                if release_date:
+                    print(f" -> Found: {release_date}")
+                    # Remove the trailing space and brace ' },'
+                    line = re.sub(r'\s*},\s*$', '', line)
+                    # Inject the new release date and close the object
+                    line += f', release_date: "{release_date}" }},'
+                    update_count += 1
+                else:
+                    print(" -> No standard date found or API failed.")
+                
+                # STRICT 1.5 SECOND SLEEP TO PREVENT STEAM API BANS
+                time.sleep(1.5)
         
-        # Inject metadata
-        block = re.sub(r',\s*release_info: ".*?"', '', block)
-        block = re.sub(r',\s*release_type: ".*?"', '', block)
-        
-        new_fields = f', release_info: "{metadata["text"]}", release_type: "{metadata["type"]}"'
-        updated_block = block.replace(' }', new_fields + ' }')
-        updated_blocks.append(updated_block)
+        updated_lines.append(line)
 
-    new_array = ",\n    ".join(updated_blocks)
-    new_content = content.replace(array_content, "\n    " + new_array + "\n")
+    if update_count > 0:
+        new_library_content = '\n'.join(updated_lines)
+        new_content = content.replace(library_content, new_library_content)
 
-    with open(GAMES_JS_PATH, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-    print("games.js successfully updated with formatted metadata.")
+        with open(GAMES_JS_PATH, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print("-" * 50)
+        print(f"SUCCESS! {update_count} games were updated with exact release dates in games.js.")
+    else:
+        print("No new games needed updating.")
 
 if __name__ == "__main__":
-    update_library()
+    backfill_base_library_dates()
