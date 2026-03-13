@@ -4,7 +4,8 @@
 // 1. NEW UPDATES (Add new batches here)
 // ==========================================
 const batches = [
-{
+{ name: "Monster Hunter Stories 3: Twisted Reflection", id: "2852190", genre: "RPG, JRPG, Monster Tamer, Turn-Based, Adventure", year: 2026, score: 84, release_date: "13/03/2026" }
+            {
             date: "2026-03-12",
             list: [
                 { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3920610/header.jpg" },
