@@ -7,22 +7,22 @@ const batches = [
      {
             date: "2026-03-13",
             list: [
-                { name: "Monster Hunter Stories 3: Twisted Reflection", id: "2852190", genre: "RPG, JRPG, Monster Tamer, Turn-Based, Adventure", year: 2026, score: 84, release_date: "13/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2852190/header.jpg" }
+                { name: "Monster Hunter Stories 3: Twisted Reflection", id: "2852190", genre: "RPG, JRPG, Monster Tamer, Turn-Based, Adventure", year: 2026, score: 84, release_date: "13/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2852190/c5c532b7e5638247d184b4d42259e1c2166ca26c/capsule_616x353.jpg" }
             ]
         },
         {
             date: "2026-03-12",
             list: [
-                { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3920610/header.jpg" },
-                { name: "Amnesia: A Machine for Pigs", id: "239200", genre: "Horror, Survival Horror, Adventure, Indie, First-Person", year: 2013, score: 72, release_date: "10/09/2013", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/239200/header.jpg" },
-                { name: "Amnesia: Rebirth", id: "999220", genre: "Horror, Survival Horror, Adventure, First-Person, Story Rich", year: 2020, score: 80, release_date: "20/10/2020", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/999220/header.jpg" },
-                { name: "Amnesia: The Bunker", id: "1944430", verified: true, genre: "Horror, Survival Horror, Action, Stealth, First-Person", year: 2023, score: 78, release_date: "06/06/2023", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1944430/header.jpg" },
-                { name: "Amnesia: The Dark Descent", id: "57300", genre: "Horror, Survival Horror, Adventure, First-Person, Puzzle", year: 2010, score: 85, release_date: "08/09/2010", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/57300/header.jpg" },
-                { name: "Dark Hours: Prologue", id: "3064370", genre: "Horror, Co-op, Multiplayer, Survival Horror, First-Person", year: 2024, release_date: "18/07/2024", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3064370/header.jpg" },
-                { name: "Penumbra: Black Plague Gold Edition", id: "22120", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2009, score: 78, release_date: "23/01/2009", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22120/header.jpg" },
-                { name: "Penumbra: Overture", id: "22180", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2007, score: 73, release_date: "30/03/2007", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22180/header.jpg" },
-                { name: "Penumbra: Requiem", id: "22140", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2008, score: 62, release_date: "31/10/2008", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22140/header.jpg" },
-                { name: "SOMA", id: "282140", verified: true, genre: "Horror, Sci-Fi, Story Rich, Atmospheric, First-Person", year: 2015, score: 84, release_date: "22/09/2015", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/282140/header.jpg" }
+                { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3920610/2c3573e473d6737425f16d0e6ba68788591f9b1a/capsule_616x353.jpg" },
+                { name: "Amnesia: A Machine for Pigs", id: "239200", genre: "Horror, Survival Horror, Adventure, Indie, First-Person", year: 2013, score: 72, release_date: "10/09/2013" },
+                { name: "Amnesia: Rebirth", id: "999220", genre: "Horror, Survival Horror, Adventure, First-Person, Story Rich", year: 2020, score: 80, release_date: "20/10/2020" },
+                { name: "Amnesia: The Bunker", id: "1944430", verified: true, genre: "Horror, Survival Horror, Action, Stealth, First-Person", year: 2023, score: 78, release_date: "06/06/2023" },
+                { name: "Amnesia: The Dark Descent", id: "57300", genre: "Horror, Survival Horror, Adventure, First-Person, Puzzle", year: 2010, score: 85, release_date: "08/09/2010" },
+                { name: "Dark Hours: Prologue", id: "3064370", genre: "Horror, Co-op, Multiplayer, Survival Horror, First-Person", year: 2024, release_date: "18/07/2024" },
+                { name: "Penumbra: Black Plague Gold Edition", id: "22120", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2009, score: 78, release_date: "23/01/2009" },
+                { name: "Penumbra: Overture", id: "22180", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2007, score: 73, release_date: "30/03/2007" },
+                { name: "Penumbra: Requiem", id: "22140", genre: "Horror, Survival Horror, Adventure, Puzzle, First-Person", year: 2008, score: 62, release_date: "31/10/2008" },
+                { name: "SOMA", id: "282140", verified: true, genre: "Horror, Sci-Fi, Story Rich, Atmospheric, First-Person", year: 2015, score: 84, release_date: "22/09/2015" }
             ]
         },
     {
