@@ -225,12 +225,14 @@ function createGameCard(game) {
     const isWide = game.year == 2026 || game.isComingSoon;
     const wideClass = isWide ? " wide-card" : "";
 
-    // Image Logic (Prioritize explicit image, then fallback based on shape)
-    let imgUrl = game.image;
-    if (!imgUrl) {
-        imgUrl = isWide 
+    // Image Logic
+    let imgUrl;
+    if (isWide && game.screenshot) {
+        imgUrl = `https://images.igdb.com/igdb/image/upload/t_screenshot_big/${game.screenshot}.jpg`;
+    } else {
+        imgUrl = game.image || (isWide
             ? `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`
-            : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+            : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`);
     }
 
     let slug = game.slug || game.name.toLowerCase().replace(/:/g, '').replace(/'/g, '').replace(/#/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
