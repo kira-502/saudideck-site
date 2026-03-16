@@ -150,6 +150,7 @@ select:hover { border-color: var(--gold); }
 .game-card.locked { pointer-events: auto !important; opacity: 1; }
 .locked-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(2px); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
 .release-capsule { background: rgba(20, 20, 20, 0.9); padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; display: flex; align-items: center; border: 1px solid var(--gold); color: #ccc; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); }
+.countdown-badge { margin-top: 8px; background: rgba(201, 168, 76, 0.12); border: 1px solid var(--gold); color: var(--gold); font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; font-variant-numeric: tabular-nums; }
 
 /* =========================================
    5. PREMIUM REQUEST MODAL

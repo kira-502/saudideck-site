@@ -17,8 +17,63 @@ const GENRE_MAPPING = {
 
 document.addEventListener('DOMContentLoaded', () => { init(); });
 
+// Parse "DD/MM/YYYY" → Date (midnight local)
+function parseReleaseDate(s) {
+    const p = (s || '').split('/');
+    return p.length === 3 ? new Date(p[2], p[1] - 1, p[0]) : null;
+}
+
+function formatCountdown(ms) {
+    const t = Math.max(0, Math.floor(ms / 1000));
+    const d = Math.floor(t / 86400);
+    const h = Math.floor((t % 86400) / 3600);
+    const m = Math.floor((t % 3600) / 60);
+    const s = t % 60;
+    return `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+}
+
+let _countdownIntervals = {};
+
+function startCountdownTimers() {
+    Object.values(_countdownIntervals).forEach(id => clearInterval(id));
+    _countdownIntervals = {};
+
+    document.querySelectorAll('.countdown-badge').forEach(el => {
+        const gameId = el.dataset.gameid;
+        const game = allGames.find(g => g.id === gameId);
+        if (!game || !game.release_info) return;
+
+        const tick = () => {
+            const diff = parseReleaseDate(game.release_info).getTime() - Date.now();
+            if (diff <= 0) {
+                clearInterval(_countdownIntervals[gameId]);
+                delete _countdownIntervals[gameId];
+                el.textContent = 'OUT NOW';
+                return;
+            }
+            el.textContent = formatCountdown(diff);
+        };
+        tick();
+        _countdownIntervals[gameId] = setInterval(tick, 1000);
+    });
+}
+
 function init() {
-    const comingSoonWithFlag = comingSoonGames.map(g => ({ ...g, isComingSoon: true }));
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+
+    const comingSoonWithFlag = comingSoonGames.map(g => {
+        const game = { ...g, isComingSoon: true };
+        if (g.release_info && g.release_type === 'date') {
+            const releaseDate = parseReleaseDate(g.release_info);
+            if (releaseDate && today >= releaseDate) {
+                // Auto-graduate: treat as released, display only
+                game.isComingSoon = false;
+                game.year = 2026;
+                game.release_date = g.release_info;
+            }
+        }
+        return game;
+    });
     allGames = [...comingSoonWithFlag, ...games];
     populateGenreFilter();
     populateYearFilter();
@@ -127,6 +182,7 @@ function renderGrid() {
         grid.classList.add('grid-fallback');
         grid.innerHTML = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
         visibleGames.slice(0, currentLimit).forEach(game => { grid.innerHTML += createGameCard(game); });
+        startCountdownTimers();
         document.getElementById('loadMoreArea').style.display = currentLimit >= visibleGames.length ? 'none' : 'block';
     } else {
         grid.classList.remove('grid-fallback');
@@ -169,6 +225,7 @@ function renderGrid() {
         });
 
         grid.innerHTML = html;
+        startCountdownTimers();
 
         document.querySelectorAll('.row-carousel').forEach(row => {
             row.addEventListener('scroll', () => {
@@ -246,7 +303,12 @@ function createGameCard(game) {
     let lockedClass = ""; let lockedOverlay = "";
     if (game.isComingSoon) {
         lockedClass = " locked";
-        lockedOverlay = `<div class="locked-overlay"><div class="release-capsule"><span style="color:var(--accent); font-weight:800;">COMING SOON</span><span style="border-left:1px solid #444; padding-left:8px; margin-left:8px;">${game.release_info}</span></div></div>`;
+        const releaseDate = parseReleaseDate(game.release_info);
+        const daysUntil = releaseDate ? (releaseDate.getTime() - Date.now()) / 86400000 : Infinity;
+        const countdownBadge = (daysUntil >= 0 && daysUntil <= 3)
+            ? `<div class="countdown-badge" data-gameid="${game.id}"></div>`
+            : '';
+        lockedOverlay = `<div class="locked-overlay"><div class="release-capsule"><span style="color:var(--accent); font-weight:800;">COMING SOON</span><span style="border-left:1px solid #444; padding-left:8px; margin-left:8px;">${game.release_info}</span></div>${countdownBadge}</div>`;
     }
 
     let scoreClass = 'score-low';
