@@ -191,7 +191,7 @@ const comingSoonGames = [
         cover: "coab09"
     },
     {
-        name: "METAL GEAR SOLID: MASTER COLLECTION Vol. 2",
+        name: "Metal Gear Solid Master Collection: Volume 2",
         id: "3859630",
         genre: "Action, Stealth, Classic, Tactical, Story Rich",
         year: "2026",
@@ -200,7 +200,7 @@ const comingSoonGames = [
         cover: "cobiha"
     },
     {
-        name: "Phantom Blade Zero",
+        name: "Phantom Blade 0",
         id: "4115450",
         genre: "Action, RPG, Hack & Slash, Souls-like, Dark Fantasy",
         year: "2026",
