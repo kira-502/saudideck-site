@@ -189,6 +189,24 @@ const comingSoonGames = [
         release_info: "29/05/2026",
         release_type: "date",
         cover: "coab09"
+    },
+    {
+        name: "METAL GEAR SOLID: MASTER COLLECTION Vol. 2",
+        id: "3859630",
+        genre: "Action, Stealth, Classic, Tactical, Story Rich",
+        year: "2026",
+        release_info: "27/08/2026",
+        release_type: "date",
+        cover: "cobiha"
+    },
+    {
+        name: "Phantom Blade Zero",
+        id: "4115450",
+        genre: "Action, RPG, Hack & Slash, Souls-like, Dark Fantasy",
+        year: "2026",
+        release_info: "09/09/2026",
+        release_type: "date",
+        cover: "cob64v"
     }
 ];
 
