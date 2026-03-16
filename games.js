@@ -20,13 +20,13 @@ const batches = [
      {
             date: "2026-03-13",
             list: [
-                { name: "Monster Hunter Stories 3: Twisted Reflection", id: "2852190", genre: "RPG, JRPG, Monster Tamer, Turn-Based, Adventure", year: 2026, score: 84, release_date: "13/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2852190/c5c532b7e5638247d184b4d42259e1c2166ca26c/capsule_616x353.jpg" }
+                { name: "Monster Hunter Stories 3: Twisted Reflection", id: "2852190", genre: "RPG, JRPG, Monster Tamer, Turn-Based, Adventure", year: 2026, score: 84, release_date: "13/03/2026", cover: "coaxze" }
             ]
         },
         {
             date: "2026-03-12",
             list: [
-                { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3920610/2c3573e473d6737425f16d0e6ba68788591f9b1a/capsule_616x353.jpg" },
+                { name: "FATAL FRAME II: Crimson Butterfly REMAKE", id: "3920610", genre: "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer", year: 2026, score: 85, release_date: "11/03/2026", cover: "coau37" },
                 { name: "Amnesia: A Machine for Pigs", id: "239200", genre: "Horror, Survival Horror, Adventure, Indie, First-Person", year: 2013, score: 72, release_date: "10/09/2013" },
                 { name: "Amnesia: Rebirth", id: "999220", genre: "Horror, Survival Horror, Adventure, First-Person, Story Rich", year: 2020, score: 80, release_date: "20/10/2020" },
                 { name: "Amnesia: The Bunker", id: "1944430", verified: true, genre: "Horror, Survival Horror, Action, Stealth, First-Person", year: 2023, score: 78, release_date: "06/06/2023" },
@@ -41,7 +41,7 @@ const batches = [
     {
         date: "2026-03-11",
         list: [
-            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based", year: 2026, score: 90, release_date: "05/03/2026", verified: true, image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2868840/capsule_616x353.jpg" },
+            { name: "Slay the Spire 2", id: "2868840", genre: "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based", year: 2026, score: 90, release_date: "05/03/2026", verified: true, cover: "co82c5" },
             { name: "Megabonk", id: "3405340", genre: "Action, Indie, Arcade, Sandbox, Physics", year: 2025, verified: true }
         ]
     },
@@ -78,15 +78,15 @@ const batches = [
     {
         date: "2026-02-27",
         list: [
-            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3764200/863355a6b45cfb9c644318b9372fa937b4114e76/page_bg_raw.jpg?t=1772587704" },
-            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3681010/17b22f17d8dd95d9c1cd251d95f3652c995d1ba1/page_bg_raw.jpg?t=1772090941" },
-            { name: "CODE VEIN II", id: "2362060", verified: true, genre: "RPG, Action, Anime, Souls-like", year: 2026, score: 70, release_date: "30/01/2026", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2362060/606777054a9990cb19b7c0368e703fdbc129f5bc/capsule_616x353.jpg?t=1770242240" }
+            { name: "Resident Evil Requiem", id: "3764200", verified: true, genre: "Horror, Action, Survival, Third-Person", year: 2026, score: 89, release_date: "27/02/2026", cover: "cobmj0" },
+            { name: "Nioh 3", id: "3681010", verified: true, genre: "Action, RPG, Souls-like, Dark Fantasy, Co-op", year: 2026, score: 86, release_date: "06/02/2026", cover: "cobf3x" },
+            { name: "CODE VEIN II", id: "2362060", verified: true, genre: "RPG, Action, Anime, Souls-like", year: 2026, score: 70, release_date: "30/01/2026", cover: "co9xhi" }
         ]
     },
     {
         date: "2026-02-20",
         list: [
-            { name: "Mewgenics", id: "686060", verified: true, genre: "RPG, Rogue-like, Strategy, Simulation, Indie", year: 2026, score: 90, release_date: "10/02/2026", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/686060/capsule_616x353.jpg" },
+            { name: "Mewgenics", id: "686060", verified: true, genre: "RPG, Rogue-like, Strategy, Simulation, Indie", year: 2026, score: 90, release_date: "10/02/2026", cover: "co9n5k" },
             { name: "Bus Simulator 21 Next Stop", id: "976590", genre: "Simulation, Vehicle, Open World, Driving, Management", year: 2021, score: 73 },
             { name: "StarVaders", id: "2463770", verified: true, genre: "Strategy, Card Game, Rogue-lite, Sci-Fi, Indie", year: 2025, score: 85 },
             { name: "SteamWorld Build", id: "2134770", verified: true, genre: "Simulation, Strategy, City Builder, Mining, Indie", year: 2023, score: 80 }
@@ -144,7 +144,7 @@ const comingSoonGames = [
         year: "2026",
         release_info: "19/03/2026",
         release_type: "date",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3321460/abd7dbdeaede8b6c9a6d40bf116ff2b883f2dd45/header.jpg?t=1773372075"
+        cover: "coaqai"
     },
     {
         name: "Death Stranding 2",
@@ -153,7 +153,7 @@ const comingSoonGames = [
         year: "2026",
         release_info: "19/03/2026",
         release_type: "date",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3280350/6270c77b0729e2df0a17d660286eeddfd9169386/header.jpg?t=1772106438"
+        cover: "co9ipx"
     },
     {
         name: "Pragmata",
@@ -162,7 +162,7 @@ const comingSoonGames = [
         year: "2026",
         release_info: "16/04/2026",
         release_type: "date",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3357650/e32e168b25ed68a0cf6264c220c07e96c2abfb56/header.jpg?t=1772772977"
+        cover: "co9wwv"
     },
     {
         name: "MOUSE: P.I. For Hire",
@@ -179,7 +179,7 @@ const comingSoonGames = [
         year: "2026",
         release_info: "27/05/2026",
         release_type: "date",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3768760/86d898447e0e475e3f8a9cc1ef660a80032472d7/header_alt_assets_1.jpg?t=1772208207"
+        cover: "coaoiz"
     },
     {
         name: "LEGO Batman",
@@ -188,7 +188,7 @@ const comingSoonGames = [
         year: "2026",
         release_info: "29/05/2026",
         release_type: "date",
-        image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215200/a07a9a6c0c9c1225f5b260b4f29fe40e6f099f6b/header.jpg?t=1771012820"
+        cover: "coab09"
     }
 ];
 

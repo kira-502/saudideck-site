@@ -225,10 +225,12 @@ function createGameCard(game) {
     const isWide = game.year == 2026 || game.isComingSoon;
     const wideClass = isWide ? " wide-card" : "";
 
-    // Image Logic
-    let imgUrl = game.image || (isWide
-        ? `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`
-        : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`);
+    // Image Logic — IGDB covers for 2026/CS, Steam CDN for library
+    let imgUrl = game.cover
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
+        : (game.image || (isWide
+            ? `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`
+            : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`));
 
     let slug = game.slug || game.name.toLowerCase().replace(/:/g, '').replace(/'/g, '').replace(/#/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const targetUrl = `https://www.igdb.com/games/${slug}`;
