@@ -17,10 +17,16 @@ const GENRE_MAPPING = {
 
 document.addEventListener('DOMContentLoaded', () => { init(); });
 
-// Parse "DD/MM/YYYY" → Date (midnight local)
+// Parse "DD/MM/YYYY" → Date (midnight New York time, auto EST/EDT)
 function parseReleaseDate(s) {
     const p = (s || '').split('/');
-    return p.length === 3 ? new Date(p[2], p[1] - 1, p[0]) : null;
+    if (p.length !== 3) return null;
+    const [d, m, y] = p.map(Number);
+    // Detect NY offset on that day using noon UTC (avoids DST boundary edge cases)
+    const noonUTC = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+    const nyHour = parseInt(noonUTC.toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', hour12: false }));
+    const nyOffset = nyHour - 12; // -4 (EDT) or -5 (EST)
+    return new Date(Date.UTC(y, m - 1, d, -nyOffset, 0, 0)); // midnight NY expressed as UTC
 }
 
 function formatCountdown(ms) {
@@ -59,13 +65,13 @@ function startCountdownTimers() {
 }
 
 function init() {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const now = Date.now();
 
     const comingSoonWithFlag = comingSoonGames.map(g => {
         const game = { ...g, isComingSoon: true };
         if (g.release_info && g.release_type === 'date') {
             const releaseDate = parseReleaseDate(g.release_info);
-            if (releaseDate && today >= releaseDate) {
+            if (releaseDate && now >= releaseDate.getTime()) {
                 // Auto-graduate: treat as released, display only
                 game.isComingSoon = false;
                 game.year = 2026;
