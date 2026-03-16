@@ -222,7 +222,7 @@ _loadObserver.observe(document.getElementById('loadMoreArea'));
    ========================================= */
 function createGameCard(game) {
     // Determine Card Style
-    const isWide = game.year == 2026 || game.isComingSoon;
+    const isWide = game.isComingSoon;
     const wideClass = isWide ? " wide-card" : "";
 
     // Image Logic — IGDB covers for 2026/CS, Steam CDN for library
