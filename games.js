@@ -147,7 +147,7 @@ const comingSoonGames = [
         cover: "coaqai"
     },
     {
-        name: "Death Stranding 2",
+        name: "Death Stranding 2: On the Beach",
         id: "3280350",
         genre: "Action, Adventure, Open World, Sci-Fi, Atmospheric",
         year: "2026",
@@ -165,7 +165,7 @@ const comingSoonGames = [
         cover: "co9wwv"
     },
     {
-        name: "MOUSE: P.I. For Hire",
+        name: "Mouse: P.I. For Hire",
         id: "2416450",
         genre: "Action, FPS, Retro, Noir, Shooter",
         year: "2026",
