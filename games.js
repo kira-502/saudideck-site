@@ -5,6 +5,23 @@
 // ==========================================
 const batches = [
 {
+            date: "2026-03-20",
+            list: [
+                { name: "Alone in the Dark", id: "1310410", genre: "Action, Horror, Survival, Adventure", year: 2024, score: 64 },
+                { name: "Cronos: The New Dawn", id: "2101960", genre: "Action, Horror, Survival, Sci-Fi", year: 2025, score: 79 },
+                { name: "Disney Dreamlight Valley", id: "1401590", genre: "Casual, Simulation, Adventure, RPG", year: 2023, score: 74 },
+                { name: "DRAGON QUEST VII Reimagined", id: "2499860", genre: "Adventure, RPG, JRPG, Turn-Based", year: 2026, score: 86, cover: "cobkan" },
+                { name: "DYNASTY WARRIORS: ORIGINS", id: "2384580", genre: "Action, Hack & Slash, Musou", year: 2025, score: 76 },
+                { name: "House Flipper", id: "613100", verified: true, genre: "Simulation, Casual, Indie", year: 2018, score: 68 },
+                { name: "NINJA GAIDEN Σ", id: "1580780", genre: "Action, Hack & Slash, Character Action", year: 2021, score: 73 },
+                { name: "NINJA GAIDEN Σ2", id: "1580790", genre: "Action, Hack & Slash, Character Action", year: 2021, score: 73 },
+                { name: "NINJA GAIDEN 3: Razor's Edge", id: "1369760", verified: true, genre: "Action, Hack & Slash, Character Action", year: 2021, score: 69 },
+                { name: "NINJA GAIDEN 4", id: "2627260", genre: "Action, Adventure, Hack & Slash", year: 2025, score: 85 },
+                { name: "OCTOPATH TRAVELER 0", id: "3014320", verified: true, genre: "RPG, JRPG, Turn-Based, Pixel Graphics", year: 2025, score: 82 },
+                { name: "Stray", id: "1332010", verified: true, genre: "Adventure, Cyberpunk, Cat, Sci-Fi", year: 2022, score: 83 }
+            ]
+        },
+{
             date: "2026-03-16",
             list: [
                 { name: "Biped", id: "1071870", verified: true, genre: "Action, Adventure, Casual, Co-op, Puzzle", year: 2020, score: 80 },
