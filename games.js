@@ -17,7 +17,7 @@ const batches = [
                 { name: "NINJA GAIDEN Σ2", id: "1580790", genre: "Action, Hack & Slash, Character Action", year: 2021, score: 73 },
                 { name: "NINJA GAIDEN 3: Razor's Edge", id: "1369760", verified: true, genre: "Action, Hack & Slash, Character Action", year: 2021, score: 69 },
                 { name: "NINJA GAIDEN 4", id: "2627260", genre: "Action, Adventure, Hack & Slash", year: 2025, score: 85 },
-                { name: "OCTOPATH TRAVELER 0", id: "3014320", verified: true, genre: "RPG, JRPG, Turn-Based, Pixel Graphics", year: 2025, score: 82 },
+                { name: "OCTOPATH TRAVELER 0", id: "3014320", verified: true, genre: "RPG, JRPG, Turn-Based, Pixel Graphics", year: 2025, score: 82, cover: "coa7is" },
                 { name: "Stray", id: "1332010", verified: true, genre: "Adventure, Cyberpunk, Cat, Sci-Fi", year: 2022, score: 83 }
             ]
         },
