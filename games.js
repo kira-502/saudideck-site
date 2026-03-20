@@ -10,7 +10,7 @@ const batches = [
                 { name: "Alone in the Dark", id: "1310410", genre: "Action, Horror, Survival, Adventure", year: 2024, score: 64 },
                 { name: "Cronos: The New Dawn", id: "2101960", genre: "Action, Horror, Survival, Sci-Fi", year: 2025, score: 79 },
                 { name: "Disney Dreamlight Valley", id: "1401590", genre: "Casual, Simulation, Adventure, RPG", year: 2023, score: 74 },
-                { name: "DRAGON QUEST VII Reimagined", id: "2499860", genre: "Adventure, RPG, JRPG, Turn-Based", year: 2026, score: 86, cover: "cobkan" },
+                { name: "DRAGON QUEST VII Reimagined", id: "2499860", genre: "Adventure, RPG, JRPG, Turn-Based", year: 2026, score: 86, cover: "cobkan", release_date: "05/02/2026" },
                 { name: "DYNASTY WARRIORS: ORIGINS", id: "2384580", genre: "Action, Hack & Slash, Musou", year: 2025, score: 76 },
                 { name: "House Flipper", id: "613100", verified: true, genre: "Simulation, Casual, Indie", year: 2018, score: 68 },
                 { name: "NINJA GAIDEN Σ", id: "1580780", genre: "Action, Hack & Slash, Character Action", year: 2021, score: 73 },
