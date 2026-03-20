@@ -356,13 +356,17 @@ async function handleRequestSubmit(e) {
     const btn = document.getElementById('requestSubmitBtn');
     const originalText = btn.innerText;
     const form = e.target;
-    const formData = new FormData(form);
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfdbLb4OBTf_YDoFm70ZtnXsu6351ADQlAiCP8iQ0z_XTchp-3myOnoPo9aDkjwlnx/exec';
-
     btn.innerText = "جارٍ الإرسال..."; btn.disabled = true;
 
     try {
-        await fetch(scriptURL, { method: 'POST', body: formData });
+        await fetch('https://saudideck.online/game-requests', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                game: document.getElementById('gameName').value,
+                order_number: document.getElementById('orderNumber').value || null
+            })
+        });
         alert("تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.");
         closeRequestModal(); form.reset();
     } catch (error) {
