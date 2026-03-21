@@ -160,7 +160,7 @@ select:hover { border-color: var(--gold); }
 .request-card { background: var(--surface); width: 500px; max-width: 90%; border-radius: 16px; padding: 40px; position: relative; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); border: 1px solid var(--border); }
 .request-close { position: absolute; top: 15px; right: 15px; cursor: pointer; color: var(--text-muted); font-size: 1.2rem; transition: color 0.2s; }
 .request-close:hover { color: var(--gold); }
-.request-title { text-align: center; font-size: 1.8rem; margin-bottom: 30px; color: var(--text); font-weight: 800; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; position: relative; left: 50%; transform: translateX(-50%); }
+.request-title { text-align: center; font-size: 1.8rem; margin-bottom: 30px; color: var(--text); font-weight: 800; border-bottom: 2px solid var(--gold); display: block; padding-bottom: 5px; }
 .form-group { margin-bottom: 25px; }
 .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
 .form-input { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 15px; border-radius: 10px; color: var(--text); font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
