@@ -81,7 +81,7 @@ select:hover { border-color: var(--gold); }
 .genre-header.clickable { cursor: pointer; }
 
 .row-carousel-container { position: relative; display: flex; align-items: center; padding: 0 28px; overflow: visible; }
-.row-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; -ms-overflow-style: none; scrollbar-width: none; }
+.row-carousel { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; -ms-overflow-style: none; scrollbar-width: none; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
 .row-carousel::-webkit-scrollbar { display: none; }
 
 .scroll-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: rgba(0, 0, 0, 0.85); color: var(--gold); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10; font-size: 1.5rem; opacity: 0; transition: opacity 0.2s, background 0.3s; }
@@ -92,16 +92,17 @@ select:hover { border-color: var(--gold); }
 /* CARDS */
 .game-card {
     background: var(--card-bg);
-    border-radius: 10px; 
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: 1px solid transparent;
-    flex: 0 0 180px; 
+    flex: 0 0 180px;
     width: 180px;
-    height: 260px; 
+    height: 260px;
     display: flex;
     flex-direction: column;
+    scroll-snap-align: start;
 }
 
 /* WIDE CARDS (For 2026 & Coming Soon) */
@@ -134,11 +135,18 @@ select:hover { border-color: var(--gold); }
 .score-mid { color: var(--gold); border-left-color: var(--gold); }
 .score-low { color: #888; border-left-color: #555; }
 
-.game-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px 10px 12px; background: linear-gradient(0deg, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0) 100%); z-index: 1; transform: translateY(100%); transition: transform 0.28s ease; }
+.game-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px 10px 12px; background: linear-gradient(0deg, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0) 100%); z-index: 1; transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(2px); }
 .game-card:hover .game-info { transform: translateY(0); }
 .game-title { font-size: 0.95rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; margin-bottom: 0; margin-top: 0; }
 .game-meta, .game-genre { display: none; font-size: 0.68rem; color: rgba(255, 255, 255, 0.55); text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .game-card:hover .game-meta, .game-card:hover .game-genre { display: block; }
+
+.game-title { opacity: 0; transition: opacity 0.25s ease 0ms; }
+.game-genre { opacity: 0; transition: opacity 0.25s ease 80ms; }
+.game-meta { opacity: 0; transition: opacity 0.25s ease 140ms; }
+.game-card:hover .game-title,
+.game-card:hover .game-genre,
+.game-card:hover .game-meta { opacity: 1; }
 
 @keyframes cardShine { from { transform: translateX(-120%) skewX(-12deg); } to { transform: translateX(300%) skewX(-12deg); } }
 .game-card:not(.locked)::after { content: ''; position: absolute; top: 0; left: 0; width: 45%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent); transform: translateX(-120%) skewX(-12deg); z-index: 4; pointer-events: none; }
