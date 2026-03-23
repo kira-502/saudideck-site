@@ -359,7 +359,7 @@ async function handleRequestSubmit(e) {
     btn.innerText = "جارٍ الإرسال..."; btn.disabled = true;
 
     try {
-        const API_URL = "https://saudideck.online/game-requests";
+        const API_URL = "https://saudideck.online/api/game-requests";
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
