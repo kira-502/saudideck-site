@@ -41,7 +41,7 @@ const recentGames = allGames.filter(g =>
 Sort `recentGames` by `date_added` descending (newest first) before passing to `buildRowHTML()`.
 
 ### Rendering
-Call `buildRowHTML('آخر الإضافات', recentGames)` — reuses the existing carousel factory with no new markup or components. Row is only rendered if `recentGames.length > 0`.
+Call `buildRowHTML('آخر الإضافات', recentGames, 'recently-added')` — reuses the existing carousel factory with no new markup or components. Row is only rendered if `recentGames.length > 0`.
 
 ### Cache Busting
 Requires `script.js?v=N+1` bump in `index.html`.
@@ -56,17 +56,17 @@ Make the existing info overlay reveal feel polished and physical — no new data
 ### Changes (CSS only)
 
 **Staggered reveal via `transition-delay`:**
-- `.info-title` (game name): delay 0ms
-- `.info-genres` (genre tags): delay 80ms
-- `.info-year` (year): delay 140ms
+- `.game-title` (game name): delay 0ms
+- `.game-genre` (genre tags): delay 80ms
+- `.game-meta` (year): delay 140ms
 
 Elements already exist in the card HTML from `createGameCard()`. Only their transition timing changes.
 
 **Smoother easing:**
-Replace `ease` with `cubic-bezier(0.25, 0.46, 0.45, 0.94)` on the `.card-info` overlay slide-up transition. This easing decelerates naturally (fast start, gentle settle).
+Replace `ease` with `cubic-bezier(0.25, 0.46, 0.45, 0.94)` on the `.game-info` overlay slide-up transition. This easing decelerates naturally (fast start, gentle settle).
 
 **Overlay backdrop blur:**
-Add `backdrop-filter: blur(2px)` to `.card-info`. Softens the image behind the overlay text, improving readability without increasing darkness.
+Add `backdrop-filter: blur(2px)` to `.game-info`. Softens the image behind the overlay text, improving readability without increasing darkness.
 
 ### No Changes
 - No HTML changes to `createGameCard()`
@@ -95,7 +95,7 @@ Carousel rows feel native on touch — flick settles cleanly on a card boundary.
 }
 ```
 
-`-webkit-overflow-scrolling: touch` is already present on `.row-carousel` — keep it.
+`-webkit-overflow-scrolling: touch` should also be added to `.row-carousel` for older iOS Safari compatibility.
 
 ### Behavior
 - **Mobile:** each swipe snaps to the nearest card's leading edge
