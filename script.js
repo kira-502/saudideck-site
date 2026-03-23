@@ -82,6 +82,7 @@ function init() {
     });
     allGames = [...comingSoonWithFlag, ...games];
     buildHeroBanner();   // ← newly added
+    buildStatsStrip();   // ← add this line
     populateGenreFilter();
     populateYearFilter();
     resetAndRender();
@@ -134,6 +135,37 @@ function buildHeroBanner() {
             </div>
         </div>
     `;
+}
+
+/* =========================================
+   LIBRARY STATS STRIP
+   ========================================= */
+function buildStatsStrip() {
+    const el = document.getElementById('stats-strip');
+    if (!el || !allGames.length) return;
+
+    const thisMonth = new Date().toISOString().slice(0, 7); // e.g. "2026-03"
+
+    const totalGames = allGames.filter(g => !g.isComingSoon).length;
+    const verifiedCount = allGames.filter(g => g.verified && !g.isComingSoon).length;
+    const newestGameName = batches[0].list[batches[0].list.length - 1].name;
+    const addedThisMonth = allGames.filter(g =>
+        g.date_added && g.date_added.slice(0, 7) === thisMonth
+    ).length;
+
+    const stats = [
+        { value: totalGames, label: 'إجمالي الألعاب' },
+        { value: verifiedCount, label: 'محقق للـ Deck' },
+        { value: newestGameName, label: 'آخر إضافة' },
+        { value: addedThisMonth, label: 'هذا الشهر' },
+    ];
+
+    el.innerHTML = stats.map(s => `
+        <div class="stat-cell">
+            <span class="stat-number">${s.value}</span>
+            <span class="stat-label">${s.label}</span>
+        </div>
+    `).join('');
 }
 
 /* =========================================
