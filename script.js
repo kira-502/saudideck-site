@@ -303,7 +303,7 @@ function renderGrid() {
 
         // Recently Added (last 30 days)
         const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
-        const recentGames = allGames
+        const recentGames = visibleGames
             .filter(g => !g.isComingSoon && g.date_added && new Date(g.date_added) >= cutoff)
             .sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
         if (recentGames.length > 0) html += buildRowHTML('آخر الإضافات', recentGames, 'recently-added');
