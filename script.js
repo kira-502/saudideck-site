@@ -81,9 +81,59 @@ function init() {
         return game;
     });
     allGames = [...comingSoonWithFlag, ...games];
+    buildHeroBanner();   // ← newly added
     populateGenreFilter();
     populateYearFilter();
     resetAndRender();
+}
+
+/* =========================================
+   HERO BANNER
+   ========================================= */
+function buildHeroBanner() {
+    const el = document.getElementById('hero-banner');
+    if (!el || !batches || !batches.length) return;
+
+    const batch = batches[0];
+    const game = batch.list[batch.list.length - 1];
+    if (!game) return;
+
+    // Determine image URL
+    const igdbUrl = game.cover
+        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
+        : null;
+    const steamUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
+    const primaryUrl = igdbUrl || steamUrl;
+
+    el.style.backgroundImage = `url('${primaryUrl}')`;
+
+    // Fallback: if primaryUrl fails, swap to steamUrl
+    if (igdbUrl) {
+        const probe = new Image();
+        probe.onerror = () => { el.style.backgroundImage = `url('${steamUrl}')`; };
+        probe.src = igdbUrl;
+    }
+
+    // Build optional meta items
+    const genres = game.genre
+        ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${g}</span>`).join('')
+        : '';
+    const score = game.score ? `<span class="hero-score">${game.score}</span>` : '';
+    const verified = game.verified
+        ? `<img src="assets/badge_verified.png" class="hero-verified" alt="Verified">`
+        : '';
+    const date = game.release_date ? `<span class="hero-date">${game.release_date}</span>` : '';
+
+    el.innerHTML = `
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-label">أحدث إضافة</div>
+            <div class="hero-title">${game.name}</div>
+            <div class="hero-meta">
+                ${score}${verified}${genres}${date}
+            </div>
+        </div>
+    `;
 }
 
 /* =========================================
