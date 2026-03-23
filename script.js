@@ -301,6 +301,13 @@ function renderGrid() {
             if (matches.length > 0) html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
         });
 
+        // Recently Added (last 30 days)
+        const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+        const recentGames = allGames
+            .filter(g => !g.isComingSoon && g.date_added && new Date(g.date_added) >= cutoff)
+            .sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
+        if (recentGames.length > 0) html += buildRowHTML('آخر الإضافات', recentGames, 'recently-added');
+
         // Randomized Genres
         if (_shuffledGenres.length === 0) {
             const allGenres = new Set();
