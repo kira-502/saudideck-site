@@ -28,6 +28,7 @@ Always work in the worktree, not the root project folder.
 ### 1. Cache Busting — Never Skip This
 Every edit to `games.js` MUST bump its `?v=N` in `index.html` (e.g. `v=58` → `v=59`).
 Every edit to `script.js` MUST bump its `?v=N` in `index.html` the same way.
+Every edit to `style.css` MUST bump its `?v=N` in `index.html` (e.g. `v=5` → `v=6`).
 If you forget, users will see stale cached versions.
 
 ### 2. Git Workflow — Commit Directly to Main
@@ -62,7 +63,7 @@ Always use the Read tool on a file before editing it. Editing without reading fi
 ```js
 {
   date: "DD/MM/YYYY",   // batch release date; games inherit date_added
-  games: [ ... ]
+  list: [ ... ]
 }
 ```
 
