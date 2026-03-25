@@ -3,11 +3,13 @@
    ========================================= */
 let allGames = [];
 let visibleGames = [];
+const BATCH_SIZE = 5;
+let currentLimit = BATCH_SIZE;
 let _shuffledGenres = [];
 const FIXED_GENRES = ['Action', 'RPG', 'Horror', 'Open World', 'Shooter', 'Adventure'];
 
 // Cached DOM references (populated after DOMContentLoaded)
-let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $filtersPanel;
+let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $loadMoreArea, $filtersPanel;
 
 const GENRE_MAPPING = {
     "Action": "آكشن", "Adventure": "مغامرات", "RPG": "أر بي جي", "Simulation": "محاكاة",
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $sortFilter = document.getElementById('sortFilter');
     $verifiedFilter = document.getElementById('verifiedFilter');
     $gameGrid = document.getElementById('gameGrid');
+    $loadMoreArea = document.getElementById('loadMoreArea');
     $filtersPanel = document.getElementById('filtersPanel');
     init();
 });
@@ -255,6 +258,7 @@ function resetAndRender() {
         });
     }
 
+    currentLimit = BATCH_SIZE;
     _shuffledGenres = [];
     renderGrid();
 }
@@ -321,7 +325,7 @@ function renderGrid() {
             visibleGames.forEach(g => { if (g.genre) g.genre.split(',').forEach(gen => allGenres.add(gen.trim())); });
             _shuffledGenres = Array.from(allGenres).filter(gKey => !FIXED_GENRES.includes(gKey)).sort(() => Math.random() - 0.5);
         }
-        _shuffledGenres.forEach(gKey => {
+        _shuffledGenres.slice(0, currentLimit).forEach(gKey => {
             const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
             if (matches.length > 0) html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
         });
@@ -340,8 +344,11 @@ function renderGrid() {
         });
 
         document.querySelectorAll('.genre-row').forEach((row, i) => { row.style.animationDelay = `${i * 80}ms`; });
+        $loadMoreArea.style.display = currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
 }
+
+function loadMore() { currentLimit += BATCH_SIZE; renderGrid(); }
 
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
