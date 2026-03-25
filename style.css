@@ -137,13 +137,10 @@ select:hover { border-color: var(--gold); }
 
 .game-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 35px 10px 12px; background: linear-gradient(0deg, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0) 100%); z-index: 1; transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94); backdrop-filter: blur(2px); }
 .game-card:hover .game-info { transform: translateY(0); }
-.game-title { font-size: 0.95rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; margin-bottom: 0; margin-top: 0; }
-.game-meta, .game-genre { display: none; font-size: 0.68rem; color: rgba(255, 255, 255, 0.55); text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.game-card:hover .game-meta, .game-card:hover .game-genre { display: block; }
-
-.game-title { opacity: 0; transition: opacity 0.25s ease 0ms; }
-.game-genre { opacity: 0; transition: opacity 0.25s ease 80ms; }
-.game-meta { opacity: 0; transition: opacity 0.25s ease 140ms; }
+.game-title { font-size: 0.95rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; margin: 0; opacity: 0; transition: opacity 0.25s ease 0ms; }
+.game-meta, .game-genre { font-size: 0.68rem; color: rgba(255, 255, 255, 0.55); text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; }
+.game-genre { transition: opacity 0.25s ease 80ms; }
+.game-meta  { transition: opacity 0.25s ease 140ms; }
 .game-card:hover .game-title,
 .game-card:hover .game-genre,
 .game-card:hover .game-meta { opacity: 1; }
@@ -184,8 +181,9 @@ select:hover { border-color: var(--gold); }
 .btn-load { display: none; }
 .scroll-top { position: fixed; bottom: 30px; left: 30px; background: var(--gold); color: #000; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); z-index: 90; transition: transform 0.2s; }
 .scroll-top:hover { transform: translateY(-3px); background: var(--gold-light); }
+.scroll-top:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 footer { text-align: center; padding: 40px; background: #080808; color: var(--text-muted); }
-.footer-request-btn { display: inline-block; color: var(--gold); margin-top: 10px; font-size: 0.9rem; transition: color 0.2s; }
+.footer-request-btn { display: inline-block; color: var(--gold); margin-top: 10px; font-size: 0.9rem; transition: color 0.2s; background: none; border: none; cursor: pointer; font-family: var(--font-main); }
 .footer-request-btn:hover { color: var(--gold-light); }
 
 /* =========================================
@@ -277,7 +275,6 @@ footer { text-align: center; padding: 40px; background: #080808; color: var(--te
     padding: 20px 24px;
     display: flex;
     justify-content: center;
-    gap: 0;
     direction: rtl;
 }
 

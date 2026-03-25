@@ -10,12 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
 
-    <!-- Header Section -->
     <header>
         <div class="header-content">
             <a href="https://saudideck.com" target="_blank" style="display:block;">
@@ -23,34 +22,33 @@
             </a>
             <p class="subtitle">بوابة العضوية الرسمية</p>
         </div>
-        <div class="nav-group">
+        <nav class="nav-group" aria-label="التنقل الرئيسي">
             <div class="help-dropdown">
-                <button class="nav-btn btn-how">
+                <button class="nav-btn btn-how" aria-haspopup="true" aria-expanded="false">
                     طريقة الاستخدام
                 </button>
-                <div class="dropdown-content">
-                    <a href="guide-pc.html">
+                <div class="dropdown-content" role="menu">
+                    <a href="guide-pc.html" role="menuitem">
                         <img src="assets/Windows_logo.png" alt="PC"> PC
                     </a>
-                    <a href="guide-deck.html">
+                    <a href="guide-deck.html" role="menuitem">
                         <img src="assets/Steam_Deck_logo.png" alt="Steam Deck"> Steam Deck
                     </a>
                 </div>
             </div>
-            <a href="javascript:void(0)" onclick="openRequestModal()" class="nav-btn btn-request">طلب لعبة</a>
+            <button type="button" onclick="openRequestModal()" class="nav-btn btn-request">طلب لعبة</button>
             <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
-                target="_blank" class="nav-btn btn-buy">
+                target="_blank" rel="noopener" class="nav-btn btn-buy">
                 شراء العضوية
             </a>
-        </div>
+        </nav>
     </header>
     <div class="geometric-divider"></div>
 
-    <!-- Controls & Filters -->
-    <div class="controls">
+    <section class="controls" aria-label="البحث والتصفية">
         <div class="search-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()">
+            <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()" aria-label="البحث عن لعبة">
         </div>
 
         <button class="mobile-filter-btn" onclick="toggleFilters()">⚙️ تصفية وترتيب النتائج</button>
@@ -83,31 +81,25 @@
                 <span>متوافق مع Steam Deck</span>
             </label>
         </div>
-    </div>
+    </section>
 
-    <!-- Hero Banner -->
-    <div id="hero-banner"></div>
+    <main>
+        <div id="hero-banner"></div>
+        <div class="container" id="gameGrid"></div>
+        <div class="load-more-container" id="loadMoreArea">
+            <button class="btn-load" onclick="loadMore()">عرض المزيد</button>
+        </div>
+    </main>
 
-    <!-- Game Grid -->
-    <div class="container" id="gameGrid"></div>
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="العودة للأعلى">↑</button>
 
-    <!-- Pagination -->
-    <div class="load-more-container" id="loadMoreArea">
-        <button class="btn-load" onclick="loadMore()">عرض المزيد</button>
-    </div>
-
-    <!-- Scroll Top -->
-    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
-
-    <!-- Library Stats -->
     <div id="stats-strip"></div>
 
-    <!-- Footer -->
     <div class="geometric-divider"></div>
     <footer>
         &copy; 2025 SaudiDeck. مجموعة مختارة بعناية.
         <br>
-        <a href="javascript:void(0)" onclick="openRequestModal()" class="footer-request-btn">طلب إضافة لعبة</a>
+        <button type="button" onclick="openRequestModal()" class="footer-request-btn">طلب إضافة لعبة</button>
     </footer>
 
     <!-- Request Game Modal -->
@@ -137,8 +129,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="games.js?v=61" type="text/javascript"></script>
-    <script src="script.js?v=22"></script>
+    <script src="games.js?v=61"></script>
+    <script src="script.js?v=23"></script>
 </body>
 
 </html>

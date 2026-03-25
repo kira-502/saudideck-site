@@ -8,6 +8,9 @@ let currentLimit = BATCH_SIZE;
 let _shuffledGenres = [];
 const FIXED_GENRES = ['Action', 'RPG', 'Horror', 'Open World', 'Shooter', 'Adventure'];
 
+// Cached DOM references (populated after DOMContentLoaded)
+let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $loadMoreArea, $filtersPanel;
+
 const GENRE_MAPPING = {
     "Action": "آكشن", "Adventure": "مغامرات", "RPG": "أر بي جي", "Simulation": "محاكاة",
     "Strategy": "استراتيجية", "Sports": "رياضة", "Racing": "سباق", "Fighting": "قتال",
@@ -15,7 +18,18 @@ const GENRE_MAPPING = {
     "Open World": "عالم مفتوح"
 };
 
-document.addEventListener('DOMContentLoaded', () => { init(); });
+document.addEventListener('DOMContentLoaded', () => {
+    $searchInput = document.getElementById('searchInput');
+    $genreFilter = document.getElementById('genreFilter');
+    $yearFilter = document.getElementById('yearFilter');
+    $sortFilter = document.getElementById('sortFilter');
+    $verifiedFilter = document.getElementById('verifiedFilter');
+    $gameGrid = document.getElementById('gameGrid');
+    $loadMoreArea = document.getElementById('loadMoreArea');
+    $filtersPanel = document.getElementById('filtersPanel');
+    _loadObserver.observe($loadMoreArea);
+    init();
+});
 
 // Parse "DD/MM/YYYY" → Date (midnight New York time, auto EST/EDT)
 function parseReleaseDate(s) {
@@ -81,8 +95,8 @@ function init() {
         return game;
     });
     allGames = [...comingSoonWithFlag, ...games];
-    buildHeroBanner();   // ← newly added
-    buildStatsStrip();   // ← add this line
+    buildHeroBanner();
+    buildStatsStrip();
     populateGenreFilter();
     populateYearFilter();
     resetAndRender();
@@ -172,7 +186,7 @@ function buildStatsStrip() {
    2. FILTERS & SORTING
    ========================================= */
 function populateGenreFilter() {
-    const genreSelect = document.getElementById('genreFilter');
+    const genreSelect = $genreFilter;
     const genres = new Set();
     allGames.forEach(g => { if (g.genre) g.genre.split(',').forEach(gen => genres.add(gen.trim())); });
     Array.from(genres).sort().forEach(g => {
@@ -183,7 +197,7 @@ function populateGenreFilter() {
 }
 
 function populateYearFilter() {
-    const yearSelect = document.getElementById('yearFilter');
+    const yearSelect = $yearFilter;
     const years = new Set(allGames.map(g => g.year).filter(y => y));
     Array.from(years).sort((a, b) => b - a).forEach(y => {
         const option = document.createElement('option');
@@ -192,7 +206,7 @@ function populateYearFilter() {
     });
 }
 
-function toggleFilters() { document.getElementById('filtersPanel').classList.toggle('active'); }
+function toggleFilters() { $filtersPanel.classList.toggle('active'); }
 
 function toggleVerifiedFilter() {
     document.getElementById('verifiedToggleBtn').classList.toggle('active');
@@ -209,11 +223,11 @@ function debouncedSearch() {
    3. CORE RENDERING ENGINE
    ========================================= */
 function resetAndRender() {
-    const search = document.getElementById('searchInput').value.toLowerCase();
-    const genre = document.getElementById('genreFilter').value;
-    const year = document.getElementById('yearFilter').value;
-    const sort = document.getElementById('sortFilter').value;
-    const verifiedOnly = document.getElementById('verifiedFilter').checked;
+    const search = $searchInput.value.toLowerCase();
+    const genre = $genreFilter.value;
+    const year = $yearFilter.value;
+    const sort = $sortFilter.value;
+    const verifiedOnly = $verifiedFilter.checked;
 
     visibleGames = allGames.filter(g => {
         const matchesSearch = (g.name || "").toLowerCase().includes(search);
@@ -251,29 +265,29 @@ function resetAndRender() {
 }
 
 function renderGrid() {
-    const grid = document.getElementById('gameGrid');
-    grid.innerHTML = '';
-    
-    const isFilterActive = document.getElementById('searchInput').value.trim() !== "" || 
-                           document.getElementById('genreFilter').value !== "All" || 
-                           document.getElementById('yearFilter').value !== "All" || 
-                           document.getElementById('verifiedFilter').checked || 
-                           document.getElementById('sortFilter').value !== "metacritic";
+    $gameGrid.innerHTML = '';
+
+    const isFilterActive = $searchInput.value.trim() !== "" ||
+                           $genreFilter.value !== "All" ||
+                           $yearFilter.value !== "All" ||
+                           $verifiedFilter.checked ||
+                           $sortFilter.value !== "metacritic";
 
     if (visibleGames.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
-        document.getElementById('loadMoreArea').style.display = 'none';
+        $gameGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
+        $loadMoreArea.style.display = 'none';
         return;
     }
 
     if (isFilterActive) {
-        grid.classList.add('grid-fallback');
-        grid.innerHTML = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
-        visibleGames.slice(0, currentLimit).forEach(game => { grid.innerHTML += createGameCard(game); });
+        $gameGrid.classList.add('grid-fallback');
+        let filterHtml = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
+        filterHtml += visibleGames.slice(0, currentLimit).map(game => createGameCard(game)).join('');
+        $gameGrid.innerHTML = filterHtml;
         startCountdownTimers();
-        document.getElementById('loadMoreArea').style.display = currentLimit >= visibleGames.length ? 'none' : 'block';
+        $loadMoreArea.style.display = currentLimit >= visibleGames.length ? 'none' : 'block';
     } else {
-        grid.classList.remove('grid-fallback');
+        $gameGrid.classList.remove('grid-fallback');
         let html = '';
         
         // Coming Soon
@@ -319,21 +333,21 @@ function renderGrid() {
             if (matches.length > 0) html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
         });
 
-        grid.innerHTML = html;
+        $gameGrid.innerHTML = html;
         startCountdownTimers();
 
         document.querySelectorAll('.row-carousel').forEach(row => {
             row.addEventListener('scroll', () => {
                 const fill = row.parentElement.parentElement.querySelector('.row-progress-fill');
                 if (!fill) return;
-                let scrollRange = row.scrollWidth - row.clientWidth;
-                if (scrollRange <= 0) scrollRange = 1;
-                fill.style.width = ((row.scrollLeft / scrollRange) * 100) + '%';
+                const scrollRange = row.scrollWidth - row.clientWidth;
+                if (scrollRange <= 0) return;
+                fill.style.width = ((Math.abs(row.scrollLeft) / scrollRange) * 100) + '%';
             });
         });
 
         document.querySelectorAll('.genre-row').forEach((row, i) => { row.style.animationDelay = `${i * 80}ms`; });
-        document.getElementById('loadMoreArea').style.display = currentLimit >= _shuffledGenres.length ? 'none' : 'block';
+        $loadMoreArea.style.display = currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
 }
 
@@ -342,7 +356,7 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     let cardsHtml = games.map(g => createGameCard(g)).join('');
     const headerHtml = isSpecial 
         ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
-        : `<div class="genre-header clickable" onclick="document.getElementById('genreFilter').value='${idPrefix}'; resetAndRender(); window.scrollTo({top:0,behavior:'smooth'});">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
+        : `<div class="genre-header clickable" onclick="$genreFilter.value='${idPrefix}'; resetAndRender(); window.scrollTo({top:0,behavior:'smooth'});">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
     
     return `
         <div class="genre-row">
@@ -367,22 +381,15 @@ function loadMore() { currentLimit += BATCH_SIZE; renderGrid(); }
 const _loadObserver = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) loadMore();
 }, { rootMargin: '200px' });
-_loadObserver.observe(document.getElementById('loadMoreArea'));
 
 /* =========================================
    4. HTML GENERATION (CARDS)
    ========================================= */
 function createGameCard(game) {
-    // Determine Card Style
-    const isWide = false;
-    const wideClass = isWide ? " wide-card" : "";
-
     // Image Logic — IGDB covers for 2026/CS, Steam CDN for library
-    let imgUrl = game.cover
+    const imgUrl = game.cover
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
-        : (game.image || (isWide
-            ? `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`
-            : `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`));
+        : (game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`);
 
     let slug = game.slug || game.name.toLowerCase().replace(/:/g, '').replace(/'/g, '').replace(/#/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const targetUrl = `https://www.igdb.com/games/${slug}`;
@@ -412,7 +419,7 @@ function createGameCard(game) {
     const mcScore = game.score ? `<div class="metacritic-score ${scoreClass}">${game.score}</div>` : '';
     
     return `
-        <a href="${targetUrl}" target="_blank" class="game-card${lockedClass}${wideClass}">
+        <a href="${targetUrl}" target="_blank" rel="noopener" class="game-card${lockedClass}">
             <div class="game-image-container">
                 <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
                 ${lockedOverlay}
@@ -433,7 +440,7 @@ function createGameCard(game) {
    5. MODALS & UTILS
    ========================================= */
 function openRequestModal() {
-    const searchVal = document.getElementById('searchInput').value;
+    const searchVal = $searchInput.value;
     if (searchVal) document.getElementById('gameName').value = searchVal;
     document.getElementById('requestOverlay').classList.add('active');
 }
@@ -469,8 +476,7 @@ async function handleRequestSubmit(e) {
 
 function toggleNewlyAdded() {
     const btn = document.getElementById('newlyAddedBtn');
-    const select = document.getElementById('sortFilter');
-    if (select.value === 'date_added') { select.value = 'metacritic'; btn.classList.remove('active'); } 
-    else { select.value = 'date_added'; btn.classList.add('active'); }
+    if ($sortFilter.value === 'date_added') { $sortFilter.value = 'metacritic'; btn.classList.remove('active'); }
+    else { $sortFilter.value = 'date_added'; btn.classList.add('active'); }
     resetAndRender();
 }
