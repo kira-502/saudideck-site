@@ -3,13 +3,11 @@
    ========================================= */
 let allGames = [];
 let visibleGames = [];
-const BATCH_SIZE = 5; 
-let currentLimit = BATCH_SIZE;
 let _shuffledGenres = [];
 const FIXED_GENRES = ['Action', 'RPG', 'Horror', 'Open World', 'Shooter', 'Adventure'];
 
 // Cached DOM references (populated after DOMContentLoaded)
-let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $loadMoreArea, $filtersPanel;
+let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $filtersPanel;
 
 const GENRE_MAPPING = {
     "Action": "آكشن", "Adventure": "مغامرات", "RPG": "أر بي جي", "Simulation": "محاكاة",
@@ -25,9 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $sortFilter = document.getElementById('sortFilter');
     $verifiedFilter = document.getElementById('verifiedFilter');
     $gameGrid = document.getElementById('gameGrid');
-    $loadMoreArea = document.getElementById('loadMoreArea');
     $filtersPanel = document.getElementById('filtersPanel');
-    _loadObserver.observe($loadMoreArea);
     init();
 });
 
@@ -259,7 +255,6 @@ function resetAndRender() {
         });
     }
 
-    currentLimit = BATCH_SIZE;
     _shuffledGenres = [];
     renderGrid();
 }
@@ -275,17 +270,15 @@ function renderGrid() {
 
     if (visibleGames.length === 0) {
         $gameGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
-        $loadMoreArea.style.display = 'none';
         return;
     }
 
     if (isFilterActive) {
         $gameGrid.classList.add('grid-fallback');
         let filterHtml = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
-        filterHtml += visibleGames.slice(0, currentLimit).map(game => createGameCard(game)).join('');
+        filterHtml += visibleGames.map(game => createGameCard(game)).join('');
         $gameGrid.innerHTML = filterHtml;
         startCountdownTimers();
-        $loadMoreArea.style.display = currentLimit >= visibleGames.length ? 'none' : 'block';
     } else {
         $gameGrid.classList.remove('grid-fallback');
         let html = '';
@@ -328,7 +321,7 @@ function renderGrid() {
             visibleGames.forEach(g => { if (g.genre) g.genre.split(',').forEach(gen => allGenres.add(gen.trim())); });
             _shuffledGenres = Array.from(allGenres).filter(gKey => !FIXED_GENRES.includes(gKey)).sort(() => Math.random() - 0.5);
         }
-        _shuffledGenres.slice(0, currentLimit).forEach(gKey => {
+        _shuffledGenres.forEach(gKey => {
             const matches = visibleGames.filter(g => !g.isComingSoon && g.genre && g.genre.includes(gKey));
             if (matches.length > 0) html += buildRowHTML(gKey.toUpperCase(), matches, gKey);
         });
@@ -347,7 +340,6 @@ function renderGrid() {
         });
 
         document.querySelectorAll('.genre-row').forEach((row, i) => { row.style.animationDelay = `${i * 80}ms`; });
-        $loadMoreArea.style.display = currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
 }
 
@@ -376,11 +368,6 @@ window.scrollRow = function(rowId, amount) {
     if(row) row.scrollBy({ left: amount, behavior: 'smooth' });
 }
 
-function loadMore() { currentLimit += BATCH_SIZE; renderGrid(); }
-
-const _loadObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) loadMore();
-}, { rootMargin: '200px' });
 
 /* =========================================
    4. HTML GENERATION (CARDS)

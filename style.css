@@ -177,8 +177,6 @@ select:hover { border-color: var(--gold); }
 /* =========================================
    6. UTILITIES & FOOTER
    ========================================= */
-.load-more-container { text-align: center; margin: 40px 0; }
-.btn-load { display: none; }
 .scroll-top { position: fixed; bottom: 30px; left: 30px; background: var(--gold); color: #000; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); z-index: 90; transition: transform 0.2s; }
 .scroll-top:hover { transform: translateY(-3px); background: var(--gold-light); }
 .scroll-top:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
