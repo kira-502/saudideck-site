@@ -5,6 +5,12 @@
 // ==========================================
 const batches = [
 {
+            date: "2026-04-01",
+            list: [
+                { name: "ABZU", id: "384190", verified: true, genre: "Adventure, Indie, Exploration, Underwater", year: 2016, score: 83 }
+            ]
+        },
+{
             date: "2026-03-20",
             list: [
                 { name: "Alone in the Dark", id: "1310410", genre: "Action, Horror, Survival, Adventure", year: 2024, score: 64 },
