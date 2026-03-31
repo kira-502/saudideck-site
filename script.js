@@ -124,26 +124,15 @@ function buildHeroBanner() {
     const game = batch.list[batch.list.length - 1];
     if (!game) return;
 
-    // Determine image URL
-    const igdbUrl = game.cover
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
-        : null;
-    const steamUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`;
-    const primaryUrl = igdbUrl || steamUrl;
+    // Hero uses wide header image (460×215), not portrait cover
+    const heroUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
 
-    el.style.backgroundImage = `url('${primaryUrl}')`;
+    el.style.backgroundImage = `url('${heroUrl}')`;
 
     // Preload hero image for faster LCP
     const prelink = document.createElement('link');
-    prelink.rel = 'preload'; prelink.as = 'image'; prelink.href = primaryUrl;
+    prelink.rel = 'preload'; prelink.as = 'image'; prelink.href = heroUrl;
     document.head.appendChild(prelink);
-
-    // Fallback: if primaryUrl fails, swap to steamUrl
-    if (igdbUrl) {
-        const probe = new Image();
-        probe.onerror = () => { el.style.backgroundImage = `url('${steamUrl}')`; };
-        probe.src = igdbUrl;
-    }
 
     // Build optional meta items
     const genres = game.genre
