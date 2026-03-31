@@ -1,142 +1,81 @@
 ---
 name: add-game
-description: Add a new game to SaudiDeck — guides through Steam ID lookup, IGDB cover fetch, correct placement in games.js, and version bump
+description: Add one or more games to SaudiDeck — single search per game, auto-placement, batch support
 ---
 
 # Add Game to SaudiDeck
 
-Use this skill when the user asks to add a game to the SaudiDeck gaming library website.
+Supports adding one or multiple games in a single pass.
 
-## Step 1 — Determine game type
+## Step 1 — Single search per game
 
-Ask (or infer from context) which case applies:
+For each game, run ONE web search combining all needed info:
 
-- **Released game** → goes into `batches[]` in `games.js`
-- **Coming soon game** (not yet released, or releasing later in 2026+) → goes into `comingSoonGames[]` in `games.js`
-- **2026 game** (releasing in 2026, already known) → goes into `batches[]` but requires `release_date` and `cover` fields
+```
+"[Game Name]" Steam App ID Metacritic score Steam Deck Verified
+```
 
-If unclear, ask the user before proceeding.
+Extract from results:
+- **Steam App ID** — the number from `store.steampowered.com/app/APPID/`
+- **Metacritic score** — critic score (NOT user score). Omit `score` field if not found.
+- **Deck Verified** — set `verified: true` only if explicitly "Verified" (not just "Playable")
+- **Genre** — use the primary genres (Action, RPG, Horror, etc.), comma-separated, max 5
+- **Release year** — as a number
 
----
+## Step 2 — Determine game type and build object
 
-## Step 2 — Find the Steam App ID
-
-- Look up the game on the Steam store: `https://store.steampowered.com/search/`
-- The App ID is the number in the URL: `store.steampowered.com/app/APPID/Game_Name/`
-- Verify the ID is correct by checking the header image loads:
-  `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/APPID/header.jpg`
-- If the image loads (HTTP 200), the App ID is valid.
-
----
-
-## Step 3 — Gather game metadata
-
-Collect the following fields:
-
-| Field | Notes |
-|---|---|
-| `name` | Full game title as it appears on Steam |
-| `id` | Steam App ID (number, no quotes) |
-| `genre` | Short genre label, e.g. `"Action"`, `"RPG"`, `"Strategy"` |
-| `year` | Release year as a number, e.g. `2024` |
-| `score` | Metacritic or review score if known; omit field if unknown |
-| `verified` | Set to `true` if Steam Deck Verified; omit otherwise |
-| `release_date` | **2026 games only** — format `DD/MM/YYYY` |
-| `cover` | **2026 and coming soon games only** — IGDB image ID (see Step 4) |
-| `release_info` | **Coming soon only** — format `DD/MM/YYYY` or `"TBA"` |
-| `release_type` | **Coming soon only** — always `"date"` |
-
----
-
-## Step 4 — Find the IGDB Cover ID (2026 and coming soon games only)
-
-Regular released games (non-2026) do NOT need a cover — skip this step for those.
-
-1. Go to `https://www.backloggd.com/games/GAME-SLUG/` (search for the game on backloggd.com)
-2. Inspect the cover image on the page
-3. Find the image URL in the format:
-   `https://images.igdb.com/igdb/image/upload/t_cover_big/COVERID.jpg`
-4. Copy only the `COVERID` portion (e.g. `co7dod`)
-5. This becomes the `cover` field value
-
----
-
-## Step 5 — Edit `games.js`
-
-Open `/games.js` (at the repo root).
-
-### Case A — Regular released game (non-2026)
-
-Find the appropriate `batches[]` entry by year/genre or add to an existing batch. Add the game object:
-
+**Released game** → add to `batches[0].list` (the newest batch) in `games.js`:
 ```js
-{ name: "Game Title", id: 123456, genre: "Action", year: 2024, score: 85, verified: true }
+{ name: "Title", id: "APPID", genre: "Action, RPG", year: 2024, score: 85, verified: true }
 ```
+- `score` and `verified` are optional — omit if unknown/not applicable
+- ID is a string (quoted)
 
-- `score` and `verified` are optional — omit if not applicable.
-- Do NOT add `cover` or `release_date` for regular released games.
-
-### Case B — 2026 game
-
-Find or create the 2026 batch in `batches[]`. Add the game object:
-
+**2026 game** (released in 2026, already out) → same as above but add `release_date` and `cover`:
 ```js
-{ name: "Game Title", id: 123456, genre: "RPG", year: 2026, release_date: "15/03/2026", cover: "co7dod" }
+{ name: "Title", id: "APPID", genre: "RPG", year: 2026, score: 86, release_date: "DD/MM/YYYY", cover: "IGDB_ID" }
 ```
 
-- `release_date` must be in `DD/MM/YYYY` format.
-- `cover` is required (IGDB image ID from Step 4).
-- The 2026 row is sorted by `release_date` descending automatically — no manual ordering needed.
-
-### Case C — Coming soon game
-
-Find the `comingSoonGames[]` array. Add the game object:
-
+**Coming soon game** → add to `comingSoonGames[]`:
 ```js
-{ name: "Game Title", id: 123456, genre: "Strategy", year: 2026, release_info: "TBA", release_type: "date", cover: "co7dod" }
+{ name: "Title", id: "APPID", genre: "Action", year: "2026", release_info: "DD/MM/YYYY", release_type: "date", cover: "IGDB_ID" }
+```
+- Use `"TBA"` for `release_info` if no date is known
+
+## Step 3 — IGDB cover (2026 and coming soon ONLY)
+
+Skip this for regular released games — they use Steam CDN images automatically.
+
+Search: `[Game Name] site:backloggd.com`
+- Find the cover image URL: `https://images.igdb.com/igdb/image/upload/t_cover_big/COVERID.jpg`
+- Use only the `COVERID` part (e.g. `co7dod`) as the `cover` field
+- Cover IDs start with `co` followed by alphanumeric characters
+
+## Step 4 — Edit files
+
+1. Read `games.js` — find the insertion point (newest batch or comingSoonGames)
+2. Insert the game object(s) alphabetically within the batch
+3. Read `index.html` — find `games.js?v=N` and bump to `v=N+1`
+4. Commit and push:
+```bash
+git add games.js index.html && git commit -m "Add [GAME] to library" && git fetch origin main && git rebase origin/main && git push origin claude/zen-sutherland:main
 ```
 
-- `release_info` is `DD/MM/YYYY` if a specific date is known, or `"TBA"` if not.
-- `release_type` is always `"date"`.
-- `cover` is required (IGDB image ID from Step 4).
-- Coming soon games are sorted by nearest release date automatically — no manual ordering needed.
+## Batch mode
 
----
+When adding multiple games, do Steps 1-2 in parallel (multiple web searches at once), then apply all edits to `games.js` in a single pass with one version bump and one commit.
 
-## Step 6 — Bump the version in `index.html`
+## Field reference
 
-After saving `games.js`, open `index.html` and find the script tag that loads `games.js`:
-
-```html
-<script src="games.js?v=N"></script>
-```
-
-Increment `N` by 1 (e.g. `?v=12` → `?v=13`).
-
-This busts the browser cache so visitors see the updated game list.
-
----
-
-## Step 7 — Verify
-
-- Confirm the game object is correctly placed (right array, right batch).
-- Confirm all required fields are present for the game type.
-- Confirm `index.html` version is bumped.
-- Confirm no trailing commas or syntax errors were introduced in `games.js`.
-
----
-
-## Quick reference — field requirements by game type
-
-| Field | Regular | 2026 | Coming Soon |
+| Field | Released | 2026 | Coming Soon |
 |---|---|---|---|
 | `name` | Required | Required | Required |
-| `id` | Required | Required | Required |
+| `id` | Required (string) | Required (string) | Required (string) |
 | `genre` | Required | Required | Required |
-| `year` | Required | Required | Required |
-| `score` | Optional | Optional | Optional |
-| `verified` | Optional | Optional | Optional |
-| `release_date` | No | Required (DD/MM/YYYY) | No |
-| `cover` | No | Required | Required |
-| `release_info` | No | No | Required (DD/MM/YYYY or "TBA") |
-| `release_type` | No | No | Required ("date") |
+| `year` | Required (number) | Required (number) | Required (string) |
+| `score` | If known | If known | If known |
+| `verified` | If Verified | If Verified | If Verified |
+| `release_date` | — | Required DD/MM/YYYY | — |
+| `cover` | — | Required | Required |
+| `release_info` | — | — | Required |
+| `release_type` | — | — | Always `"date"` |
