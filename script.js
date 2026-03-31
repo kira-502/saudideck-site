@@ -124,10 +124,14 @@ function buildHeroBanner() {
     const game = batch.list[batch.list.length - 1];
     if (!game) return;
 
-    // Hero uses wide header image (460×215), not portrait cover
-    const heroUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
+    // Hero uses Steam library_hero (1920×620), fallback to header.jpg (460×215)
+    const heroUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_hero.jpg`;
+    const fallbackUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
 
     el.style.backgroundImage = `url('${heroUrl}')`;
+    const probe = new Image();
+    probe.onerror = () => { el.style.backgroundImage = `url('${fallbackUrl}')`; };
+    probe.src = heroUrl;
 
     // Preload hero image for faster LCP
     const prelink = document.createElement('link');
