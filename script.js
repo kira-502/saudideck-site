@@ -7,6 +7,7 @@ const BATCH_SIZE = 5;
 let currentLimit = BATCH_SIZE;
 let _shuffledGenres = [];
 const FIXED_GENRES = ['Action', 'RPG', 'Horror', 'Open World', 'Shooter', 'Adventure'];
+const _cardCache = new Map();
 
 // Cached DOM references (populated after DOMContentLoaded)
 let $searchInput, $genreFilter, $yearFilter, $sortFilter, $verifiedFilter, $gameGrid, $loadMoreArea, $filtersPanel;
@@ -27,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
     $gameGrid = document.getElementById('gameGrid');
     $loadMoreArea = document.getElementById('loadMoreArea');
     $filtersPanel = document.getElementById('filtersPanel');
+
+    // Delegated scroll listener for carousel progress bars (once, not per-render)
+    $gameGrid.addEventListener('scroll', (e) => {
+        if (!e.target.classList.contains('row-carousel')) return;
+        const fill = e.target.parentElement.parentElement.querySelector('.row-progress-fill');
+        if (!fill) return;
+        const scrollRange = e.target.scrollWidth - e.target.clientWidth;
+        if (scrollRange <= 0) return;
+        fill.style.width = ((Math.abs(e.target.scrollLeft) / scrollRange) * 100) + '%';
+    }, true);
+
     init();
 });
 
@@ -120,6 +132,11 @@ function buildHeroBanner() {
     const primaryUrl = igdbUrl || steamUrl;
 
     el.style.backgroundImage = `url('${primaryUrl}')`;
+
+    // Preload hero image for faster LCP
+    const prelink = document.createElement('link');
+    prelink.rel = 'preload'; prelink.as = 'image'; prelink.href = primaryUrl;
+    document.head.appendChild(prelink);
 
     // Fallback: if primaryUrl fails, swap to steamUrl
     if (igdbUrl) {
@@ -260,6 +277,7 @@ function resetAndRender() {
 
     currentLimit = BATCH_SIZE;
     _shuffledGenres = [];
+    _cardCache.clear();
     renderGrid();
 }
 
@@ -333,17 +351,9 @@ function renderGrid() {
         $gameGrid.innerHTML = html;
         startCountdownTimers();
 
-        document.querySelectorAll('.row-carousel').forEach(row => {
-            row.addEventListener('scroll', () => {
-                const fill = row.parentElement.parentElement.querySelector('.row-progress-fill');
-                if (!fill) return;
-                const scrollRange = row.scrollWidth - row.clientWidth;
-                if (scrollRange <= 0) return;
-                fill.style.width = ((Math.abs(row.scrollLeft) / scrollRange) * 100) + '%';
-            });
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.genre-row').forEach((row, i) => { row.style.animationDelay = `${i * 80}ms`; });
         });
-
-        document.querySelectorAll('.genre-row').forEach((row, i) => { row.style.animationDelay = `${i * 80}ms`; });
         $loadMoreArea.style.display = currentLimit >= _shuffledGenres.length ? 'none' : 'block';
     }
 }
@@ -380,6 +390,9 @@ window.scrollRow = function(rowId, amount) {
    4. HTML GENERATION (CARDS)
    ========================================= */
 function createGameCard(game) {
+    const cached = _cardCache.get(game.id);
+    if (cached) return cached;
+
     // Image Logic — IGDB covers for 2026/CS, Steam CDN for library
     const imgUrl = game.cover
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
@@ -412,10 +425,10 @@ function createGameCard(game) {
     else if (game.score >= 70) scoreClass = 'score-mid';
     const mcScore = game.score ? `<div class="metacritic-score ${scoreClass}">${game.score}</div>` : '';
     
-    return `
+    const html = `
         <a href="${targetUrl}" target="_blank" rel="noopener" class="game-card${lockedClass}">
             <div class="game-image-container">
-                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
+                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
                 ${lockedOverlay}
                 <div class="overlay">${badgesHtml}</div>
                 ${dateTag}
@@ -428,6 +441,8 @@ function createGameCard(game) {
             </div>
         </a>
     `;
+    _cardCache.set(game.id, html);
+    return html;
 }
 
 /* =========================================
