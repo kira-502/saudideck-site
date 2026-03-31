@@ -8,6 +8,7 @@ const batches = [
             date: "2026-03-20",
             list: [
                 { name: "Alone in the Dark", id: "1310410", genre: "Action, Horror, Survival, Adventure", year: 2024, score: 64 },
+                { name: "DEATHLOOP", id: "1252330", verified: true, genre: "Action, Shooter, FPS", year: 2021, score: 88 },
                 { name: "Cronos: The New Dawn", id: "2101960", genre: "Action, Horror, Survival, Sci-Fi", year: 2025, score: 79 },
                 { name: "Disney Dreamlight Valley", id: "1401590", genre: "Casual, Simulation, Adventure, RPG", year: 2023, score: 74 },
                 { name: "DRAGON QUEST VII Reimagined", id: "2499860", genre: "Adventure, RPG, JRPG, Turn-Based", year: 2026, score: 86, cover: "cobkan", release_date: "05/02/2026" },
