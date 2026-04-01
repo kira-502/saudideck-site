@@ -124,40 +124,100 @@ function buildHeroBanner() {
     const game = batch.list[batch.list.length - 1];
     if (!game) return;
 
-    // Hero uses Steam library_hero (1920×620), fallback to header.jpg (460×215)
+    // Game slide image
     const heroUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_hero.jpg`;
     const fallbackUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
 
-    el.style.backgroundImage = `url('${heroUrl}')`;
-    const probe = new Image();
-    probe.onerror = () => { el.style.backgroundImage = `url('${fallbackUrl}')`; };
-    probe.src = heroUrl;
-
-    // Preload hero image for faster LCP
     const prelink = document.createElement('link');
     prelink.rel = 'preload'; prelink.as = 'image'; prelink.href = heroUrl;
     document.head.appendChild(prelink);
 
-    // Build optional meta items
-    const genres = game.genre
-        ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${g}</span>`).join('')
-        : '';
+    // Build game meta
+    const genres = game.genre ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${g}</span>`).join('') : '';
     const score = game.score ? `<span class="hero-score">${game.score}</span>` : '';
-    const verified = game.verified
-        ? `<img src="assets/badge_verified.png" class="hero-verified" alt="Verified">`
-        : '';
+    const verified = game.verified ? `<img src="assets/badge_verified.png" class="hero-verified" alt="Verified">` : '';
     const date = game.release_date ? `<span class="hero-date">${game.release_date}</span>` : '';
 
+    const totalGames = allGames.filter(g => !g.isComingSoon).length;
+
     el.innerHTML = `
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-label">أحدث إضافة</div>
-            <div class="hero-title">${game.name}</div>
-            <div class="hero-meta">
-                ${score}${verified}${genres}${date}
+        <!-- Slide 1: Latest Game -->
+        <div class="hero-slide hero-slide-game active" style="background-image:url('${heroUrl}')">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-label">أحدث إضافة</div>
+                <div class="hero-title">${game.name}</div>
+                <div class="hero-meta">${score}${verified}${genres}${date}</div>
             </div>
         </div>
+
+        <!-- Slide 2: Subscription Ad -->
+        <div class="hero-slide hero-ad">
+            <div class="hero-ad-inner">
+                <div class="hero-ad-right">
+                    <img src="assets/logo.png" class="hero-ad-logo" alt="SaudiDeck">
+                    <div>
+                        <div class="hero-ad-title">SAUDIDECK PASS</div>
+                        <div class="hero-ad-subtitle">عضوية سعودي دك</div>
+                        <div class="hero-ad-count">أكثر من ${totalGames}+ لعبة في حساب واحد</div>
+                    </div>
+                </div>
+                <div class="hero-ad-prices">
+                    <div class="hero-price-card">
+                        <div class="hero-price-duration">شهر واحد</div>
+                        <div class="hero-price-amount">30 ريال</div>
+                        <div class="hero-price-original">70 ريال</div>
+                    </div>
+                    <div class="hero-price-card">
+                        <div class="hero-price-duration">3 أشهر</div>
+                        <div class="hero-price-amount">79 ريال</div>
+                        <div class="hero-price-original">119 ريال</div>
+                    </div>
+                    <div class="hero-price-card">
+                        <div class="hero-price-duration">6 أشهر</div>
+                        <div class="hero-price-amount">120 ريال</div>
+                        <div class="hero-price-original">160 ريال</div>
+                    </div>
+                    <div class="hero-price-card">
+                        <div class="hero-price-duration">سنة كاملة</div>
+                        <div class="hero-price-amount">259 ريال</div>
+                        <div class="hero-price-original">299 ريال</div>
+                    </div>
+                </div>
+                <a href="https://saudideck.online" target="_blank" rel="noopener" class="hero-ad-cta">اشترك الآن</a>
+            </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="hero-dots">
+            <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+        </div>
     `;
+
+    // Fallback for game image
+    const gameSlide = el.querySelector('.hero-slide-game');
+    const imgProbe = new Image();
+    imgProbe.onerror = () => { gameSlide.style.backgroundImage = `url('${fallbackUrl}')`; };
+    imgProbe.src = heroUrl;
+
+    // Slide rotation
+    const slides = el.querySelectorAll('.hero-slide');
+    const dots = el.querySelectorAll('.hero-dot');
+    let current = 0;
+
+    function goToSlide(i) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = i;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    dots.forEach(dot => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.slide))));
+
+    // Auto-rotate every 8 seconds
+    setInterval(() => goToSlide((current + 1) % slides.length), 8000);
 }
 
 /* =========================================
