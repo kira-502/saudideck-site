@@ -19,6 +19,10 @@ const GENRE_MAPPING = {
     "Open World": "عالم مفتوح"
 };
 
+// Scroll to top on page load/reload
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
     $searchInput = document.getElementById('searchInput');
     $genreFilter = document.getElementById('genreFilter');
