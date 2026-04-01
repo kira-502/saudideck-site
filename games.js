@@ -14,6 +14,8 @@ const batches = [
             date: "2026-03-20",
             list: [
                 { name: "Alone in the Dark", id: "1310410", genre: "Action, Horror, Survival, Adventure", year: 2024, score: 64 },
+                { name: "Crimson Desert", id: "3321460", genre: "Action, Adventure, Open World", year: 2026, release_date: "19/03/2026", cover: "coaqai" },
+                { name: "Death Stranding 2: On the Beach", id: "3280350", genre: "Action, Adventure, Open World, Sci-Fi, Atmospheric", year: 2026, release_date: "19/03/2026", cover: "co9ipx" },
                 { name: "DEATHLOOP", id: "1252330", verified: true, genre: "Action, Shooter, FPS", year: 2021, score: 88 },
                 { name: "Cronos: The New Dawn", id: "2101960", genre: "Action, Horror, Survival, Sci-Fi", year: 2025, score: 79 },
                 { name: "Disney Dreamlight Valley", id: "1401590", genre: "Casual, Simulation, Adventure, RPG", year: 2023, score: 74 },
@@ -70,15 +72,6 @@ const batches = [
         ]
     },
     {
-        date: "2026-01-24",
-        list: [
-            { name: ".hack//G.U. Last Recode", id: "525480", verified: true, genre: "RPG, Action, JRPG, Anime, Hack & Slash", year: 2017, score: 69 },
-            { name: "Manhunt", id: "12130", genre: "Action, Stealth, Horror, Thriller, Third-Person", year: 2004, score: 75 },
-            { name: "Max Payne 2: The Fall of Max Payne", id: "12150", genre: "Action, Shooter, Noir, Third-Person, Narrative", year: 2003, score: 86 },
-            { name: "Your Turn To Die -Death Game By Majority-", id: "2067780", verified: true, genre: "Adventure, Visual Novel, Horror, Mystery, Puzzle", year: 2023 }
-        ]
-    },
-    {
         date: "2026-03-07",
         list: [
             { name: "Astrea: Six-Sided Oracles", id: "1755830", verified: true, genre: "Strategy, Deckbuilder, Roguelike, RPG, Indie", year: 2023, score: 85 },
@@ -117,9 +110,18 @@ const batches = [
         ]
     },
     {
+        date: "2026-01-24",
+        list: [
+            { name: ".hack//G.U. Last Recode", id: "525480", verified: true, genre: "RPG, Action, JRPG, Anime, Hack & Slash", year: 2017, score: 69 },
+            { name: "Manhunt", id: "12130", genre: "Action, Stealth, Horror, Thriller, Third-Person", year: 2004, score: 75 },
+            { name: "Max Payne 2: The Fall of Max Payne", id: "12150", genre: "Action, Shooter, Noir, Third-Person, Narrative", year: 2003, score: 86 },
+            { name: "Your Turn To Die -Death Game By Majority-", id: "2067780", verified: true, genre: "Adventure, Visual Novel, Horror, Mystery, Puzzle", year: 2023 }
+        ]
+    },
+    {
         date: "2026-01-12",
         list: [
-            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade, 2D, Anime", year: 2014, score: 86, slug: "guilty-gear-x2-reload" },
+            { name: "Guilty Gear X2 #Reload", id: "314030", genre: "Action, Fighting, Arcade, 2D, Anime", year: 2014, score: 86 },
             { name: "Goat Simulator", id: "265930", verified: true, genre: "Simulation, Comedy, Sandbox, Open World, Physics", year: 2014, score: 62 }
         ]
     },
@@ -161,24 +163,6 @@ const batches = [
 ];
 
 const comingSoonGames = [
-    {
-        name: "Crimson Desert",
-        id: "3321460",
-        genre: "Action, Adventure, Open World",
-        year: "2026",
-        release_info: "19/03/2026",
-        release_type: "date",
-        cover: "coaqai"
-    },
-    {
-        name: "Death Stranding 2: On the Beach",
-        id: "3280350",
-        genre: "Action, Adventure, Open World, Sci-Fi, Atmospheric",
-        year: "2026",
-        release_info: "19/03/2026",
-        release_type: "date",
-        cover: "co9ipx"
-    },
     {
         name: "Pragmata",
         id: "3357650",
@@ -260,7 +244,7 @@ const baseLibrary = [
     { name: "Assassin's Creed Director's Cut", id: "15100", genre: "Action, Stealth, Open World, Adventure, Historical", year: 2008, score: 79 },
     { name: "Astalon: Tears of the Earth", id: "1046400", genre: "Action, Metroidvania, Retro, Platformer, Indie", year: 2021, score: 84 },
     { name: "Balatro", id: "2379780", verified: true, genre: "Strategy, Card Game, Roguelike, Indie, Poker", year: 2024, score: 90 },
-    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG, Strategy, Turn-Based, Fantasy, Co-op, Story Rich", year: 2023, score: 96, slug: "baldurs-gate-iii" },
+    { name: "Baldur's Gate 3", id: "1086940", verified: true, genre: "RPG, Strategy, Turn-Based, Fantasy, Co-op, Story Rich", year: 2023, score: 96 },
     { name: "Bang-On Balls: Chronicles", id: "1227650", verified: true, genre: "Action, Platformer, Sandbox, Co-op, Collectathon", year: 2023, score: 86 },
     { name: "Bastion", id: "107100", verified: true, genre: "Action, RPG, Indie, Isometric, Hack & Slash", year: 2011, score: 86 },
     { name: "Batman: Arkham Asylum GOTY Edition", id: "35140", verified: true, genre: "Action, Adventure, Superhero, Stealth, Metroidvania", year: 2010, score: 91 },
@@ -363,7 +347,7 @@ const baseLibrary = [
     { name: "Devil May Cry 4 Special Edition", id: "329050", verified: true, genre: "Action, Hack & Slash, Anime, Stylish, Character Action", year: 2015 },
     { name: "Devil May Cry 5", id: "601150", verified: true, genre: "Action, Hack & Slash, Stylish, Character Action, Co-op", year: 2019, score: 89 },
     { name: "Digimon Story Cyber Sleuth: Complete Edition", id: "1042550", verified: true, genre: "RPG, JRPG, Monster Tamer, Turn-Based, Anime", year: 2019 },
-    { name: "Digimon Story: Time Stranger", id: "1984270", verified: true, genre: "RPG, Strategy, Monster Tamer, JRPG, Turn-Based", year: 2025, date_added: "2025-12-24" },
+    { name: "Digimon Story: Time Stranger", id: "1984270", verified: true, genre: "RPG, Strategy, Monster Tamer, JRPG, Turn-Based", year: 2025 },
     { name: "Digimon World: Next Order", id: "1530160", verified: true, genre: "RPG, Simulation, Monster Tamer, JRPG, Open World", year: 2023, score: 68 },
     { name: "Disco Elysium - The Final Cut", id: "632470", verified: true, genre: "RPG, Narrative, Detective, Open World, Isometric", year: 2019, score: 97 },
     { name: "Dishonored", id: "205100", verified: true, genre: "Action, Stealth, Steampunk, Immersive Sim, First-Person", year: 2012, score: 91 },
@@ -654,8 +638,8 @@ const baseLibrary = [
     { name: "Ratchet & Clank: Rift Apart", id: "1895880", verified: true, genre: "Action, Platformer, Sci-Fi, Adventure, Third-Person", year: 2023, score: 86 },
     { name: "Re:Fresh", id: "2297650", verified: true, genre: "Casual, Simulation, Relaxing, Indie, Puzzle", year: 2023 },
     { name: "Record of Lodoss War-Deedlit in Wonder Labyrinth-", id: "1203630", genre: "Action, Metroidvania, Pixel Graphics, Anime, Platformer", year: 2021, score: 79 },
-    { name: "Remnant: From the Ashes", id: "617290", verified: true, genre: "Action, RPG, Soulslike, Co-op, Third-Person, Shooter", year: 2019, score: 78 },
-    { name: "Remnant II", id: "1282100", verified: true, genre: "Action, RPG, Soulslike, Co-op, Third-Person, Shooter", year: 2023, score: 80 },
+    { name: "Remnant: From the Ashes", id: "617290", verified: true, genre: "Action, RPG, Souls-like, Co-op, Third-Person, Shooter", year: 2019, score: 78 },
+    { name: "Remnant II", id: "1282100", verified: true, genre: "Action, RPG, Souls-like, Co-op, Third-Person, Shooter", year: 2023, score: 80 },
     { name: "Resident Evil 0", id: "339340", genre: "Horror, Survival, Classic, Puzzle, Co-op", year: 2016, score: 68 },
     { name: "Resident Evil", id: "304240", verified: true, genre: "Horror, Survival, Remake, Classic, Puzzle", year: 2015, score: 82 },
     { name: "Resident Evil 2", id: "883710", verified: true, genre: "Horror, Survival, Remake, Third-Person, Action", year: 2019, score: 89 },
@@ -676,7 +660,7 @@ const baseLibrary = [
     { name: "Ryse: Son of Rome", id: "302510", verified: true, genre: "Action, Hack & Slash, Historical, Combat, Cinematic", year: 2014, score: 61 },
     { name: "Saints Row IV: Re-Elected", id: "314580", verified: true, genre: "Action, Open World, Comedy, Sci-Fi, Co-op", year: 2013 },
     { name: "Sakuna: Of Rice and Ruin", id: "1356670", verified: true, genre: "RPG, Farming, Platformer, Simulation, Action, Japanese", year: 2020, score: 82 },
-    { name: "Salt and Sacrifice", id: "1439390", verified: true, genre: "Action, RPG, Soulslike, Co-op, Dark Fantasy", year: 2023, score: 72 },
+    { name: "Salt and Sacrifice", id: "1439390", verified: true, genre: "Action, RPG, Souls-like, Co-op, Dark Fantasy", year: 2023, score: 72 },
     { name: "Schedule I", id: "2973410", genre: "Simulation, Management, Indie, Open World, Crime", year: 2024 },
     { name: "Sea Salt", id: "983350", verified: true, genre: "Strategy, Action, Pixel Graphics, Lovecraftian, Indie", year: 2019 },
     { name: "Sekiro: Shadows Die Twice", id: "814380", verified: true, genre: "Action, Souls-like, Ninja, Stealth, Difficult", year: 2019, score: 88 },
@@ -709,18 +693,18 @@ const baseLibrary = [
     { name: "Spyro™ Reignited Trilogy", id: "996580", verified: true, genre: "Platformer, 3D, Remake, Collectathon, Family", year: 2019, score: 75 },
     { name: "Stardew Valley", id: "413150", verified: true, genre: "RPG, Farming, Simulation, Indie, Relaxing, Pixel Graphics", year: 2016, score: 89 },
     { name: "SteamWorld Dig 2", id: "571310", verified: true, genre: "Platformer, Metroidvania, Mining, Indie, Adventure", year: 2017, score: 85 },
-    { name: "Steelrising", id: "1283400", genre: "Action, RPG, Soulslike, Steampunk, Third-Person", year: 2022, score: 68 },
+    { name: "Steelrising", id: "1283400", genre: "Action, RPG, Souls-like, Steampunk, Third-Person", year: 2022, score: 68 },
     { name: "Stick Fight: The Game", id: "674940", verified: true, genre: "Action, Fighting, Party, Physics, Multiplayer", year: 2017 },
     { name: "Strange Brigade", id: "312670", genre: "Action, Shooter, Co-op, Adventure, 1930s", year: 2018, score: 68 },
-    { name: "STRANGER OF PARADISE FINAL FANTASY ORIGIN", id: "1358700", genre: "Action, RPG, Soulslike, JRPG, Hack & Slash", year: 2023 },
+    { name: "STRANGER OF PARADISE FINAL FANTASY ORIGIN", id: "1358700", genre: "Action, RPG, Souls-like, JRPG, Hack & Slash", year: 2023 },
     { name: "Street Fighter V", id: "310950", genre: "Action, Fighting, Competitive, 2D, Arcade", year: 2016, score: 89 },
     { name: "Street Fighter™ 6", id: "1364780", verified: true, genre: "Action, Fighting, Competitive, 2D, Arcade", year: 2023, score: 92 },
     { name: "Streets of Rage 4", id: "985890", verified: true, genre: "Action, Beat 'em up, Co-op, Retro, Pixel Graphics", year: 2020, score: 84 },
     { name: "Strider", id: "235210", verified: true, genre: "Action, Platformer, Hack & Slash, Arcade, Retro", year: 2014, score: 78 },
     { name: "Subnautica", id: "264710", verified: true, genre: "Survival, Exploration, Sci-Fi, Open World, Crafting", year: 2018, score: 87 },
     { name: "SUPERHOT VR", id: "617830", genre: "Action, VR, FPS, Indie, Time Manipulation", year: 2017, score: 83 },
-    { name: "The Surge", id: "378540", genre: "Action, RPG, Soulslike, Sci-Fi, Third-Person", year: 2017, score: 72 },
-    { name: "The Surge 2", id: "644830", verified: true, genre: "Action, RPG, Soulslike, Sci-Fi, Third-Person", year: 2019, score: 76 },
+    { name: "The Surge", id: "378540", genre: "Action, RPG, Souls-like, Sci-Fi, Third-Person", year: 2017, score: 72 },
+    { name: "The Surge 2", id: "644830", verified: true, genre: "Action, RPG, Souls-like, Sci-Fi, Third-Person", year: 2019, score: 76 },
     { name: "Survivalist: Invisible Strain", id: "1054510", verified: true, genre: "Survival, Strategy, Zombies, Management, Indie", year: 2020 },
     { name: "Symphony of War: The Nephilim Saga", id: "1488200", verified: true, genre: "RPG, Strategy, Turn-Based, Tactical, Pixel Graphics", year: 2022, score: 81 },
     { name: "Talisman: Digital 5th Edition", id: "2827230", genre: "Strategy, Board Game, Fantasy, Digital, Turn-Based", year: 2024 },
@@ -734,7 +718,7 @@ const baseLibrary = [
     { name: "Thief™ II: The Metal Age", id: "211740", genre: "Action, Stealth, Classic, First-Person, Immersive Sim", year: 2000, score: 87 },
     { name: "Thief: Deadly Shadows", id: "6980", genre: "Action, Stealth, Adventure, First-Person, Fantasy", year: 2004, score: 85 },
     { name: "Thief of Thieves: Season One", id: "726200", genre: "Adventure, Stealth, Story, Episodic, Comic Book", year: 2018 },
-    { name: "Thymesia", id: "1343240", verified: true, genre: "Action, Soulslike, Fast-Paced, RPG, Gothic", year: 2022, score: 69 },
+    { name: "Thymesia", id: "1343240", verified: true, genre: "Action, Souls-like, Fast-Paced, RPG, Gothic", year: 2022, score: 69 },
     { name: "Tiny Tina's Wonderlands", id: "1286680", verified: true, genre: "Action, FPS, Looter Shooter, RPG, Fantasy, Co-op", year: 2022 },
     { name: "Titan Souls", id: "297130", genre: "Action, Indie, Boss Rush, Pixel Graphics, Difficult", year: 2015, score: 74 },
     { name: "Tom Clancy's Rainbow Six® Siege", id: "359550", genre: "Action, FPS, Tactical, Multiplayer, Competitive", year: 2015 },
@@ -793,7 +777,7 @@ const baseLibrary = [
     { name: "Worms Ultimate Mayhem", id: "70600", genre: "Strategy, 3D, Turn-Based, Artillery, Multiplayer", year: 2011, score: 66 },
     { name: "Worms W.M.D", id: "327030", verified: true, genre: "Strategy, Turn-Based, Classic, Artillery, Co-op", year: 2016, score: 79 },
     { name: "Worms World Party Remastered", id: "270910", genre: "Strategy, Turn-Based, Classic, Artillery, Multiplayer", year: 2015 },
-    { name: "WUCHANG: Fallen Feathers", id: "2505460", genre: "Action, RPG, Soulslike, Dark Fantasy, Chinese", year: 2025 },
+    { name: "WUCHANG: Fallen Feathers", id: "2505460", genre: "Action, RPG, Souls-like, Dark Fantasy, Chinese", year: 2025 },
     { name: "XCOM: Enemy Unknown", id: "200510", genre: "Strategy, Turn-Based, Sci-Fi, Tactical, Squad-Based", year: 2012, score: 89 },
     { name: "XCOM® 2", id: "268500", verified: true, genre: "Strategy, Turn-Based, Sci-Fi, Tactical, Squad-Based", year: 2016, score: 88 },
     { name: "XCOM: Chimera Squad", id: "882100", genre: "Strategy, Turn-Based, Sci-Fi, Tactical, Squad-Based", year: 2020, score: 74 },
