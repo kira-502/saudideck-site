@@ -35,8 +35,8 @@ const batches = [
             list: [
                 { name: "Biped", id: "1071870", verified: true, genre: "Action, Adventure, Casual, Co-op, Puzzle", year: 2020, score: 80 },
                 { name: "Cook, Serve, Delicious! 3?!", id: "1000030", verified: true, genre: "Action, Indie, Simulation, Strategy, Co-op", year: 2020, score: 79 },
-                { name: "DOUBLE", id: "1874190", genre: "Adventure, Indie, Psychological, Thriller, Story Rich", year: 2021 },
-                { name: "HIVE", id: "832040", genre: "Action, Indie, Strategy, Sci-Fi, Multiplayer", year: 2022 },
+                { name: "DOUBLE", id: "887820", genre: "Adventure, Indie, Psychological, Thriller, Story Rich", year: 2021 },
+                { name: "HIVE", id: "1966740", genre: "Action, Indie, Strategy, Sci-Fi, Multiplayer", year: 2022 },
                 { name: "Our World Is Ended.", id: "940650", genre: "Adventure, Visual Novel, Story Rich, Anime, Sci-Fi", year: 2019, score: 68 },
                 { name: "Sands of Aura", id: "1119840", genre: "Action, RPG, Indie, Souls-like, Adventure", year: 2023, score: 75 },
                 { name: "skate.", id: "2662170", genre: "Sports, Simulation, Skateboarding, Multiplayer, Open World", year: 2025 },
