@@ -353,7 +353,7 @@ const baseLibrary = [
     { name: "Dishonored", id: "205100", verified: true, genre: "Action, Stealth, Steampunk, Immersive Sim, First-Person", year: 2012, score: 91 },
     { name: "Dishonored 2", id: "403640", verified: true, genre: "Action, Stealth, Steampunk, Immersive Sim, First-Person", year: 2016, score: 86 },
     { name: "Dishonored®: Death of the Outsider™", id: "614570", verified: true, genre: "Action, Stealth, Steampunk, Immersive Sim, First-Person", year: 2017, score: 81 },
-    { name: "Dispatch", id: "2163160", genre: "Adventure, Horror, Simulation, Indie, Mystery", year: 2024 },
+    { name: "Dispatch", id: "2592160", genre: "Adventure, Indie, Story Rich, Superhero, Comedy", year: 2024 },
     { name: "Divinity: Original Sin 2 - Definitive Edition", id: "435150", verified: true, genre: "RPG, Strategy, Turn-Based, Fantasy, Co-op, Story Rich", year: 2017, score: 93 },
     { name: "DmC: Devil May Cry", id: "220440", verified: true, genre: "Action, Hack & Slash, Stylish, Character Action, Platformer", year: 2013, score: 85 },
     { name: "Don't Starve", id: "219740", verified: true, genre: "Adventure, Survival, Indie, Crafting, Roguelike", year: 2013, score: 79 },
