@@ -228,15 +228,6 @@ const comingSoonGames = [
         release_info: "09/09/2026",
         release_type: "date",
         cover: "cob64v"
-    },
-    {
-        name: "Burglin' Gnomes",
-        id: "3844970",
-        genre: "Action, Co-op, Indie, Stealth",
-        year: "TBA",
-        release_info: "TBA",
-        release_type: "date",
-        cover: "cob6ob"
     }
 ];
 
