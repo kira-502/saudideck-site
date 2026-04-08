@@ -5,6 +5,19 @@
 // ==========================================
 const batches = [
 {
+            date: "2026-04-08",
+            list: [
+                { name: "The Anacrusis", id: "1120480", genre: "Shooter, Co-op, Sci-Fi, FPS", year: 2022, score: 69 },
+                { name: "Artisan TD", id: "2224640", verified: true, genre: "Strategy, Tower Defense, Puzzle", year: 2024, score: 88 },
+                { name: "Buddy Simulator 1984", id: "1269950", genre: "Adventure, Horror, Indie, RPG", year: 2021, score: 94 },
+                { name: "The Lord of the Rings: Return to Moria", id: "2933130", genre: "Survival, Adventure, Co-op, Crafting", year: 2024, score: 81 },
+                { name: "Planet of Lana", id: "1608230", verified: true, genre: "Adventure, Puzzle, Platformer, Indie", year: 2023, score: 93 },
+                { name: "The Procession to Calvary", id: "1071130", verified: true, genre: "Adventure, Puzzle, Indie, Comedy", year: 2020, score: 97 },
+                { name: "Warhammer: Vermintide 2", id: "552500", genre: "Action, Co-op, FPS, Hack & Slash", year: 2018, score: 85 },
+                { name: "Zombie Army Trilogy", id: "301640", verified: true, genre: "Action, Shooter, Zombies, Co-op", year: 2015, score: 86 }
+            ]
+        },
+{
             date: "2026-04-01",
             list: [
                 { name: "ABZU", id: "384190", verified: true, genre: "Adventure, Indie, Exploration, Underwater", year: 2016, score: 83 }
@@ -215,6 +228,15 @@ const comingSoonGames = [
         release_info: "09/09/2026",
         release_type: "date",
         cover: "cob64v"
+    },
+    {
+        name: "Burglin' Gnomes",
+        id: "3844970",
+        genre: "Action, Co-op, Indie, Stealth",
+        year: "TBA",
+        release_info: "TBA",
+        release_type: "date",
+        cover: "cob6ob"
     }
 ];
 
