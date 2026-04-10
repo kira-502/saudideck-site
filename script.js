@@ -125,7 +125,7 @@ function buildHeroBanner() {
     if (!el || !batches || !batches.length) return;
 
     const batch = batches[0];
-    const game = batch.list[batch.list.length - 1];
+    const game = [...batch.list].sort((a, b) => (b.score || 0) - (a.score || 0))[0];
     if (!game) return;
 
     // Game slide image
@@ -235,7 +235,7 @@ function buildStatsStrip() {
 
     const totalGames = allGames.filter(g => !g.isComingSoon).length;
     const verifiedCount = allGames.filter(g => g.verified && !g.isComingSoon).length;
-    const newestGameName = batches[0].list[batches[0].list.length - 1].name;
+    const newestGameName = [...batches[0].list].sort((a, b) => (b.score || 0) - (a.score || 0))[0].name;
     const addedThisMonth = allGames.filter(g =>
         g.date_added && g.date_added.slice(0, 7) === thisMonth
     ).length;
@@ -368,7 +368,7 @@ function renderGrid() {
             const parse = s => { const p = (s||'').split('/'); return p.length === 3 ? new Date(p[2], p[1]-1, p[0]).getTime() : Infinity; };
             return parse(a.release_info) - parse(b.release_info);
         });
-        if (comingSoon.length > 0) html += buildRowHTML("COMING SOON", comingSoon, 'coming-soon');
+        if (comingSoon.length > 0) html += buildRowHTML("COMING SOON", comingSoon, 'coming-soon', true);
 
         // 2026 Releases
         const games2026 = visibleGames.filter(g => !g.isComingSoon && parseInt(g.year) === 2026);
@@ -392,7 +392,7 @@ function renderGrid() {
         const recentGames = visibleGames
             .filter(g => !g.isComingSoon && g.date_added && new Date(g.date_added) >= cutoff)
             .sort((a, b) => new Date(b.date_added) - new Date(a.date_added));
-        if (recentGames.length > 0) html += buildRowHTML('آخر الإضافات', recentGames, 'recently-added');
+        if (recentGames.length > 0) html += buildRowHTML('آخر الإضافات', recentGames, 'recently-added', true);
 
         // Randomized Genres
         if (_shuffledGenres.length === 0) {
