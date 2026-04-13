@@ -5,6 +5,13 @@
 // ==========================================
 const batches = [
 {
+            date: "2026-04-13",
+            list: [
+                { name: "Onimusha 2: Samurai's Destiny", id: "3046600", genre: "Action, Hack & Slash, Character Action, Classic", year: 2025, score: 85 },
+                { name: "Samson", id: "3634520", genre: "Action, Adventure, Brawler, Open World", year: 2026, score: 65, release_date: "08/04/2026", cover: "coay8a" }
+            ]
+        },
+{
             date: "2026-04-08",
             list: [
                 { name: "The Anacrusis", id: "1120480", genre: "Shooter, Co-op, Sci-Fi, FPS", year: 2022, score: 69 },
