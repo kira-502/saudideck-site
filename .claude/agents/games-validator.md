@@ -54,7 +54,19 @@ Any field named `release_date` or `release_info` that is present but **not** in 
 
 **Fix suggestion:** Reformat the date to `DD/MM/YYYY`.
 
-### 6. Coming-soon games past their release date
+### 6. Steam ID existence
+
+For an exhaustive check that every `id` points to a real, correctly-named Steam app, run:
+
+```bash
+node tools/validate-steam-ids.js --quiet
+```
+
+This hits Steam's `appdetails` API for every game and flags IDs that are dead, redirect to a different game, or don't match the name. Exit code 0 = all valid, 1 = failures listed.
+
+Skip this check if the tool is not needed for the current request — it takes ~1-2 minutes for the full library.
+
+### 7. Coming-soon games past their release date
 
 Today's date is available in the system context. For every `comingSoonGames` entry where `release_type === "date"` and `release_info` is a valid `DD/MM/YYYY` date, check whether that date is in the past relative to today.
 

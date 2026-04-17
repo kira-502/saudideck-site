@@ -543,3 +543,22 @@ footer { text-align: center; padding: 40px; background: #080808; color: var(--te
     .hero-ad-right { display: flex; align-items: center; gap: 12px; }
     .hero-ad-cta { font-size: 12px; padding: 8px 20px; }
 }
+
+/* =========================================
+   REDUCED MOTION (accessibility)
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+    /* Skip all non-essential animations/transitions */
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* Make sure genre rows are still visible (fadeSlideIn starts at opacity:0) */
+    .genre-row { opacity: 1 !important; transform: none !important; }
+    /* Disable card shine sweep */
+    .game-card:not(.locked):hover::after { animation: none !important; }
+    /* Flatten card hover scale */
+    .game-card:hover { transform: none; }
+}

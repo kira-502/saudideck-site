@@ -246,8 +246,10 @@ function buildHeroBanner() {
 
     dots.forEach(dot => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.slide))));
 
-    // Auto-rotate every 8 seconds
-    setInterval(() => goToSlide((current + 1) % slides.length), 8000);
+    // Auto-rotate every 8 seconds — skip if user prefers reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setInterval(() => goToSlide((current + 1) % slides.length), 8000);
+    }
 }
 
 /* =========================================
