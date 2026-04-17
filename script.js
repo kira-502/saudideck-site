@@ -43,6 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
         fill.style.width = ((Math.abs(e.target.scrollLeft) / scrollRange) * 100) + '%';
     }, true);
 
+    // Show/hide scroll-top button based on window scroll position
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    if (scrollTopBtn) {
+        let scrollTicking = false;
+        window.addEventListener('scroll', () => {
+            if (scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(() => {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+                scrollTicking = false;
+            });
+        }, { passive: true });
+    }
+
     init();
 });
 
@@ -69,9 +83,14 @@ function formatCountdown(ms) {
 
 let _countdownIntervals = {};
 
-function startCountdownTimers() {
+function stopCountdownTimers() {
     Object.values(_countdownIntervals).forEach(id => clearInterval(id));
     _countdownIntervals = {};
+}
+
+function startCountdownTimers() {
+    stopCountdownTimers();
+    if (document.hidden) return; // Skip setup when hidden; visibilitychange will restart
 
     document.querySelectorAll('.countdown-badge').forEach(el => {
         const gameId = el.dataset.gameid;
@@ -92,6 +111,12 @@ function startCountdownTimers() {
         _countdownIntervals[gameId] = setInterval(tick, 1000);
     });
 }
+
+// Pause countdown intervals when tab is hidden (saves battery); resume when visible
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopCountdownTimers();
+    else startCountdownTimers();
+});
 
 function init() {
     const now = Date.now();
@@ -114,6 +139,7 @@ function init() {
     buildStatsStrip();
     populateGenreFilter();
     populateYearFilter();
+    applyURLFilters();
     resetAndRender();
 }
 
@@ -295,12 +321,44 @@ function debouncedSearch() {
 /* =========================================
    3. CORE RENDERING ENGINE
    ========================================= */
+function syncFiltersToURL() {
+    const params = new URLSearchParams();
+    if ($searchInput.value.trim()) params.set('q', $searchInput.value.trim());
+    if ($genreFilter.value !== 'All') params.set('genre', $genreFilter.value);
+    if ($yearFilter.value !== 'All') params.set('year', $yearFilter.value);
+    if ($sortFilter.value !== 'metacritic') params.set('sort', $sortFilter.value);
+    if ($verifiedFilter.checked) params.set('verified', '1');
+    const qs = params.toString();
+    const newUrl = qs ? `?${qs}` : window.location.pathname;
+    if (window.location.search !== (qs ? `?${qs}` : '')) {
+        window.history.replaceState(null, '', newUrl);
+    }
+}
+
+function applyURLFilters() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('q')) $searchInput.value = params.get('q');
+    if (params.has('genre')) $genreFilter.value = params.get('genre');
+    if (params.has('year')) $yearFilter.value = params.get('year');
+    if (params.has('sort')) {
+        $sortFilter.value = params.get('sort');
+        if (params.get('sort') === 'date_added') {
+            document.getElementById('newlyAddedBtn').classList.add('active');
+        }
+    }
+    if (params.get('verified') === '1') {
+        $verifiedFilter.checked = true;
+        document.getElementById('verifiedToggleBtn').classList.add('active');
+    }
+}
+
 function resetAndRender() {
     const search = $searchInput.value.toLowerCase();
     const genre = $genreFilter.value;
     const year = $yearFilter.value;
     const sort = $sortFilter.value;
     const verifiedOnly = $verifiedFilter.checked;
+    syncFiltersToURL();
 
     visibleGames = allGames.filter(g => {
         const matchesSearch = (g.name || "").toLowerCase().includes(search);
@@ -334,7 +392,7 @@ function resetAndRender() {
 
     currentLimit = BATCH_SIZE;
     _shuffledGenres = [];
-    _cardCache.clear();
+    // _cardCache persists — card HTML is deterministic per game, no need to re-generate
     renderGrid();
 }
 
@@ -455,8 +513,7 @@ function createGameCard(game) {
         ? `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover}.jpg`
         : (game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`);
 
-    let slug = game.slug || game.name.toLowerCase().replace(/:/g, '').replace(/'/g, '').replace(/#/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    const targetUrl = `https://www.igdb.com/games/${slug}`;
+    const targetUrl = `https://store.steampowered.com/app/${game.id}/`;
 
     let badgesHtml = game.verified ? `<div class="badge"><img src="assets/badge_verified.png" alt="Verified"></div>` : '';
     let dateTag = '';
