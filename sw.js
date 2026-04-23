@@ -1,14 +1,13 @@
-// SaudiDeck service worker — offline shell + stale-while-revalidate for game data
-// Bump CACHE_VERSION when the app shell changes (HTML/CSS/JS/fonts)
-const CACHE_VERSION = 'saudideck-v1';
+// SaudiDeck service worker — offline shell + stale-while-revalidate
+// Bump CACHE_VERSION to force a full cache refresh on the next visit
+const CACHE_VERSION = 'saudideck-v2';
 
-// Core shell: loads instantly offline after first visit
+// Pre-cache unversioned assets. Versioned JS/CSS (games.js?v=N, style.css?v=N)
+// are cached lazily by the fetch handler on first request — this way we don't
+// need to keep sw.js in sync with cache-busting version bumps in index.html.
 const SHELL = [
     './',
     'index.html',
-    'style.css?v=12',
-    'script.js?v=30',
-    'games.js?v=72',
     'assets/logo.png',
     'assets/Windows_logo.png',
     'assets/Steam_Deck_logo.png',

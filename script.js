@@ -61,6 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
+    // Delegated click handlers for genre row headers and carousel arrows
+    // (avoids inline onclick, safely handles genres with apostrophes like "Beat 'em up")
+    $gameGrid.addEventListener('click', (e) => {
+        const scrollBtn = e.target.closest('[data-scroll-row]');
+        if (scrollBtn) {
+            const row = document.getElementById(scrollBtn.dataset.scrollRow);
+            if (row) row.scrollBy({ left: Number(scrollBtn.dataset.scrollAmount), behavior: 'smooth' });
+            return;
+        }
+        const header = e.target.closest('.genre-header.clickable[data-genre]');
+        if (header) {
+            $genreFilter.value = header.dataset.genre;
+            resetAndRender();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
     // Help dropdown: accessible toggle + aria-expanded sync
     const dropdown = document.getElementById('helpDropdown');
     const dropdownBtn = document.getElementById('helpDropdownBtn');
@@ -124,7 +141,14 @@ function startCountdownTimers() {
         if (!game || !game.release_info) return;
 
         const tick = () => {
-            const diff = parseReleaseDate(game.release_info).getTime() - Date.now();
+            const releaseDate = parseReleaseDate(game.release_info);
+            if (!releaseDate) {
+                clearInterval(_countdownIntervals[gameId]);
+                delete _countdownIntervals[gameId];
+                el.textContent = '';
+                return;
+            }
+            const diff = releaseDate.getTime() - Date.now();
             if (diff <= 0) {
                 clearInterval(_countdownIntervals[gameId]);
                 delete _countdownIntervals[gameId];
@@ -280,7 +304,9 @@ function buildStatsStrip() {
     const el = document.getElementById('stats-strip');
     if (!el || !allGames.length) return;
 
-    const thisMonth = new Date().toISOString().slice(0, 7); // e.g. "2026-03"
+    // Use NY timezone to match the "midnight NY" rule used for release dates.
+    // en-CA locale yields "YYYY-MM-DD" which slices cleanly to "YYYY-MM".
+    const thisMonth = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }).slice(0, 7);
 
     const totalGames = allGames.filter(g => !g.isComingSoon).length;
     const verifiedCount = allGames.filter(g => g.verified && !g.isComingSoon).length;
@@ -320,7 +346,9 @@ function populateGenreFilter() {
 
 function populateYearFilter() {
     const yearSelect = $yearFilter;
-    const years = new Set(allGames.map(g => g.year).filter(y => y));
+    // Coerce to number so "2026" (string, from comingSoonGames) and 2026 (number, from batches)
+    // dedupe into a single dropdown entry
+    const years = new Set(allGames.map(g => parseInt(g.year, 10)).filter(y => Number.isFinite(y)));
     Array.from(years).sort((a, b) => b - a).forEach(y => {
         const option = document.createElement('option');
         option.value = y; option.textContent = y;
@@ -392,7 +420,7 @@ function resetAndRender() {
         const matchesArabicGenre = englishGenreFromArabic && g.genre && g.genre.includes(englishGenreFromArabic);
         const matchesSearch = !search || matchesName || matchesArabicGenre;
         const matchesGenre = genre === 'All' || (g.genre && g.genre.includes(genre));
-        const matchesYear = year === 'All' || g.year == year;
+        const matchesYear = year === 'All' || parseInt(g.year, 10) === parseInt(year, 10);
         const matchesVerified = !verifiedOnly || g.verified;
         return matchesSearch && matchesGenre && matchesYear && matchesVerified;
     });
@@ -504,31 +532,30 @@ function renderGrid() {
 
 function loadMore() { currentLimit += BATCH_SIZE; renderGrid(); }
 
+// HTML-escape for use inside attribute values (handles quotes, &, <, >)
+function escAttr(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
     let cardsHtml = games.map(g => createGameCard(g)).join('');
-    const headerHtml = isSpecial 
-        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>` 
-        : `<div class="genre-header clickable" onclick="$genreFilter.value='${idPrefix}'; resetAndRender(); window.scrollTo({top:0,behavior:'smooth'});">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
-    
+    const headerHtml = isSpecial
+        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>`
+        : `<div class="genre-header clickable" data-genre="${escAttr(idPrefix)}">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
+
     return `
         <div class="genre-row">
             ${headerHtml}
             <div class="row-carousel-container">
-                <button class="scroll-btn scroll-left" onclick="scrollRow('${rowId}', -800)">❯</button>
-                <div class="row-carousel" id="${rowId}">${cardsHtml}</div>
-                <button class="scroll-btn scroll-right" onclick="scrollRow('${rowId}', 800)">❮</button>
+                <button class="scroll-btn scroll-left" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="-800" aria-label="Scroll left">❯</button>
+                <div class="row-carousel" id="${escAttr(rowId)}">${cardsHtml}</div>
+                <button class="scroll-btn scroll-right" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="800" aria-label="Scroll right">❮</button>
             </div>
             <div class="row-progress"><div class="row-progress-fill"></div></div>
         </div>
     `;
 }
-
-window.scrollRow = function(rowId, amount) {
-    const row = document.getElementById(rowId);
-    if(row) row.scrollBy({ left: amount, behavior: 'smooth' });
-}
-
 
 /* =========================================
    4. HTML GENERATION (CARDS)
