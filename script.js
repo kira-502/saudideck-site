@@ -180,6 +180,9 @@ function init() {
                 game.isComingSoon = false;
                 game.year = 2026;
                 game.release_date = g.release_info;
+                // Convert DD/MM/YYYY → YYYY-MM-DD so the Recently Added row picks it up
+                const [d, m, y] = g.release_info.split('/');
+                if (d && m && y) game.date_added = `${y}-${m}-${d}`;
             }
         }
         return game;
@@ -213,10 +216,10 @@ function buildHeroBanner() {
     document.head.appendChild(prelink);
 
     // Build game meta
-    const genres = game.genre ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${g}</span>`).join('') : '';
+    const genres = game.genre ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${escAttr(g)}</span>`).join('') : '';
     const score = game.score ? `<span class="hero-score">${game.score}</span>` : '';
     const verified = game.verified ? `<img src="assets/badge_verified.png" class="hero-verified" alt="Verified">` : '';
-    const date = game.release_date ? `<span class="hero-date">${game.release_date}</span>` : '';
+    const date = game.release_date ? `<span class="hero-date">${escAttr(game.release_date)}</span>` : '';
 
     const totalGames = allGames.filter(g => !g.isComingSoon).length;
 
@@ -227,7 +230,7 @@ function buildHeroBanner() {
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="hero-label">أحدث إضافة</div>
-                <div class="hero-title">${game.name}</div>
+                <div class="hero-title">${escAttr(game.name)}</div>
                 <div class="hero-meta">${score}${verified}${genres}${date}</div>
             </div>
         </div>
@@ -324,7 +327,7 @@ function buildStatsStrip() {
 
     el.innerHTML = stats.map(s => `
         <div class="stat-cell">
-            <span class="stat-number">${s.value}</span>
+            <span class="stat-number">${escAttr(s.value)}</span>
             <span class="stat-label">${s.label}</span>
         </div>
     `).join('');
@@ -430,7 +433,8 @@ function resetAndRender() {
     else if (sort === 'az') visibleGames.sort((a, b) => a.name.localeCompare(b.name));
     else if (sort === 'date_added') visibleGames.sort((a, b) => (b.date_added || "").localeCompare(a.date_added || ""));
     else if (sort === 'score_high') visibleGames.sort((a, b) => (b.score || 0) - (a.score || 0));
-    else if (sort === 'score_low') visibleGames.sort((a, b) => (a.score || 0) - (b.score || 0));
+    // score_low: sink scoreless games to the bottom (Infinity sentinel) instead of floating them to the top as 0
+    else if (sort === 'score_low') visibleGames.sort((a, b) => (a.score ?? Infinity) - (b.score ?? Infinity));
     else {
         const currentYear = new Date().getFullYear();
         const demotedIds = ["2179850", "1148760"];
@@ -595,19 +599,21 @@ function createGameCard(game) {
     else if (game.score >= 70) scoreClass = 'score-mid';
     const mcScore = game.score ? `<div class="metacritic-score ${scoreClass}">${game.score}</div>` : '';
     
+    const safeName = escAttr(game.name || '');
+    const safeGenre = escAttr(game.genre || '');
     const html = `
         <a href="${targetUrl}" target="_blank" rel="noopener" class="game-card${lockedClass}">
             <div class="game-image-container">
-                <img src="${imgUrl}" alt="${game.name}" class="game-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
+                <img src="${imgUrl}" alt="${safeName}" class="game-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
                 ${lockedOverlay}
                 <div class="overlay">${badgesHtml}</div>
                 ${dateTag}
                 ${mcScore}
             </div>
             <div class="game-info">
-                <h3 class="game-title" title="${game.name}">${game.name}</h3>
+                <h3 class="game-title" title="${safeName}">${safeName}</h3>
                 <div class="game-meta"><span>${game.year}</span></div>
-                <div class="game-genre" title="${game.genre}">${game.genre || ''}</div>
+                <div class="game-genre" title="${safeGenre}">${safeGenre}</div>
             </div>
         </a>
     `;
