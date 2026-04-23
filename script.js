@@ -18,6 +18,10 @@ const GENRE_MAPPING = {
     "Horror": "رعب", "Puzzle": "ألغاز", "Shooter": "شوتر", "Platformer": "بلاتفورمر",
     "Open World": "عالم مفتوح"
 };
+// Reverse lookup: typing Arabic genre → matches English genre strings in data
+const GENRE_MAPPING_AR_TO_EN = Object.fromEntries(
+    Object.entries(GENRE_MAPPING).map(([en, ar]) => [ar, en])
+);
 
 // Scroll to top on page load/reload
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -55,6 +59,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTicking = false;
             });
         }, { passive: true });
+    }
+
+    // Help dropdown: accessible toggle + aria-expanded sync
+    const dropdown = document.getElementById('helpDropdown');
+    const dropdownBtn = document.getElementById('helpDropdownBtn');
+    if (dropdown && dropdownBtn) {
+        const setExpanded = (open) => {
+            dropdown.classList.toggle('open', open);
+            dropdownBtn.setAttribute('aria-expanded', String(open));
+        };
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setExpanded(dropdownBtn.getAttribute('aria-expanded') !== 'true');
+        });
+        dropdown.addEventListener('mouseenter', () => setExpanded(true));
+        dropdown.addEventListener('mouseleave', () => setExpanded(false));
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) setExpanded(false);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setExpanded(false);
+        });
     }
 
     init();
@@ -172,7 +198,8 @@ function buildHeroBanner() {
 
     el.innerHTML = `
         <!-- Slide 1: Latest Game -->
-        <div class="hero-slide hero-slide-game active" style="background-image:url('${heroUrl}')">
+        <div class="hero-slide hero-slide-game active">
+            <img class="hero-bg-img" src="${heroUrl}" alt="" aria-hidden="true" onerror="this.onerror=null;this.src='${fallbackUrl}'">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="hero-label">أحدث إضافة</div>
@@ -224,12 +251,6 @@ function buildHeroBanner() {
             <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
         </div>
     `;
-
-    // Fallback for game image
-    const gameSlide = el.querySelector('.hero-slide-game');
-    const imgProbe = new Image();
-    imgProbe.onerror = () => { gameSlide.style.backgroundImage = `url('${fallbackUrl}')`; };
-    imgProbe.src = heroUrl;
 
     // Slide rotation
     const slides = el.querySelectorAll('.hero-slide');
@@ -355,7 +376,11 @@ function applyURLFilters() {
 }
 
 function resetAndRender() {
-    const search = $searchInput.value.toLowerCase();
+    const rawSearch = $searchInput.value.trim();
+    const search = rawSearch.toLowerCase();
+    // If the query matches an Arabic genre name, also search for its English equivalent
+    const arabicGenreMatch = Object.keys(GENRE_MAPPING_AR_TO_EN).find(ar => ar.includes(rawSearch) && rawSearch.length > 1);
+    const englishGenreFromArabic = arabicGenreMatch ? GENRE_MAPPING_AR_TO_EN[arabicGenreMatch] : null;
     const genre = $genreFilter.value;
     const year = $yearFilter.value;
     const sort = $sortFilter.value;
@@ -363,7 +388,9 @@ function resetAndRender() {
     syncFiltersToURL();
 
     visibleGames = allGames.filter(g => {
-        const matchesSearch = (g.name || "").toLowerCase().includes(search);
+        const matchesName = (g.name || "").toLowerCase().includes(search);
+        const matchesArabicGenre = englishGenreFromArabic && g.genre && g.genre.includes(englishGenreFromArabic);
+        const matchesSearch = !search || matchesName || matchesArabicGenre;
         const matchesGenre = genre === 'All' || (g.genre && g.genre.includes(genre));
         const matchesYear = year === 'All' || g.year == year;
         const matchesVerified = !verifiedOnly || g.verified;
