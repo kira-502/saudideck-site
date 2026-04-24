@@ -1,6 +1,6 @@
 // SaudiDeck service worker — offline shell + stale-while-revalidate
 // Bump CACHE_VERSION to force a full cache refresh on the next visit
-const CACHE_VERSION = 'saudideck-v3';
+const CACHE_VERSION = 'saudideck-v4';
 
 // Pre-cache unversioned assets. Versioned JS/CSS (games.js?v=N, style.css?v=N)
 // are cached lazily by the fetch handler on first request — this way we don't
@@ -21,9 +21,11 @@ const SHELL = [
     'assets/deck_step2_b.png',
     'assets/deck_step3_a.png',
     'assets/deck_step3_b.png',
-    'assets/fonts/cairo-arabic.woff2',
-    'assets/fonts/cairo-latin.woff2',
-    'assets/fonts/cairo-latin-ext.woff2',
+    'assets/fonts/thmanyahsans-Regular.woff2',
+    'assets/fonts/thmanyahsans-Medium.woff2',
+    'assets/fonts/thmanyahsans-Bold.woff2',
+    'assets/fonts/thmanyahsans-Light.woff2',
+    'assets/fonts/thmanyahsans-Black.woff2',
 ];
 
 self.addEventListener('install', (event) => {
