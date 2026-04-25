@@ -6,7 +6,7 @@ Static JSON feed published at:
 https://saudideck.games/releases.json
 ```
 
-Served by nginx as a regular file → `ETag` and `Last-Modified` headers are emitted automatically. Use `If-None-Match` / `If-Modified-Since` for cheap polling.
+Served by nginx behind Cloudflare. **Use `If-Modified-Since` for conditional requests** — Cloudflare's DYNAMIC cache mode strips the `ETag` header but preserves `Last-Modified`. Verified: a replay with the previous `Last-Modified` value returns `304 Not Modified`.
 
 **Cache headers:** none beyond nginx defaults. Polling every hour costs us nothing.
 
@@ -141,22 +141,23 @@ Why not server-side? Date math depends on consumer timezone (KSA for the bot, NY
 
 ## Polling pattern (recommended)
 
+Use `Last-Modified` (ETag is unavailable behind Cloudflare):
+
 ```python
-import requests
-import json
+import os, requests
 
-ETAG_FILE = "releases_etag.txt"
+LM_FILE = "releases_last_modified.txt"
 
-last_etag = open(ETAG_FILE).read().strip() if os.path.exists(ETAG_FILE) else None
-headers = {"If-None-Match": last_etag} if last_etag else {}
+last_modified = open(LM_FILE).read().strip() if os.path.exists(LM_FILE) else None
+headers = {"If-Modified-Since": last_modified} if last_modified else {}
 
 r = requests.get("https://saudideck.games/releases.json", headers=headers, timeout=10)
 if r.status_code == 304:
     return  # unchanged, nothing to do
 r.raise_for_status()
 
-with open(ETAG_FILE, "w") as f:
-    f.write(r.headers.get("ETag", ""))
+with open(LM_FILE, "w") as f:
+    f.write(r.headers.get("Last-Modified", ""))
 
 feed = r.json()
 # diff feed["recent_additions"] by batch_id, fire DMs for new batches
