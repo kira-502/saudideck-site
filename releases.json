@@ -1,0 +1,1086 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-04-25T21:56:20.171Z",
+  "site": "https://saudideck.games",
+  "notes": "released_today is not pre-computed. Consumers should derive it by filtering coming_soon where release_iso === today (in their preferred timezone).",
+  "recent_additions": [
+    {
+      "batch_id": "2026-04-13",
+      "batch_date": "2026-04-13",
+      "game_count": 2,
+      "games": [
+        {
+          "id": "3046600",
+          "name": "Onimusha 2: Samurai's Destiny",
+          "genre": "Action, Hack & Slash, Character Action, Classic",
+          "genres": [
+            "Action",
+            "Hack & Slash",
+            "Character Action",
+            "Classic"
+          ],
+          "year": 2025,
+          "score": 85,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/3046600/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3046600/library_600x900.jpg"
+        },
+        {
+          "id": "3634520",
+          "name": "Samson",
+          "genre": "Action, Adventure, Brawler, Open World",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Brawler",
+            "Open World"
+          ],
+          "year": 2026,
+          "score": 65,
+          "verified": false,
+          "cover": "coay8a",
+          "release_date": "08/04/2026",
+          "release_iso": "2026-04-08",
+          "steam_url": "https://store.steampowered.com/app/3634520/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coay8a.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-04-08",
+      "batch_date": "2026-04-08",
+      "game_count": 8,
+      "games": [
+        {
+          "id": "1120480",
+          "name": "The Anacrusis",
+          "genre": "Shooter, Co-op, Sci-Fi, FPS",
+          "genres": [
+            "Shooter",
+            "Co-op",
+            "Sci-Fi",
+            "FPS"
+          ],
+          "year": 2022,
+          "score": 69,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1120480/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1120480/library_600x900.jpg"
+        },
+        {
+          "id": "2224640",
+          "name": "Artisan TD",
+          "genre": "Strategy, Tower Defense, Puzzle",
+          "genres": [
+            "Strategy",
+            "Tower Defense",
+            "Puzzle"
+          ],
+          "year": 2024,
+          "score": 88,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2224640/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2224640/library_600x900.jpg"
+        },
+        {
+          "id": "1269950",
+          "name": "Buddy Simulator 1984",
+          "genre": "Adventure, Horror, Indie, RPG",
+          "genres": [
+            "Adventure",
+            "Horror",
+            "Indie",
+            "RPG"
+          ],
+          "year": 2021,
+          "score": 94,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1269950/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1269950/library_600x900.jpg"
+        },
+        {
+          "id": "2933130",
+          "name": "The Lord of the Rings: Return to Moria",
+          "genre": "Survival, Adventure, Co-op, Crafting",
+          "genres": [
+            "Survival",
+            "Adventure",
+            "Co-op",
+            "Crafting"
+          ],
+          "year": 2024,
+          "score": 81,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2933130/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2933130/library_600x900.jpg"
+        },
+        {
+          "id": "1608230",
+          "name": "Planet of Lana",
+          "genre": "Adventure, Puzzle, Platformer, Indie",
+          "genres": [
+            "Adventure",
+            "Puzzle",
+            "Platformer",
+            "Indie"
+          ],
+          "year": 2023,
+          "score": 93,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1608230/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1608230/library_600x900.jpg"
+        },
+        {
+          "id": "1071130",
+          "name": "The Procession to Calvary",
+          "genre": "Adventure, Puzzle, Indie, Comedy",
+          "genres": [
+            "Adventure",
+            "Puzzle",
+            "Indie",
+            "Comedy"
+          ],
+          "year": 2020,
+          "score": 97,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1071130/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1071130/library_600x900.jpg"
+        },
+        {
+          "id": "552500",
+          "name": "Warhammer: Vermintide 2",
+          "genre": "Action, Co-op, FPS, Hack & Slash",
+          "genres": [
+            "Action",
+            "Co-op",
+            "FPS",
+            "Hack & Slash"
+          ],
+          "year": 2018,
+          "score": 85,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/552500/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/552500/library_600x900.jpg"
+        },
+        {
+          "id": "301640",
+          "name": "Zombie Army Trilogy",
+          "genre": "Action, Shooter, Zombies, Co-op",
+          "genres": [
+            "Action",
+            "Shooter",
+            "Zombies",
+            "Co-op"
+          ],
+          "year": 2015,
+          "score": 86,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/301640/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/301640/library_600x900.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-04-01",
+      "batch_date": "2026-04-01",
+      "game_count": 1,
+      "games": [
+        {
+          "id": "384190",
+          "name": "ABZU",
+          "genre": "Adventure, Indie, Exploration, Underwater",
+          "genres": [
+            "Adventure",
+            "Indie",
+            "Exploration",
+            "Underwater"
+          ],
+          "year": 2016,
+          "score": 83,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/384190/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/384190/library_600x900.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-03-20",
+      "batch_date": "2026-03-20",
+      "game_count": 15,
+      "games": [
+        {
+          "id": "1310410",
+          "name": "Alone in the Dark",
+          "genre": "Action, Horror, Survival, Adventure",
+          "genres": [
+            "Action",
+            "Horror",
+            "Survival",
+            "Adventure"
+          ],
+          "year": 2024,
+          "score": 64,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1310410/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1310410/library_600x900.jpg"
+        },
+        {
+          "id": "3321460",
+          "name": "Crimson Desert",
+          "genre": "Action, Adventure, Open World",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Open World"
+          ],
+          "year": 2026,
+          "score": 83,
+          "verified": false,
+          "cover": "coaqai",
+          "release_date": "19/03/2026",
+          "release_iso": "2026-03-19",
+          "steam_url": "https://store.steampowered.com/app/3321460/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coaqai.jpg"
+        },
+        {
+          "id": "3280350",
+          "name": "Death Stranding 2: On the Beach",
+          "genre": "Action, Adventure, Open World, Sci-Fi, Atmospheric",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Open World",
+            "Sci-Fi",
+            "Atmospheric"
+          ],
+          "year": 2026,
+          "score": 96,
+          "verified": false,
+          "cover": "co9ipx",
+          "release_date": "19/03/2026",
+          "release_iso": "2026-03-19",
+          "steam_url": "https://store.steampowered.com/app/3280350/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co9ipx.jpg"
+        },
+        {
+          "id": "1252330",
+          "name": "DEATHLOOP",
+          "genre": "Action, Shooter, FPS",
+          "genres": [
+            "Action",
+            "Shooter",
+            "FPS"
+          ],
+          "year": 2021,
+          "score": 88,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1252330/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1252330/library_600x900.jpg"
+        },
+        {
+          "id": "2101960",
+          "name": "Cronos: The New Dawn",
+          "genre": "Action, Horror, Survival, Sci-Fi",
+          "genres": [
+            "Action",
+            "Horror",
+            "Survival",
+            "Sci-Fi"
+          ],
+          "year": 2025,
+          "score": 79,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2101960/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2101960/library_600x900.jpg"
+        },
+        {
+          "id": "1401590",
+          "name": "Disney Dreamlight Valley",
+          "genre": "Casual, Simulation, Adventure, RPG",
+          "genres": [
+            "Casual",
+            "Simulation",
+            "Adventure",
+            "RPG"
+          ],
+          "year": 2023,
+          "score": 74,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1401590/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1401590/library_600x900.jpg"
+        },
+        {
+          "id": "2499860",
+          "name": "DRAGON QUEST VII Reimagined",
+          "genre": "Adventure, RPG, JRPG, Turn-Based",
+          "genres": [
+            "Adventure",
+            "RPG",
+            "JRPG",
+            "Turn-Based"
+          ],
+          "year": 2026,
+          "score": 86,
+          "verified": false,
+          "cover": "cobkan",
+          "release_date": "05/02/2026",
+          "release_iso": "2026-02-05",
+          "steam_url": "https://store.steampowered.com/app/2499860/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/cobkan.jpg"
+        },
+        {
+          "id": "2384580",
+          "name": "DYNASTY WARRIORS: ORIGINS",
+          "genre": "Action, Hack & Slash, Musou",
+          "genres": [
+            "Action",
+            "Hack & Slash",
+            "Musou"
+          ],
+          "year": 2025,
+          "score": 76,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2384580/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2384580/library_600x900.jpg"
+        },
+        {
+          "id": "613100",
+          "name": "House Flipper",
+          "genre": "Simulation, Casual, Indie",
+          "genres": [
+            "Simulation",
+            "Casual",
+            "Indie"
+          ],
+          "year": 2018,
+          "score": 68,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/613100/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/613100/library_600x900.jpg"
+        },
+        {
+          "id": "1580780",
+          "name": "NINJA GAIDEN Σ",
+          "genre": "Action, Hack & Slash, Character Action",
+          "genres": [
+            "Action",
+            "Hack & Slash",
+            "Character Action"
+          ],
+          "year": 2021,
+          "score": 73,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1580780/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1580780/library_600x900.jpg"
+        },
+        {
+          "id": "1580790",
+          "name": "NINJA GAIDEN Σ2",
+          "genre": "Action, Hack & Slash, Character Action",
+          "genres": [
+            "Action",
+            "Hack & Slash",
+            "Character Action"
+          ],
+          "year": 2021,
+          "score": 73,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1580790/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1580790/library_600x900.jpg"
+        },
+        {
+          "id": "1369760",
+          "name": "NINJA GAIDEN 3: Razor's Edge",
+          "genre": "Action, Hack & Slash, Character Action",
+          "genres": [
+            "Action",
+            "Hack & Slash",
+            "Character Action"
+          ],
+          "year": 2021,
+          "score": 69,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1369760/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1369760/library_600x900.jpg"
+        },
+        {
+          "id": "2627260",
+          "name": "NINJA GAIDEN 4",
+          "genre": "Action, Adventure, Hack & Slash",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Hack & Slash"
+          ],
+          "year": 2025,
+          "score": 85,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2627260/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2627260/library_600x900.jpg"
+        },
+        {
+          "id": "3014320",
+          "name": "OCTOPATH TRAVELER 0",
+          "genre": "RPG, JRPG, Turn-Based, Pixel Graphics",
+          "genres": [
+            "RPG",
+            "JRPG",
+            "Turn-Based",
+            "Pixel Graphics"
+          ],
+          "year": 2025,
+          "score": 82,
+          "verified": true,
+          "cover": "coa7is",
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/3014320/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coa7is.jpg"
+        },
+        {
+          "id": "1332010",
+          "name": "Stray",
+          "genre": "Adventure, Cyberpunk, Cat, Sci-Fi",
+          "genres": [
+            "Adventure",
+            "Cyberpunk",
+            "Cat",
+            "Sci-Fi"
+          ],
+          "year": 2022,
+          "score": 83,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1332010/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1332010/library_600x900.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-03-16",
+      "batch_date": "2026-03-16",
+      "game_count": 8,
+      "games": [
+        {
+          "id": "1071870",
+          "name": "Biped",
+          "genre": "Action, Adventure, Casual, Co-op, Puzzle",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Casual",
+            "Co-op",
+            "Puzzle"
+          ],
+          "year": 2020,
+          "score": 80,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1071870/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1071870/library_600x900.jpg"
+        },
+        {
+          "id": "1000030",
+          "name": "Cook, Serve, Delicious! 3?!",
+          "genre": "Action, Indie, Simulation, Strategy, Co-op",
+          "genres": [
+            "Action",
+            "Indie",
+            "Simulation",
+            "Strategy",
+            "Co-op"
+          ],
+          "year": 2020,
+          "score": 79,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1000030/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1000030/library_600x900.jpg"
+        },
+        {
+          "id": "887820",
+          "name": "DOUBLE",
+          "genre": "Adventure, Indie, Psychological, Thriller, Story Rich",
+          "genres": [
+            "Adventure",
+            "Indie",
+            "Psychological",
+            "Thriller",
+            "Story Rich"
+          ],
+          "year": 2021,
+          "score": 83,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/887820/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/887820/library_600x900.jpg"
+        },
+        {
+          "id": "1966740",
+          "name": "HIVE",
+          "genre": "Action, Indie, Strategy, Sci-Fi, Multiplayer",
+          "genres": [
+            "Action",
+            "Indie",
+            "Strategy",
+            "Sci-Fi",
+            "Multiplayer"
+          ],
+          "year": 2022,
+          "score": 63,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1966740/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1966740/library_600x900.jpg"
+        },
+        {
+          "id": "940650",
+          "name": "Our World Is Ended.",
+          "genre": "Adventure, Visual Novel, Story Rich, Anime, Sci-Fi",
+          "genres": [
+            "Adventure",
+            "Visual Novel",
+            "Story Rich",
+            "Anime",
+            "Sci-Fi"
+          ],
+          "year": 2019,
+          "score": 68,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/940650/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/940650/library_600x900.jpg"
+        },
+        {
+          "id": "1119840",
+          "name": "Sands of Aura",
+          "genre": "Action, RPG, Indie, Souls-like, Adventure",
+          "genres": [
+            "Action",
+            "RPG",
+            "Indie",
+            "Souls-like",
+            "Adventure"
+          ],
+          "year": 2023,
+          "score": 75,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1119840/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1119840/library_600x900.jpg"
+        },
+        {
+          "id": "2662170",
+          "name": "skate.",
+          "genre": "Sports, Simulation, Skateboarding, Multiplayer, Open World",
+          "genres": [
+            "Sports",
+            "Simulation",
+            "Skateboarding",
+            "Multiplayer",
+            "Open World"
+          ],
+          "year": 2025,
+          "score": 71,
+          "verified": false,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/2662170/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2662170/library_600x900.jpg"
+        },
+        {
+          "id": "1460190",
+          "name": "Soda Crisis",
+          "genre": "Action, Platformer, Shooter, Fast-Paced, Cyberpunk",
+          "genres": [
+            "Action",
+            "Platformer",
+            "Shooter",
+            "Fast-Paced",
+            "Cyberpunk"
+          ],
+          "year": 2022,
+          "score": 78,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/1460190/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1460190/library_600x900.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-03-13",
+      "batch_date": "2026-03-13",
+      "game_count": 1,
+      "games": [
+        {
+          "id": "2852190",
+          "name": "Monster Hunter Stories 3: Twisted Reflection",
+          "genre": "RPG, JRPG, Monster Tamer, Turn-Based, Adventure",
+          "genres": [
+            "RPG",
+            "JRPG",
+            "Monster Tamer",
+            "Turn-Based",
+            "Adventure"
+          ],
+          "year": 2026,
+          "score": 84,
+          "verified": false,
+          "cover": "coaxze",
+          "release_date": "13/03/2026",
+          "release_iso": "2026-03-13",
+          "steam_url": "https://store.steampowered.com/app/2852190/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coaxze.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-03-12",
+      "batch_date": "2026-03-12",
+      "game_count": 10,
+      "games": [
+        {
+          "id": "3920610",
+          "name": "FATAL FRAME II: Crimson Butterfly REMAKE",
+          "genre": "Horror, Survival Horror, Adventure, Atmospheric, Singleplayer",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "Atmospheric",
+            "Singleplayer"
+          ],
+          "year": 2026,
+          "score": 85,
+          "verified": false,
+          "cover": "coau37",
+          "release_date": "11/03/2026",
+          "release_iso": "2026-03-11",
+          "steam_url": "https://store.steampowered.com/app/3920610/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coau37.jpg"
+        },
+        {
+          "id": "239200",
+          "name": "Amnesia: A Machine for Pigs",
+          "genre": "Horror, Survival Horror, Adventure, Indie, First-Person",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "Indie",
+            "First-Person"
+          ],
+          "year": 2013,
+          "score": 72,
+          "verified": false,
+          "cover": null,
+          "release_date": "10/09/2013",
+          "release_iso": "2013-09-10",
+          "steam_url": "https://store.steampowered.com/app/239200/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/239200/library_600x900.jpg"
+        },
+        {
+          "id": "999220",
+          "name": "Amnesia: Rebirth",
+          "genre": "Horror, Survival Horror, Adventure, First-Person, Story Rich",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "First-Person",
+            "Story Rich"
+          ],
+          "year": 2020,
+          "score": 80,
+          "verified": false,
+          "cover": null,
+          "release_date": "20/10/2020",
+          "release_iso": "2020-10-20",
+          "steam_url": "https://store.steampowered.com/app/999220/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/999220/library_600x900.jpg"
+        },
+        {
+          "id": "1944430",
+          "name": "Amnesia: The Bunker",
+          "genre": "Horror, Survival Horror, Action, Stealth, First-Person",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Action",
+            "Stealth",
+            "First-Person"
+          ],
+          "year": 2023,
+          "score": 78,
+          "verified": true,
+          "cover": null,
+          "release_date": "06/06/2023",
+          "release_iso": "2023-06-06",
+          "steam_url": "https://store.steampowered.com/app/1944430/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1944430/library_600x900.jpg"
+        },
+        {
+          "id": "57300",
+          "name": "Amnesia: The Dark Descent",
+          "genre": "Horror, Survival Horror, Adventure, First-Person, Puzzle",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "First-Person",
+            "Puzzle"
+          ],
+          "year": 2010,
+          "score": 85,
+          "verified": false,
+          "cover": null,
+          "release_date": "08/09/2010",
+          "release_iso": "2010-09-08",
+          "steam_url": "https://store.steampowered.com/app/57300/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/57300/library_600x900.jpg"
+        },
+        {
+          "id": "3064370",
+          "name": "Dark Hours: Prologue",
+          "genre": "Horror, Co-op, Multiplayer, Survival Horror, First-Person",
+          "genres": [
+            "Horror",
+            "Co-op",
+            "Multiplayer",
+            "Survival Horror",
+            "First-Person"
+          ],
+          "year": 2024,
+          "score": 88,
+          "verified": false,
+          "cover": null,
+          "release_date": "18/07/2024",
+          "release_iso": "2024-07-18",
+          "steam_url": "https://store.steampowered.com/app/3064370/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3064370/library_600x900.jpg"
+        },
+        {
+          "id": "22120",
+          "name": "Penumbra: Black Plague Gold Edition",
+          "genre": "Horror, Survival Horror, Adventure, Puzzle, First-Person",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "Puzzle",
+            "First-Person"
+          ],
+          "year": 2009,
+          "score": 78,
+          "verified": false,
+          "cover": null,
+          "release_date": "23/01/2009",
+          "release_iso": "2009-01-23",
+          "steam_url": "https://store.steampowered.com/app/22120/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22120/library_600x900.jpg"
+        },
+        {
+          "id": "22180",
+          "name": "Penumbra: Overture",
+          "genre": "Horror, Survival Horror, Adventure, Puzzle, First-Person",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "Puzzle",
+            "First-Person"
+          ],
+          "year": 2007,
+          "score": 73,
+          "verified": false,
+          "cover": null,
+          "release_date": "30/03/2007",
+          "release_iso": "2007-03-30",
+          "steam_url": "https://store.steampowered.com/app/22180/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22180/library_600x900.jpg"
+        },
+        {
+          "id": "22140",
+          "name": "Penumbra: Requiem",
+          "genre": "Horror, Survival Horror, Adventure, Puzzle, First-Person",
+          "genres": [
+            "Horror",
+            "Survival Horror",
+            "Adventure",
+            "Puzzle",
+            "First-Person"
+          ],
+          "year": 2008,
+          "score": 62,
+          "verified": false,
+          "cover": null,
+          "release_date": "31/10/2008",
+          "release_iso": "2008-10-31",
+          "steam_url": "https://store.steampowered.com/app/22140/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/22140/library_600x900.jpg"
+        },
+        {
+          "id": "282140",
+          "name": "SOMA",
+          "genre": "Horror, Sci-Fi, Story Rich, Atmospheric, First-Person",
+          "genres": [
+            "Horror",
+            "Sci-Fi",
+            "Story Rich",
+            "Atmospheric",
+            "First-Person"
+          ],
+          "year": 2015,
+          "score": 84,
+          "verified": true,
+          "cover": null,
+          "release_date": "22/09/2015",
+          "release_iso": "2015-09-22",
+          "steam_url": "https://store.steampowered.com/app/282140/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/282140/library_600x900.jpg"
+        }
+      ]
+    },
+    {
+      "batch_id": "2026-03-11",
+      "batch_date": "2026-03-11",
+      "game_count": 2,
+      "games": [
+        {
+          "id": "2868840",
+          "name": "Slay the Spire 2",
+          "genre": "Strategy, Card Game, Roguelike, Deckbuilder, Turn-Based",
+          "genres": [
+            "Strategy",
+            "Card Game",
+            "Roguelike",
+            "Deckbuilder",
+            "Turn-Based"
+          ],
+          "year": 2026,
+          "score": 90,
+          "verified": true,
+          "cover": "co82c5",
+          "release_date": "05/03/2026",
+          "release_iso": "2026-03-05",
+          "steam_url": "https://store.steampowered.com/app/2868840/",
+          "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co82c5.jpg"
+        },
+        {
+          "id": "3405340",
+          "name": "Megabonk",
+          "genre": "Action, Indie, Arcade, Sandbox, Physics",
+          "genres": [
+            "Action",
+            "Indie",
+            "Arcade",
+            "Sandbox",
+            "Physics"
+          ],
+          "year": 2025,
+          "score": 95,
+          "verified": true,
+          "cover": null,
+          "release_date": null,
+          "release_iso": null,
+          "steam_url": "https://store.steampowered.com/app/3405340/",
+          "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3405340/library_600x900.jpg"
+        }
+      ]
+    }
+  ],
+  "coming_soon": [
+    {
+      "id": "3357650",
+      "name": "Pragmata",
+      "genre": "Action, Adventure, Sci-Fi, Atmospheric, Singleplayer",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Sci-Fi",
+        "Atmospheric",
+        "Singleplayer"
+      ],
+      "year": "2026",
+      "cover": "co9wwv",
+      "release_info": "16/04/2026",
+      "release_iso": "2026-04-16",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/3357650/",
+      "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co9wwv.jpg"
+    },
+    {
+      "id": "2416450",
+      "name": "Mouse: P.I. For Hire",
+      "genre": "Action, FPS, Retro, Noir, Shooter",
+      "genres": [
+        "Action",
+        "FPS",
+        "Retro",
+        "Noir",
+        "Shooter"
+      ],
+      "year": "2026",
+      "cover": null,
+      "release_info": "16/04/2026",
+      "release_iso": "2026-04-16",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/2416450/",
+      "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2416450/library_600x900.jpg"
+    },
+    {
+      "id": "3768760",
+      "name": "007 First Light",
+      "genre": "Action, Stealth, Shooter, Adventure, Cinematic",
+      "genres": [
+        "Action",
+        "Stealth",
+        "Shooter",
+        "Adventure",
+        "Cinematic"
+      ],
+      "year": "2026",
+      "cover": "coaoiz",
+      "release_info": "27/05/2026",
+      "release_iso": "2026-05-27",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/3768760/",
+      "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coaoiz.jpg"
+    },
+    {
+      "id": "2215200",
+      "name": "LEGO Batman",
+      "genre": "Action, Adventure, LEGO, Co-op, Superhero",
+      "genres": [
+        "Action",
+        "Adventure",
+        "LEGO",
+        "Co-op",
+        "Superhero"
+      ],
+      "year": "2026",
+      "cover": "coab09",
+      "release_info": "29/05/2026",
+      "release_iso": "2026-05-29",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/2215200/",
+      "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/coab09.jpg"
+    },
+    {
+      "id": "3859630",
+      "name": "Metal Gear Solid Master Collection: Volume 2",
+      "genre": "Action, Stealth, Classic, Tactical, Story Rich",
+      "genres": [
+        "Action",
+        "Stealth",
+        "Classic",
+        "Tactical",
+        "Story Rich"
+      ],
+      "year": "2026",
+      "cover": "cobiha",
+      "release_info": "27/08/2026",
+      "release_iso": "2026-08-27",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/3859630/",
+      "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/cobiha.jpg"
+    },
+    {
+      "id": "4115450",
+      "name": "Phantom Blade 0",
+      "genre": "Action, RPG, Hack & Slash, Souls-like, Dark Fantasy",
+      "genres": [
+        "Action",
+        "RPG",
+        "Hack & Slash",
+        "Souls-like",
+        "Dark Fantasy"
+      ],
+      "year": "2026",
+      "cover": "cob64v",
+      "release_info": "09/09/2026",
+      "release_iso": "2026-09-09",
+      "release_type": "date",
+      "steam_url": "https://store.steampowered.com/app/4115450/",
+      "image_url": "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/cob64v.jpg"
+    }
+  ]
+}

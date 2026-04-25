@@ -11,6 +11,10 @@
           {
             "type": "command",
             "command": "node -e \"const p=process.env.CLAUDE_TOOL_INPUT_PATH||''; if(p.endsWith('script.js')){const fs=require('fs');const h=fs.readFileSync('index.html','utf8');const b=h.replace(/script\\.js\\?v=(\\d+)/,(_,n)=>'script.js?v='+(+n+1));if(b!==h){fs.writeFileSync('index.html',b);console.log('Bumped script.js version');}}\""
+          },
+          {
+            "type": "command",
+            "command": "node -e \"const p=process.env.CLAUDE_TOOL_INPUT_PATH||''; if(p.endsWith('games.js')){require('child_process').execSync('node tools/build-releases-json.js',{stdio:'inherit'});}\""
           }
         ]
       }
