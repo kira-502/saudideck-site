@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaudiDeck — مكتبة ألعاب عضوية سعودي دك</title>
     <meta name="description" content="مكتبة مختارة بعناية تضم أكثر من 670 لعبة بي سي وستيم ديك. اشترك في عضوية سعودي دك للوصول إلى جميع الألعاب في حساب واحد.">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#08080A">
 
     <!-- Open Graph / social sharing -->
     <meta property="og:type" content="website">
@@ -21,52 +21,51 @@
     <link rel="icon" href="assets/logo.png" type="image/png">
     <link rel="preload" href="assets/logo.png" as="image">
     <link rel="preload" href="assets/fonts/thmanyahsans-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
 </head>
 
 <body>
 
-    <header>
-        <div class="header-content">
-            <a href="https://saudideck.com" target="_blank" style="display:block;">
-                <img src="assets/logo.png" alt="SaudiDeck" class="logo">
-            </a>
-            <p class="subtitle">بوابة العضوية الرسمية</p>
-        </div>
-        <nav class="nav-group" aria-label="التنقل الرئيسي">
+    <header class="sd-header">
+        <a href="https://saudideck.com" target="_blank" rel="noopener" class="sd-brand">
+            <img src="assets/logo.png" alt="SaudiDeck" class="logo">
+            <div class="sd-wordmark">
+                <span class="name">SaudiDeck</span>
+                <span class="sub">بوابة العضوية الرسمية</span>
+            </div>
+        </a>
+        <nav class="sd-nav" aria-label="التنقل الرئيسي">
             <div class="help-dropdown" id="helpDropdown">
-                <button class="nav-btn btn-how" id="helpDropdownBtn" aria-haspopup="true" aria-expanded="false" aria-controls="helpDropdownMenu">
+                <button class="nav-btn help-trigger" id="helpDropdownBtn" aria-haspopup="true" aria-expanded="false" aria-controls="helpDropdownMenu">
                     طريقة الاستخدام
+                    <span class="caret">▾</span>
                 </button>
                 <div class="dropdown-content" id="helpDropdownMenu" role="menu">
                     <a href="guide-pc.html" role="menuitem">
-                        <img src="assets/Windows_logo.png" alt="PC"> PC
+                        <img src="assets/Windows_logo.png" alt=""> دليل الكمبيوتر
                     </a>
                     <a href="guide-deck.html" role="menuitem">
-                        <img src="assets/Steam_Deck_logo.png" alt="Steam Deck"> Steam Deck
+                        <img src="assets/Steam_Deck_logo.png" alt=""> دليل ستيم ديك
                     </a>
                 </div>
             </div>
-            <button type="button" onclick="openRequestModal()" class="nav-btn btn-request">طلب لعبة</button>
+            <button type="button" onclick="openRequestModal()" class="nav-btn ghost-gold">طلب لعبة</button>
             <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar"
-                target="_blank" rel="noopener" class="nav-btn btn-buy">
+                target="_blank" rel="noopener" class="nav-btn solid-gold">
                 شراء العضوية
             </a>
         </nav>
     </header>
-    <div class="geometric-divider"></div>
 
     <section class="controls" aria-label="البحث والتصفية">
         <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="...ابحث عن لعبة" onkeyup="debouncedSearch()" aria-label="البحث عن لعبة">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input type="text" id="searchInput" placeholder="ابحث عن لعبة، نوع، أو ستوديو…" onkeyup="debouncedSearch()" aria-label="البحث عن لعبة">
         </div>
-
-        <button class="mobile-filter-btn" onclick="toggleFilters()">⚙️ تصفية وترتيب النتائج</button>
 
         <div class="filters-panel" id="filtersPanel">
             <select id="genreFilter" onchange="resetAndRender()">
-                <option value="All">All Genres</option>
+                <option value="All">كل الأنواع</option>
             </select>
 
             <select id="yearFilter" onchange="resetAndRender()">
@@ -82,20 +81,20 @@
                 <option value="score_high">ترتيب: الأعلى تقييماً</option>
                 <option value="score_low">ترتيب: الأدنى تقييماً</option>
             </select>
-            <button class="new-badge-btn" id="newlyAddedBtn" onclick="toggleNewlyAdded()">🆕 <span>المضافة حديثاً</span></button>
+            <button class="new-badge-btn" id="newlyAddedBtn" onclick="toggleNewlyAdded()"><span>المضافة حديثاً</span></button>
             <label class="deck-toggle" id="verifiedToggleBtn" title="عرض ألعاب Steam Deck الموثقة فقط">
                 <input type="checkbox" id="verifiedFilter" onchange="toggleVerifiedFilter()">
                 <div class="toggle-icons">
-                    <img src="assets/Steam_Deck_logo.png" alt="Steam Deck">
-                    <img src="assets/badge_verified.png" alt="Verified">
+                    <img src="assets/Steam_Deck_logo.png" alt="">
+                    <img src="assets/badge_verified.png" alt="">
                 </div>
-                <span>متوافق مع Steam Deck</span>
+                <span>Steam Deck Verified</span>
             </label>
         </div>
     </section>
 
     <main>
-        <div id="hero-banner"></div>
+        <section id="hero-banner" class="sd-hero" aria-label="عرض رئيسي"></section>
         <div class="container" id="gameGrid"></div>
         <div class="load-more-container" id="loadMoreArea">
             <button class="btn-load" onclick="loadMore()">عرض المزيد</button>
@@ -104,37 +103,41 @@
 
     <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="العودة للأعلى">↑</button>
 
-    <div id="stats-strip"></div>
+    <section id="stats-strip" aria-label="إحصائيات المكتبة"></section>
 
-    <div class="geometric-divider"></div>
     <footer>
-        &copy; 2026 SaudiDeck. مجموعة مختارة بعناية.
-        <br>
-        <button type="button" onclick="openRequestModal()" class="footer-request-btn">طلب إضافة لعبة</button>
+        <div class="rule-sadu footer-rule" aria-hidden="true"></div>
+        <div class="footer-inner">
+            <div class="footer-copy">
+                <strong>SaudiDeck.</strong> مجموعة مختارة بعناية — أكثر من 670 لعبة على حساب Steam واحد.<br>
+                &copy; 2026 — جميع الحقوق محفوظة. نُدار من الرياض.
+            </div>
+            <div class="footer-actions">
+                <button type="button" onclick="openRequestModal()" class="footer-request-btn">طلب إضافة لعبة</button>
+                <a href="https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar" target="_blank" rel="noopener" class="nav-btn solid-gold">شراء العضوية</a>
+            </div>
+        </div>
     </footer>
 
     <!-- Request Game Modal -->
     <div class="request-overlay" id="requestOverlay" onclick="if(event.target === this) closeRequestModal()">
-        <div class="request-card">
-            <div class="request-close" onclick="closeRequestModal()">✕</div>
-            <h2 class="request-title">طلب لعبة جديدة</h2>
+        <div class="request-card" role="dialog" aria-modal="true" aria-labelledby="req-title">
+            <button type="button" class="request-close" onclick="closeRequestModal()" aria-label="إغلاق">✕</button>
+            <h2 class="request-title" id="req-title">لعبة لم تجدها؟</h2>
             <form id="requestForm" onsubmit="handleRequestSubmit(event)">
                 <div class="form-group">
                     <label for="gameName">اسم اللعبة</label>
-                    <input type="text" id="gameName" name="game" class="form-input" placeholder="اكتب اسم اللعبة..."
-                        required>
+                    <input type="text" id="gameName" name="game" class="form-input" placeholder="مثال: Elden Ring Nightreign" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="orderNumber">رقم الطلب (اختياري)</label>
+                    <label for="orderNumber">رقم الطلب أو الجوال (اختياري)</label>
                     <input type="text" id="orderNumber" name="order_number" class="form-input"
-                        placeholder="رقم الطلب أو رقم الجوال">
-                    <small class="form-hint">سيتم إبلاغك فور توفرها إذا كنت مشتركاً.</small>
+                        placeholder="للمشتركين فقط — حتى نتمكن من إبلاغك">
+                    <small class="form-hint">سيُستخدم رقمك للتنبيه فقط — لن نشاركه مع أي طرف.</small>
                 </div>
 
-                <button type="submit" class="request-submit" id="requestSubmitBtn">
-                    إرسال الطلب 🚀
-                </button>
+                <button type="submit" class="request-submit" id="requestSubmitBtn">إرسال الطلب</button>
             </form>
         </div>
     </div>

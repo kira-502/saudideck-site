@@ -197,8 +197,17 @@ function init() {
 }
 
 /* =========================================
-   HERO BANNER
+   HERO BANNER — Najd Night
    ========================================= */
+const PRICING_TIERS = [
+    { duration: 'شهر',    price: '30',  was: '70',  note: 'تجربة' },
+    { duration: '3 أشهر', price: '79',  was: '119', note: 'الأكثر شيوعاً', featured: true },
+    { duration: '6 أشهر', price: '120', was: '160', note: 'توفير 30%' },
+    { duration: 'سنة',    price: '259', was: '299', note: 'أفضل قيمة' }
+];
+
+const HERO_BUY_URL = 'https://saudideck.com/en/600-games-on-one-account-saudideck-membership/p444700950?from=search-bar';
+
 function buildHeroBanner() {
     const el = document.getElementById('hero-banner');
     if (!el || !batches || !batches.length) return;
@@ -207,7 +216,6 @@ function buildHeroBanner() {
     const game = [...batch.list].sort((a, b) => (b.score || 0) - (a.score || 0))[0];
     if (!game) return;
 
-    // Game slide image
     const heroUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_hero.jpg`;
     const fallbackUrl = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg`;
 
@@ -215,67 +223,66 @@ function buildHeroBanner() {
     prelink.rel = 'preload'; prelink.as = 'image'; prelink.href = heroUrl;
     document.head.appendChild(prelink);
 
-    // Build game meta
-    const genres = game.genre ? game.genre.split(', ').slice(0, 3).map(g => `<span class="hero-genre-tag">${escAttr(g)}</span>`).join('') : '';
-    const score = game.score ? `<span class="hero-score">${game.score}</span>` : '';
-    const verified = game.verified ? `<img src="assets/badge_verified.png" class="hero-verified" alt="Verified">` : '';
-    const date = game.release_date ? `<span class="hero-date">${escAttr(game.release_date)}</span>` : '';
+    // Hero meta tags (genre + year)
+    const firstGenre = game.genre ? game.genre.split(',')[0].trim() : '';
+    const tagGenre = firstGenre ? `<span class="hero-tag">${escAttr(firstGenre)}</span>` : '';
+    const tagYear = game.year ? `<span class="hero-tag">${game.year}</span>` : '';
+    const score = game.score
+        ? `<span class="hero-score"><b>${game.score}</b><small>/100</small></span>`
+        : '';
 
     const totalGames = allGames.filter(g => !g.isComingSoon).length;
 
+    const tiersHtml = PRICING_TIERS.map(t => `
+        <div class="tier ${t.featured ? 'featured' : ''}">
+            <div class="duration">${escAttr(t.duration)}</div>
+            <div class="price"><b>${escAttr(t.price)}</b><span class="sar">SAR</span></div>
+            <div class="was">${escAttr(t.was)} ر.س</div>
+            <div class="note">${escAttr(t.note)}</div>
+        </div>
+    `).join('');
+
     el.innerHTML = `
-        <!-- Slide 1: Latest Game -->
-        <div class="hero-slide hero-slide-game active">
-            <img class="hero-bg-img" src="${heroUrl}" alt="" aria-hidden="true" onerror="this.onerror=null;this.src='${fallbackUrl}'">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-label">أحدث إضافة</div>
-                <div class="hero-title">${escAttr(game.name)}</div>
-                <div class="hero-meta">${score}${verified}${genres}${date}</div>
+        <div class="hero-stage">
+            <!-- Slide 1: Spotlight -->
+            <div class="hero-slide active">
+                <div class="hero-bg">
+                    <img class="hero-bg-img" src="${heroUrl}" alt="" aria-hidden="true" onerror="this.onerror=null;this.src='${fallbackUrl}'">
+                </div>
+                <div class="hero-noise" aria-hidden="true"></div>
+                <div class="hero-content">
+                    <div class="hero-eyebrow">
+                        <span class="pulse" aria-hidden="true"></span>
+                        <span>NEW · أُضيفت حديثاً</span>
+                    </div>
+                    <h1 class="hero-title">${escAttr(game.name)}</h1>
+                    <div class="hero-meta">${score}${tagGenre}${tagYear}</div>
+                    <a class="hero-cta" href="https://store.steampowered.com/app/${game.id}/" target="_blank" rel="noopener">
+                        فتح في Steam
+                        <span aria-hidden="true">↖</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 2: Pricing -->
+            <div class="hero-slide">
+                <div class="hero-ad">
+                    <div class="hero-ad-left">
+                        <span class="eyebrow">SaudiDeck Membership</span>
+                        <h2>${totalGames}+ لعبة. حساب واحد. اشتراك واحد.</h2>
+                        <p>وصول كامل لمكتبة Steam Deck و PC، خدمة عربية أصيلة، تفعيل فوري.</p>
+                        <a class="hero-cta" href="${HERO_BUY_URL}" target="_blank" rel="noopener">
+                            ابدأ الاشتراك ←
+                        </a>
+                    </div>
+                    <div class="hero-ad-tier-row">${tiersHtml}</div>
+                </div>
             </div>
         </div>
 
-        <!-- Slide 2: Subscription Ad -->
-        <div class="hero-slide hero-ad">
-            <div class="hero-ad-inner">
-                <div class="hero-ad-right">
-                    <img src="assets/logo.png" class="hero-ad-logo" alt="SaudiDeck">
-                    <div>
-                        <div class="hero-ad-title">SAUDIDECK PASS</div>
-                        <div class="hero-ad-subtitle">عضوية سعودي دك</div>
-                        <div class="hero-ad-count">أكثر من ${totalGames}+ لعبة في حساب واحد</div>
-                    </div>
-                </div>
-                <div class="hero-ad-prices">
-                    <div class="hero-price-card">
-                        <div class="hero-price-duration">شهر واحد</div>
-                        <div class="hero-price-amount">30 ريال</div>
-                        <div class="hero-price-original">70 ريال</div>
-                    </div>
-                    <div class="hero-price-card">
-                        <div class="hero-price-duration">3 أشهر</div>
-                        <div class="hero-price-amount">79 ريال</div>
-                        <div class="hero-price-original">119 ريال</div>
-                    </div>
-                    <div class="hero-price-card">
-                        <div class="hero-price-duration">6 أشهر</div>
-                        <div class="hero-price-amount">120 ريال</div>
-                        <div class="hero-price-original">160 ريال</div>
-                    </div>
-                    <div class="hero-price-card">
-                        <div class="hero-price-duration">سنة كاملة</div>
-                        <div class="hero-price-amount">259 ريال</div>
-                        <div class="hero-price-original">299 ريال</div>
-                    </div>
-                </div>
-                <a href="https://saudideck.online" target="_blank" rel="noopener" class="hero-ad-cta">اشترك الآن</a>
-            </div>
-        </div>
-
-        <!-- Dots -->
-        <div class="hero-dots">
-            <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
-            <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+        <div class="hero-dots" role="tablist">
+            <button class="hero-dot active" data-slide="0" aria-label="عرض اللعبة"></button>
+            <button class="hero-dot" data-slide="1" aria-label="عرض الباقات"></button>
         </div>
     `;
 
@@ -294,21 +301,18 @@ function buildHeroBanner() {
 
     dots.forEach(dot => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.slide))));
 
-    // Auto-rotate every 8 seconds — skip if user prefers reduced motion
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        setInterval(() => goToSlide((current + 1) % slides.length), 8000);
+        setInterval(() => goToSlide((current + 1) % slides.length), 6500);
     }
 }
 
 /* =========================================
-   LIBRARY STATS STRIP
+   LIBRARY STATS STRIP — Najd Night
    ========================================= */
 function buildStatsStrip() {
     const el = document.getElementById('stats-strip');
     if (!el || !allGames.length) return;
 
-    // Use NY timezone to match the "midnight NY" rule used for release dates.
-    // en-CA locale yields "YYYY-MM-DD" which slices cleanly to "YYYY-MM".
     const thisMonth = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }).slice(0, 7);
 
     const totalGames = allGames.filter(g => !g.isComingSoon).length;
@@ -317,16 +321,17 @@ function buildStatsStrip() {
     const addedThisMonth = allGames.filter(g =>
         g.date_added && g.date_added.slice(0, 7) === thisMonth
     ).length;
+    const verifiedPct = totalGames > 0 ? Math.round((verifiedCount / totalGames) * 100) : 0;
 
     const stats = [
-        { value: totalGames, label: 'إجمالي الألعاب' },
-        { value: verifiedCount, label: 'محقق للـ Deck' },
-        { value: newestGameName, label: 'آخر إضافة' },
-        { value: addedThisMonth, label: 'هذا الشهر' },
+        { value: totalGames, label: 'إجمالي الألعاب', cls: '' },
+        { value: verifiedCount, label: 'Steam Deck Verified', cls: '', sub: `${verifiedPct}% من المكتبة` },
+        { value: newestGameName, label: 'أحدث إضافة', cls: 'stat-name' },
+        { value: addedThisMonth, label: 'هذا الشهر', cls: '' },
     ];
 
     el.innerHTML = stats.map(s => `
-        <div class="stat-cell">
+        <div class="stat-cell ${s.cls}">
             <span class="stat-number">${escAttr(s.value)}</span>
             <span class="stat-label">${s.label}</span>
         </div>
@@ -467,14 +472,20 @@ function renderGrid() {
                            $sortFilter.value !== "metacritic";
 
     if (visibleGames.length === 0) {
-        $gameGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);"><h3 style="color:var(--text);">لم يتم العثور على نتائج 😔</h3><p>جرب تغيير فلاتر البحث أو <a href="#" onclick="openRequestModal()" style="color:var(--gold)">اطلب اللعبة</a></p></div>`;
+        $gameGrid.classList.remove('grid-fallback');
+        $gameGrid.innerHTML = `
+            <div class="empty-state">
+                <span class="eyebrow">NO MATCHES</span>
+                <h3>لم يتم العثور على نتائج</h3>
+                <p>جرب تغيير فلاتر البحث أو <button type="button" class="link-gold" onclick="openRequestModal()">اطلب اللعبة</button>.</p>
+            </div>`;
         return;
     }
 
     if (isFilterActive) {
         $gameGrid.classList.add('grid-fallback');
-        let filterHtml = `<div style="grid-column: 1/-1; color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;">نتائج البحث: ${visibleGames.length} لعبة</div>`;
-        filterHtml += visibleGames.map(game => createGameCard(game)).join('');
+        const filterHtml = `<div class="results-banner mono">${visibleGames.length} / ${allGames.filter(g => !g.isComingSoon).length} نتيجة</div>`
+            + visibleGames.map(game => createGameCard(game)).join('');
         $gameGrid.innerHTML = filterHtml;
         startCountdownTimers();
     } else {
@@ -543,18 +554,26 @@ function escAttr(s) {
 
 function buildRowHTML(title, games, idPrefix, isSpecial = false) {
     const rowId = 'row-' + idPrefix.replace(/\s+/g, '-').toLowerCase();
-    let cardsHtml = games.map(g => createGameCard(g)).join('');
-    const headerHtml = isSpecial
-        ? `<div class="genre-header" style="border-left: none; padding-left: 0; margin-left: 15px;"><span style="border: 1px solid var(--gold); padding: 4px 14px; border-radius: 4px; color: var(--gold); display: inline-block; letter-spacing: 2px;">${title}</span></div>`
-        : `<div class="genre-header clickable" data-genre="${escAttr(idPrefix)}">${title} <span style="font-size:0.9em; opacity:0.6;">›</span></div>`;
+    const cardsHtml = games.map(g => createGameCard(g)).join('');
+    const count = games.length;
 
+    // Header — clickable variant filters; isSpecial keeps row title non-filtering
+    const headerInner = isSpecial
+        ? `<h2 class="genre-header"><span>${escAttr(title)}</span><span class="row-count">${count}</span></h2>`
+        : `<h2 class="genre-header clickable" data-genre="${escAttr(idPrefix)}"><span>${escAttr(title)}</span><span class="row-count">${count}</span></h2>`;
+
+    // Scroll arrows: in RTL, "next" = scroll content visually left = scrollBy(-X)
     return `
         <div class="genre-row">
-            ${headerHtml}
+            <div class="row-head">
+                ${headerInner}
+                <div class="row-actions">
+                    <button class="scroll-btn scroll-right" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="800" aria-label="السابق">›</button>
+                    <button class="scroll-btn scroll-left" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="-800" aria-label="التالي">‹</button>
+                </div>
+            </div>
             <div class="row-carousel-container">
-                <button class="scroll-btn scroll-left" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="-800" aria-label="Scroll left">❯</button>
                 <div class="row-carousel" id="${escAttr(rowId)}">${cardsHtml}</div>
-                <button class="scroll-btn scroll-right" data-scroll-row="${escAttr(rowId)}" data-scroll-amount="800" aria-label="Scroll right">❮</button>
             </div>
             <div class="row-progress"><div class="row-progress-fill"></div></div>
         </div>
@@ -562,7 +581,7 @@ function buildRowHTML(title, games, idPrefix, isSpecial = false) {
 }
 
 /* =========================================
-   4. HTML GENERATION (CARDS)
+   4. HTML GENERATION (CARDS) — Najd Night
    ========================================= */
 function createGameCard(game) {
     const cached = _cardCache.get(game.id);
@@ -574,46 +593,65 @@ function createGameCard(game) {
         : (game.image || `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/library_600x900.jpg`);
 
     const targetUrl = `https://store.steampowered.com/app/${game.id}/`;
+    const safeName = escAttr(game.name || '');
+    const safeGenre = escAttr(game.genre || '');
+    const firstGenre = game.genre ? escAttr(game.genre.split(',')[0].trim()) : '';
 
-    let badgesHtml = game.verified ? `<div class="badge"><img src="assets/badge_verified.png" alt="Verified"></div>` : '';
+    // Verified badge — green rounded square with ✓ glyph
+    const verifiedBadge = game.verified ? `<div class="badge" title="Steam Deck Verified" aria-label="Steam Deck Verified"><img src="assets/badge_verified.png" alt=""></div>` : '';
+
+    // Date tag — top-right
     let dateTag = '';
-    if (game.year == 2026) {
-        if (game.release_date) dateTag = `<div class="date-tag">${game.release_date}</div>`;
+    if (game.year == 2026 && game.release_date) {
+        dateTag = `<div class="date-tag">${escAttr(game.release_date)}</div>`;
     } else if (game.date_added) {
-        dateTag = `<div class="date-tag new-tag">NEW ${parseInt(game.date_added.slice(8,10))}/${parseInt(game.date_added.slice(5,7))}/${game.date_added.slice(0,4)}</div>`;
+        const d = parseInt(game.date_added.slice(8, 10));
+        const m = parseInt(game.date_added.slice(5, 7));
+        dateTag = `<div class="date-tag new-tag">NEW ${d}/${m}</div>`;
     }
 
-    let lockedClass = ""; let lockedOverlay = "";
+    // Locked / coming-soon overlay
+    let lockedClass = '';
+    let lockedOverlay = '';
     if (game.isComingSoon) {
-        lockedClass = " locked";
+        lockedClass = ' locked';
         const releaseDate = parseReleaseDate(game.release_info);
         const daysUntil = releaseDate ? (releaseDate.getTime() - Date.now()) / 86400000 : Infinity;
         const countdownBadge = (daysUntil >= 0 && daysUntil <= 3)
-            ? `<div class="countdown-badge" data-gameid="${game.id}"></div>`
+            ? `<div class="countdown-badge" data-gameid="${escAttr(game.id)}"></div>`
             : '';
-        lockedOverlay = `<div class="locked-overlay"><div class="release-capsule"><span style="color:var(--accent); font-weight:800;">COMING SOON</span><span style="border-left:1px solid #444; padding-left:8px; margin-left:8px;">${game.release_info}</span></div>${countdownBadge}</div>`;
+        lockedOverlay = `
+            <div class="locked-overlay">
+                <div class="release-capsule">
+                    <span>قريباً</span>
+                    <span>${escAttr(game.release_info || 'TBA')}</span>
+                </div>
+                ${countdownBadge}
+            </div>
+        `;
     }
 
+    // Score pill — bottom-left, tier-colored
     let scoreClass = 'score-low';
-    if (game.score >= 85) scoreClass = 'score-great';
-    else if (game.score >= 70) scoreClass = 'score-mid';
-    const mcScore = game.score ? `<div class="metacritic-score ${scoreClass}">${game.score}</div>` : '';
-    
-    const safeName = escAttr(game.name || '');
-    const safeGenre = escAttr(game.genre || '');
+    if (game.score >= 80) scoreClass = 'score-great';
+    else if (game.score >= 65) scoreClass = 'score-mid';
+    const mcScore = game.score
+        ? `<div class="metacritic-score ${scoreClass}"><span>${game.score}</span><small>/100</small></div>`
+        : '';
+
     const html = `
         <a href="${targetUrl}" target="_blank" rel="noopener" class="game-card${lockedClass}">
             <div class="game-image-container">
                 <img src="${imgUrl}" alt="${safeName}" class="game-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.id}/header.jpg'">
                 ${lockedOverlay}
-                <div class="overlay">${badgesHtml}</div>
+                ${verifiedBadge}
                 ${dateTag}
                 ${mcScore}
+                <div class="rule-bottom" aria-hidden="true"></div>
             </div>
             <div class="game-info">
                 <h3 class="game-title" title="${safeName}">${safeName}</h3>
-                <div class="game-meta"><span>${game.year}</span></div>
-                <div class="game-genre" title="${safeGenre}">${safeGenre}</div>
+                <div class="game-meta" title="${safeGenre}">${firstGenre}${game.year ? ' · ' + game.year : ''}</div>
             </div>
         </a>
     `;
